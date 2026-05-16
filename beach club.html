@@ -1,1186 +1,958 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beach Club | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beach Club | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <style>
+    body{background:#050505;color:#fff;font-family:'Montserrat',sans-serif;}
+    .eyebrow{letter-spacing:.36em;text-transform:uppercase;font-size:.7rem;}
+    .hero-grad{background:linear-gradient(to top,rgba(5,5,5,.94),rgba(5,5,5,.45),rgba(5,5,5,.15));}
+    .line-soft{border-color:rgba(255,255,255,.12);}
+    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+    .fade-up.in{opacity:1;transform:none;}
+    .story-copy p{color:rgba(255,255,255,.72);line-height:1.95;}
+    .scroll-fade{opacity:1;transform:none;transition:none;will-change:auto;}
+    .interactive-card{transition:transform .45s cubic-bezier(0.16,1,0.3,1),box-shadow .45s cubic-bezier(0.16,1,0.3,1),border-color .3s ease;will-change:transform;}
+    @media(hover:hover){.interactive-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.28);}.interactive-card:hover .card-shift{transform:translateY(-4px);}}
+    .card-shift{transition:transform .45s cubic-bezier(0.16,1,0.3,1),color .3s ease;}
+    .magnetic-btn{transition:transform .25s ease;will-change:transform;}
+    .hero-parallax{transform:scale(1.05) translateY(var(--hero-offset,0px));transition:transform .12s linear;will-change:transform;}
+    .section-divider{height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(197,160,89,.85),transparent);transition:width 1.1s cubic-bezier(0.16,1,0.3,1);}
+    .section-divider.in{width:100%;}
+    .nav-scrolled{background-color:rgba(11,15,25,0.95);backdrop-filter:blur(10px);padding-top:1.2rem!important;padding-bottom:1.2rem!important;border-bottom:1px solid rgba(197,160,89,0.1);}
+    #navbar{will-change:background-color,padding;}
+    .link-hover{position:relative;}
+    .link-hover::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#C5A059;transition:width 0.4s cubic-bezier(0.16,1,0.3,1);}
+    .link-hover:hover::after{width:100%;}
+    .lang-switcher{display:flex;align-items:center;gap:0.5rem;font-size:11px;letter-spacing:0.15em;font-weight:500;}
+    .lang-btn{padding:0.25rem 0.5rem;border:1px solid transparent;background:transparent;color:#ffffff;cursor:pointer;transition:all 0.3s ease;text-transform:uppercase;}
+    .lang-btn:hover{color:#C5A059;} .lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,0.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,0.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,0.2);}
+    #loader{position:fixed;inset:0;background:#0B0F19;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity 0.7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+    .img-hover img{transition:transform .9s ease,opacity .5s ease;} .img-hover:hover img{transform:scale(1.06);}
+    .btn-fill,.btn-stroke{transition:all .28s ease;} .btn-fill:hover{transform:translateY(-1px);filter:brightness(1.05);} .btn-stroke:hover{background:#fff;color:#000;}
+    .btn-hover{position:relative;overflow:hidden;transition:all 0.3s ease;}
+    .btn-hover::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);transition:left 0.5s ease;}
+    .btn-hover:hover::before{left:100%;}
+    .card-border{border:1px solid rgba(255,255,255,.1);}
+    .lightbox{display:none;} .lightbox.open{display:flex;}
+    input,textarea,select{appearance:none;}
+    #social-rail::-webkit-scrollbar{display:none;}
+    .sticky-reserve-btn{position:fixed;right:1.5rem;bottom:1.5rem;z-index:999;background:#C5A059;color:#050505;border:1px solid rgba(197,160,89,.9);padding:.95rem 1.35rem;font-size:11px;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease;}
+    .sticky-reserve-btn:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.45);}
+    .reserve-modal{display:none;} .reserve-modal.open{display:flex;}
+    .reserve-backdrop{backdrop-filter:blur(10px);}
+    .lux-grid-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);transition:transform .3s ease,border-color .3s ease;}
+    .lux-grid-card:hover{transform:translateY(-4px);border-color:rgba(216,194,161,.45);}
+    .map-frame{filter:grayscale(1) contrast(1.1) brightness(.8);}
+    /* Beach Club — wave / sun accent */
+    .beach-card{position:relative;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.4));transition:transform .35s ease,border-color .35s ease;}
+    .beach-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.55);}
+    .beach-card::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,#C5A059 30%,#C5A059 70%,transparent);opacity:.55;}
+    .menu-row{border-bottom:1px dashed rgba(255,255,255,.1);padding:1.2rem 0;display:flex;align-items:baseline;gap:1.25rem;}
+    .menu-row:last-child{border-bottom:none;}
+    .menu-row .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);height:.7em;transform:translateY(-.25em);}
+    .menu-row .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;}
+    .menu-row .price{font-family:'Cormorant Garamond',serif;color:#d8c2a1;font-size:1.25rem;letter-spacing:.05em;}
+    .menu-row .desc{display:block;color:rgba(255,255,255,.55);font-size:.8rem;letter-spacing:.06em;margin-top:.25rem;}
+    @media(max-width:768px){.sticky-reserve-btn{left:1rem;right:1rem;bottom:1rem;text-align:center;}}
+    .hero-title .title-line{
+      display:block;
+      opacity:0;
+      transform:translateY(40px);
+      filter:blur(10px);
+      animation:heroTextReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-title .title-line:nth-child(1){animation-delay:0.4s;}
+    .hero-title .title-line:nth-child(2){animation-delay:0.9s;}
+    @keyframes heroTextReveal{
+      0%{opacity:0;transform:translateY(40px) scale(0.98);filter:blur(10px);}
+      60%{opacity:1;}
+      100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    }
+  </style>
+  <base target="_self">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+<script>
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 750);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 800));
+      } else { setTimeout(hideLoader, 800); }
+      setTimeout(hideLoader, 2800);
+    })();
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink:'#050505', sand:'#d8c2a1', stone:'#a8a29e', bronze:'#b28a5a', ash:'#111111', 'mh-navy':'#0B0F19', 'mh-gold':'#C5A059', 'mh-gold-light':'#D6B88A', 'mh-dark':'#05070A', 'mh-gray':'#1A1D24' },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] },
+        boxShadow: { soft:'0 25px 80px rgba(0,0,0,0.28)' }
+      }}
+    }
 
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+  </script>
+  <script>
+  window._i18n = {
+  "en": {
+    "nav_home": "Home",
+    "nav_venues": "Venues",
+    "nav_packages": "Packages",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Events",
+    "nav_careers": "Careers",
+    "mega_our_venues": "Our Venues",
+    "mega_view_all_venues": "View All Venues",
+    "mega_featured": "Featured",
+    "mega_now_open": "Now Open",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "footer_follow": "Follow",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Reserve Now",
+    "reserve_modal_title": "Book Your Night",
+    "reserve_modal_eyebrow": "Reserve",
+    "form_request_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_special_request": "Special Request",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "page_title": "Beach Club | Montreal Hospitality",
+    "hero_eyebrow": "Pointe-Calumet · Waterfront",
+    "hero_cta_primary": "Reserve a Table",
+    "hero_cta_secondary": "View Gallery",
+    "hero_card_1_label": "Music",
+    "hero_card_1_value": "World-class DJs, sunset sessions",
+    "hero_card_2_label": "Experience",
+    "hero_card_2_value": "Daybeds, cabanas, bottle service",
+    "hero_card_3_label": "Location",
+    "hero_card_3_value": "Pointe-Calumet, QC",
+    "hero_card_4_label": "Dress",
+    "hero_card_4_value": "Beach chic / resort wear"
+  ,
+    "hero_title_line1": "Montreal's ultimate",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">waterfront escape.</em>",
+    "s_atm_label": "Atmosphere",
+    "s_atm_title": "Where Summer Never Ends",
+    "s_atm_desc": "Waterfront views, daybeds under the sun, world-class DJs at sunset, and beach bonfires when the stars come out. An hour from Montreal — a world away from the city.",
+    "p1_label": "Waterfront",
+    "p1_text": "Stunning river views and breezy open-air spaces directly on the water — no rooftop, no simulation, just the real thing.",
+    "p2_label": "Sunset Sessions",
+    "p2_text": "World-class DJs spinning as the sun dips below the horizon — beach club music done at the right scale.",
+    "p3_label": "Service",
+    "p3_text": "Daybeds, cabanas, bottle service, and full concierge booking through Montreal Hospitality.",
+    "story_eyebrow": "The Escape",
+    "story_title": "An hour from the city. A world away from the ordinary.",
+    "story_p1": "Beach Club sits on the waterfront in Pointe-Calumet — Quebec's premier outdoor venue where the river meets a level of programming you'd expect from a destination festival. Daybeds, cabanas, pools, and a main stage that hosts some of the biggest DJ names in the world, all against the backdrop of the St. Lawrence.",
+    "story_p2": "Through Montreal Hospitality, Beach Club offers guest list access, daybed and cabana reservations, bottle service, and full group concierge for anyone who wants the waterfront experience handled properly. Whether it's a day trip for two or a group booking for twenty, the team makes it effortless.",
+    "menu_eyebrow": "Experience Program",
+    "menu_title": "The Beach Club Offerings",
+    "menu_desc": "Everything the waterfront has to offer — from daylight lounging to sunset headliners and late-night bonfires.",
+    "menu1_name": "Daybed & Cabana",
+    "menu1_desc": "Waterfront lounging · bottle service under the sun",
+    "menu2_name": "Sunset Session",
+    "menu2_desc": "World-class DJs · golden hour on the water",
+    "menu3_name": "Beach Bonfire",
+    "menu3_desc": "Evening fire pits · intimate waterfront gatherings",
+    "menu4_name": "Bottle Service",
+    "menu4_desc": "Premium spirits · waterfront section · full service",
+    "menu5_name": "Guest List Access",
+    "menu5_desc": "Priority entry · curated event nights",
+    "menu6_name": "Group Concierge",
+    "menu6_desc": "Transport · booking · end-to-end planning",
+    "menu_footer": "Full programming and pricing available through Montreal Hospitality concierge",
+    "gallery_eyebrow": "Gallery",
+    "gallery_title": "Inside Beach Club",
+    "gallery_desc": "The water, the crowd, the sunset, and the stage — the full picture of a day at Beach Club.",
+    "gallery_main_label": "The Waterfront",
+    "gallery_main_cap": "Beach Club, Pointe-Calumet",
+    "social_eyebrow": "Social Moments",
+    "social_title": "See the beach in motion",
+    "sc1_label": "Main Stage",
+    "sc1_desc": "World-class headliners on the water — the kind of show that makes the drive worth it every single time.",
+    "sc2_label": "The Crowd",
+    "sc2_desc": "A cross-section of Montreal that only comes together at the water — dressed for the occasion, ready for the day.",
+    "sc3_label": "Pool & Lounge",
+    "sc3_desc": "Daybeds and cabanas right on the water — the kind of setup that turns a Saturday into a story.",
+    "sc4_label": "Sunset",
+    "sc4_desc": "Golden hour on the St. Lawrence — the moment the whole day builds toward.",
+    "sc5_label": "The Bar",
+    "sc5_desc": "Bottles arrive cold, the crowd stays warm — service that keeps pace with the energy of the day.",
+    "who_eyebrow": "Who Comes Here",
+    "who_title": "Montreal's Waterfront Crowd",
+    "who_desc": "Beach Club draws everyone from casual day-trippers to serious electronic music fans who plan their summer around the programming. The common thread: people who know where the best party in Quebec actually is.",
+    "exp_eyebrow": "The Experience",
+    "exp_title": "How a Day at Beach Club Works",
+    "step1_title": "Arrive",
+    "step1_desc": "Pull up to the waterfront and feel the shift immediately — this isn't downtown anymore.",
+    "step2_title": "Daybed Hours",
+    "step2_desc": "Cabana service, cold bottles, and river views from noon until the light starts to change.",
+    "step3_title": "Sunset Set",
+    "step3_desc": "The DJ takes over as the sky turns — deep house and the horizon doing the heavy lifting together.",
+    "step4_title": "After Dark",
+    "step4_desc": "Bonfires, late bar, and the kind of night that started at noon and earned every hour of it.",
+    "pil2_1_eyebrow": "Location",
+    "pil2_1_title": "The water is the venue",
+    "pil2_1_desc": "Beach Club isn't trying to simulate the waterfront experience — it is the waterfront experience. The St. Lawrence is the backdrop, and no other venue in Quebec can replicate it.",
+    "pil2_2_eyebrow": "Music",
+    "pil2_2_title": "Headliners worth the drive",
+    "pil2_2_desc": "The programming at Beach Club is genuinely world-class — names that play Ibiza, Tulum, and Miami coming to Pointe-Calumet for a reason. The stage punches above its geography.",
+    "pil2_3_eyebrow": "Service",
+    "pil2_3_title": "Cabana-to-concierge",
+    "pil2_3_desc": "From a daybed reservation to a full group weekend, Montreal Hospitality handles the logistics end-to-end — transport included for groups who don't want to think about the drive.",
+    "res_eyebrow": "Reserve",
+    "res_title": "Daybeds, cabanas, and group bookings.",
+    "res_desc": "Submit a request and Montreal Hospitality will follow up to confirm availability, secure your spot on the water, and handle transport if needed.",
+    "res_loc_label": "Location",
+    "res_hrs_label": "Hours",
+    "res_hrs_val": "Mon–Sun: 12PM – 11PM · Extended hours on event nights",
+    "res_conc_label": "Concierge Support",
+    "comp_eyebrow": "Complete Your Day",
+    "comp_title": "Concierge-led days that start before the beach.",
+    "comp_desc": "Beach Club is best experienced as part of a full day — transport from Montreal, a reserved spot waiting on arrival, and a plan for the night after. Montreal Hospitality coordinates all of it.",
+    "comp_t1_title": "Transport",
+    "comp_t1_desc": "Group sprinters and chauffeur pickups from downtown Montreal to Pointe-Calumet and back.",
+    "comp_t2_title": "Daybed Setup",
+    "comp_t2_desc": "Your cabana or daybed reserved in advance, ready when you arrive — no line, no scramble.",
+    "comp_t3_title": "After Hours",
+    "comp_t3_desc": "A move to a partner Montreal venue after Beach Club, all coordinated before you leave the city.",
+    "comp_t4_title": "Full Package",
+    "comp_t4_desc": "Transport, Beach Club, dinner, nightlife — the whole day handled through one concierge channel.",
+    "loc_eyebrow": "Location",
+    "loc_title": "Pointe-Calumet, on the water.",
+    "loc_desc": "About an hour northwest of downtown Montreal — accessible by car or concierge transport. Once you're there, the St. Lawrence does the rest.",
+    "loc_addr_label": "Address",
+    "loc_arr_label": "Arrival",
+    "loc_arr_val": "~1 hour from downtown Montreal by car. Group transport available through concierge.",
+    "loc_dress_label": "Dress Code",
+    "loc_dress_val": "Beach chic / resort wear",
+    "feat_eyebrow": "Venue Features",
+    "feat_title": "What guests come back for",
+    "feat_desc": "Everything that makes Beach Club the best outdoor venue in Quebec, season after season.",
+    "feat1_title": "Waterfront views",
+    "feat1_desc": "Stunning river views and open-air spaces on the water's edge — nothing artificial about the backdrop.",
+    "feat2_title": "Daytime lounge",
+    "feat2_desc": "Daybeds and cabanas with bottle service under the sun — beach club luxury at the right address.",
+    "feat3_title": "Sunset sessions",
+    "feat3_desc": "World-class DJs spinning deep house as the sun dips below the horizon — the signature moment of the day.",
+    "feat4_title": "Beach bonfires",
+    "feat4_desc": "Evening fire pits and cozy gatherings as the night comes alive on the waterfront.",
+    "sticky_btn": "Reserve Now",
+    "modal_eyebrow": "Reserve",
+    "modal_title": "Book Your Night",
+    "modal_desc": "Submit a request for a reservation, daybed, or group booking at Beach Club. Montreal Hospitality will follow up to confirm.",
+    "form_req_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_budget": "Budget / Notes",
+    "form_special": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_venue_label": "The Venue",
+    "footer_venue_text": "Beach Club shares a unified visual system with Hang Bar, 212, and the rest of the venue pages — same editorial direction, tailored to each room's identity.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "scroll_lbl": "Scroll"},
+  "fr": {
+    "nav_home": "Accueil",
+    "nav_venues": "Établissements",
+    "nav_packages": "Forfaits",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Événements",
+    "nav_careers": "Carrières",
+    "mega_our_venues": "Nos Établissements",
+    "mega_view_all_venues": "Voir Tous Les Établissements",
+    "mega_featured": "En Vedette",
+    "mega_now_open": "Maintenant Ouvert",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité à Montréal.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "footer_follow": "Suivez-nous",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Réserver Maintenant",
+    "reserve_modal_title": "Réservez Votre Soirée",
+    "reserve_modal_eyebrow": "Réserver",
+    "form_request_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_special_request": "Demande spéciale",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "page_title": "Beach Club | Montreal Hospitality",
+    "hero_eyebrow": "Pointe-Calumet · Bord de l'eau",
+    "hero_cta_primary": "Réserver une table",
+    "hero_cta_secondary": "Voir la galerie",
+    "hero_card_1_label": "Musique",
+    "hero_card_1_value": "DJs de classe mondiale, sessions coucher de soleil",
+    "hero_card_2_label": "Expérience",
+    "hero_card_2_value": "Lits de plage, cabanas, service aux bouteilles",
+    "hero_card_3_label": "Emplacement",
+    "hero_card_3_value": "Pointe-Calumet, QC",
+    "hero_card_4_label": "Tenue",
+    "hero_card_4_value": "Tenue de plage chic / resort"
+  ,
+    "hero_title_line1": "L'escapade aquatique ultime",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">de Montréal.</em>",
+    "s_atm_label": "Atmosphère",
+    "s_atm_title": "Là où l'été ne finit jamais",
+    "s_atm_desc": "Vues sur le fleuve, lits de plage sous le soleil, DJs de classe mondiale au coucher du soleil, et feux de camp sur la plage à la tombée de la nuit. À une heure de Montréal — à des années-lumière de la ville.",
+    "p1_label": "Bord de l'eau",
+    "p1_text": "Des vues panoramiques sur le fleuve et des espaces en plein air directement sur l'eau — pas de toiture artificielle, pas de simulation, juste la vraie nature.",
+    "p2_label": "Sessions coucher de soleil",
+    "p2_text": "Des DJs de classe mondiale mixant au coucher du soleil — la musique de beach club à la bonne échelle.",
+    "p3_label": "Service",
+    "p3_text": "Lits de plage, cabanas, service aux bouteilles, et réservation complète par conciergerie via Montreal Hospitality.",
+    "story_eyebrow": "L'escapade",
+    "story_title": "À une heure de la ville. À des années-lumière de l'ordinaire.",
+    "story_p1": "Beach Club est situé en bord de fleuve à Pointe-Calumet — le premier lieu extérieur du Québec où le fleuve rencontre une programmation digne d'un festival de destination. Lits de plage, cabanas, piscines et une scène principale accueillant certains des plus grands noms du monde de la musique, le tout avec le Saint-Laurent en toile de fond.",
+    "story_p2": "Via Montreal Hospitality, Beach Club offre l'accès à la liste d'invités, les réservations de lits de plage et de cabanas, le service aux bouteilles, et un service de conciergerie de groupe complet pour quiconque souhaite vivre l'expérience bord de fleuve sans tracas. Que ce soit une excursion pour deux ou une réservation de groupe pour vingt, l'équipe s'occupe de tout.",
+    "menu_eyebrow": "Programme d'expériences",
+    "menu_title": "Les offres du Beach Club",
+    "menu_desc": "Tout ce que le bord de l'eau a à offrir — du lounging en journée aux têtes d'affiche au coucher du soleil et aux feux de camp nocturnes.",
+    "menu1_name": "Lit de plage & Cabana",
+    "menu1_desc": "Détente en bord de fleuve · service aux bouteilles sous le soleil",
+    "menu2_name": "Session coucher de soleil",
+    "menu2_desc": "DJs de classe mondiale · heure dorée sur l'eau",
+    "menu3_name": "Feu de camp sur la plage",
+    "menu3_desc": "Foyers en soirée · rassemblements intimes en bord de fleuve",
+    "menu4_name": "Service aux bouteilles",
+    "menu4_desc": "Spiritueux premium · section bord de l'eau · service complet",
+    "menu5_name": "Accès à la liste d'invités",
+    "menu5_desc": "Entrée prioritaire · soirées événements curatées",
+    "menu6_name": "Conciergerie de groupe",
+    "menu6_desc": "Transport · réservation · planification complète",
+    "menu_footer": "Programmation complète et tarifs disponibles via la conciergerie Montreal Hospitality",
+    "gallery_eyebrow": "Galerie",
+    "gallery_title": "Au cœur du Beach Club",
+    "gallery_desc": "L'eau, la foule, le coucher de soleil et la scène — l'image complète d'une journée au Beach Club.",
+    "gallery_main_label": "Le bord du fleuve",
+    "gallery_main_cap": "Beach Club, Pointe-Calumet",
+    "social_eyebrow": "Moments sociaux",
+    "social_title": "La plage en mouvement",
+    "sc1_label": "Scène principale",
+    "sc1_desc": "Des têtes d'affiche de classe mondiale sur l'eau — le genre de spectacle qui vaut le trajet à chaque fois.",
+    "sc2_label": "La foule",
+    "sc2_desc": "Un échantillon de Montréal qui ne se réunit qu'au bord de l'eau — habillé pour l'occasion, prêt pour la journée.",
+    "sc3_label": "Piscine & Lounge",
+    "sc3_desc": "Lits de plage et cabanas directement sur l'eau — le genre d'installation qui transforme un samedi en souvenir.",
+    "sc4_label": "Coucher de soleil",
+    "sc4_desc": "L'heure dorée sur le Saint-Laurent — le moment vers lequel toute la journée converge.",
+    "sc5_label": "Le bar",
+    "sc5_desc": "Les bouteilles arrivent froides, la foule reste chaude — un service qui suit le rythme de l'énergie de la journée.",
+    "who_eyebrow": "Notre clientèle",
+    "who_title": "La clientèle bord de fleuve de Montréal",
+    "who_desc": "Beach Club attire aussi bien les visiteurs décontractés d'un jour que les fans sérieux de musique électronique qui planifient leur été autour de la programmation. Le point commun : des gens qui savent où se trouve la meilleure fête au Québec.",
+    "exp_eyebrow": "L'expérience",
+    "exp_title": "Comment se déroule une journée au Beach Club",
+    "step1_title": "Arriver",
+    "step1_desc": "Approchez-vous du bord de l'eau et ressentez le changement immédiatement — ce n'est plus le centre-ville.",
+    "step2_title": "Heures en lit de plage",
+    "step2_desc": "Service en cabana, bouteilles fraîches et vues sur le fleuve du midi jusqu'au changement de lumière.",
+    "step3_title": "Set du coucher de soleil",
+    "step3_desc": "Le DJ prend le contrôle quand le ciel se colore — deep house et horizon qui portent ensemble le moment.",
+    "step4_title": "Après la tombée de la nuit",
+    "step4_desc": "Feux de camp, bar nocturne, et le genre de nuit qui a commencé à midi et a mérité chaque heure.",
+    "pil2_1_eyebrow": "Emplacement",
+    "pil2_1_title": "L'eau est le lieu",
+    "pil2_1_desc": "Beach Club ne cherche pas à simuler l'expérience bord de fleuve — c'est l'expérience bord de fleuve. Le Saint-Laurent est la toile de fond, et aucun autre lieu au Québec ne peut le répliquer.",
+    "pil2_2_eyebrow": "Musique",
+    "pil2_2_title": "Des têtes d'affiche qui valent le déplacement",
+    "pil2_2_desc": "La programmation du Beach Club est véritablement de classe mondiale — des noms qui jouent à Ibiza, Tulum et Miami viennent à Pointe-Calumet pour une bonne raison. La scène dépasse sa géographie.",
+    "pil2_3_eyebrow": "Service",
+    "pil2_3_title": "De la cabana à la conciergerie",
+    "pil2_3_desc": "D'une réservation de lit de plage à un week-end de groupe complet, Montreal Hospitality gère la logistique de bout en bout — transport inclus pour les groupes qui ne veulent pas penser au trajet.",
+    "res_eyebrow": "Réserver",
+    "res_title": "Lits de plage, cabanas et réservations de groupe.",
+    "res_desc": "Soumettez une demande et Montreal Hospitality fera un suivi pour confirmer la disponibilité, sécuriser votre place sur l'eau et gérer le transport si nécessaire.",
+    "res_loc_label": "Emplacement",
+    "res_hrs_label": "Heures",
+    "res_hrs_val": "Lun–Dim : 12h – 23h · Heures prolongées les soirs d'événements",
+    "res_conc_label": "Support Conciergerie",
+    "comp_eyebrow": "Complétez votre journée",
+    "comp_title": "Des journées dirigées par un concierge qui commencent avant la plage.",
+    "comp_desc": "Le Beach Club se vit mieux dans le cadre d'une journée complète — transport depuis Montréal, une place réservée dès l'arrivée, et un plan pour la nuit qui suit. Montreal Hospitality coordonne tout.",
+    "comp_t1_title": "Transport",
+    "comp_t1_desc": "Sprinters de groupe et prises en charge par chauffeur entre le centre-ville de Montréal et Pointe-Calumet.",
+    "comp_t2_title": "Installation lit de plage",
+    "comp_t2_desc": "Votre cabana ou lit de plage réservé à l'avance, prêt à votre arrivée — sans file, sans stress.",
+    "comp_t3_title": "Après minuit",
+    "comp_t3_desc": "Un passage dans un établissement partenaire de Montréal après le Beach Club, tout coordonné avant que vous quittiez la ville.",
+    "comp_t4_title": "Forfait complet",
+    "comp_t4_desc": "Transport, Beach Club, dîner, vie nocturne — toute la journée gérée par un seul canal de conciergerie.",
+    "loc_eyebrow": "Emplacement",
+    "loc_title": "Pointe-Calumet, sur l'eau.",
+    "loc_desc": "À environ une heure au nord-ouest du centre-ville de Montréal — accessible en voiture ou par transport conciergerie. Une fois sur place, le Saint-Laurent fait le reste.",
+    "loc_addr_label": "Adresse",
+    "loc_arr_label": "Arrivée",
+    "loc_arr_val": "~1 heure depuis le centre-ville de Montréal en voiture. Transport de groupe disponible via conciergerie.",
+    "loc_dress_label": "Code vestimentaire",
+    "loc_dress_val": "Tenue de plage chic / resort",
+    "feat_eyebrow": "Caractéristiques",
+    "feat_title": "Ce qui fait revenir les clients",
+    "feat_desc": "Tout ce qui fait du Beach Club le meilleur lieu extérieur du Québec, saison après saison.",
+    "feat1_title": "Vues sur le fleuve",
+    "feat1_desc": "Des vues époustouflantes sur le fleuve et des espaces en plein air en bord de l'eau — rien d'artificiel dans le décor.",
+    "feat2_title": "Lounge de jour",
+    "feat2_desc": "Lits de plage et cabanas avec service aux bouteilles sous le soleil — le luxe du beach club à la bonne adresse.",
+    "feat3_title": "Sessions coucher de soleil",
+    "feat3_desc": "Des DJs de classe mondiale mixant de la deep house au coucher du soleil — le moment signature de la journée.",
+    "feat4_title": "Feux de camp sur la plage",
+    "feat4_desc": "Foyers en soirée et rassemblements chaleureux au bord de l'eau quand la nuit prend vie.",
+    "sticky_btn": "Réserver Maintenant",
+    "modal_eyebrow": "Réserver",
+    "modal_title": "Réservez votre soirée",
+    "modal_desc": "Soumettez une demande de réservation, lit de plage ou réservation de groupe au Beach Club. Montreal Hospitality fera un suivi pour confirmer.",
+    "form_req_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_budget": "Budget / Notes",
+    "form_special": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité curatées à Montréal.",
+    "footer_venue_label": "L'établissement",
+    "footer_venue_text": "Beach Club partage un système visuel unifié avec Hang Bar, 212 et le reste des pages de lieux — même direction éditoriale, adaptée à l'identité de chaque salle.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "scroll_lbl": "Défiler"}
+};
 
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
 
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
+    window.translator = {
+      currentLang:'en',
+      init() {
+        const saved=localStorage.getItem('preferred_language');
+        const url=new URLSearchParams(window.location.search).get('lang');
+        const browser=(navigator.language||'en').split('-')[0];
+        this.currentLang=[url,saved,browser,'en'].find(l=>window._i18n&&window._i18n[l])||'en';
+        localStorage.setItem('preferred_language',this.currentLang);
+        document.documentElement.lang=this.currentLang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks(); this.bindButtons();
+      },
+      setLanguage(lang){
+        if(!window._i18n||!window._i18n[lang])return;
+        this.currentLang=lang;
+        localStorage.setItem('preferred_language',lang);
+        document.documentElement.lang=lang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks();
+        const u=new URL(window.location.href);
+        u.searchParams.set('lang',lang);
+        window.history.replaceState({},'',`${u.pathname}${u.search}${u.hash}`);
+      },
+      updateUI(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));
+      },
+      applyTranslations(){
+        const t=(window._i18n&&window._i18n[this.currentLang])||{};
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const v=t[el.dataset.i18n]; if(!v)return;
+          if(v.includes('<'))el.innerHTML=v; else el.textContent=v;
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+          const v=t[el.dataset.i18nPlaceholder]; if(v)el.placeholder=v;
+        });
+        document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+          const v=t[el.dataset.i18nLabel]; if(v)el.textContent=v;
+        });
+        if(t.page_title)document.title=t.page_title;
+      },
+      translateLinks(){
+        document.querySelectorAll('a[href]').forEach(link=>{
+          const h=link.getAttribute('href');
+          if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:')||h.startsWith('javascript:')||h.startsWith('http'))return;
+          try{
+            const u=new URL(h,window.location.href);
+            if(u.origin!==window.location.origin)return;
+            u.searchParams.set('lang',this.currentLang);
+            link.setAttribute('href',`${u.pathname.split('/').pop()||'index.html'}${u.search}${u.hash}`);
+          }catch(e){}
+        });
+      },
+      bindButtons(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));
+      }
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
 
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Nav */
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-        }
-
-        /* Image Hover Effects */
-        .img-zoom-container { overflow: hidden; }
-        .img-zoom {
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .group:hover .img-zoom {
-            transform: scale(1.08);
-        }
-
-        /* Smooth underline animation */
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
-
-        /* Button hover animations */
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
-
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Gallery Grid */
-        .gallery-item {
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* Lightbox */
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        #lightbox.active {
-            display: flex;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        /* Form Styles */
-        .form-input {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 18px;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #C5A059;
-        }
-
-        /* Custom Select */
-        .custom-select {
-            position: relative;
-        }
-        .custom-select select {
-            appearance: none;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 40px 14px 18px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .custom-select select:focus {
-            outline: none;
-            border-color: #C5A059;
-        }
-        .custom-select::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #C5A059;
-            pointer-events: none;
-        }
-        .custom-select select option {
-            background: #0B0F19;
-            color: white;
-        }
-
-        /* Radio Buttons */
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .radio-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .radio-item input[type="radio"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .radio-item input[type="radio"]:checked {
-            border-color: #C5A059;
-        }
-        .radio-item input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: #C5A059;
-            border-radius: 50%;
-        }
-        .radio-item label {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* Validation error styles */
-        .form-input:invalid:not(:placeholder-shown) {
-            border-color: #ef4444;
-        }
-        .validation-error {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 4px;
-            display: none;
-        }
-        .form-input:invalid:not(:placeholder-shown) + .validation-error {
-            display: block;
-        }
-
-        /* Shake animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-    
-
-        /* Language Switcher Styles */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.1);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-    </style>
-<base target="_self">
+</script>
 </head>
-<body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox fixed inset-0 z-[100] items-center justify-center bg-black/95 p-4">
+    <button onclick="closeLightbox()" class="absolute right-6 top-6 text-white/80 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+    <button onclick="changeLightbox(-1)" class="absolute left-5 md:left-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightbox-image" src="" alt="Beach Club gallery image" class="max-h-[88vh] max-w-[92vw] object-contain">
+    <button onclick="changeLightbox(1)" class="absolute right-5 md:right-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <header class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0">
+      <video autoplay muted loop playsinline class="h-full w-full object-cover hero-parallax">
+        <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1778709538/Quand_le_soleil_brille_et_les_bouteilles_arrivent_la_f%C3%AAte_ne_fait_que_commencer_p83m2s.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.88) 0%,rgba(5,5,5,0.35) 50%,rgba(5,5,5,0.25) 100%)"></div>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="closeLightbox()">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Gallery Image">
-        <button class="absolute left-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="absolute right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-
-        <!-- Logo -->
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
-        </a>
-
-        <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a>
-            <a href="venues.html" target="_self" class="link-hover text-mh-gold transition-colors">Venues</a>
-            <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a>
-            <a href="service.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Services</a>
-            <a href="event.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a>
-            <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
-        </div>
-
-        <!-- Right Actions -->
-        <div class="hidden lg:flex items-center gap-8">
-            
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+      <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+      </a>
+      <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+        <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+        <div class="relative" id="venues-menu-wrapper">
+          <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium text-mh-gold" aria-expanded="false">
+            <span data-i18n="nav_venues">Venues</span>
+            <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+          </a>
+          <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity 0.22s ease,transform 0.22s ease;right:auto;width:fit-content;">
+            <div class="px-20 py-12 flex gap-0">
+              <div class="flex-1 border-r border-white/10 pr-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+                <ul>
+                  <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                  <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>                </ul>
+              </div>
+              <div class="flex-1 border-r border-white/10 px-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+                <ul>
+                  <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                  <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widests uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                  <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                </ul>
+                <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+              </div>
+              <div class="w-[280px] pl-12 flex flex-col gap-4">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+                <div class="relative overflow-hidden aspect-[3/4] w-full">
+                  <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">Beach Club</p>
+                </div>
+                <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+              </div>
             </div>
-<a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+          </div>
         </div>
+        <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+        <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+        <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+        <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+        <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="lang-switcher"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+        <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all"><span data-i18n="footer_contact">Contact</span></a>
+      </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
-        <a href="venues.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
-        <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
-        <a href="service.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
-        <a href="event.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
-        <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
+      <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+      <a href="venues.html" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
+      <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages">Packages</a>
+      <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
+      <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
+      <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
+      <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg" 
-                 class="w-full h-full object-cover" 
-                 alt="Beach Club"
-                 style="object-position: center;">
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/70 via-mh-navy/50 to-mh-navy"></div>
+    <!-- Hero: centered logo + serif headline -->
+    <div class="relative z-10 flex min-h-screen flex-col items-center justify-center text-center px-6">
+      <div class="fade-up">
+        <img src="https://static.wixstatic.com/media/570161_861be4dd375b42f3ac281aeb59750e4f~mv2.png/v1/fill/w_193,h_126,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/BCLOGO-WHITE.png" alt="Beach Club" class="mx-auto w-28 sm:w-36 md:w-44 lg:w-48 object-contain mb-10">
+        <p class="eyebrow mb-8 text-white/50 tracking-[0.5em]" data-i18n="hero_eyebrow">Pointe-Calumet · Waterfront</p>
+        <p class="font-serif text-white leading-[1.05] hero-title" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;">
+          <span class="title-line" data-i18n="hero_title_line1">Montreal's ultimate</span>
+          <span class="title-line" data-i18n="hero_title_line2"><em style="font-style:italic;font-weight:400;">waterfront escape.</em></span>
+        </p>
+        <div class="mt-12 flex flex-wrap gap-4 justify-center">
+          <a href="#reserve" class="magnetic-btn btn-fill bg-white px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-black" data-i18n="hero_cta_primary">Reserve a Table</a>
+          <a href="#gallery" class="magnetic-btn btn-stroke border border-white/35 px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-white" data-i18n="hero_cta_secondary">View Gallery</a>
         </div>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      <span class="eyebrow text-white text-[9px] tracking-[0.4em]">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);"></div>
+    </div>
+  </header>
 
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <span class="tao-subheading text-mh-gold text-[11px] block mb-4 reveal">Waterfront</span>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-6 leading-[0.95] reveal">
-                Beach Club
-            </h1>
-            <p class="text-gray-300 max-w-2xl mx-auto font-light text-lg reveal">
-                Montreal's ultimate waterfront escape where summer never ends
-            </p>
+  <section class="relative h-[72vh] overflow-hidden border-y line-soft bg-black">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg" alt="Beach Club atmosphere" class="h-full w-full object-cover opacity-55">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/80"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+      <div>
+        <p class="eyebrow mb-5 text-sand/80"><span data-i18n="s_atm_label">Atmosphere</span></p>
+        <h2 class="font-serif text-5xl text-white md:text-7xl"><span data-i18n="s_atm_title">Where Summer Never Ends</span></h2>
+        <p class="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/70 md:text-base"><span data-i18n="s_atm_desc">Waterfront views, daybeds under the sun, world-class DJs at sunset, and beach bonfires when the stars come out. An hour from Montreal — a world away from the city.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="scroll-fade border-y line-soft bg-[#080808]">
+      <div class="mx-auto grid max-w-7xl gap-0 md:grid-cols-3">
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="p1_label">Waterfront</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p1_text">Stunning river views and breezy open-air spaces directly on the water — no rooftop, no simulation, just the real thing.</span></p></div>
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="p2_label">Sunset Sessions</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p2_text">World-class DJs spinning as the sun dips below the horizon — beach club music done at the right scale.</span></p></div>
+        <div class="px-6 py-7 md:px-10"><p class="eyebrow text-stone"><span data-i18n="pil2_3_eyebrow">Service</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p3_text">Daybeds, cabanas, bottle service, and full concierge booking through Montreal Hospitality.</span></p></div>
+      </div>
+    </section>
+
+    <section class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <div class="fade-up story-copy">
+          <p class="eyebrow text-sand/80"><span data-i18n="story_eyebrow">The Escape</span></p>
+          <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-[0.95] md:text-6xl"><span data-i18n="story_title">An hour from the city. A world away from the ordinary.</span></h2>
+          <div class="mt-8 max-w-2xl space-y-6 text-[15px]">
+            <p><span data-i18n="story_p1">Beach Club sits on the waterfront in Pointe-Calumet — Quebec's premier outdoor venue where the river meets a level of programming you'd expect from a destination festival. Daybeds, cabanas, pools, and a main stage that hosts some of the biggest DJ names in the world, all against the backdrop of the St. Lawrence.</span></p>
+            <p><span data-i18n="story_p2">Through Montreal Hospitality, Beach Club offers guest list access, daybed and cabana reservations, bottle service, and full group concierge for anyone who wants the waterfront experience handled properly. Whether it's a day trip for two or a group booking for twenty, the team makes it effortless.</span></p>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="bg-mh-dark">
-        
-        <!-- Venue Info -->
-        <section class="py-16 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-12 text-center reveal">
-                    <div>
-                        <i class="fa-solid fa-water text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Waterfront Access</h3>
-                        <p class="text-gray-400 text-sm">River Views</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-umbrella-beach text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Beach Vibes</h3>
-                        <p class="text-gray-400 text-sm">Sand & Sun</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-champagne-glasses text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Day & Night</h3>
-                        <p class="text-gray-400 text-sm">Sunset Parties</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery & Form Split Section -->
-        <section class="py-20">
-            <div class="max-w-[95%] mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-                    
-                    <!-- Left Side: Gallery -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Gallery</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8">Experience Beach Club</h2>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(0)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Main">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(1)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189178/IMG_3248_rxurzy.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Sand">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(2)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Pool">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(3)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189529/491429686_18498716626019953_5205958262598078528_n_l3dks0.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Sunset">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(4)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189621/79._BEACHCLUB_MONTREAL_Cr._Amanda_Marchitello.jpg_u02n0x.webp" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Party">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(5)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189662/IMG_3245_yzxzi3.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Beach Club Bar">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-gray-500 text-sm mt-6 italic">Click images to expand</p>
-                    </div>
-
-                    <!-- Right Side: Guest List / Tickets Form -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Reservations</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8">Guest List & Tickets</h2>
-                        
-                        <div class="bg-mh-gray/30 border border-white/10 p-8 lg:p-10">
-                            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate>
-                                
-                                <!-- Request Type -->
-                                <div class="mb-8">
-                                    <label class="form-label">Request Type</label>
-                                    <div class="radio-group">
-                                        <div class="radio-item">
-                                            <input type="radio" id="guestlist" name="requestType" value="guestlist" checked>
-                                            <label for="guestlist">Guest List</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="tickets" name="requestType" value="tickets">
-                                            <label for="tickets">Tickets</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="bottle" name="requestType" value="bottle">
-                                            <label for="bottle">Bottle Service</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Name -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="fullName">Full Name *</label>
-                                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" data-required="true">
-                                    <span class="validation-error">Please enter your full name</span>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="email">Email Address *</label>
-                                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" data-required="true">
-                                    <span class="validation-error">Please enter a valid email</span>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="phone">Phone Number *</label>
-                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="(514) 000-0000" data-required="true">
-                                    <span class="validation-error">Please enter your phone number</span>
-                                </div>
-
-                                <!-- Date -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="date">Preferred Date *</label>
-                                    <input type="date" id="date" name="date" class="form-input" data-required="true">
-                                    <span class="validation-error">Please select a date</span>
-                                </div>
-
-                                <!-- Guests -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="guests">Number of Guests *</label>
-                                    <div class="custom-select">
-                                        <select id="guests" name="guests" data-required="true">
-                                            <option value="">Select number of guests</option>
-                                            <option value="1">1 Guest</option>
-                                            <option value="2">2 Guests</option>
-                                            <option value="3">3 Guests</option>
-                                            <option value="4">4 Guests</option>
-                                            <option value="5">5 Guests</option>
-                                            <option value="6">6+ Guests</option>
-                                            <option value="10">10+ Guests (Large Party)</option>
-                                        </select>
-                                    </div>
-                                    <span class="validation-error">Please select number of guests</span>
-                                </div>
-
-                                <!-- Special Requests -->
-                                <div class="mb-8">
-                                    <label class="form-label" for="requests">Special Requests</label>
-                                    <textarea id="requests" name="requests" rows="3" class="form-input resize-none" placeholder="Birthday celebration, special occasion, preferred seating..."></textarea>
-                                </div>
-
-                                <!-- Honeypot field to prevent spam -->
-                                <input type="text" name="_gotcha" style="display:none">
-
-                                <!-- Submit Button -->
-                                <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover w-full bg-mh-gold text-mh-navy py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-white transition-all duration-300">
-                                    Submit Request
-                                </button>
-
-                                <p class="text-gray-500 text-xs mt-4 text-center">
-                                    Our team will confirm your reservation within 24 hours
-                                </p>
-                            </form>
-
-                            <!-- Success Message -->
-                            <div id="successMessage" class="success-message">
-                                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                                <h3 class="text-white font-serif text-2xl mb-2">Request Received!</h3>
-                                <p class="text-gray-400 text-sm mb-4">We've received your request and will contact you shortly to confirm your reservation at Beach Club.</p>
-                                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1">Your Reference Number</p>
-                                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                                </div>
-                                <div class="space-y-1 text-gray-400 text-xs">
-                                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> Confirmation sent to <span id="confirmEmail">your@email.com</span></p>
-                                </div>
-                            </div>
-
-                            <!-- Error Message -->
-                            <div id="errorMessage" class="error-message">
-                                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                                <p class="font-light text-sm">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-                            </div>
-                        </div>
-
-                        <!-- Contact Info -->
-                        <div class="mt-8 flex items-center gap-4 text-sm text-gray-400">
-                            <i class="fa-solid fa-phone text-mh-gold"></i>
-                            <span>For immediate assistance: <a href="tel:514-378-0154" class="text-white hover:text-mh-gold transition-colors">514-378-0154</a></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="py-20 bg-mh-navy">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-16 reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Highlights</span>
-                    <h2 class="text-3xl md:text-4xl tao-heading text-white">What to Expect</h2>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-water text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Waterfront Views</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Stunning river views and breezy open-air spaces on the water's edge.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-sun text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Daytime Lounge</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Relax on daybeds and cabanas with bottle service under the sun.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-music text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Sunset Sessions</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">World-class DJs spinning deep house as the sun dips below the horizon.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-fire text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Beach Bonfires</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Evening fire pits and cozy gatherings as the night comes alive.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Location -->
-        <section class="py-20 bg-mh-dark">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Location</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-6">Find Us</h2>
-                        <div class="space-y-4 text-gray-400">
-                            <p class="flex items-start gap-4">
-                                <i class="fa-solid fa-location-dot text-mh-gold mt-1"></i>
-                                <span>701 38e Rue<br>Pontie-Calumet, QC J0N 1G0</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-clock text-mh-gold"></i>
-                                <span>Mon-Sun: 12PM - 11PM<br>Extended hours on event nights</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-shirt text-mh-gold"></i>
-                                <span>Dress Code: Beach Chic / Resort Wear</span>
-                            </p>
-                        </div>
-                        
-                        <div class="mt-8 flex gap-4">
-                            <a href="#" class="btn-hover inline-flex items-center gap-2 border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all">
-                                <i class="fa-solid fa-map"></i> Get Directions
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="reveal aspect-video border border-white/10 overflow-hidden">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.845123456789!2d-73.5745!3d45.4975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a41d3f6e7d7%3A0x8c9c7b8a6e5f4d3c!2s701%2038e%20Rue%2C%20Pontie-Calumet%2C%20QC%20J0N%201G0!5e0!3m2!1sen!2sca!4v1234567890"
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Back to Venues -->
-        <section class="py-12 border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-6 text-center reveal">
-                <a href="venues.html" target="_self" class="inline-flex items-center gap-3 text-mh-gold hover:text-white transition-colors text-sm tracking-[0.2em] uppercase">
-                    <i class="fa-solid fa-arrow-left"></i> Back to All Venues
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
-                        <li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
-                        
-                        <li><a href="service.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Service</a></li>
-                        <li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Contact</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
-            </div>
+        <div class="fade-up img-hover overflow-hidden shadow-soft">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg" alt="Beach Club waterfront" class="h-full w-full object-cover">
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Gallery Images Array
-        const galleryImages = [
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189178/IMG_3248_rxurzy.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189529/491429686_18498716626019953_5205958262598078528_n_l3dks0.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189662/IMG_3245_yzxzi3.jpg"
-        ];
+    <!-- Experience menu -->
+    <section class="scroll-fade bg-[#070707] py-20 lg:py-28 border-y line-soft">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-sand/80"><span data-i18n="menu_eyebrow">Experience Program</span></p>
+            <h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="menu_title">The Beach Club Offerings</span></h2>
+          </div>
+          <p class="max-w-md text-sm leading-7 text-white/55"><span data-i18n="menu_desc">Everything the waterfront has to offer — from daylight lounging to sunset headliners and late-night bonfires.</span></p>
+        </div>
+        <div class="section-divider fade-up mb-12"></div>
+        <div class="grid gap-x-16 gap-y-2 md:grid-cols-2">
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu1_name">Daybed & Cabana</span></span><span class="desc"><span data-i18n="menu1_desc">Waterfront lounging · bottle service under the sun</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu2_name">Sunset Session</span></span><span class="desc"><span data-i18n="menu2_desc">World-class DJs · golden hour on the water</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu3_name">Beach Bonfire</span></span><span class="desc"><span data-i18n="menu3_desc">Evening fire pits · intimate waterfront gatherings</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+          </div>
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu4_name">Bottle Service</span></span><span class="desc"><span data-i18n="menu4_desc">Premium spirits · waterfront section · full service</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu5_name">Guest List Access</span></span><span class="desc"><span data-i18n="menu5_desc">Priority entry · curated event nights</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name"><span data-i18n="menu6_name">Group Concierge</span></span><span class="desc"><span data-i18n="menu6_desc">Transport · booking · end-to-end planning</span></span></div><span class="dots"></span><span class="price">VIP</span></div>
+          </div>
+        </div>
+        <p class="fade-up mt-12 text-center text-xs uppercase tracking-[0.28em] text-white/40"><span data-i18n="menu_footer">Full programming and pricing available through Montreal Hospitality concierge</span></p>
+      </div>
+    </section>
 
-        let currentImageIndex = 0;
+    <!-- Gallery -->
+    <section id="gallery" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="fade-up mb-10 flex items-end justify-between gap-6">
+        <div><p class="eyebrow text-sand/80"><span data-i18n="gallery_eyebrow">Gallery</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="gallery_title">Inside Beach Club</span></h2></div>
+        <p class="hidden max-w-md text-sm leading-7 text-white/55 md:block"><span data-i18n="gallery_desc">The water, the crowd, the sunset, and the stage — the full picture of a day at Beach Club.</span></p>
+      </div>
+      <div class="section-divider fade-up mb-10"></div>
+      <div class="grid gap-4 md:grid-cols-12 md:grid-rows-2">
+        <button onclick="openLightbox(0)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-7 md:row-span-2">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg" alt="Beach Club main" class="h-[520px] w-full object-cover md:h-full">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+          <span class="absolute bottom-5 left-5 text-left"><span class="eyebrow text-white/75">The Waterfront</span><span class="mt-2 block font-serif text-3xl">Beach Club, Pointe-Calumet</span></span>
+        </button>
+        <button onclick="openLightbox(1)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg" alt="Beach Club crowd" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+        <button onclick="openLightbox(2)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189178/IMG_3248_rxurzy.jpg" alt="Beach Club sand" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+      </div>
+      <div class="mt-4 grid gap-4 md:grid-cols-3">
+        <button onclick="openLightbox(3)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg" alt="Beach Club pool" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(4)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189529/491429686_18498716626019953_5205958262598078528_n_l3dks0.jpg" alt="Beach Club sunset" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(5)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189662/IMG_3245_yzxzi3.jpg" alt="Beach Club bar" class="h-[230px] w-full object-cover"></button>
+      </div>
+    </section>
 
-        // Lightbox Functions
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = galleryImages[index];
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- Social rail -->
+    <section id="social-feed" class="scroll-fade border-y line-soft bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="social_eyebrow">Social Moments</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="social_title">See the beach in motion</span></h2></div>
+          <div class="flex items-center gap-3">
+            <button type="button" id="social-prev" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-left"></i></button>
+            <button type="button" id="social-next" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="section-divider fade-up mb-10"></div>
+        <div id="social-rail" class="fade-up flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4" style="scrollbar-width:none;-ms-overflow-style:none;">
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg" alt="Beach Club main stage" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc1_label">Main Stage</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc1_desc">World-class headliners on the water — the kind of show that makes the drive worth it every single time.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg" alt="Beach Club crowd" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc2_label">The Crowd</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc2_desc">A cross-section of Montreal that only comes together at the water — dressed for the occasion, ready for the day.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg" alt="Beach Club pool" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc3_label">Pool & Lounge</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc3_desc">Daybeds and cabanas right on the water — the kind of setup that turns a Saturday into a story.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189529/491429686_18498716626019953_5205958262598078528_n_l3dks0.jpg" alt="Beach Club sunset" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc4_label">Sunset</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc4_desc">Golden hour on the St. Lawrence — the moment the whole day builds toward.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189662/IMG_3245_yzxzi3.jpg" alt="Beach Club bar" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc5_label">The Bar</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc5_desc">Bottles arrive cold, the crowd stays warm — service that keeps pace with the energy of the day.</span></p></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    <!-- Who Comes Here -->
+    <section class="bg-[#090909] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10"><p class="eyebrow text-sand/80"><span data-i18n="who_eyebrow">Who Comes Here</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="who_title">Montreal's Waterfront Crowd</span></h2><p class="mt-5 max-w-2xl text-sm leading-8 text-white/60 md:text-base"><span data-i18n="who_desc">Beach Club draws everyone from casual day-trippers to serious electronic music fans who plan their summer around the programming. The common thread: people who know where the best party in Quebec actually is.</span></p></div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189178/IMG_3248_rxurzy.jpg" alt="Beach Club sand" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189621/79._BEACHCLUB_MONTREAL_Cr._Amanda_Marchitello.jpg_u02n0x.webp" alt="Beach Club party" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg" alt="Beach Club pool" class="h-[430px] w-full object-cover"></div>
+        </div>
+      </div>
+    </section>
 
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
-            if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
-            document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
-        }
+    <!-- How a Day Works -->
+    <section class="bg-[#0a0a0a] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 text-center"><p class="eyebrow text-sand/80"><span data-i18n="exp_eyebrow">The Experience</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="exp_title">How a Day at Beach Club Works</span></h2></div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="beach-card p-8"><p class="eyebrow text-white/45">01</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step1_title">Arrive</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step1_desc">Pull up to the waterfront and feel the shift immediately — this isn't downtown anymore.</span></p></div>
+          <div class="beach-card p-8"><p class="eyebrow text-white/45">02</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step2_title">Daybed Hours</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step2_desc">Cabana service, cold bottles, and river views from noon until the light starts to change.</span></p></div>
+          <div class="beach-card p-8"><p class="eyebrow text-white/45">03</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step3_title">Sunset Set</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step3_desc">The DJ takes over as the sky turns — deep house and the horizon doing the heavy lifting together.</span></p></div>
+          <div class="beach-card p-8"><p class="eyebrow text-white/45">04</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step4_title">After Dark</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step4_desc">Bonfires, late bar, and the kind of night that started at noon and earned every hour of it.</span></p></div>
+        </div>
+      </div>
+    </section>
 
-        // Keyboard navigation for lightbox
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('lightbox').classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-            }
-        });
+    <!-- Three pillars -->
+    <section class="scroll-fade bg-[#0a0a0a] py-20 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-3">
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="loc_eyebrow">Location</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_1_title">The water is the venue</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_1_desc">Beach Club isn't trying to simulate the waterfront experience — it is the waterfront experience. The St. Lawrence is the backdrop, and no other venue in Quebec can replicate it.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_2_eyebrow">Music</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_2_title">Headliners worth the drive</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_2_desc">The programming at Beach Club is genuinely world-class — names that play Ibiza, Tulum, and Miami coming to Pointe-Calumet for a reason. The stage punches above its geography.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_3_eyebrow">Service</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_3_title">Cabana-to-concierge</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_3_desc">From a daybed reservation to a full group weekend, Montreal Hospitality handles the logistics end-to-end — transport included for groups who don't want to think about the drive.</span></p></div>
+      </div>
+    </section>
 
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            
-            // Generate random alphanumeric string: XX123XX123X1
-            let randomPart = '';
-            
-            // Pattern: XX123XX123X1 (2 letters, 3 numbers, 2 letters, 3 numbers, 1 letter, 1 number)
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        // Random letter A-Z
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        // Random number 0-9
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            
-            return prefix + randomPart;
-        }
+    <!-- Reserve -->
+    <section id="reserve" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="fade-up">
+          <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+          <h2 class="card-shift mt-4 font-serif text-5xl leading-[0.95] md:text-6xl"><span data-i18n="res_title">Daybeds, cabanas, and group bookings.</span></h2>
+          <p class="mt-6 max-w-xl text-[15px] leading-8 text-white/68"><span data-i18n="res_desc">Submit a request and Montreal Hospitality will follow up to confirm availability, secure your spot on the water, and handle transport if needed.</span></p>
+          <div class="mt-10 space-y-8 text-white/75">
+            <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_eyebrow">Location</span></p><p class="mt-1">701 38e Rue, Pointe-Calumet, QC J0N 1G0</p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-clock mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_hrs_label">Hours</span></p><p class="mt-1"><span data-i18n="res_hrs_val">Mon–Sun: 12PM – 11PM · Extended hours on event nights</span></p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-user-tie mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_conc_label">Concierge Support</span></p><p class="mt-1">514-378-0154 · info@montrealhospitality.com</p></div></div>
+          </div>
+        </div>
+        <div class="fade-up border border-white/10 bg-[#0b0b0b] p-7 md:p-10 shadow-soft">
+          <form id="reservationForm" action="https://formspree.io/f/mykdvnra" method="POST" class="grid gap-5 md:grid-cols-2">
+            <input type="hidden" name="venue" value="Beach Club">
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Daybed / Cabana</option><option>Bottle Service</option><option>Birthday / Group</option><option>Private Event</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_budget">Budget / Notes</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Optional"></div>
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_special">Special Request</span></label><textarea name="requests" rows="4" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Birthday, daybed preference, transport needed, occasion..."></textarea></div>
+            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-5 pt-2">
+              <p class="text-xs leading-6 text-white/45"><span data-i18n="form_disclaimer">Montreal Hospitality will review and follow up to confirm availability and pricing.</span></p>
+              <button type="submit" class="magnetic-btn btn-fill bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button>
+            </div>
+            <div id="formSuccess" class="hidden md:col-span-2 border border-emerald-400/30 bg-emerald-400/10 px-4 py-4 text-sm text-emerald-100">Request sent successfully.</div>
+          </form>
+        </div>
+      </div>
+    </section>
 
-        // Validate form fields
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
+    <!-- Complete Your Day -->
+    <section class="bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="comp_eyebrow">Complete Your Day</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="comp_title">Concierge-led days that start before the beach.</span></h2>
+            <p class="mt-6 max-w-2xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="comp_desc">Beach Club is best experienced as part of a full day — transport from Montreal, a reserved spot waiting on arrival, and a plan for the night after. Montreal Hospitality coordinates all of it.</span></p>
+            <div class="mt-10 grid gap-4 sm:grid-cols-2">
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t1_title">Transport</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t1_desc">Group sprinters and chauffeur pickups from downtown Montreal to Pointe-Calumet and back.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t2_title">Daybed Setup</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t2_desc">Your cabana or daybed reserved in advance, ready when you arrive — no line, no scramble.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t3_title">After Hours</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t3_desc">A move to a partner Montreal venue after Beach Club, all coordinated before you leave the city.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t4_title">Full Package</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t4_desc">Transport, Beach Club, dinner, nightlife — the whole day handled through one concierge channel.</span></p></div>
+            </div>
+          </div>
+          <div class="fade-up img-hover overflow-hidden shadow-soft">
+            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189621/79._BEACHCLUB_MONTREAL_Cr._Amanda_Marchitello.jpg_u02n0x.webp" alt="Beach Club concierge" class="h-full min-h-[520px] w-full object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
 
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
+    <!-- Location -->
+    <section class="bg-[#0b0b0b] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="loc_eyebrow">Location</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="loc_title">Pointe-Calumet, on the water.</span></h2>
+            <p class="mt-6 max-w-xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="loc_desc">About an hour northwest of downtown Montreal — accessible by car or concierge transport. Once you're there, the St. Lawrence does the rest.</span></p>
+            <div class="mt-10 space-y-6 text-white/72">
+              <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_addr_label">Address</span></p><p class="mt-1">701 38e Rue, Pointe-Calumet, QC J0N 1G0</p></div></div>
+              <div class="flex gap-4"><i class="fa-solid fa-car-side mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_arr_label">Arrival</span></p><p class="mt-1"><span data-i18n="loc_arr_val">~1 hour from downtown Montreal by car. Group transport available through concierge.</span></p></div></div>
+              <div class="flex gap-4"><i class="fa-solid fa-shirt mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_dress_label">Dress Code</span></p><p class="mt-1"><span data-i18n="loc_dress_val">Beach chic / resort wear</span></p></div></div>
+            </div>
+          </div>
+          <div class="fade-up overflow-hidden shadow-soft">
+            <iframe class="map-frame h-[460px] w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.845123456789!2d-73.5745!3d45.4975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a41d3f6e7d7%3A0x8c9c7b8a6e5f4d3c!2s701%2038e%20Rue%2C%20Pontie-Calumet%2C%20QC%20J0N%201G0!5e0!3m2!1sen!2sca!4v1234567890" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            return isValid;
-        }
+    <!-- Venue Features -->
+    <section class="scroll-fade border-y line-soft bg-[#080808] py-20">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="feat_eyebrow">Venue Features</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="feat_title">What guests come back for</span></h2></div>
+          <p class="max-w-md text-sm leading-7 text-white/55"><span data-i18n="feat_desc">Everything that makes Beach Club the best outdoor venue in Quebec, season after season.</span></p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">01</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat1_title">Waterfront views</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat1_desc">Stunning river views and open-air spaces on the water's edge — nothing artificial about the backdrop.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">02</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat2_title">Daytime lounge</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat2_desc">Daybeds and cabanas with bottle service under the sun — beach club luxury at the right address.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">03</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat3_title">Sunset sessions</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat3_desc">World-class DJs spinning deep house as the sun dips below the horizon — the signature moment of the day.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">04</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat4_title">Beach bonfires</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat4_desc">Evening fire pits and cozy gatherings as the night comes alive on the waterfront.</span></p></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        // Submit form function
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Validate form first
-            if (!validateForm()) {
-                // Shake animation for visual feedback
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    form.style.animation = '';
-                }, 500);
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
-            
-            try {
-                // Generate reference number first
-                const refNumber = generateReferenceNumber();
-                
-                // Collect all form data
-                const formData = new FormData(form);
-                
-                // Add reference number to form data
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'Beach Club');
-                
-                // Submit to Formspree
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success - show success message
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Request';
-                submitBtn.classList.remove('submitting');
-            }
-        }
+  <button id="stickyReserveBtn" class="sticky-reserve-btn btn-hover"><span data-i18n="sticky_btn">Reserve Now</span></button>
 
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+  <div id="reserveModal" class="reserve-modal fixed inset-0 z-[1000] items-center justify-center p-4">
+    <div class="reserve-backdrop absolute inset-0 bg-black/75"></div>
+    <div class="relative z-10 w-full max-w-xl border border-white/10 bg-[#0b0b0b] p-7 shadow-soft md:p-10">
+      <button id="closeReserveModal" class="absolute right-5 top-5 text-white/65 transition hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+      <h3 class="mt-4 font-serif text-4xl text-white md:text-5xl">Book Your Day</h3>
+      <p class="mt-4 max-w-lg text-sm leading-7 text-white/60">Submit a request for a daybed, cabana, or group booking at Beach Club. Montreal Hospitality will follow up to confirm.</p>
+      <form id="quickReserveForm" action="https://formspree.io/f/mykdvnra" method="POST" class="mt-8 grid gap-4 md:grid-cols-2">
+        <input type="hidden" name="venue" value="Beach Club">
+        <div class="md:col-span-2"><label class="eyebrow block text-white/45"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Daybed / Cabana</option><option>Bottle Service</option><option>Birthday / Group</option><option>Private Event</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_special">Special Request</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Transport needed, daybed preference, occasion"></div>
+        <div class="md:col-span-2"><button type="submit" class="magnetic-btn btn-fill w-full bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button></div>
+      </form>
+    </div>
+  </div>
 
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
+  <footer class="bg-black px-6 pb-10 pt-20 md:px-10">
+    <div class="mx-auto grid max-w-7xl gap-12 border-b border-white/10 pb-14 md:grid-cols-[1.1fr_.7fr_.7fr_.8fr]">
+      <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 object-contain"><p class="mt-6 max-w-md text-sm leading-8 text-white/52"><span data-i18n="footer_tagline">Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.</span></p></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_explore">Explore</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><a class="block hover:text-white" href="venues.html" data-i18n="nav_venues">Venues</a><a class="block hover:text-white" href="packages.html" data-i18n="nav_packages">Packages</a><a class="block hover:text-white" href="service.html" data-i18n="nav_services">Services</a><a class="block hover:text-white" href="event.html" data-i18n="nav_events">Events</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_contact">Contact</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><p>514-378-0154</p><a class="block hover:text-white" href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a><a class="block hover:text-white" href="https://www.instagram.com/montrealhospitality/?hl=en">Instagram</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_venue_label">The Venue</span></p><p class="mt-5 text-sm leading-8 text-white/60">Beach Club shares a unified visual system with Hang Bar, Soubois, and the rest of the venue pages — same editorial direction, tailored to each room's identity.</p></div>
+    </div>
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 pt-8 text-[11px] uppercase tracking-[0.24em] text-white/32 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Montreal Hospitality</p>
+      <div class="flex gap-6"><a href="#" class="hover:text-white/70"><span data-i18n="footer_privacy">Privacy</span></a><a href="#" class="hover:text-white/70"><span data-i18n="footer_terms">Terms</span></a></div>
+    </div>
+  </footer>
 
-        // Loader handling with hard fallbacks
-        let loaderHidden = false;
-
-        function hideLoader(force = false) {
-            if (loaderHidden && !force) return;
-            loaderHidden = true;
-
-            const loader = document.getElementById('loader');
-            if (!loader) return;
-
-            loader.style.opacity = '0';
-            loader.style.pointerEvents = 'none';
-            document.body.style.overflow = 'auto';
-
-            setTimeout(() => {
-                loader.style.display = 'none';
-
-                const revealElements = document.querySelectorAll('.reveal');
-                revealElements.forEach(el => el.classList.add('active'));
-            }, 250);
-        }
-
-        // Fire as soon as DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(() => hideLoader(), 300);
-            }, { once: true });
-        } else {
-            setTimeout(() => hideLoader(), 300);
-        }
-
-        // Additional fallbacks in case external assets delay the window load event
-        window.addEventListener('load', () => hideLoader(), { once: true });
-        window.addEventListener('pageshow', () => hideLoader());
-        setTimeout(() => hideLoader(true), 2200);
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', toggleMenu);
-            });
-        }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (!navbar) return;
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-    </script>
-
-    <script>
-        const translator = {
-            currentLang: 'en',
-            originalsCaptured: false,
-            translations: {"title_en": "Beach Club | Montreal Hospitality", "title_fr": "Beach Club | Montreal Hospitality", "en": {"Accueil": "Home", "Lieux": "Venues", "Sports": "Sports", "Services": "Services", "Événements": "Events", "Carrières": "Careers", "Contact": "Contact", "Galerie": "Gallery", "Cliquez pour agrandir": "Click images to expand", "Réservations": "Reservations", "Liste d’Invités et Billets": "Guest List & Tickets", "Type de Demande": "Request Type", "Liste d’Invités": "Guest List", "Billets": "Tickets", "Service aux Bouteilles": "Bottle Service", "Nom Complet *": "Full Name *", "Veuillez entrer votre nom complet": "Please enter your full name", "Adresse Courriel *": "Email Address *", "Veuillez entrer une adresse courriel valide": "Please enter a valid email", "Numéro de Téléphone *": "Phone Number *", "Veuillez entrer votre numéro de téléphone": "Please enter your phone number", "Date Préférée *": "Preferred Date *", "Veuillez sélectionner une date": "Please select a date", "Nombre d’Invités *": "Number of Guests *", "Sélectionnez le nombre d’invités": "Select number of guests", "1 invité": "1 Guest", "2 invités": "2 Guests", "3 invités": "3 Guests", "4 invités": "4 Guests", "5 invités": "5 Guests", "6+ invités": "6+ Guests", "10+ invités (grand groupe)": "10+ Guests (Large Party)", "Veuillez sélectionner le nombre d’invités": "Please select number of guests", "Demandes Spéciales": "Special Requests", "Soumettre la Demande": "Submit Request", "Notre équipe confirmera votre réservation dans les 24 heures": "Our team will confirm your reservation within 24 hours", "Demande Reçue !": "Request Received!", "Votre Numéro de Référence": "Your Reference Number", "Confirmation envoyée à": "Confirmation sent to", "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.": "Something went wrong. Please try again or contact us directly at 514-378-0154.", "Pour une assistance immédiate :": "For immediate assistance:", "Points Forts": "Highlights", "À Quoi Vous Attendre": "What to Expect", "Emplacement": "Location", "Nous Trouver": "Find Us", "Obtenir l’Itinéraire": "Get Directions", "Retour à Tous les Lieux": "Back to All Venues", "Redéfinir l’art de la nuit à Montréal.": "Redefining the art of the night in Montreal.", "Explorer": "Explore", "Service": "Service", "Suivre": "Follow", "Confidentialité": "Privacy", "Conditions": "Terms", "votre@courriel.com": "your@email.com", "Bord de l’Eau": "Waterfront", "L’escapade ultime au bord de l’eau à Montréal, où l’été ne se termine jamais": "Montreal's ultimate waterfront escape where summer never ends", "Accès au Bord de l’Eau": "Waterfront Access", "Vues sur la Rivière": "River Views", "Ambiance Plage": "Beach Vibes", "Sable et Soleil": "Sand & Sun", "Jour et Nuit": "Day & Night", "Fêtes au Coucher du Soleil": "Sunset Parties", "Découvrir Beach Club": "Experience Beach Club", "Nous avons reçu votre demande et vous contacterons sous peu pour confirmer votre réservation au Beach Club.": "We've received your request and will contact you shortly to confirm your reservation at Beach Club.", "Vues sur l’Eau": "Waterfront Views", "Des vues magnifiques sur la rivière et des espaces aérés en plein air au bord de l’eau.": "Stunning river views and breezy open-air spaces on the water's edge.", "Lounge de Jour": "Daytime Lounge", "Détendez-vous sur des daybeds et dans des cabanas avec service aux bouteilles sous le soleil.": "Relax on daybeds and cabanas with bottle service under the sun.", "Sessions au Coucher du Soleil": "Sunset Sessions", "Des DJs de classe mondiale jouent de la deep house pendant que le soleil disparaît à l’horizon.": "World-class DJs spinning deep house as the sun dips below the horizon.", "Feux de Plage": "Beach Bonfires", "Des foyers extérieurs en soirée et des rassemblements chaleureux quand la nuit prend vie.": "Evening fire pits and cozy gatherings as the night comes alive.", "701 38e Rue": "701 38e Rue", "Pointe-Calumet, QC J0N 1G0": "Pontie-Calumet, QC J0N 1G0", "Lun-Dim : 12h - 23h": "Mon-Sun: 12PM - 11PM", "Heures prolongées lors des soirées événements": "Extended hours on event nights", "Code vestimentaire : chic plage / tenue resort": "Dress Code: Beach Chic / Resort Wear"}, "fr": {"Home": "Accueil", "Venues": "Lieux", "Sports": "Sports", "Services": "Services", "Events": "Événements", "Careers": "Carrières", "Contact": "Contact", "Gallery": "Galerie", "Click images to expand": "Cliquez pour agrandir", "Reservations": "Réservations", "Guest List & Tickets": "Liste d’Invités et Billets", "Request Type": "Type de Demande", "Guest List": "Liste d’Invités", "Tickets": "Billets", "Bottle Service": "Service aux Bouteilles", "Full Name *": "Nom Complet *", "Please enter your full name": "Veuillez entrer votre nom complet", "Email Address *": "Adresse Courriel *", "Please enter a valid email": "Veuillez entrer une adresse courriel valide", "Phone Number *": "Numéro de Téléphone *", "Please enter your phone number": "Veuillez entrer votre numéro de téléphone", "Preferred Date *": "Date Préférée *", "Please select a date": "Veuillez sélectionner une date", "Number of Guests *": "Nombre d’Invités *", "Select number of guests": "Sélectionnez le nombre d’invités", "1 Guest": "1 invité", "2 Guests": "2 invités", "3 Guests": "3 invités", "4 Guests": "4 invités", "5 Guests": "5 invités", "6+ Guests": "6+ invités", "10+ Guests (Large Party)": "10+ invités (grand groupe)", "Please select number of guests": "Veuillez sélectionner le nombre d’invités", "Special Requests": "Demandes Spéciales", "Submit Request": "Soumettre la Demande", "Our team will confirm your reservation within 24 hours": "Notre équipe confirmera votre réservation dans les 24 heures", "Request Received!": "Demande Reçue !", "Your Reference Number": "Votre Numéro de Référence", "Confirmation sent to": "Confirmation envoyée à", "Something went wrong. Please try again or contact us directly at 514-378-0154.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.", "For immediate assistance:": "Pour une assistance immédiate :", "Highlights": "Points Forts", "What to Expect": "À Quoi Vous Attendre", "Location": "Emplacement", "Find Us": "Nous Trouver", "Get Directions": "Obtenir l’Itinéraire", "Back to All Venues": "Retour à Tous les Lieux", "Redefining the art of the night in Montreal.": "Redéfinir l’art de la nuit à Montréal.", "Explore": "Explorer", "Service": "Service", "Follow": "Suivre", "Privacy": "Confidentialité", "Terms": "Conditions", "your@email.com": "votre@courriel.com", "Waterfront": "Bord de l’Eau", "Montreal's ultimate waterfront escape where summer never ends": "L’escapade ultime au bord de l’eau à Montréal, où l’été ne se termine jamais", "Waterfront Access": "Accès au Bord de l’Eau", "River Views": "Vues sur la Rivière", "Beach Vibes": "Ambiance Plage", "Sand & Sun": "Sable et Soleil", "Day & Night": "Jour et Nuit", "Sunset Parties": "Fêtes au Coucher du Soleil", "Experience Beach Club": "Découvrir Beach Club", "We've received your request and will contact you shortly to confirm your reservation at Beach Club.": "Nous avons reçu votre demande et vous contacterons sous peu pour confirmer votre réservation au Beach Club.", "Waterfront Views": "Vues sur l’Eau", "Stunning river views and breezy open-air spaces on the water's edge.": "Des vues magnifiques sur la rivière et des espaces aérés en plein air au bord de l’eau.", "Daytime Lounge": "Lounge de Jour", "Relax on daybeds and cabanas with bottle service under the sun.": "Détendez-vous sur des daybeds et dans des cabanas avec service aux bouteilles sous le soleil.", "Sunset Sessions": "Sessions au Coucher du Soleil", "World-class DJs spinning deep house as the sun dips below the horizon.": "Des DJs de classe mondiale jouent de la deep house pendant que le soleil disparaît à l’horizon.", "Beach Bonfires": "Feux de Plage", "Evening fire pits and cozy gatherings as the night comes alive.": "Des foyers extérieurs en soirée et des rassemblements chaleureux quand la nuit prend vie.", "701 38e Rue": "701 38e Rue", "Pontie-Calumet, QC J0N 1G0": "Pointe-Calumet, QC J0N 1G0", "Mon-Sun: 12PM - 11PM": "Lun-Dim : 12h - 23h", "Extended hours on event nights": "Heures prolongées lors des soirées événements", "Dress Code: Beach Chic / Resort Wear": "Code vestimentaire : chic plage / tenue resort"}},
-            placeholderTranslations: {"en": {"Entrez votre nom complet": "Enter your full name", "votre@courriel.com": "your@email.com", "(514) 000-0000": "(514) 000-0000", "Anniversaire, occasion spéciale, préférence de placement...": "Birthday celebration, special occasion, preferred seating...", "Détails supplémentaires sur votre événement, exigences particulières, thème, etc.": "Additional details about your event, special requirements, theme, etc...", "Nombre de participants": "Number of attendees", "Nombre approximatif d’invités": "Approximate guests", "Entreprise ou organisation": "Company or organization"}, "fr": {"Enter your full name": "Entrez votre nom complet", "your@email.com": "votre@courriel.com", "(514) 000-0000": "(514) 000-0000", "Birthday celebration, special occasion, preferred seating...": "Anniversaire, occasion spéciale, préférence de placement...", "Additional details about your event, special requirements, theme, etc...": "Détails supplémentaires sur votre événement, exigences particulières, thème, etc.", "Number of attendees": "Nombre de participants", "Approximate guests": "Nombre approximatif d’invités", "Company or organization": "Entreprise ou organisation"}},
-            captureOriginals() {
-                if (this.originalsCaptured) return;
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    const node = walker.currentNode;
-                    node.__originalText = node.nodeValue;
-                }
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    el.dataset.originalPlaceholder = el.getAttribute('placeholder') || '';
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    el.dataset.originalOption = el.textContent;
-                });
-                document.titleOriginal = document.title;
-                this.originalsCaptured = true;
-            },
-            init() {
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                if (savedLang === 'fr' || savedLang === 'en') {
-                    this.currentLang = savedLang;
-                } else if (browserLang === 'fr') {
-                    this.currentLang = 'fr';
-                }
-                this.captureOriginals();
-                this.updateUI();
-                this.translatePage();
-            },
-            setLanguage(lang) {
-                if (!['en', 'fr'].includes(lang)) return;
-                this.currentLang = lang;
-                localStorage.setItem('preferred_language', lang);
-                this.updateUI();
-                this.translatePage();
-            },
-            updateUI() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                });
-            },
-            replaceTextNode(node, map) {
-                const original = node.__originalText || node.nodeValue;
-                const trimmed = original.trim();
-                const translated = map[trimmed];
-                if (!translated) {
-                    node.nodeValue = original;
-                    return;
-                }
-                const leading = original.match(/^\s*/)[0];
-                const trailing = original.match(/\s*$/)[0];
-                node.nodeValue = leading + translated + trailing;
-            },
-            translatePage() {
-                this.captureOriginals();
-                const map = this.currentLang === 'fr' ? this.translations.fr : this.translations.en;
-                const placeholderMap = this.currentLang === 'fr' ? this.placeholderTranslations.fr : this.placeholderTranslations.en;
-                document.documentElement.lang = this.currentLang;
-                document.title = this.currentLang === 'fr' ? (this.translations.title_fr || document.titleOriginal) : (this.translations.title_en || document.titleOriginal);
-
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    this.replaceTextNode(walker.currentNode, map);
-                }
-
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    const original = el.dataset.originalPlaceholder || el.getAttribute('placeholder') || '';
-                    el.setAttribute('placeholder', placeholderMap[original] || original);
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    const original = el.dataset.originalOption || el.textContent;
-                    el.textContent = map[original.trim()] || original;
-                });
-            }
-        };
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
-    </script>
-
+  <script>
+    const galleryImages=[
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189317/485258364_18490757113019953_3062440969314416274_n_nybvi9.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189373/476511059_961192332782594_2840130747705146860_n_yg4sbq.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189178/IMG_3248_rxurzy.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189495/519487137_18513214675019953_526406623709277111_n_gbkkdx.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189529/491429686_18498716626019953_5205958262598078528_n_l3dks0.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771189662/IMG_3245_yzxzi3.jpg'
+    ];
+    let currentIndex=0;
+    function openLightbox(i){currentIndex=i;const box=document.getElementById('lightbox');const img=document.getElementById('lightbox-image');if(!box||!img)return;img.src=galleryImages[i];box.classList.add('open');document.body.style.overflow='hidden';}
+    function closeLightbox(){const box=document.getElementById('lightbox');if(!box)return;box.classList.remove('open');document.body.style.overflow='';}
+    function changeLightbox(dir){const img=document.getElementById('lightbox-image');if(!img)return;currentIndex=(currentIndex+dir+galleryImages.length)%galleryImages.length;img.src=galleryImages[currentIndex];}
+    document.addEventListener('keydown',(e)=>{const box=document.getElementById('lightbox');if(box&&box.classList.contains('open')){if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeLightbox(-1);if(e.key==='ArrowRight')changeLightbox(1);}});
+    (function(){const navbar=document.getElementById('navbar');if(!navbar)return;let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{navbar.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+    (function(){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));})();
+    (function(){const btn=document.getElementById('mobile-menu-btn');const menu=document.getElementById('mobile-menu');if(!btn||!menu)return;let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+    (function(){const btn=document.getElementById('venues-menu-btn');const mega=document.getElementById('venues-mega');const chevron=document.getElementById('venues-chevron');const wrapper=document.getElementById('venues-menu-wrapper');const previewImg=document.getElementById('venues-preview-img');const previewLabel=document.getElementById('venues-preview-label');if(!btn||!mega||!chevron||!wrapper||!previewImg||!previewLabel)return;let closeTimer=null;function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenu();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});})();
+    (function(){const rail=document.getElementById('social-rail');const prev=document.getElementById('social-prev');const next=document.getElementById('social-next');if(!rail||!prev||!next)return;const getAmt=()=>Math.min(rail.clientWidth*0.9,520);prev.addEventListener('click',()=>rail.scrollBy({left:-getAmt(),behavior:'smooth'}));next.addEventListener('click',()=>rail.scrollBy({left:getAmt(),behavior:'smooth'}));rail.addEventListener('wheel',(e)=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();rail.scrollLeft+=e.deltaY;}},{passive:false});})();
+    (function(){const dividers=document.querySelectorAll('.section-divider');const heroMedia=document.querySelector('.hero-parallax');const rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.2});dividers.forEach(d=>obs.observe(d));if(!rm&&heroMedia){let t=false;const onScroll=()=>{if(t)return;t=true;requestAnimationFrame(()=>{const offset=Math.min(window.scrollY*0.12,70);heroMedia.style.setProperty('--hero-offset',`${offset}px`);t=false;});};onScroll();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);}})();
+    (function(){if(window.matchMedia('(hover:none)').matches)return;document.querySelectorAll('.magnetic-btn').forEach((btn)=>{btn.addEventListener('mousemove',(e)=>{const rect=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-rect.left-rect.width/2)*0.06}px,${(e.clientY-rect.top-rect.height/2)*0.10}px)`;});btn.addEventListener('mouseleave',()=>{btn.style.transform='';});});})();
+    (function(){const form=document.getElementById('reservationForm');const success=document.getElementById('formSuccess');if(!form||!success)return;form.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(r.ok){success.classList.remove('hidden');form.reset();setTimeout(()=>success.classList.add('hidden'),5000);}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});})();
+    (function(){const stickyBtn=document.getElementById('stickyReserveBtn');const modal=document.getElementById('reserveModal');const closeBtn=document.getElementById('closeReserveModal');if(!stickyBtn||!modal||!closeBtn)return;const open=()=>modal.classList.add('open');const close=()=>modal.classList.remove('open');stickyBtn.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',(e)=>{if(e.target===modal||e.target.classList.contains('reserve-backdrop'))close();});document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close();});const qf=document.getElementById('quickReserveForm');if(qf){qf.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(qf.action,{method:'POST',body:new FormData(qf),headers:{Accept:'application/json'}});if(r.ok){qf.reset();close();alert('Request sent successfully.');}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});}})();
+  </script>
 </body>
 </html>

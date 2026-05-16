@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { 'mh-navy':'#0B0F19','mh-gold':'#C5A059','mh-gold-light':'#D6B88A','mh-dark':'#05070A','mh-gray':'#1A1D24' },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] }
+      }}
+    }
+  </script>
+  <style>
+    body{background-color:#0B0F19;color:#fff;overflow-x:hidden;font-family:'Montserrat',sans-serif;}
+    .tao-subheading{font-family:'Montserrat',sans-serif;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;}
+    .nav-scrolled{background-color:rgba(11,15,25,0.95);backdrop-filter:blur(10px);padding-top:1.2rem!important;padding-bottom:1.2rem!important;border-bottom:1px solid rgba(197,160,89,0.1);}
+    .link-hover{position:relative;}
+    .link-hover::after{content:'';position:absolute;width:0;height:1px;bottom:-4px;left:0;background-color:#C5A059;transition:width 0.3s ease;}
+    .link-hover:hover::after{width:100%;}
+    .btn-hover{position:relative;overflow:hidden;transition:all 0.3s ease;}
+    .btn-hover::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);transition:left 0.5s ease;}
+    .btn-hover:hover::before{left:100%;}
+    #loader{position:fixed;inset:0;background:#0B0F19;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity 0.7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+    .lang-switcher{display:flex;align-items:center;gap:0.5rem;font-size:11px;letter-spacing:0.15em;font-weight:500;}
+    .lang-btn{padding:0.25rem 0.5rem;border:1px solid transparent;background:transparent;color:#fff;cursor:pointer;transition:all 0.3s ease;text-transform:uppercase;}
+    .lang-btn:hover{color:#C5A059;}
+    .lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,0.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,0.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,0.2);}
+    #navbar{will-change:background-color,padding;}
+    img{max-width:100%;height:auto;display:block;}
+    .prose-legal h2{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#fff;margin-top:3rem;margin-bottom:1rem;font-weight:400;}
+    .prose-legal h3{font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(197,160,89,.8);margin-top:2rem;margin-bottom:.75rem;}
+    .prose-legal p{color:rgba(255,255,255,.65);line-height:1.95;font-size:.9rem;margin-bottom:1.2rem;}
+    .prose-legal ul{color:rgba(255,255,255,.65);line-height:1.95;font-size:.9rem;margin-bottom:1.2rem;padding-left:1.5rem;list-style:disc;}
+    .prose-legal ul li{margin-bottom:.5rem;}
+    .prose-legal a{color:#C5A059;text-decoration:none;border-bottom:1px solid rgba(197,160,89,.3);transition:border-color .3s ease;}
+    .prose-legal a:hover{border-color:#C5A059;}
+  </style>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+</head>
+<body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
+        <div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+    <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300" aria-label="Toggle menu"><i class="fa-solid fa-bars text-xl"></i></button>
+    <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+    </a>
+    <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+      <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+      <div class="relative" id="venues-menu-wrapper">
+        <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium" aria-expanded="false">
+          <span data-i18n="nav_venues">Venues</span>
+          <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+        </a>
+        <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity 0.22s ease,transform 0.22s ease;width:fit-content;">
+          <div class="px-20 py-12 flex gap-0">
+            <div class="flex-1 border-r border-white/8 pr-12">
+              <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+              <ul>
+                <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="Bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>              </ul>
+            </div>
+            <div class="flex-1 border-r border-white/8 px-12">
+              <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+              <ul>
+                <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                <li><a href="Soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="beachclub.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                <li><a href="time group.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Time Group"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Group</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
+              <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i></a>
+            </div>
+            <div class="w-[380px] flex-shrink-0 pl-12">
+              <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_featured">Featured</p>
+              <div class="relative overflow-hidden" style="height:320px;">
+                <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" class="w-full h-full object-cover" style="transition:opacity 0.2s ease;" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-5 left-5">
+                  <p class="text-gray-400 text-[9px] tracking-[0.3em] uppercase mb-1" data-i18n="mega_now_open">Now Open</p>
+                  <p id="venues-preview-label" class="text-white font-bold text-base tracking-widest uppercase">Yoko Luna</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+      <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+      <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+      <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+    </div>
+    <div class="hidden lg:flex items-center gap-8">
+      <div class="lang-switcher"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+      <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+      <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all" data-i18n="nav_contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+    <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+    <a href="venues.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
+    <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages">Packages</a>
+    <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
+    <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
+    <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+    <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
+    <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="pt-48 pb-20 px-6 lg:px-16 border-b border-white/10">
+    <div class="max-w-4xl mx-auto">
+      <p class="tao-subheading text-mh-gold text-[11px] tracking-[0.3em] mb-6">Legal</p>
+      <h1 class="font-serif text-6xl md:text-8xl text-white leading-none font-light">Privacy<br>Policy</h1>
+      <p class="mt-8 text-[11px] text-white/40 tracking-[0.3em] uppercase">Last updated: May 2026</p>
+      <div class="mt-12 h-px" style="background:linear-gradient(90deg,#C5A059,transparent)"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <main class="max-w-4xl mx-auto px-6 lg:px-16 py-20">
+    <div class="prose-legal">
+      <p>Montreal Hospitality Group ("we," "us," or "our") operates montrealhospitality.com and associated venue websites including 212, Yoko Luna, Hang Bar, Bord'Elle, and others. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our websites or submit reservation requests.</p>
+      <h2>Information We Collect</h2>
+      <h3>Information You Provide</h3>
+      <p>When you submit a reservation or contact request, we collect:</p>
+      <ul>
+        <li>Full name and contact information (email, phone number)</li>
+        <li>Event date, party size, and reservation preferences</li>
+        <li>Special requests or occasion details</li>
+        <li>Any other information you voluntarily provide in form fields</li>
+      </ul>
+      <h3>Information Collected Automatically</h3>
+      <p>When you visit our websites, we may automatically collect certain technical information including your IP address, browser type, pages visited, and time spent on pages. This is used solely to improve our website experience and is not sold or shared with third parties for advertising purposes.</p>
+      <h2>How We Use Your Information</h2>
+      <p>We use the information you provide exclusively to:</p>
+      <ul>
+        <li>Process and confirm your reservation or inquiry</li>
+        <li>Contact you regarding your booking details</li>
+        <li>Send relevant follow-up communications about your reservation</li>
+        <li>Improve our services and website experience</li>
+      </ul>
+      <p>We do not sell, rent, or trade your personal information to third parties. We do not use your information for unsolicited marketing without your consent.</p>
+      <h2>Reservation Forms & Third-Party Processors</h2>
+      <p>Our reservation forms are processed through Formspree, a secure form backend service. Submissions are transmitted securely and stored in accordance with Formspree's own privacy policy. By submitting a reservation form, you acknowledge that your data passes through this service.</p>
+      <h2>Cookies</h2>
+      <p>Our websites use cookies to remember your language preference, consent choices, and improve your browsing experience. You can manage cookie preferences at any time through the cookie settings banner. Disabling non-essential cookies will not affect your ability to use our site.</p>
+      <h2>Data Retention</h2>
+      <p>We retain reservation and inquiry information for a reasonable period necessary to fulfill your request and for legitimate business record-keeping purposes. You may request deletion of your data at any time by contacting us.</p>
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the personal information we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your personal information</li>
+        <li>Withdraw consent for communications at any time</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a>.</p>
+      <h2>Security</h2>
+      <p>We take reasonable measures to protect your personal information from unauthorized access, disclosure, or misuse. Our websites are served over HTTPS and reservation data is transmitted securely.</p>
+      <h2>Children's Privacy</h2>
+      <p>Our services are intended for adults 18 years of age and older. We do not knowingly collect personal information from minors. If you believe a minor has submitted information through our website, please contact us immediately.</p>
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. Continued use of our websites after any changes constitutes acceptance of the revised policy.</p>
+      <h2>Contact</h2>
+      <ul>
+        <li>Email: <a href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a></li>
+        <li>Phone: 514-378-0154</li>
+        <li>Montreal Hospitality Group, Montreal, Quebec, Canada</li>
+      </ul>
+    </div>
+    <div class="mt-16 flex gap-6 text-[11px] uppercase tracking-[0.28em]">
+      <span class="text-mh-gold border-b border-mh-gold pb-0.5">Privacy Policy</span>
+      <a href="terms.html" class="text-white/40 hover:text-white transition-colors">Terms of Use</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-20">
+        <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 mb-8 object-contain" loading="lazy"><p class="text-gray-500 text-sm leading-relaxed font-light" data-i18n="footer_tagline">Redefining the art of the night in Montreal.</p></div>
+        <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_explore">Explore</h4><ul class="space-y-4 text-sm text-gray-500 font-light"><li><a href="venues.html" class="hover:text-mh-gold transition-colors" data-i18n="nav_venues">Venues</a></li><li><a href="sports.html" class="hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a></li><li><a href="service.html" class="hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a></li><li><a href="index.html#careers" class="hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a></li></ul></div>
+        <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_contact">Contact</h4><ul class="space-y-4 text-sm text-gray-500 font-light"><li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li><li>514-378-0154</li></ul></div>
+        <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_follow">Follow</h4><div class="flex gap-6"><a href="https://www.instagram.com/montrealhospitality/?hl=en" class="text-gray-500 hover:text-mh-gold transition-colors" aria-label="Instagram"><i class="fa-brands fa-instagram text-xl"></i></a><a href="#" class="text-gray-500 hover:text-mh-gold transition-colors" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-xl"></i></a><a href="#" class="text-gray-500 hover:text-mh-gold transition-colors" aria-label="TikTok"><i class="fa-brands fa-tiktok text-xl"></i></a></div></div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
+        <p>&copy; 2026 Montreal Hospitality Group</p>
+        <div class="flex gap-8 mt-4 md:mt-0"><a href="privacy.html" class="hover:text-white transition-colors" data-i18n="footer_privacy">Privacy</a><a href="terms.html" class="hover:text-white transition-colors" data-i18n="footer_terms">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  const translations={en:{nav_home:"Home",nav_venues:"Venues",nav_packages:"Packages",nav_sports:"Sports",nav_services:"Services",nav_events:"Events",nav_careers:"Careers",nav_contact:"Contact",mega_our_venues:"Our Venues",mega_view_all_venues:"View All Venues",mega_featured:"Featured",mega_now_open:"Now Open",footer_tagline:"Redefining the art of the night in Montreal.",footer_explore:"Explore",footer_contact:"Contact",footer_follow:"Follow",footer_privacy:"Privacy",footer_terms:"Terms"},fr:{nav_home:"Accueil",nav_venues:"Lieux",nav_packages:"Forfaits",nav_sports:"Sports",nav_services:"Services",nav_events:"Événements",nav_careers:"Carrières",nav_contact:"Contact",mega_our_venues:"Nos Lieux",mega_view_all_venues:"Voir Tous Les Lieux",mega_featured:"En Vedette",mega_now_open:"Ouvert",footer_tagline:"Redéfinir l'art de la nuit à Montréal.",footer_explore:"Explorer",footer_contact:"Contact",footer_follow:"Suivre",footer_privacy:"Confidentialité",footer_terms:"Conditions"}};
+  window.translator={currentLang:'en',init(){const s=localStorage.getItem('preferred_language'),u=new URLSearchParams(window.location.search).get('lang'),b=(navigator.language||'en').split('-')[0];this.currentLang=[u,s,b,'en'].find(l=>translations[l])||'en';localStorage.setItem('preferred_language',this.currentLang);document.documentElement.lang=this.currentLang;this.updateUI();this.translatePage();this.translateLinks();this.bindLanguageButtons();},setLanguage(lang){if(!translations[lang])return;this.currentLang=lang;localStorage.setItem('preferred_language',lang);document.documentElement.lang=lang;this.updateUI();this.translatePage();this.translateLinks();const u=new URL(window.location.href);u.searchParams.set('lang',lang);window.history.replaceState({},'',`${u.pathname}${u.search}${u.hash}`);},updateUI(){document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));},translatePage(){const t=translations[this.currentLang]||translations.en;document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t[el.dataset.i18n];if(!v)return;if(v.includes('<'))el.innerHTML=v;else el.textContent=v;});},translateLinks(){document.querySelectorAll('a[href]').forEach(link=>{const r=link.getAttribute('href');if(!r||r.startsWith('#')||r.startsWith('mailto:')||r.startsWith('tel:')||r.startsWith('http'))return;try{const u=new URL(r,window.location.href);if(u.origin!==window.location.origin)return;u.searchParams.set('lang',this.currentLang);link.setAttribute('href',`${u.pathname.split('/').pop()||'index.html'}${u.search}${u.hash}`);}catch(e){}});},bindLanguageButtons(){document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));}}; 
+  window.translator.init();
+  // Loader
+  (function(){let done=false;function hide(){if(done)return;done=true;const l=document.getElementById('loader');if(!l)return;l.style.opacity='0';setTimeout(()=>l.style.display='none',750);}document.addEventListener('DOMContentLoaded',()=>setTimeout(hide,800));setTimeout(hide,2800);})();
+  // Navbar scroll
+  (function(){const nav=document.getElementById('navbar');let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{nav.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+  // Mobile menu
+  (function(){const btn=document.getElementById('mobile-menu-btn'),menu=document.getElementById('mobile-menu');let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+  // Mega menu
+  (function(){const btn=document.getElementById('venues-menu-btn'),mega=document.getElementById('venues-mega'),chevron=document.getElementById('venues-chevron'),wrapper=document.getElementById('venues-menu-wrapper'),pi=document.getElementById('venues-preview-img'),pl=document.getElementById('venues-preview-label');if(!btn||!mega)return;let timer=null;function openM(){clearTimeout(timer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.style.color='#C5A059';btn.setAttribute('aria-expanded','true');}function closeM(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.style.color='';btn.setAttribute('aria-expanded','false');}function sched(){timer=setTimeout(closeM,150);}wrapper.addEventListener('mouseenter',openM);wrapper.addEventListener('mouseleave',sched);mega.addEventListener('mouseenter',()=>clearTimeout(timer));mega.addEventListener('mouseleave',sched);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const upd=()=>{const ni=link.dataset.img,nn=link.dataset.name;if(ni&&pi){pi.style.opacity='0';setTimeout(()=>{pi.src=ni;pi.style.opacity='1';},150);}if(nn&&pl)pl.textContent=nn;};link.addEventListener('mouseenter',upd);link.addEventListener('focus',upd);});})();
+  </script>
+</body>
+</html>

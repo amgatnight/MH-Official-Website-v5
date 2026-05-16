@@ -269,6 +269,26 @@
             border-top: 1px solid rgba(197, 160, 89, 0.2);
         }
 
+    
+
+/* Universal service navigation / switcher polish */
+#venues-mega{box-shadow:0 35px 80px rgba(0,0,0,.55);}
+.svc-switch-card{min-height:120px;border:1px solid rgba(255,255,255,.14);padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));display:flex;flex-direction:column;justify-content:space-between;transition:all .35s ease;color:white;text-decoration:none;}
+.svc-switch-card span{font-size:10px;letter-spacing:.25em;color:#C5A059;}
+.svc-switch-card strong{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;line-height:1.05;}
+.svc-switch-card:hover{border-color:#C5A059;background:rgba(197,160,89,.08);transform:translateY(-4px);}
+@media(max-width:768px){.svc-switch-card{min-height:92px}.svc-switch-card strong{font-size:21px}}
+
+/* Limousine page restyle: black-tie editorial */
+header{height:82vh!important;}
+.limo-card{border-radius:0!important;border:1px solid rgba(197,160,89,.18);}
+.limo-card:nth-child(2){transform:translateY(-42px);}
+.static-image-container img{filter:saturate(.85) contrast(1.05);}
+.vehicle-overlay{background:linear-gradient(to top,rgba(0,0,0,.96),rgba(0,0,0,.38),transparent)!important;}
+.spec-box{background:#05070A!important;border-color:rgba(197,160,89,.18)!important;}
+.price-tag{border-radius:0!important;background:#C5A059!important;}
+@media(max-width:900px){.limo-card:nth-child(2){transform:none}}
+
     </style>
 <base target="_self">
 </head>
@@ -286,61 +306,85 @@
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+<!-- NAV -->
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+  <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
+  <a href="index.html" class="absolute left-1/2 -translate-x-1/2 lg:static lg:transform-none z-50">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain">
+  </a>
 
-        <!-- Logo -->
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
-        </a>
+  <div class="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+    <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
 
-        <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-12">
-              <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a>
-              <a href="venues.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Venues</a>
-              <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a>
-              <a href="service.html" target="_self" class="link-hover text-mh-gold transition-colors">Services</a>
-              <a href="event.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a>
-              <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
-        </div>
-
-        <!-- Right Actions -->
-        <div class="hidden lg:flex items-center gap-8">
-            
-            
-
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+    <!-- VENUES MEGA MENU -->
+    <div class="relative" id="venues-menu-wrapper">
+      <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1" aria-expanded="false">
+        <span data-i18n="nav_venues">Venues</span>
+        <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+      </a>
+      <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity .22s ease,transform .22s ease;width:fit-content;">
+        <div class="px-20 py-12 flex gap-0">
+          <div class="flex-1 border-r border-white/10 pr-12">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+            <ul>
+              <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+              <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+            </ul>
+          </div>
+          <div class="flex-1 border-r border-white/10 px-12">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+            <ul>
+              <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+              <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+              <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+            </ul>
+            <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+          </div>
+          <div class="w-[280px] pl-12 flex flex-col gap-4">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+            <div class="relative overflow-hidden aspect-[3/4] w-full">
+              <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">Yoko Luna</p>
             </div>
-
-<a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+            <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+          </div>
         </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-           <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
-           <a href="venues.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
-           <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
-           <a href="service.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
-           <a href="event.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
-           <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
-
+      </div>
     </div>
+
+    <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+    <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+    <a href="service.html" class="text-mh-gold link-hover" data-i18n="nav_services">Services</a>
+    <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+    <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+  </div>
+
+  <div class="hidden lg:flex items-center gap-8">
+    <div class="flex items-center gap-2">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" data-lang="fr">FR</button>
+    </div>
+    <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+    <a href="contact.html" class="border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all text-[11px] tracking-widest">Contact</a>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+  <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_home">Home</a>
+  <a href="venues.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_venues">Venues</a>
+  <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_packages">Packages</a>
+  <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_sports">Sports</a>
+  <a href="service.html" class="text-2xl font-serif text-mh-gold mobile-link" data-i18n="nav_services">Services</a>
+  <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_events">Events</a>
+  <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_careers">Careers</a>
+  <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
+</div>
 
     <!-- Hero Section -->
     <header class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center">
@@ -812,6 +856,27 @@
         </div>
     </section>
 
+
+    <!-- Service Switcher -->
+    <section class="service-switcher py-16 bg-black border-y border-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+          <div>
+            <p class="text-mh-gold text-[10px] tracking-[0.35em] uppercase mb-3">All Services</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-light">Choose Your Experience</h2>
+          </div>
+          <a href="service.html" class="text-xs tracking-[0.25em] uppercase text-white/70 hover:text-mh-gold transition-colors">Back to services →</a>
+        </div>
+        <div class="grid md:grid-cols-5 gap-3">
+          <a href="exotic fleet.html" class="svc-switch-card"><span>01</span><strong>Exotic Fleet</strong></a>
+          <a href="private jet.html" class="svc-switch-card"><span>02</span><strong>Private Aviation</strong></a>
+          <a href="yatch.html" class="svc-switch-card"><span>03</span><strong>Yacht Charters</strong></a>
+          <a href="private sprinters.html" class="svc-switch-card"><span>04</span><strong>Private Sprinters</strong></a>
+          <a href="limousine.html" class="svc-switch-card"><span>05</span><strong>Limousine Services</strong></a>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6">
@@ -901,6 +966,16 @@
         window.addEventListener('pageshow', () => hideLoader());
         setTimeout(() => hideLoader(true), 2200);
 
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
         // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -965,6 +1040,7 @@
                     this.currentLang = 'fr';
                 }
                 this.captureOriginals();
+                this.bindLanguageButtons();
                 this.updateUI();
                 this.translatePage();
             },
@@ -974,6 +1050,13 @@
                 localStorage.setItem('preferred_language', lang);
                 this.updateUI();
                 this.translatePage();
+            },
+            bindLanguageButtons() {
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if (btn.dataset.langBound === 'true') return;
+                    btn.dataset.langBound = 'true';
+                    btn.addEventListener('click', () => this.setLanguage(btn.dataset.lang));
+                });
             },
             updateUI() {
                 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -1027,6 +1110,32 @@
             translator.init();
         }
     </script>
+
+
+<script>
+// Universal menu behavior copied from service.html so the tabs/dropdown work consistently.
+(function(){
+  const wrapper=document.getElementById('venues-menu-wrapper');
+  const btn=document.getElementById('venues-menu-btn');
+  const mega=document.getElementById('venues-mega');
+  const chevron=document.getElementById('venues-chevron');
+  const previewImg=document.getElementById('venues-preview-img');
+  const previewLabel=document.getElementById('venues-preview-label');
+  if(wrapper&&btn&&mega&&chevron&&previewImg&&previewLabel){
+    let closeTimer=null;
+    function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}
+    function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}
+    function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}
+    wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);
+    mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+    document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});
+  }
+  const mobileBtn=document.getElementById('mobile-menu-btn');
+  const mobileMenu=document.getElementById('mobile-menu');
+  if(mobileBtn&&mobileMenu){mobileBtn.addEventListener('click',()=>{mobileMenu.classList.toggle('-translate-x-full');});document.querySelectorAll('.mobile-link').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.add('-translate-x-full')));}
+})();
+</script>
 
 </body>
 </html>

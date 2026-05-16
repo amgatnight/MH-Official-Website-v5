@@ -1,1239 +1,1196 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hang Bar | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hang Bar | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <style>
+    body{background:#050505;color:#fff;font-family:'Montserrat',sans-serif;}
+    .eyebrow{letter-spacing:.36em;text-transform:uppercase;font-size:.7rem;}
+    .hero-grad{background:linear-gradient(to top,rgba(5,5,5,.94),rgba(5,5,5,.45),rgba(5,5,5,.15));}
+    .line-soft{border-color:rgba(255,255,255,.12);}
+    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+    .fade-up.in{opacity:1;transform:none;}
+    .story-copy p{color:rgba(255,255,255,.72);line-height:1.95;}
+    .scroll-fade{opacity:1;transform:none;transition:none;will-change:auto;}
+    .interactive-card{transition:transform .45s cubic-bezier(0.16,1,0.3,1),box-shadow .45s cubic-bezier(0.16,1,0.3,1),border-color .3s ease;will-change:transform;}
+    @media(hover:hover){.interactive-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.28);}.interactive-card:hover .card-shift{transform:translateY(-4px);}}
+    .card-shift{transition:transform .45s cubic-bezier(0.16,1,0.3,1),color .3s ease;}
+    .magnetic-btn{transition:transform .25s ease;will-change:transform;}
+    .hero-parallax{transform:scale(1.05) translateY(var(--hero-offset,0px));transition:transform .12s linear;will-change:transform;}
+    .section-divider{height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(197,160,89,.85),transparent);transition:width 1.1s cubic-bezier(0.16,1,0.3,1);}
+    .section-divider.in{width:100%;}
+    .nav-scrolled{background-color:rgba(11,15,25,0.95);backdrop-filter:blur(10px);padding-top:1.2rem!important;padding-bottom:1.2rem!important;border-bottom:1px solid rgba(197,160,89,0.1);}
+    #navbar{will-change:background-color,padding;}
+    .link-hover{position:relative;}
+    .link-hover::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#C5A059;transition:width 0.4s cubic-bezier(0.16,1,0.3,1);}
+    .link-hover:hover::after{width:100%;}
+    .lang-switcher{display:flex;align-items:center;gap:0.5rem;font-size:11px;letter-spacing:0.15em;font-weight:500;}
+    .lang-btn{padding:0.25rem 0.5rem;border:1px solid transparent;background:transparent;color:#ffffff;cursor:pointer;transition:all 0.3s ease;text-transform:uppercase;}
+    .lang-btn:hover{color:#C5A059;} .lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,0.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,0.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,0.2);}
+    #loader{position:fixed;inset:0;background:#0B0F19;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity 0.7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+    .img-hover img{transition:transform .9s ease,opacity .5s ease;} .img-hover:hover img{transform:scale(1.06);}
+    .btn-fill,.btn-stroke{transition:all .28s ease;} .btn-fill:hover{transform:translateY(-1px);filter:brightness(1.05);} .btn-stroke:hover{background:#fff;color:#000;}
+    .btn-hover{position:relative;overflow:hidden;transition:all 0.3s ease;}
+    .btn-hover::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);transition:left 0.5s ease;}
+    .btn-hover:hover::before{left:100%;}
+    .card-border{border:1px solid rgba(255,255,255,.1);}
+    .lightbox{display:none;} .lightbox.open{display:flex;}
+    input,textarea,select{appearance:none;}
+    #social-rail::-webkit-scrollbar{display:none;}
+    .sticky-reserve-btn{position:fixed;right:1.5rem;bottom:1.5rem;z-index:999;background:#C5A059;color:#050505;border:1px solid rgba(197,160,89,.9);padding:.95rem 1.35rem;font-size:11px;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease;}
+    .sticky-reserve-btn:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.45);}
+    .reserve-modal{display:none;} .reserve-modal.open{display:flex;}
+    .reserve-backdrop{backdrop-filter:blur(10px);}
+    .poster-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);transition:transform .35s ease,border-color .35s ease;}
+    .poster-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.45);}
+    .poster-date{min-width:74px;} .poster-date .day{font-size:3.25rem;line-height:.9;font-weight:300;}
+    .poster-date .month,.poster-date .weekday{font-size:.82rem;line-height:1.1;}
+    .lux-grid-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);transition:transform .3s ease,border-color .3s ease;}
+    .lux-grid-card:hover{transform:translateY(-4px);border-color:rgba(216,194,161,.45);}
+    .map-frame{filter:grayscale(1) contrast(1.1) brightness(.8);}
+    /* Hang Bar — cocktail / amber accent */
+    .cocktail-card{position:relative;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.4));transition:transform .35s ease,border-color .35s ease;}
+    .cocktail-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.55);}
+    .cocktail-card::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,#C5A059 30%,#C5A059 70%,transparent);opacity:.55;}
+    .menu-row{border-bottom:1px dashed rgba(255,255,255,.1);padding:1.2rem 0;display:flex;align-items:baseline;gap:1.25rem;}
+    .menu-row:last-child{border-bottom:none;}
+    .menu-row .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);height:.7em;transform:translateY(-.25em);}
+    .menu-row .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;}
+    .menu-row .price{font-family:'Cormorant Garamond',serif;color:#d8c2a1;font-size:1.25rem;letter-spacing:.05em;}
+    .menu-row .desc{display:block;color:rgba(255,255,255,.55);font-size:.8rem;letter-spacing:.06em;margin-top:.25rem;}
+    @media(max-width:768px){.sticky-reserve-btn{left:1rem;right:1rem;bottom:1rem;text-align:center;}}
+    .hero-title .title-line{
+      display:block;
+      opacity:0;
+      transform:translateY(40px);
+      filter:blur(10px);
+      animation:heroTextReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-title .title-line:nth-child(1){animation-delay:0.4s;}
+    .hero-title .title-line:nth-child(2){animation-delay:0.9s;}
+    @keyframes heroTextReveal{
+      0%{
+        opacity:0;
+        transform:translateY(40px) scale(0.98);
+        filter:blur(10px);
+      }
+      60%{opacity:1;}
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+  </style>
+  <base target="_self">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+<script>
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 750);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 800));
+      } else { setTimeout(hideLoader, 800); }
+      setTimeout(hideLoader, 2800);
+    })();
 
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink:'#050505', sand:'#d8c2a1', stone:'#a8a29e', bronze:'#b28a5a', ash:'#111111', 'mh-navy':'#0B0F19', 'mh-gold':'#C5A059', 'mh-gold-light':'#D6B88A', 'mh-dark':'#05070A', 'mh-gray':'#1A1D24' },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] },
+        boxShadow: { soft:'0 25px 80px rgba(0,0,0,0.28)' }
+      }}
+    }
 
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+  </script>
+  <script>
+  window._i18n = {
+  "en": {
+    "nav_home": "Home",
+    "nav_venues": "Venues",
+    "nav_packages": "Packages",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Events",
+    "nav_careers": "Careers",
+    "mega_our_venues": "Our Venues",
+    "mega_view_all_venues": "View All Venues",
+    "mega_featured": "Featured",
+    "mega_now_open": "Now Open",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "footer_follow": "Follow",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Reserve Now",
+    "reserve_modal_title": "Book Your Night",
+    "reserve_modal_eyebrow": "Reserve",
+    "form_request_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_special_request": "Special Request",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "page_title": "Hang Bar | Montreal Hospitality",
+    "hero_eyebrow": "Downtown Montreal · Cocktail Lounge",
+    "hero_cta_primary": "Reserve a Table",
+    "hero_cta_secondary": "View Gallery",
+    "hero_card_1_label": "Music",
+    "hero_card_1_value": "Open-format, hip-hop, throwbacks",
+    "hero_card_2_label": "Experience",
+    "hero_card_2_value": "Cocktails, lounge, late-night",
+    "hero_card_3_label": "Location",
+    "hero_card_3_value": "Downtown Montreal",
+    "hero_card_4_label": "Dress",
+    "hero_card_4_value": "Smart casual to upscale",
+    "section_atm_eyebrow": "Atmosphere",
+    "section_atm_title": "Where the City Hangs",
+    "section_atm_desc": "From the early evening cocktail crowd to the late-night dance floor, Hang Bar shifts gears all night without ever losing its downtown edge.",
+    "pillar_1_label": "Mixology",
+    "pillar_1_text": "Signature craft cocktails, classics done right, and bartenders who actually care about the build.",
+    "pillar_2_label": "Music",
+    "pillar_2_text": "Live DJs nightly with an open-format rotation built around hip-hop, throwbacks, and house.",
+    "pillar_3_label": "Service",
+    "pillar_3_text": "Reservations, bottle service, group bookings, birthdays, and corporate after-work events.",
+    "story_eyebrow": "A Different Kind Of Bar",
+    "story_title": "A cocktail lounge that knows how to turn into a party.",
+    "story_p1": "Hang Bar is built around the moment when a 5 à 7 turns into a full night out. The bar is the centerpiece — long, lit, and always working — surrounded by lounge seating designed for groups that don't want to leave when the music gets louder.",
+    "story_p2": "Through Montreal Hospitality, the venue serves both casual after-work crowds and reservation-led nightlife groups. Whether it's a quick cocktail meeting, a birthday round of bottles, or a full table takeover, Hang Bar handles every register of the evening without changing rooms.",
+    "menu_eyebrow": "Cocktail Program",
+    "menu_title": "The House Pours",
+    "menu_desc": "Six signatures from the bar program — built nightly, garnished sharply, served the way they're meant to be.",
+    "menu_footer": "Full menu and bottle list available at the venue · Prices in CAD, taxes & service not included",
+    "gallery_eyebrow": "Gallery",
+    "gallery_title": "Inside Hang Bar",
+    "gallery_desc": "An editorial look at the room — bar, booths, dance floor, and everything in between.",
+    "gallery_main_label": "Main Bar",
+    "gallery_main_caption": "The signature room",
+    "social_eyebrow": "Social Moments",
+    "social_title": "See the room in motion",
+    "who_eyebrow": "Who Comes Here",
+    "who_title": "A Real Cross-Section of Downtown",
+    "who_desc": "Hang Bar pulls in the after-work cocktail crowd, birthday groups, visiting professionals, and anyone looking for a real downtown bar that doesn't feel like a hotel lobby or a thirty-table megaclub.",
+    "events_eyebrow": "Weekly Lineup",
+    "events_title": "This Week at Hang Bar",
+    "events_reserve_btn": "Reserve for an Event Night",
+    "howworks_eyebrow": "The Experience",
+    "howworks_title": "How a Night at Hang Works",
+    "step_1_title": "Cocktail Hour",
+    "step_1_desc": "5 à 7 lounge mode — easy seating, signature cocktails, and a low-key DJ set to ease into the night.",
+    "step_2_title": "Dinner Drinks",
+    "step_2_desc": "A pre-dinner stop or a full evening — Hang works as a starter or the destination itself.",
+    "step_3_title": "Late-Night Shift",
+    "step_3_desc": "Around 11pm the room turns up — open-format DJ, packed bar, and full bottle service rotation.",
+    "step_4_title": "Last Call",
+    "step_4_desc": "A real downtown closer — the kind of last-call energy that ends nights, not starts them.",
+    "pillar2_1_eyebrow": "Cocktails",
+    "pillar2_1_title": "A real bar program",
+    "pillar2_1_desc": "Hang isn't a vodka-soda club — the cocktail menu is the lead product. Signature builds, fresh ingredients, and bartenders who actually care about the spec.",
+    "pillar2_2_eyebrow": "Bottle Service",
+    "pillar2_2_title": "Group-ready layout",
+    "pillar2_2_desc": "Lounge sections, prime placements near the DJ, and bottle service that ties together a birthday round or a corporate after-work without feeling forced.",
+    "pillar2_3_eyebrow": "Atmosphere",
+    "pillar2_3_title": "Built to shift gears",
+    "pillar2_3_desc": "Few venues do both 5 à 7 and 1am as well as Hang. The same room handles cocktails with colleagues and the loudest part of a Saturday — that flexibility is the point.",
+    "reserve_eyebrow": "Reserve",
+    "reserve_title": "Reservations, bottle service, and group bookings.",
+    "reserve_desc": "Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right table, and lock in the night.",
+    "reserve_location_label": "Location",
+    "reserve_location_val": "Hang Bar, Downtown Montreal",
+    "reserve_hours_label": "Hours",
+    "reserve_hours_val": "Schedule subject to venue programming and event calendar.",
+    "reserve_concierge_label": "Concierge Support",
+    "complete_eyebrow": "Complete Your Night",
+    "complete_title": "Concierge-led nights that don't end at the bar.",
+    "complete_desc": "Hang Bar pairs naturally with the rest of the Montreal Hospitality network — dinner before, transport between, and another room after — all coordinated through one channel.",
+    "complete_dinner_title": "Dinner",
+    "complete_dinner_desc": "Pre-bar dinner recommendations and arrival timing built around the reservation.",
+    "complete_transport_title": "Transport",
+    "complete_transport_desc": "Limos, sprinters, and chauffeur pickups for groups arriving together.",
+    "complete_nightlife_title": "Nightlife",
+    "complete_nightlife_desc": "A move from Hang to a partner club after midnight, all coordinated in advance.",
+    "complete_afterhours_title": "After Hours",
+    "complete_afterhours_desc": "Concierge handling for clients who want the whole evening planned end-to-end.",
+    "location_eyebrow": "Location",
+    "location_title": "Right in the middle of downtown.",
+    "location_desc": "Hang Bar sits in the core of Montreal's downtown nightlife strip — easy to walk to from offices, hotels, and the city's other premium rooms, and built for groups that want a real bar without needing to leave the city center.",
+    "location_address_label": "Address",
+    "location_address_val": "Downtown Montreal, QC",
+    "location_arrival_label": "Arrival",
+    "location_arrival_val": "Easy chauffeur drop-offs and walking access from major hotels and offices.",
+    "features_eyebrow": "Venue Features",
+    "features_title": "What guests come back for",
+    "features_desc": "Everything that makes Hang Bar Montreal's essential cocktail lounge for guests who know the difference.",
+    "feature_1_title": "Long bar, real program",
+    "feature_1_desc": "A bar that's actually the centerpiece of the room — not just a service station.",
+    "feature_2_title": "Cocktail-to-club flow",
+    "feature_2_desc": "The room shifts from after-work to peak-time without ever needing to change venues.",
+    "feature_3_title": "Group-friendly",
+    "feature_3_desc": "Birthdays, after-works, visiting teams, and bottle-service-led groups all fit naturally.",
+    "feature_4_title": "Real downtown energy",
+    "feature_4_desc": "A bar with the kind of crowd you actually want to spend a night with.",
+    "modal_reserve_desc": "Submit a request for a reservation, bottle service, or birthday booking at Hang Bar. Montreal Hospitality will follow up to confirm.",
+    "footer_venue_label": "The Venue",
+    "footer_venue_text": "Hang Bar shares a unified visual system with Yoko Luna, 212, and the rest of the venue pages — same editorial direction, tailored to each room's identity.",
+    "scroll_label": "Scroll"
+  ,
+    "hero_title_line1": "Montreal's downtown",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">cocktail bar.</em>",
+    "s_atm_label": "Atmosphere",
+    "s_atm_title": "Where the City Hangs",
+    "s_atm_desc": "From the early evening cocktail crowd to the late-night dance floor, Hang Bar shifts gears all night without ever losing its downtown edge.",
+    "p1_label": "Mixology",
+    "p1_text": "Signature craft cocktails, classics done right, and bartenders who actually care about the build.",
+    "p2_label": "Music",
+    "p2_text": "Live DJs nightly with an open-format rotation built around hip-hop, throwbacks, and house.",
+    "p3_label": "Service",
+    "p3_text": "Reservations, bottle service, group bookings, birthdays, and corporate after-work events.",
+    "story_eyebrow": "A Different Kind Of Bar",
+    "story_title": "A cocktail lounge that knows how to turn into a party.",
+    "story_p1": "Hang Bar is built around the moment when a 5 à 7 turns into a full night out. The bar is the centerpiece — long, lit, and always working — surrounded by lounge seating designed for groups that don't want to leave when the music gets louder.",
+    "story_p2": "Through Montreal Hospitality, the venue serves both casual after-work crowds and reservation-led nightlife groups. Whether it's a quick cocktail meeting, a birthday round of bottles, or a full table takeover, Hang Bar handles every register of the evening without changing rooms.",
+    "menu_eyebrow": "Cocktail Program",
+    "menu_title": "The House Pours",
+    "menu_desc": "Six signatures from the bar program — built nightly, garnished sharply, served the way they're meant to be.",
+    "menu_footer": "Full menu and bottle list available at the venue · Prices in CAD, taxes & service not included",
+    "gallery_eyebrow": "Gallery",
+    "gallery_title": "Inside Hang Bar",
+    "gallery_desc": "An editorial look at the room — bar, booths, dance floor, and everything in between.",
+    "gallery_main_label": "Main Bar",
+    "gallery_main_cap": "The signature room",
+    "social_eyebrow": "Social Moments",
+    "social_title": "See the room in motion",
+    "sc1_label": "Saturday Night",
+    "sc1_desc": "Late-night peak energy from the main bar floor.",
+    "sc2_label": "NYE",
+    "sc2_desc": "One of the busiest nights of the year — and a regular reservation lock-out.",
+    "sc3_label": "Cocktail Program",
+    "sc3_desc": "Signature builds shot for the feed — the bar program is half the brand.",
+    "sc4_label": "Groups",
+    "sc4_desc": "Birthdays, teams, visiting friends — Hang's lounge layout is built for groups.",
+    "sc5_label": "DJ Set",
+    "sc5_desc": "Open-format mixes that move the room from cocktail hour to last call.",
+    "who_eyebrow": "Who Comes Here",
+    "who_title": "A Real Cross-Section of Downtown",
+    "who_desc": "Hang Bar pulls in the after-work cocktail crowd, birthday groups, visiting professionals, and anyone looking for a real downtown bar that doesn't feel like a hotel lobby or a thirty-table megaclub.",
+    "events_eyebrow": "Weekly Lineup",
+    "events_title": "This Week at Hang Bar",
+    "events_btn": "Reserve for an Event Night",
+    "ev1_title": "After Work",
+    "ev1_subtitle": "Cocktail Hour Wednesdays",
+    "ev1_desc": "Mid-week 5 à 7 with a relaxed lounge crowd, signature cocktails, and an early DJ set.",
+    "ev2_title": "Friday Mainline",
+    "ev2_subtitle": "Open-format DJ Set",
+    "ev2_desc": "The room shifts gears around 11pm — bottle service, full bar action, and the loudest crowd of the week.",
+    "ev3_title": "Saturday Signature",
+    "ev3_subtitle": "The Big Night",
+    "ev3_desc": "Peak Saturday programming — built around birthdays, group reservations, and full bar takeovers.",
+    "exp_eyebrow": "The Experience",
+    "exp_title": "How a Night at Hang Works",
+    "step1_title": "Cocktail Hour",
+    "step1_desc": "5 à 7 lounge mode — easy seating, signature cocktails, and a low-key DJ set to ease into the night.",
+    "step2_title": "Dinner Drinks",
+    "step2_desc": "A pre-dinner stop or a full evening — Hang works as a starter or the destination itself.",
+    "step3_title": "Late-Night Shift",
+    "step3_desc": "Around 11pm the room turns up — open-format DJ, packed bar, and full bottle service rotation.",
+    "step4_title": "Last Call",
+    "step4_desc": "A real downtown closer — the kind of last-call energy that ends nights, not starts them.",
+    "pil2_1_eyebrow": "Cocktails",
+    "pil2_1_title": "A real bar program",
+    "pil2_1_desc": "Hang isn't a vodka-soda club — the cocktail menu is the lead product. Signature builds, fresh ingredients, and bartenders who actually care about the spec.",
+    "pil2_2_eyebrow": "Bottle Service",
+    "pil2_2_title": "Group-ready layout",
+    "pil2_2_desc": "Lounge sections, prime placements near the DJ, and bottle service that ties together a birthday round or a corporate after-work without feeling forced.",
+    "pil2_3_eyebrow": "Atmosphere",
+    "pil2_3_title": "Built to shift gears",
+    "pil2_3_desc": "Few venues do both 5 à 7 and 1am as well as Hang. The same room handles cocktails with colleagues and the loudest part of a Saturday — that flexibility is the point.",
+    "res_eyebrow": "Reserve",
+    "res_title": "Reservations, bottle service, and group bookings.",
+    "res_desc": "Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right table, and lock in the night.",
+    "res_loc_label": "Location",
+    "res_loc_val": "Hang Bar, Downtown Montreal",
+    "res_hrs_label": "Hours",
+    "res_hrs_val": "Schedule subject to venue programming and event calendar.",
+    "res_conc_label": "Concierge Support",
+    "comp_eyebrow": "Complete Your Night",
+    "comp_title": "Concierge-led nights that don't end at the bar.",
+    "comp_desc": "Hang Bar pairs naturally with the rest of the Montreal Hospitality network — dinner before, transport between, and another room after — all coordinated through one channel.",
+    "comp_t1_title": "Dinner",
+    "comp_t1_desc": "Pre-bar dinner recommendations and arrival timing built around the reservation.",
+    "comp_t2_title": "Transport",
+    "comp_t2_desc": "Limos, sprinters, and chauffeur pickups for groups arriving together.",
+    "comp_t3_title": "Nightlife",
+    "comp_t3_desc": "A move from Hang to a partner club after midnight, all coordinated in advance.",
+    "comp_t4_title": "After Hours",
+    "comp_t4_desc": "Concierge handling for clients who want the whole evening planned end-to-end.",
+    "loc_eyebrow": "Location",
+    "loc_title": "Right in the middle of downtown.",
+    "loc_desc": "Hang Bar sits in the core of Montreal's downtown nightlife strip — easy to walk to from offices, hotels, and the city's other premium rooms, and built for groups that want a real bar without needing to leave the city center.",
+    "loc_addr_label": "Address",
+    "loc_addr_val": "Downtown Montreal, QC",
+    "loc_arr_label": "Arrival",
+    "loc_arr_val": "Easy chauffeur drop-offs and walking access from major hotels and offices.",
+    "feat_eyebrow": "Venue Features",
+    "feat_title": "What guests come back for",
+    "feat_desc": "Everything that makes Hang Bar Montreal's essential cocktail lounge for guests who know the difference.",
+    "feat1_title": "Long bar, real program",
+    "feat1_desc": "A bar that's actually the centerpiece of the room — not just a service station.",
+    "feat2_title": "Cocktail-to-club flow",
+    "feat2_desc": "The room shifts from after-work to peak-time without ever needing to change venues.",
+    "feat3_title": "Group-friendly",
+    "feat3_desc": "Birthdays, after-works, visiting teams, and bottle-service-led groups all fit naturally.",
+    "feat4_title": "Real downtown energy",
+    "feat4_desc": "A bar with the kind of crowd you actually want to spend a night with.",
+    "sticky_btn": "Reserve Now",
+    "modal_eyebrow": "Reserve",
+    "modal_title": "Book Your Night",
+    "modal_desc": "Submit a request for a reservation, bottle service, or birthday booking at Hang Bar. Montreal Hospitality will follow up to confirm.",
+    "form_req_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_budget": "Budget / Notes",
+    "form_special": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_venue_label": "The Venue",
+    "footer_venue_text": "Hang Bar shares a unified visual system with Yoko Luna, 212, and the rest of the venue pages — same editorial direction, tailored to each room's identity.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "scroll_lbl": "Scroll"},
+  "fr": {
+    "nav_home": "Accueil",
+    "nav_venues": "Établissements",
+    "nav_packages": "Forfaits",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Événements",
+    "nav_careers": "Carrières",
+    "mega_our_venues": "Nos Établissements",
+    "mega_view_all_venues": "Voir Tous Les Établissements",
+    "mega_featured": "En Vedette",
+    "mega_now_open": "Maintenant Ouvert",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité à Montréal.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "footer_follow": "Suivez-nous",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Réserver Maintenant",
+    "reserve_modal_title": "Réservez Votre Soirée",
+    "reserve_modal_eyebrow": "Réserver",
+    "form_request_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_special_request": "Demande spéciale",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "page_title": "Hang Bar | Montreal Hospitality",
+    "hero_eyebrow": "Centre-ville de Montréal · Bar Cocktail",
+    "hero_cta_primary": "Réserver une table",
+    "hero_cta_secondary": "Voir la galerie",
+    "hero_card_1_label": "Musique",
+    "hero_card_1_value": "Open-format, hip-hop, classiques",
+    "hero_card_2_label": "Expérience",
+    "hero_card_2_value": "Cocktails, lounge, fin de soirée",
+    "hero_card_3_label": "Emplacement",
+    "hero_card_3_value": "Centre-ville de Montréal",
+    "hero_card_4_label": "Tenue",
+    "hero_card_4_value": "Décontractée chic à habillée",
+    "section_atm_eyebrow": "Atmosphère",
+    "section_atm_title": "Là où la ville se retrouve",
+    "section_atm_desc": "Du 5 à 7 au dance floor de fin de soirée, Hang Bar change de vitesse toute la nuit sans jamais perdre son énergie du centre-ville.",
+    "pillar_1_label": "Mixologie",
+    "pillar_1_text": "Cocktails signatures artisanaux, classiques bien exécutés, et des barmen qui se soucient vraiment de leur recette.",
+    "pillar_2_label": "Musique",
+    "pillar_2_text": "DJs en direct chaque soir avec une rotation open-format autour du hip-hop, des classiques et de la house.",
+    "pillar_3_label": "Service",
+    "pillar_3_text": "Réservations, service aux bouteilles, réservations de groupe, anniversaires et événements corporatifs après le travail.",
+    "story_eyebrow": "Un bar d'un autre genre",
+    "story_title": "Un bar à cocktails qui sait se transformer en soirée.",
+    "story_p1": "Hang Bar est construit autour du moment où un 5 à 7 devient une vraie soirée. Le bar est la pièce maîtresse — long, éclairé, toujours en action — entouré de sièges lounge conçus pour les groupes qui ne veulent pas partir quand la musique monte.",
+    "story_p2": "Via Montreal Hospitality, l'établissement sert à la fois les foules décontractées d'après-travail et les groupes de vie nocturne sur réservation. Qu'il s'agisse d'une réunion autour d'un cocktail, d'un tour de bouteilles pour un anniversaire, ou d'une prise en charge complète de la table, Hang Bar gère chaque moment de la soirée sans changer de salle.",
+    "menu_eyebrow": "Programme de cocktails",
+    "menu_title": "Les servies de la maison",
+    "menu_desc": "Six signatures du programme de bar — préparées chaque soir, garnis avec soin, servis comme il se doit.",
+    "menu_footer": "Menu complet et liste des bouteilles disponibles à l'établissement · Prix en CAD, taxes et service non inclus",
+    "gallery_eyebrow": "Galerie",
+    "gallery_title": "À l'intérieur de Hang Bar",
+    "gallery_desc": "Un regard éditorial sur la salle — bar, alcôves, piste de danse, et tout ce qui s'y passe.",
+    "gallery_main_label": "Bar principal",
+    "gallery_main_caption": "La salle signature",
+    "social_eyebrow": "Moments sociaux",
+    "social_title": "Voyez la salle en mouvement",
+    "who_eyebrow": "Notre clientèle",
+    "who_title": "Un vrai reflet du centre-ville",
+    "who_desc": "Hang Bar attire la foule de cocktails après le travail, les groupes d'anniversaire, les professionnels en visite, et tous ceux qui cherchent un vrai bar du centre-ville qui ne ressemble pas à un lobby d'hôtel ou à un méga-club de trente tables.",
+    "events_eyebrow": "Programme hebdomadaire",
+    "events_title": "Cette semaine à Hang Bar",
+    "events_reserve_btn": "Réserver pour une soirée événement",
+    "howworks_eyebrow": "L'expérience",
+    "howworks_title": "Comment se déroule une soirée à Hang",
+    "step_1_title": "L'heure du cocktail",
+    "step_1_desc": "Mode lounge 5 à 7 — sièges décontractés, cocktails signatures, et un set DJ en douceur pour démarrer la soirée.",
+    "step_2_title": "Drinks pré-dîner",
+    "step_2_desc": "Un arrêt avant le dîner ou une soirée complète — Hang fonctionne comme mise en bouche ou comme destination principale.",
+    "step_3_title": "Le virage nocturne",
+    "step_3_desc": "Vers 23h, la salle monte en puissance — DJ open-format, bar bondé, et rotation complète du service aux bouteilles.",
+    "step_4_title": "Dernier verre",
+    "step_4_desc": "Un vrai final du centre-ville — l'énergie de fin de soirée qui clôt les nuits, pas qui les commence.",
+    "pillar2_1_eyebrow": "Cocktails",
+    "pillar2_1_title": "Un vrai programme de bar",
+    "pillar2_1_desc": "Hang n'est pas un club vodka-soda — le menu de cocktails est le produit phare. Recettes signatures, ingrédients frais, et barmen qui se soucient vraiment de la qualité.",
+    "pillar2_2_eyebrow": "Service aux bouteilles",
+    "pillar2_2_title": "Agencement pour les groupes",
+    "pillar2_2_desc": "Sections lounge, placements de choix près du DJ, et service aux bouteilles qui unit un tour d'anniversaire ou un après-travail corporatif sans forcer.",
+    "pillar2_3_eyebrow": "Atmosphère",
+    "pillar2_3_title": "Conçu pour changer de vitesse",
+    "pillar2_3_desc": "Peu d'établissements assurent aussi bien le 5 à 7 et le 1h du matin que Hang. La même salle accueille des cocktails entre collègues et le moment le plus animé d'un samedi — cette flexibilité est l'essence même du lieu.",
+    "reserve_eyebrow": "Réserver",
+    "reserve_title": "Réservations, service aux bouteilles et réservations de groupe.",
+    "reserve_desc": "Soumettez une demande et Montreal Hospitality fera un suivi pour confirmer la disponibilité, recommander la bonne table et sécuriser la soirée.",
+    "reserve_location_label": "Emplacement",
+    "reserve_location_val": "Hang Bar, Centre-ville de Montréal",
+    "reserve_hours_label": "Heures",
+    "reserve_hours_val": "Horaire selon la programmation de l'établissement et le calendrier des événements.",
+    "reserve_concierge_label": "Support Conciergerie",
+    "complete_eyebrow": "Complétez votre soirée",
+    "complete_title": "Des soirées dirigées par un concierge qui ne s'arrêtent pas au bar.",
+    "complete_desc": "Hang Bar s'intègre naturellement au reste du réseau Montreal Hospitality — dîner avant, transport entre les deux, et une autre salle après — tout coordonné par un seul canal.",
+    "complete_dinner_title": "Dîner",
+    "complete_dinner_desc": "Recommandations de dîner pré-bar et timing d'arrivée calqués sur la réservation.",
+    "complete_transport_title": "Transport",
+    "complete_transport_desc": "Limousines, sprinters et prises en charge par chauffeur pour les groupes arrivant ensemble.",
+    "complete_nightlife_title": "Vie nocturne",
+    "complete_nightlife_desc": "Un passage de Hang à un club partenaire après minuit, tout coordonné à l'avance.",
+    "complete_afterhours_title": "Après minuit",
+    "complete_afterhours_desc": "Gestion par conciergerie pour les clients qui veulent toute la soirée planifiée de bout en bout.",
+    "location_eyebrow": "Emplacement",
+    "location_title": "Au cœur du centre-ville.",
+    "location_desc": "Hang Bar est situé au cœur du quartier nocturne du centre-ville de Montréal — accessible à pied depuis les bureaux, les hôtels et les autres adresses premium de la ville, et conçu pour les groupes qui veulent un vrai bar sans quitter le centre.",
+    "location_address_label": "Adresse",
+    "location_address_val": "Centre-ville de Montréal, QC",
+    "location_arrival_label": "Arrivée",
+    "location_arrival_val": "Dépôts faciles par chauffeur et accès à pied depuis les principaux hôtels et bureaux.",
+    "features_eyebrow": "Caractéristiques",
+    "features_title": "Ce qui fait revenir les clients",
+    "features_desc": "Tout ce qui fait de Hang Bar le bar-lounge cocktail incontournable de Montréal pour les clients qui savent faire la différence.",
+    "feature_1_title": "Long bar, vrai programme",
+    "feature_1_desc": "Un bar qui est vraiment la pièce maîtresse de la salle — pas juste un comptoir de service.",
+    "feature_2_title": "Du cocktail au club",
+    "feature_2_desc": "La salle passe de l'après-travail à l'heure de pointe sans jamais avoir besoin de changer d'endroit.",
+    "feature_3_title": "Adapté aux groupes",
+    "feature_3_desc": "Anniversaires, après-travails, équipes en visite, et groupes avec service aux bouteilles s'intègrent naturellement.",
+    "feature_4_title": "Vraie énergie du centre-ville",
+    "feature_4_desc": "Un bar avec le genre de clientèle avec qui vous avez vraiment envie de passer une soirée.",
+    "modal_reserve_desc": "Soumettez une demande de réservation, service aux bouteilles ou réservation d'anniversaire au Hang Bar. Montreal Hospitality fera un suivi pour confirmer.",
+    "footer_venue_label": "L'établissement",
+    "footer_venue_text": "Hang Bar partage un système visuel unifié avec Yoko Luna, 212 et le reste des pages de lieux — même direction éditoriale, adaptée à l'identité de chaque salle.",
+    "scroll_label": "Défiler"
+  ,
+    "hero_title_line1": "Le bar cocktail incontournable",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">du centre-ville.</em>",
+    "s_atm_label": "Atmosphère",
+    "s_atm_title": "Là où la ville se retrouve",
+    "s_atm_desc": "Du 5 à 7 au dance floor de fin de soirée, Hang Bar change de vitesse toute la nuit sans jamais perdre son énergie du centre-ville.",
+    "p1_label": "Mixologie",
+    "p1_text": "Cocktails signatures artisanaux, classiques bien exécutés, et des barmen qui se soucient vraiment de leur recette.",
+    "p2_label": "Musique",
+    "p2_text": "DJs en direct chaque soir avec une rotation open-format autour du hip-hop, des classiques et de la house.",
+    "p3_label": "Service",
+    "p3_text": "Réservations, service aux bouteilles, réservations de groupe, anniversaires et événements corporatifs après le travail.",
+    "story_eyebrow": "Un bar d'un autre genre",
+    "story_title": "Un bar à cocktails qui sait se transformer en soirée.",
+    "story_p1": "Hang Bar est construit autour du moment où un 5 à 7 devient une vraie soirée. Le bar est la pièce maîtresse — long, éclairé, toujours en action — entouré de sièges lounge conçus pour les groupes qui ne veulent pas partir quand la musique monte.",
+    "story_p2": "Via Montreal Hospitality, l'établissement sert à la fois les foules décontractées d'après-travail et les groupes de vie nocturne sur réservation. Qu'il s'agisse d'une réunion autour d'un cocktail, d'un tour de bouteilles pour un anniversaire, ou d'une prise en charge complète de la table, Hang Bar gère chaque moment de la soirée sans changer de salle.",
+    "menu_eyebrow": "Programme de cocktails",
+    "menu_title": "Les servies de la maison",
+    "menu_desc": "Six signatures du programme de bar — préparées chaque soir, garnis avec soin, servis comme il se doit.",
+    "menu_footer": "Menu complet et liste des bouteilles disponibles à l'établissement · Prix en CAD, taxes et service non inclus",
+    "gallery_eyebrow": "Galerie",
+    "gallery_title": "À l'intérieur de Hang Bar",
+    "gallery_desc": "Un regard éditorial sur la salle — bar, alcôves, piste de danse, et tout ce qui s'y passe.",
+    "gallery_main_label": "Bar principal",
+    "gallery_main_cap": "La salle signature",
+    "social_eyebrow": "Moments sociaux",
+    "social_title": "La salle en mouvement",
+    "sc1_label": "Samedi soir",
+    "sc1_desc": "L'énergie au sommet en fin de soirée depuis le plancher du bar principal.",
+    "sc2_label": "Réveillon",
+    "sc2_desc": "L'une des soirées les plus chargées de l'année — et un blocage régulier des réservations.",
+    "sc3_label": "Programme de cocktails",
+    "sc3_desc": "Des recettes signatures photographiées pour le feed — le programme de bar est la moitié de la marque.",
+    "sc4_label": "Groupes",
+    "sc4_desc": "Anniversaires, équipes, amis en visite — le plan lounge de Hang est fait pour les groupes.",
+    "sc5_label": "Set DJ",
+    "sc5_desc": "Des mixes open-format qui emmènent la salle de l'heure des cocktails jusqu'au dernier verre.",
+    "who_eyebrow": "Notre clientèle",
+    "who_title": "Un vrai reflet du centre-ville",
+    "who_desc": "Hang Bar attire la foule de cocktails après le travail, les groupes d'anniversaire, les professionnels en visite, et tous ceux qui cherchent un vrai bar du centre-ville qui ne ressemble pas à un lobby d'hôtel ou à un méga-club de trente tables.",
+    "events_eyebrow": "Programme hebdomadaire",
+    "events_title": "Cette semaine au Hang Bar",
+    "events_btn": "Réserver pour une soirée événement",
+    "ev1_title": "Après-travail",
+    "ev1_subtitle": "Mercredis heure des cocktails",
+    "ev1_desc": "5 à 7 en milieu de semaine avec une foule lounge décontractée, des cocktails signatures et un set DJ en début de soirée.",
+    "ev2_title": "Mainline du vendredi",
+    "ev2_subtitle": "Set DJ open-format",
+    "ev2_desc": "La salle change de vitesse vers 23h — service aux bouteilles, bar en pleine action, et la foule la plus animée de la semaine.",
+    "ev3_title": "Samedi Signature",
+    "ev3_subtitle": "La grande soirée",
+    "ev3_desc": "Programmation du samedi au sommet — construite autour des anniversaires, des réservations de groupe et des prises en charge complètes du bar.",
+    "exp_eyebrow": "L'expérience",
+    "exp_title": "Comment se déroule une soirée à Hang",
+    "step1_title": "L'heure du cocktail",
+    "step1_desc": "Mode lounge 5 à 7 — sièges décontractés, cocktails signatures, et un set DJ en douceur pour démarrer la soirée.",
+    "step2_title": "Drinks pré-dîner",
+    "step2_desc": "Un arrêt avant le dîner ou une soirée complète — Hang fonctionne comme mise en bouche ou comme destination principale.",
+    "step3_title": "Le virage nocturne",
+    "step3_desc": "Vers 23h, la salle monte en puissance — DJ open-format, bar bondé, et rotation complète du service aux bouteilles.",
+    "step4_title": "Dernier verre",
+    "step4_desc": "Un vrai final du centre-ville — l'énergie de fin de soirée qui clôt les nuits, pas qui les commence.",
+    "pil2_1_eyebrow": "Cocktails",
+    "pil2_1_title": "Un vrai programme de bar",
+    "pil2_1_desc": "Hang n'est pas un club vodka-soda — le menu de cocktails est le produit phare. Recettes signatures, ingrédients frais, et barmen qui se soucient vraiment de la qualité.",
+    "pil2_2_eyebrow": "Service aux bouteilles",
+    "pil2_2_title": "Agencement pour les groupes",
+    "pil2_2_desc": "Sections lounge, placements de choix près du DJ, et service aux bouteilles qui unit un tour d'anniversaire ou un après-travail corporatif sans forcer.",
+    "pil2_3_eyebrow": "Atmosphère",
+    "pil2_3_title": "Conçu pour changer de vitesse",
+    "pil2_3_desc": "Peu d'établissements assurent aussi bien le 5 à 7 et le 1h du matin que Hang. La même salle accueille des cocktails entre collègues et le moment le plus animé d'un samedi — cette flexibilité est l'essence même du lieu.",
+    "res_eyebrow": "Réserver",
+    "res_title": "Réservations, service aux bouteilles et réservations de groupe.",
+    "res_desc": "Soumettez une demande et Montreal Hospitality fera un suivi pour confirmer la disponibilité, recommander la bonne table et sécuriser la soirée.",
+    "res_loc_label": "Emplacement",
+    "res_loc_val": "Hang Bar, Centre-ville de Montréal",
+    "res_hrs_label": "Heures",
+    "res_hrs_val": "Horaire selon la programmation de l'établissement et le calendrier des événements.",
+    "res_conc_label": "Support Conciergerie",
+    "comp_eyebrow": "Complétez votre soirée",
+    "comp_title": "Des soirées dirigées par un concierge qui ne s'arrêtent pas au bar.",
+    "comp_desc": "Hang Bar s'intègre naturellement au reste du réseau Montreal Hospitality — dîner avant, transport entre les deux, et une autre salle après — tout coordonné par un seul canal.",
+    "comp_t1_title": "Dîner",
+    "comp_t1_desc": "Recommandations de dîner pré-bar et timing d'arrivée calqués sur la réservation.",
+    "comp_t2_title": "Transport",
+    "comp_t2_desc": "Limousines, sprinters et prises en charge par chauffeur pour les groupes arrivant ensemble.",
+    "comp_t3_title": "Vie nocturne",
+    "comp_t3_desc": "Un passage de Hang à un club partenaire après minuit, tout coordonné à l'avance.",
+    "comp_t4_title": "Après minuit",
+    "comp_t4_desc": "Gestion par conciergerie pour les clients qui veulent toute la soirée planifiée de bout en bout.",
+    "loc_eyebrow": "Emplacement",
+    "loc_title": "Au cœur du centre-ville.",
+    "loc_desc": "Hang Bar est situé au cœur du quartier nocturne du centre-ville de Montréal — accessible à pied depuis les bureaux, les hôtels et les autres adresses premium de la ville, et conçu pour les groupes qui veulent un vrai bar sans quitter le centre.",
+    "loc_addr_label": "Adresse",
+    "loc_addr_val": "Centre-ville de Montréal, QC",
+    "loc_arr_label": "Arrivée",
+    "loc_arr_val": "Dépôts faciles par chauffeur et accès à pied depuis les principaux hôtels et bureaux.",
+    "feat_eyebrow": "Caractéristiques",
+    "feat_title": "Ce qui fait revenir les clients",
+    "feat_desc": "Tout ce qui fait de Hang Bar le bar-lounge cocktail incontournable de Montréal pour les clients qui savent faire la différence.",
+    "feat1_title": "Long bar, vrai programme",
+    "feat1_desc": "Un bar qui est vraiment la pièce maîtresse de la salle — pas juste un comptoir de service.",
+    "feat2_title": "Du cocktail au club",
+    "feat2_desc": "La salle passe de l'après-travail à l'heure de pointe sans jamais avoir besoin de changer d'endroit.",
+    "feat3_title": "Adapté aux groupes",
+    "feat3_desc": "Anniversaires, après-travails, équipes en visite, et groupes avec service aux bouteilles s'intègrent naturellement.",
+    "feat4_title": "Vraie énergie du centre-ville",
+    "feat4_desc": "Un bar avec le genre de clientèle avec qui vous avez vraiment envie de passer une soirée.",
+    "sticky_btn": "Réserver Maintenant",
+    "modal_eyebrow": "Réserver",
+    "modal_title": "Réservez votre soirée",
+    "modal_desc": "Soumettez une demande de réservation, service aux bouteilles ou réservation d'anniversaire au Hang Bar. Montreal Hospitality fera un suivi pour confirmer.",
+    "form_req_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_budget": "Budget / Notes",
+    "form_special": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité curatées à Montréal.",
+    "footer_venue_label": "L'établissement",
+    "footer_venue_text": "Hang Bar partage un système visuel unifié avec Yoko Luna, 212 et le reste des pages de lieux — même direction éditoriale, adaptée à l'identité de chaque salle.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "scroll_lbl": "Défiler"}
+};
 
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
 
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
+    window.translator = {
+      currentLang:'en',
+      init() {
+        const saved=localStorage.getItem('preferred_language');
+        const url=new URLSearchParams(window.location.search).get('lang');
+        const browser=(navigator.language||'en').split('-')[0];
+        this.currentLang=[url,saved,browser,'en'].find(l=>window._i18n&&window._i18n[l])||'en';
+        localStorage.setItem('preferred_language',this.currentLang);
+        document.documentElement.lang=this.currentLang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks(); this.bindButtons();
+      },
+      setLanguage(lang){
+        if(!window._i18n||!window._i18n[lang])return;
+        this.currentLang=lang;
+        localStorage.setItem('preferred_language',lang);
+        document.documentElement.lang=lang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks();
+        const u=new URL(window.location.href);
+        u.searchParams.set('lang',lang);
+        window.history.replaceState({},'',`${u.pathname}${u.search}${u.hash}`);
+      },
+      updateUI(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));
+      },
+      applyTranslations(){
+        const t=(window._i18n&&window._i18n[this.currentLang])||{};
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const v=t[el.dataset.i18n]; if(!v)return;
+          if(v.includes('<'))el.innerHTML=v; else el.textContent=v;
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+          const v=t[el.dataset.i18nPlaceholder]; if(v)el.placeholder=v;
+        });
+        document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+          const v=t[el.dataset.i18nLabel]; if(v)el.textContent=v;
+        });
+        if(t.page_title)document.title=t.page_title;
+      },
+      translateLinks(){
+        document.querySelectorAll('a[href]').forEach(link=>{
+          const h=link.getAttribute('href');
+          if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:')||h.startsWith('javascript:')||h.startsWith('http'))return;
+          try{
+            const u=new URL(h,window.location.href);
+            if(u.origin!==window.location.origin)return;
+            u.searchParams.set('lang',this.currentLang);
+            link.setAttribute('href',`${u.pathname.split('/').pop()||'index.html'}${u.search}${u.hash}`);
+          }catch(e){}
+        });
+      },
+      bindButtons(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));
+      }
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
 
-        /* Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Nav */
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-        }
-
-        /* Image Hover Effects */
-        .img-zoom-container { overflow: hidden; }
-        .img-zoom {
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .group:hover .img-zoom {
-            transform: scale(1.08);
-        }
-
-        /* Smooth underline animation */
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
-
-        /* Button hover animations */
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
-
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Gallery Grid */
-        .gallery-item {
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* Lightbox */
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        #lightbox.active {
-            display: flex;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        /* Form Styles */
-        .form-input {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 18px;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #C5A059;
-        }
-
-        /* Custom Select */
-        .custom-select {
-            position: relative;
-        }
-        .custom-select select {
-            appearance: none;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 40px 14px 18px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .custom-select select:focus {
-            outline: none;
-            border-color: #C5A059;
-        }
-        .custom-select::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #C5A059;
-            pointer-events: none;
-        }
-        .custom-select select option {
-            background: #0B0F19;
-            color: white;
-        }
-
-        /* Radio Buttons */
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .radio-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .radio-item input[type="radio"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .radio-item input[type="radio"]:checked {
-            border-color: #C5A059;
-        }
-        .radio-item input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: #C5A059;
-            border-radius: 50%;
-        }
-        .radio-item label {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* Validation error styles */
-        .form-input:invalid:not(:placeholder-shown) {
-            border-color: #ef4444;
-        }
-        .validation-error {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 4px;
-            display: none;
-        }
-        .form-input:invalid:not(:placeholder-shown) + .validation-error {
-            display: block;
-        }
-    
-        /* Language Switcher Styles */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.1);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-    </style>
-<base target="_self">
-<base target="_self">
+</script>
 </head>
-<body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox fixed inset-0 z-[100] items-center justify-center bg-black/95 p-4">
+    <button onclick="closeLightbox()" class="absolute right-6 top-6 text-white/80 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+    <button onclick="changeLightbox(-1)" class="absolute left-5 md:left-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightbox-image" src="" alt="Hang Bar gallery image" class="max-h-[88vh] max-w-[92vw] object-contain">
+    <button onclick="changeLightbox(1)" class="absolute right-5 md:right-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <header class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0">
+      <video autoplay muted loop playsinline class="h-full w-full object-cover hero-parallax">
+        <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1778620051/Quelle_soir%C3%A9e_Le_premier_anniversaire_de_Hang_%C3%A9tait_inoubliable_gr%C3%A2ce_%C3%A0_vous_tous._%C3%80_de_nombre_zw5rx3.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.88) 0%,rgba(5,5,5,0.35) 50%,rgba(5,5,5,0.25) 100%)"></div>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="closeLightbox()">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Gallery Image">
-        <button class="absolute left-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="absolute right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-
-        <!-- Logo -->
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
-        </a>
-
-        <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
-            <a href="venues.html" target="_self" class="link-hover text-mh-gold transition-colors" data-i18n="nav_venues">Venues</a>
-            <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
-            <a href="service.html" target="_self" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
-            <a href="event.html" target="_self" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
-            <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
-        </div>
-
-        <!-- Right Actions -->
-        <div class="hidden lg:flex items-center gap-8">
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" onclick="translator.setLanguage('fr')">FR</button>
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+      <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+      </a>
+      <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+        <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+        <div class="relative" id="venues-menu-wrapper">
+          <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium text-mh-gold" aria-expanded="false">
+            <span data-i18n="nav_venues">Venues</span>
+            <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+          </a>
+          <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity 0.22s ease,transform 0.22s ease;right:auto;width:fit-content;">
+            <div class="px-20 py-12 flex gap-0">
+              <div class="flex-1 border-r border-white/10 pr-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+                <ul>
+                  <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                  <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>                </ul>
+              </div>
+              <div class="flex-1 border-r border-white/10 px-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+                <ul>
+                  <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                  <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                  <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                </ul>
+                <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+              </div>
+              <div class="w-[280px] pl-12 flex flex-col gap-4">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+                <div class="relative overflow-hidden aspect-[3/4] w-full">
+                  <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">Hang Bar</p>
+                </div>
+                <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+              </div>
             </div>
-            <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all" data-i18n="nav_contact">Contact</a>
+          </div>
         </div>
+        <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+        <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+        <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+        <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+        <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="lang-switcher"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+        <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all"><span data-i18n="footer_contact">Contact</span></a>
+      </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
-        <a href="venues.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
-        <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
-        <a href="service.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
-        <a href="event.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
-        <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
-        <!-- Mobile Language Switcher -->
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
+      <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+      <a href="venues.html" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
+      <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages">Packages</a>
+      <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
+      <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
+      <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
+      <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="relative h-[60vh] w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" 
-                 class="w-full h-full object-cover opacity-40 scale-105" 
-                 alt="Hang Bar">
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/60 via-mh-navy/40 to-mh-navy"></div>
+    <!-- Hero: centered logo + serif headline (matching Yoko Luna style) -->
+    <div class="relative z-10 flex min-h-screen flex-col items-center justify-center text-center px-6">
+      <div class="fade-up">
+        <img src="https://hangbar.ca/wp-content/uploads/2023/05/Hang-Logo-2023-retina.png" alt="Hang Bar" class="mx-auto w-28 sm:w-36 md:w-44 lg:w-52 object-contain mb-10">
+        <p class="eyebrow mb-8 text-white/50 tracking-[0.5em]" data-i18n="hero_eyebrow">Downtown Montreal · Cocktail Lounge</p>
+        <p class="font-serif text-white leading-[1.05] hero-title" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;">
+          <span class="title-line" data-i18n="hero_title_line1">Montreal's downtown</span>
+          <span class="title-line" data-i18n="hero_title_line2"><em style="font-style:italic;font-weight:400;">cocktail bar.</em></span>
+        </p>
+        <div class="mt-12 flex flex-wrap gap-4 justify-center">
+          <a href="#reserve" class="magnetic-btn btn-fill bg-white px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-black" data-i18n="hero_cta_primary">Reserve a Table</a>
+          <a href="#gallery" class="magnetic-btn btn-stroke border border-white/35 px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-white" data-i18n="hero_cta_secondary">View Gallery</a>
         </div>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      <span class="eyebrow text-white text-[9px] tracking-[0.4em]">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);"></div>
+    </div>
+  </header>
 
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <span class="tao-subheading text-mh-gold text-[11px] block mb-4 reveal" data-i18n="hero_location">Downtown Montreal</span>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-6 leading-[0.95] reveal">
-                Hang Bar
-            </h1>
-            <p class="text-gray-400 max-w-2xl mx-auto font-light text-lg reveal" data-i18n="hero_tagline">
-                Where sophistication meets energy in the heart of the city
-            </p>
+  <section class="relative h-[72vh] overflow-hidden border-y line-soft bg-black">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Hang Bar atmosphere" class="h-full w-full object-cover opacity-50">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/80"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+      <div>
+        <p class="eyebrow mb-5 text-sand/80"><span data-i18n="pil2_3_eyebrow">Atmosphere</span></p>
+        <h2 class="font-serif text-5xl text-white md:text-7xl"><span data-i18n="s_atm_title">Where the City Hangs</span></h2>
+        <p class="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/70 md:text-base"><span data-i18n="s_atm_desc">From the early evening cocktail crowd to the late-night dance floor, Hang Bar shifts gears all night without ever losing its downtown edge.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="scroll-fade border-y line-soft bg-[#080808]">
+      <div class="mx-auto grid max-w-7xl gap-0 md:grid-cols-3">
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="p1_label">Mixology</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p1_text">Signature craft cocktails, classics done right, and bartenders who actually care about the build.</span></p></div>
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="p2_label">Music</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p2_text">Live DJs nightly with an open-format rotation built around hip-hop, throwbacks, and house.</span></p></div>
+        <div class="px-6 py-7 md:px-10"><p class="eyebrow text-stone"><span data-i18n="p3_label">Service</span></p><p class="mt-3 text-xl font-serif"><span data-i18n="p3_text">Reservations, bottle service, group bookings, birthdays, and corporate after-work events.</span></p></div>
+      </div>
+    </section>
+
+    <section class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <div class="fade-up story-copy">
+          <p class="eyebrow text-sand/80"><span data-i18n="story_eyebrow">A Different Kind Of Bar</span></p>
+          <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-[0.95] md:text-6xl"><span data-i18n="story_title">A cocktail lounge that knows how to turn into a party.</span></h2>
+          <div class="mt-8 max-w-2xl space-y-6 text-[15px]">
+            <p><span data-i18n="story_p1">Hang Bar is built around the moment when a 5 à 7 turns into a full night out. The bar is the centerpiece — long, lit, and always working — surrounded by lounge seating designed for groups that don't want to leave when the music gets louder.</span></p>
+            <p><span data-i18n="story_p2">Through Montreal Hospitality, the venue serves both casual after-work crowds and reservation-led nightlife groups. Whether it's a quick cocktail meeting, a birthday round of bottles, or a full table takeover, Hang Bar handles every register of the evening without changing rooms.</span></p>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="bg-mh-dark">
-        
-        <!-- Venue Info -->
-        <section class="py-16 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-12 text-center reveal">
-                    <div>
-                        <i class="fa-solid fa-martini-glass-citrus text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2" data-i18n="info_1_label">Craft Cocktails</h3>
-                        <p class="text-gray-400 text-sm" data-i18n="info_1_detail">Signature Mixology</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-music text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2" data-i18n="info_2_label">Live DJs</h3>
-                        <p class="text-gray-400 text-sm" data-i18n="info_2_detail">Daily Entertainment</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-champagne-glasses text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2" data-i18n="info_3_label">Bottle Service</h3>
-                        <p class="text-gray-400 text-sm" data-i18n="info_3_detail">VIP Experience</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery & Form Split Section -->
-        <section class="py-20">
-            <div class="max-w-[95%] mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-                    
-                    <!-- Left Side: Gallery -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="gallery_label">Gallery</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8" data-i18n="gallery_title">Experience Hang Bar</h2>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(0)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Main">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(1)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Interior">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(2)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Cocktails">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(3)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Atmosphere">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(4)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Drinks">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(5)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186039/481778608_17972112833824543_2187971896455543792_n_imqtko.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="Hang Bar Night">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-gray-500 text-sm mt-6 italic" data-i18n="gallery_hint">Click images to expand</p>
-                    </div>
-
-                    <!-- Right Side: Guest List / Tickets Form -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="form_label">Reservations</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8" data-i18n="form_title">Guest List & Tickets</h2>
-                        
-                        <div class="bg-mh-gray/30 border border-white/10 p-8 lg:p-10">
-                            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate>
-                                
-                                <!-- Request Type -->
-                                <div class="mb-8">
-                                    <label class="form-label" data-i18n="form_req_type">Request Type</label>
-                                    <div class="radio-group">
-                                        <div class="radio-item">
-                                            <input type="radio" id="guestlist" name="requestType" value="guestlist" checked>
-                                            <label for="guestlist" data-i18n="form_guestlist">Guest List</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="tickets" name="requestType" value="tickets">
-                                            <label for="tickets" data-i18n="form_tickets">Tickets</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="bottle" name="requestType" value="bottle">
-                                            <label for="bottle" data-i18n="form_bottle">Bottle Service</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Name -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="fullName" data-i18n="form_name">Full Name *</label>
-                                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" data-required="true">
-                                    <span class="validation-error">Please enter your full name</span>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="email" data-i18n="form_email">Email Address *</label>
-                                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" data-required="true">
-                                    <span class="validation-error">Please enter a valid email</span>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="phone" data-i18n="form_phone">Phone Number *</label>
-                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="(514) 000-0000" data-required="true">
-                                    <span class="validation-error">Please enter your phone number</span>
-                                </div>
-
-                                <!-- Date -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="date" data-i18n="form_date">Preferred Date *</label>
-                                    <input type="date" id="date" name="date" class="form-input" data-required="true">
-                                    <span class="validation-error">Please select a date</span>
-                                </div>
-
-                                <!-- Guests -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="guests" data-i18n="form_guests">Number of Guests *</label>
-                                    <div class="custom-select">
-                                        <select id="guests" name="guests" data-required="true">
-                                            <option value="">Select number of guests</option>
-                                            <option value="1">1 Guest</option>
-                                            <option value="2">2 Guests</option>
-                                            <option value="3">3 Guests</option>
-                                            <option value="4">4 Guests</option>
-                                            <option value="5">5 Guests</option>
-                                            <option value="6">6+ Guests</option>
-                                            <option value="10">10+ Guests (Large Party)</option>
-                                        </select>
-                                    </div>
-                                    <span class="validation-error">Please select number of guests</span>
-                                </div>
-
-                                <!-- Special Requests -->
-                                <div class="mb-8">
-                                    <label class="form-label" for="requests" data-i18n="form_special">Special Requests</label>
-                                    <textarea id="requests" name="requests" rows="3" class="form-input resize-none" placeholder="Birthday celebration, special occasion, preferred seating..."></textarea>
-                                </div>
-
-                                <!-- Honeypot field to prevent spam -->
-                                <input type="text" name="_gotcha" style="display:none">
-
-                                <!-- Submit Button -->
-                                <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover w-full bg-mh-gold text-mh-navy py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-white transition-all duration-300">
-                                    <span data-i18n="form_submit">Submit Request</span>
-                                </button>
-
-                                <p class="text-gray-500 text-xs mt-4 text-center" data-i18n="form_note">
-                                    Our team will confirm your reservation within 24 hours
-                                </p>
-                            </form>
-
-                            <!-- Success Message -->
-                            <div id="successMessage" class="success-message">
-                                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                                <h3 class="text-white font-serif text-2xl mb-2">Request Received!</h3>
-                                <p class="text-gray-400 text-sm mb-4">We've received your request and will contact you shortly to confirm your reservation at Hang Bar.</p>
-                                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1">Your Reference Number</p>
-                                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                                </div>
-                                <div class="space-y-1 text-gray-400 text-xs">
-                                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> Confirmation sent to <span id="confirmEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ceb7a1bbbc8eaba3afa7a2e0ada1a3">[email&#160;protected]</a></span></p>
-                                </div>
-                            </div>
-
-                            <!-- Error Message -->
-                            <div id="errorMessage" class="error-message">
-                                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                                <p class="font-light text-sm">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-                            </div>
-                        </div>
-
-                        <!-- Contact Info -->
-                        <div class="mt-8 flex items-center gap-4 text-sm text-gray-400">
-                            <i class="fa-solid fa-phone text-mh-gold"></i>
-                            <span>For immediate assistance: <a href="tel:5143780154" class="text-white hover:text-mh-gold transition-colors">514-378-0154</a></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="py-20 bg-mh-navy">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-16 reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="highlights_label">Highlights</span>
-                    <h2 class="text-3xl md:text-4xl tao-heading text-white" data-i18n="highlights_title">What to Expect</h2>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-glass-water text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3" data-i18n="feat_1_title">Craft Cocktails</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat_1_desc">Expert mixologists creating signature drinks with premium spirits and fresh ingredients.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-headphones text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3" data-i18n="feat_2_title">Live DJs</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat_2_desc">Resident and guest DJs spinning the best in hip-hop, R&B, and house music nightly.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-couch text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3" data-i18n="feat_3_title">VIP Booths</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat_3_desc">Reserved seating with dedicated service for the ultimate nightlife experience.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-bolt text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3" data-i18n="feat_4_title">High Energy</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="feat_4_desc">An electric atmosphere where Montreal's elite come to see and be seen.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Location -->
-        <section class="py-20 bg-mh-dark">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="location_label">Location</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-6" data-i18n="location_title">Find Us</h2>
-                        <div class="space-y-4 text-gray-400">
-                            <p class="flex items-start gap-4">
-                                <i class="fa-solid fa-location-dot text-mh-gold mt-1"></i>
-                                <span>686 R. Notre Dame O<br>Downtown Montreal, QC H3C 1J2</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-clock text-mh-gold"></i>
-                                <span>Tues-Sat: 6PM - 1AM<br>Sun-Mon: Closed</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-shirt text-mh-gold"></i>
-                                <span>Dress Code: Smart Casual / Stylish</span>
-                            </p>
-                        </div>
-                        
-                        <div class="mt-8 flex gap-4">
-                            <a href="#" class="btn-hover inline-flex items-center gap-2 border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all">
-                                <i class="fa-solid fa-map"></i> Get Directions
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="reveal aspect-video border border-white/10 overflow-hidden">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.845123456789!2d-73.5745!3d45.4975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a41d3f6e7d7%3A0x8c9c7b8a6e5f4d3c!2s686%20R.%20Notre%20Dame%20O%2C%20Montr%C3%A9al%2C%20QC%20H3C%201J2!5e0!3m2!1sen!2sca!4v1234567890"
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Back to Venues -->
-        <section class="py-12 border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-6 text-center reveal">
-                <a href="venues.html" target="_self" class="inline-flex items-center gap-3 text-mh-gold hover:text-white transition-colors text-sm tracking-[0.2em] uppercase">
-                    <i class="fa-solid fa-arrow-left"></i> <span data-i18n="back_venues">Back to All Venues</span>
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light" data-i18n="footer_tagline">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_explore">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
-                        <li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
-                        <li><a href="service.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Service</a></li>
-                        <li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_contact">Contact</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="/cdn-cgi/l/email-protection#670e090108270a0809131502060b0f0814170e13060b0e131e4904080a" class="hover:text-mh-gold transition-colors"><span class="__cf_email__" data-cfemail="066f686069466b6968727463676a6e6975766f72676a6f727f2865696b">[email&#160;protected]</span></a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_follow">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors" data-i18n="footer_privacy">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors" data-i18n="footer_terms">Terms</a>
-                </div>
-            </div>
+        <div class="fade-up img-hover overflow-hidden shadow-soft">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp" alt="Hang Bar interior" class="h-full w-full object-cover">
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script>
-        // Translation System
-        const translations = {
-            en: {
-                nav_home: 'Home',
-                nav_venues: 'Venues',
-                nav_sports: 'Sports',
-                nav_services: 'Services',
-                nav_events: 'Events',
-                nav_careers: 'Careers',
-                nav_contact: 'Contact',
-                hero_location: 'Downtown Montreal',
-                hero_tagline: 'Where sophistication meets energy in the heart of the city',
-                info_1_label: 'Craft Cocktails',
-                info_1_detail: 'Signature Mixology',
-                info_2_label: 'Live DJs',
-                info_2_detail: 'Daily Entertainment',
-                info_3_label: 'Bottle Service',
-                info_3_detail: 'VIP Experience',
-                gallery_label: 'Gallery',
-                gallery_title: 'Experience Hang Bar',
-                gallery_hint: 'Click images to expand',
-                form_label: 'Reservations',
-                form_title: 'Guest List & Tickets',
-                form_req_type: 'Request Type',
-                form_guestlist: 'Guest List',
-                form_tickets: 'Tickets',
-                form_bottle: 'Bottle Service',
-                form_name: 'Full Name *',
-                form_email: 'Email Address *',
-                form_phone: 'Phone Number *',
-                form_date: 'Preferred Date *',
-                form_guests: 'Number of Guests *',
-                form_select_guests: 'Select number of guests',
-                form_special: 'Special Requests',
-                form_submit: 'Submit Request',
-                form_note: 'Our team will confirm your reservation within 24 hours',
-                success_title: 'Request Received!',
-                success_msg: 'We\'ve received your request and will contact you shortly to confirm your reservation at Hang Bar.',
-                assistance: 'For immediate assistance:',
-                highlights_label: 'Highlights',
-                highlights_title: 'What to Expect',
-                feat_1_title: 'Craft Cocktails',
-                feat_1_desc: 'Expert mixologists creating signature drinks with premium spirits and fresh ingredients.',
-                feat_2_title: 'Live DJs',
-                feat_2_desc: 'Resident and guest DJs spinning the best in hip-hop, R&B, and house music nightly.',
-                feat_3_title: 'VIP Booths',
-                feat_3_desc: 'Reserved seating with dedicated service for the ultimate nightlife experience.',
-                feat_4_title: 'High Energy',
-                feat_4_desc: 'An electric atmosphere where Montreal\'s elite come to see and be seen.',
-                location_label: 'Location',
-                location_title: 'Find Us',
-                hours: 'Tues-Sat: 6PM - 1AM<br>Sun-Mon: Closed',
-                dresscode: 'Dress Code: Smart Casual / Stylish',
-                directions: 'Get Directions',
-                back_venues: 'Back to All Venues',
-                footer_tagline: 'Redefining the art of the night in Montreal.',
-                footer_explore: 'Explore',
-                footer_contact: 'Contact',
-                footer_follow: 'Follow',
-                footer_privacy: 'Privacy',
-                footer_terms: 'Terms'
-            },
-            fr: {
-                nav_home: 'Accueil',
-                nav_venues: 'Lieux',
-                nav_sports: 'Sports',
-                nav_services: 'Services',
-                nav_events: 'Événements',
-                nav_careers: 'Carrières',
-                nav_contact: 'Contact',
-                hero_location: 'Centre-Ville de Montréal',
-                hero_tagline: 'Où la sophistication rencontre l\'énergie au cœur de la ville',
-                info_1_label: 'Cocktails Artisanaux',
-                info_1_detail: 'Mixologie Signature',
-                info_2_label: 'DJs Live',
-                info_2_detail: 'Divertissement Quotidien',
-                info_3_label: 'Service aux Tables',
-                info_3_detail: 'Expérience VIP',
-                gallery_label: 'Galerie',
-                gallery_title: 'Découvrir Hang Bar',
-                gallery_hint: 'Cliquez pour agrandir',
-                form_label: 'Réservations',
-                form_title: 'Liste d\'Invités & Billets',
-                form_req_type: 'Type de Demande',
-                form_guestlist: 'Liste d\'Invités',
-                form_tickets: 'Billets',
-                form_bottle: 'Service aux Tables',
-                form_name: 'Nom Complet *',
-                form_email: 'Adresse Courriel *',
-                form_phone: 'Numéro de Téléphone *',
-                form_date: 'Date Préférée *',
-                form_guests: 'Nombre d\'Invités *',
-                form_select_guests: 'Sélectionner le nombre d\'invités',
-                form_special: 'Demandes Spéciales',
-                form_submit: 'Soumettre la Demande',
-                form_note: 'Notre équipe confirmera votre réservation dans les 24 heures',
-                success_title: 'Demande Reçue!',
-                success_msg: 'Nous avons reçu votre demande et vous contacterons sous peu pour confirmer votre réservation chez Hang Bar.',
-                assistance: 'Pour assistance immédiate:',
-                highlights_label: 'Points Forts',
-                highlights_title: 'Ce Qui Vous Attend',
-                feat_1_title: 'Cocktails Artisanaux',
-                feat_1_desc: 'Mixologistes experts créant des boissons signature avec des spiritueux premium et des ingrédients frais.',
-                feat_2_title: 'DJs Live',
-                feat_2_desc: 'DJs résidents et invités faisant tourner le meilleur hip-hop, R&B et house music chaque soir.',
-                feat_3_title: 'Cabines VIP',
-                feat_3_desc: 'Places réservées avec service dédié pour l\'expérience nocturne ultime.',
-                feat_4_title: 'Haute Énergie',
-                feat_4_desc: 'Une atmosphère électrique où l\'élite de Montréal vient voir et être vue.',
-                location_label: 'Emplacement',
-                location_title: 'Nous Trouver',
-                hours: 'Mar-Sam: 18h - 1h<br>Dim-Lun: Fermé',
-                dresscode: 'Code Vestimentaire: Décontracté Chic',
-                directions: 'Obtenir l\'Itinéraire',
-                back_venues: 'Retour aux Lieux',
-                footer_tagline: 'Redéfinir l\'art de la nuit à Montréal.',
-                footer_explore: 'Explorer',
-                footer_contact: 'Contact',
-                footer_follow: 'Suivre',
-                footer_privacy: 'Confidentialité',
-                footer_terms: 'Conditions'
-            }
-        };
+    <!-- Cocktail Menu -->
+    <section class="scroll-fade bg-[#070707] py-20 lg:py-28 border-y line-soft">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-sand/80"><span data-i18n="sc3_label">Cocktail Program</span></p>
+            <h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="menu_title">The House Pours</span></h2>
+          </div>
+          <p class="max-w-md text-sm leading-7 text-white/55"><span data-i18n="menu_desc">Six signatures from the bar program — built nightly, garnished sharply, served the way they're meant to be.</span></p>
+        </div>
+        <div class="section-divider fade-up mb-12"></div>
+        <div class="grid gap-x-16 gap-y-2 md:grid-cols-2">
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Smoked Old Fashioned</span><span class="desc">Bourbon · demerara · cherry-wood smoke</span></div><span class="dots"></span><span class="price">19</span></div>
+            <div class="menu-row"><div><span class="name">Lychee Martini</span><span class="desc">Vodka · lychee · fresh lime · prosecco float</span></div><span class="dots"></span><span class="price">17</span></div>
+            <div class="menu-row"><div><span class="name">The Hang Spritz</span><span class="desc">Aperol · house bitters · grapefruit · cava</span></div><span class="dots"></span><span class="price">16</span></div>
+          </div>
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Espresso Negroni</span><span class="desc">Gin · Campari · cold brew · sweet vermouth</span></div><span class="dots"></span><span class="price">18</span></div>
+            <div class="menu-row"><div><span class="name">Passionfruit Daiquiri</span><span class="desc">White rum · passionfruit · vanilla · lime</span></div><span class="dots"></span><span class="price">17</span></div>
+            <div class="menu-row"><div><span class="name">Mezcal Paloma</span><span class="desc">Mezcal · pink grapefruit · agave · chili salt</span></div><span class="dots"></span><span class="price">18</span></div>
+          </div>
+        </div>
+        <p class="fade-up mt-12 text-center text-xs uppercase tracking-[0.28em] text-white/40"><span data-i18n="menu_footer">Full menu and bottle list available at the venue · Prices in CAD, taxes & service not included</span></p>
+      </div>
+    </section>
 
-        const translator = {
-            currentLang: 'en',
-            init() {
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                if (savedLang && translations[savedLang]) {
-                    this.currentLang = savedLang;
-                } else if (translations[browserLang]) {
-                    this.currentLang = browserLang;
-                }
-                document.documentElement.lang = this.currentLang;
-                this.updateUI();
-                this.translatePage();
-            },
-            setLanguage(lang) {
-                if (translations[lang]) {
-                    this.currentLang = lang;
-                    localStorage.setItem('preferred_language', lang);
-                    this.updateUI();
-                    this.translatePage();
-                    document.documentElement.lang = lang;
-                }
-            },
-            updateUI() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                });
-            },
-            translatePage() {
-                const texts = translations[this.currentLang];
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.dataset.i18n;
-                    if (texts[key] !== undefined) {
-                        element.innerHTML = texts[key];
-                    }
-                });
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-                    const key = element.dataset.i18nPlaceholder;
-                    if (texts[key] !== undefined) {
-                        element.placeholder = texts[key];
-                    }
-                });
-            }
-        };
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
+    <!-- Gallery -->
+    <section id="gallery" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="fade-up mb-10 flex items-end justify-between gap-6">
+        <div><p class="eyebrow text-sand/80"><span data-i18n="gallery_eyebrow">Gallery</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="gallery_title">Inside Hang Bar</span></h2></div>
+        <p class="hidden max-w-md text-sm leading-7 text-white/55 md:block"><span data-i18n="gallery_desc">An editorial look at the room — bar, booths, dance floor, and everything in between.</span></p>
+      </div>
+      <div class="section-divider fade-up mb-10"></div>
+      <div class="grid gap-4 md:grid-cols-12 md:grid-rows-2">
+        <button onclick="openLightbox(0)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-7 md:row-span-2">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Hang Bar main room" class="h-[520px] w-full object-cover md:h-full">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+          <span class="absolute bottom-5 left-5 text-left"><span class="eyebrow text-white/75">Main Bar</span><span class="mt-2 block font-serif text-3xl">The signature room</span></span>
+        </button>
+        <button onclick="openLightbox(1)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp" alt="Hang Bar interior" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+        <button onclick="openLightbox(2)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg" alt="Hang Bar cocktails" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+      </div>
+      <div class="mt-4 grid gap-4 md:grid-cols-3">
+        <button onclick="openLightbox(3)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg" alt="Hang Bar atmosphere" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(4)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186039/481778608_17972112833824543_2187971896455543792_n_imqtko.jpg" alt="Hang Bar night" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(5)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Hang Bar lounge" class="h-[230px] w-full object-cover"></button>
+      </div>
+    </section>
 
-    </script><script>
-        // Gallery Images Array
-        const galleryImages = [
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186039/481778608_17972112833824543_2187971896455543792_n_imqtko.jpg"
-        ];
+    <!-- Social rail -->
+    <section id="social-feed" class="scroll-fade border-y line-soft bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="social_eyebrow">Social Moments</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="social_title">See the room in motion</span></h2></div>
+          <div class="flex items-center gap-3">
+            <button type="button" id="social-prev" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-left"></i></button>
+            <button type="button" id="social-next" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="section-divider fade-up mb-10"></div>
+        <div id="social-rail" class="fade-up flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4" style="scrollbar-width:none;-ms-overflow-style:none;">
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg">
+                <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1773276052/202603112033_qztg8w.mp4" type="video/mp4">
+              </video>
+              <div class="absolute left-4 top-4 text-[10px] uppercase tracking-[0.28em] text-white/80"><i class="fa-solid fa-play mr-2"></i>Video</div>
+            </div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc1_label">Saturday Night</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc1_desc">Late-night peak energy from the main bar floor.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Hang Bar NYE" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">NYE</p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc2_desc">One of the busiest nights of the year — and a regular reservation lock-out.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg" alt="Hang Bar cocktails" class="h-full w-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+            </div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc3_label">Cocktail Program</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc3_desc">Signature builds shot for the feed — the bar program is half the brand.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg" alt="Hang Bar group" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc4_label">Groups</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc4_desc">Birthdays, teams, visiting friends — Hang's lounge layout is built for groups.</span></p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="relative aspect-[4/5] overflow-hidden">
+              <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata">
+                <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1773276052/202603112033_qztg8w.mp4" type="video/mp4">
+              </video>
+              <div class="absolute left-4 top-4 text-[10px] uppercase tracking-[0.28em] text-white/80"><i class="fa-solid fa-play mr-2"></i>Video</div>
+            </div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="sc5_label">DJ Set</span></p><p class="mt-3 text-sm leading-7 text-white/70"><span data-i18n="sc5_desc">Open-format mixes that move the room from cocktail hour to last call.</span></p></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        let currentImageIndex = 0;
+    <!-- Who Comes Here -->
+    <section class="bg-[#090909] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10"><p class="eyebrow text-sand/80"><span data-i18n="who_eyebrow">Who Comes Here</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="who_title">A Real Cross-Section of Downtown</span></h2><p class="mt-5 max-w-2xl text-sm leading-8 text-white/60 md:text-base"><span data-i18n="who_desc">Hang Bar pulls in the after-work cocktail crowd, birthday groups, visiting professionals, and anyone looking for a real downtown bar that doesn't feel like a hotel lobby or a thirty-table megaclub.</span></p></div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg" alt="Cocktail close-up" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg" alt="Bar atmosphere" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186039/481778608_17972112833824543_2187971896455543792_n_imqtko.jpg" alt="Late night crowd" class="h-[430px] w-full object-cover"></div>
+        </div>
+      </div>
+    </section>
 
-        // Lightbox Functions
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = galleryImages[index];
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- Event Nights -->
+    <section id="event-nights" class="bg-[#121212] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="events_eyebrow">Weekly Lineup</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="events_title">This Week at Hang Bar</span></h2></div>
+          <a href="#reserve" class="magnetic-btn btn-stroke border border-white/25 px-6 py-3 text-[11px] uppercase tracking-[0.28em] text-white"><span data-i18n="events_btn">Reserve for an Event Night</span></a>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp" alt="After Work Wednesdays" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">14</div><div class="weekday text-white/75">Wednesday</div></div>
+              <div><h3 class="font-serif text-2xl text-white"><span data-i18n="ev1_title">After Work</span></h3><p class="mt-1 text-lg text-white/85"><span data-i18n="ev1_subtitle">Cocktail Hour Wednesdays</span></p><p class="mt-3 text-sm leading-7 text-white/55"><span data-i18n="ev1_desc">Mid-week 5 à 7 with a relaxed lounge crowd, signature cocktails, and an early DJ set.</span></p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg" alt="Friday Mainline" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">16</div><div class="weekday text-white/75">Friday</div></div>
+              <div><h3 class="font-serif text-2xl text-white"><span data-i18n="ev2_title">Friday Mainline</span></h3><p class="mt-1 text-lg text-white/85"><span data-i18n="ev2_subtitle">Open-format DJ Set</span></p><p class="mt-3 text-sm leading-7 text-white/55"><span data-i18n="ev2_desc">The room shifts gears around 11pm — bottle service, full bar action, and the loudest crowd of the week.</span></p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Saturday Signature" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">17</div><div class="weekday text-white/75">Saturday</div></div>
+              <div><h3 class="font-serif text-2xl text-white"><span data-i18n="ev3_title">Saturday Signature</span></h3><p class="mt-1 text-lg text-white/85"><span data-i18n="ev3_subtitle">The Big Night</span></p><p class="mt-3 text-sm leading-7 text-white/55"><span data-i18n="ev3_desc">Peak Saturday programming — built around birthdays, group reservations, and full bar takeovers.</span></p></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
 
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    <!-- How a Night Works -->
+    <section class="bg-[#0a0a0a] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 text-center"><p class="eyebrow text-sand/80"><span data-i18n="exp_eyebrow">The Experience</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="exp_title">How a Night at Hang Works</span></h2></div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="cocktail-card p-8"><p class="eyebrow text-white/45">01</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step1_title">Cocktail Hour</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step1_desc">5 à 7 lounge mode — easy seating, signature cocktails, and a low-key DJ set to ease into the night.</span></p></div>
+          <div class="cocktail-card p-8"><p class="eyebrow text-white/45">02</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step2_title">Dinner Drinks</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step2_desc">A pre-dinner stop or a full evening — Hang works as a starter or the destination itself.</span></p></div>
+          <div class="cocktail-card p-8"><p class="eyebrow text-white/45">03</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step3_title">Late-Night Shift</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step3_desc">Around 11pm the room turns up — open-format DJ, packed bar, and full bottle service rotation.</span></p></div>
+          <div class="cocktail-card p-8"><p class="eyebrow text-white/45">04</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step4_title">Last Call</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step4_desc">A real downtown closer — the kind of last-call energy that ends nights, not starts them.</span></p></div>
+        </div>
+      </div>
+    </section>
 
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
-            if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
-            document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
-        }
+    <!-- Three pillars -->
+    <section class="scroll-fade bg-[#0a0a0a] py-20 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-3">
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_1_eyebrow">Cocktails</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_1_title">A real bar program</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_1_desc">Hang isn't a vodka-soda club — the cocktail menu is the lead product. Signature builds, fresh ingredients, and bartenders who actually care about the spec.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_2_eyebrow">Bottle Service</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_2_title">Group-ready layout</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_2_desc">Lounge sections, prime placements near the DJ, and bottle service that ties together a birthday round or a corporate after-work without feeling forced.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_3_eyebrow">Atmosphere</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_3_title">Built to shift gears</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_3_desc">Few venues do both 5 à 7 and 1am as well as Hang. The same room handles cocktails with colleagues and the loudest part of a Saturday — that flexibility is the point.</span></p></div>
+      </div>
+    </section>
 
-        // Keyboard navigation for lightbox
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('lightbox').classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-            }
-        });
+    <!-- Reserve -->
+    <section id="reserve" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="fade-up">
+          <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+          <h2 class="card-shift mt-4 font-serif text-5xl leading-[0.95] md:text-6xl"><span data-i18n="res_title">Reservations, bottle service, and group bookings.</span></h2>
+          <p class="mt-6 max-w-xl text-[15px] leading-8 text-white/68"><span data-i18n="res_desc">Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right table, and lock in the night.</span></p>
+          <div class="mt-10 space-y-8 text-white/75">
+            <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_eyebrow">Location</span></p><p class="mt-1"><span data-i18n="res_loc_val">Hang Bar, Downtown Montreal</span></p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-clock mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_hrs_label">Hours</span></p><p class="mt-1"><span data-i18n="res_hrs_val">Schedule subject to venue programming and event calendar.</span></p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-user-tie mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_conc_label">Concierge Support</span></p><p class="mt-1">514-378-0154 · info@montrealhospitality.com</p></div></div>
+          </div>
+        </div>
+        <div class="fade-up border border-white/10 bg-[#0b0b0b] p-7 md:p-10 shadow-soft">
+          <form id="reservationForm" action="https://formspree.io/f/mykdvnra" method="POST" class="grid gap-5 md:grid-cols-2">
+            <input type="hidden" name="venue" value="Hang Bar">
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Reservation</option><option>Bottle Service</option><option>Birthday / Group</option><option>Corporate After-Work</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_budget">Budget / Notes</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Optional"></div>
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_special">Special Request</span></label><textarea name="requests" rows="4" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Birthday, occasion, preferred area, bottle service details..."></textarea></div>
+            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-5 pt-2">
+              <p class="text-xs leading-6 text-white/45"><span data-i18n="form_disclaimer">Montreal Hospitality will review and follow up to confirm availability and pricing.</span></p>
+              <button type="submit" class="magnetic-btn btn-fill bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button>
+            </div>
+            <div id="formSuccess" class="hidden md:col-span-2 border border-emerald-400/30 bg-emerald-400/10 px-4 py-4 text-sm text-emerald-100">Request sent successfully.</div>
+          </form>
+        </div>
+      </div>
+    </section>
 
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            
-            // Generate random alphanumeric string: XX123XX123X1
-            let randomPart = '';
-            
-            // Pattern: XX123XX123X1 (2 letters, 3 numbers, 2 letters, 3 numbers, 1 letter, 1 number)
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        // Random letter A-Z
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        // Random number 0-9
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            
-            return prefix + randomPart;
-        }
+    <!-- Concierge/Complete your night -->
+    <section class="bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="comp_eyebrow">Complete Your Night</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="comp_title">Concierge-led nights that don't end at the bar.</span></h2>
+            <p class="mt-6 max-w-2xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="comp_desc">Hang Bar pairs naturally with the rest of the Montreal Hospitality network — dinner before, transport between, and another room after — all coordinated through one channel.</span></p>
+            <div class="mt-10 grid gap-4 sm:grid-cols-2">
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t1_title">Dinner</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t1_desc">Pre-bar dinner recommendations and arrival timing built around the reservation.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t2_title">Transport</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t2_desc">Limos, sprinters, and chauffeur pickups for groups arriving together.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t3_title">Nightlife</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t3_desc">A move from Hang to a partner club after midnight, all coordinated in advance.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t4_title">After Hours</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t4_desc">Concierge handling for clients who want the whole evening planned end-to-end.</span></p></div>
+            </div>
+          </div>
+          <div class="fade-up img-hover overflow-hidden shadow-soft">
+            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" alt="Hang Bar concierge" class="h-full min-h-[520px] w-full object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Validate form fields
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
+    <!-- Location -->
+    <section class="bg-[#0b0b0b] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="loc_eyebrow">Location</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="loc_title">Right in the middle of downtown.</span></h2>
+            <p class="mt-6 max-w-xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="loc_desc">Hang Bar sits in the core of Montreal's downtown nightlife strip — easy to walk to from offices, hotels, and the city's other premium rooms, and built for groups that want a real bar without needing to leave the city center.</span></p>
+            <div class="mt-10 space-y-6 text-white/72">
+              <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_addr_label">Address</span></p><p class="mt-1"><span data-i18n="loc_addr_val">Downtown Montreal, QC</span></p></div></div>
+              <div class="flex gap-4"><i class="fa-solid fa-car-side mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_arr_label">Arrival</span></p><p class="mt-1"><span data-i18n="loc_arr_val">Easy chauffeur drop-offs and walking access from major hotels and offices.</span></p></div></div>
+            </div>
+          </div>
+          <div class="fade-up overflow-hidden shadow-soft">
+            <iframe class="map-frame h-[460px] w-full" src="https://www.google.com/maps?q=Hang+Bar+Montreal&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
+    <!-- Venue Features -->
+    <section class="scroll-fade border-y line-soft bg-[#080808] py-20">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="feat_eyebrow">Venue Features</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="feat_title">What guests come back for</span></h2></div>
+          <p class="max-w-md text-sm leading-7 text-white/55"><span data-i18n="feat_desc">Everything that makes Hang Bar Montreal's essential cocktail lounge for guests who know the difference.</span></p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">01</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat1_title">Long bar, real program</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat1_desc">A bar that's actually the centerpiece of the room — not just a service station.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">02</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat2_title">Cocktail-to-club flow</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat2_desc">The room shifts from after-work to peak-time without ever needing to change venues.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">03</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat3_title">Group-friendly</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat3_desc">Birthdays, after-works, visiting teams, and bottle-service-led groups all fit naturally.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">04</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat4_title">Real downtown energy</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat4_desc">A bar with the kind of crowd you actually want to spend a night with.</span></p></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            return isValid;
-        }
+  <button id="stickyReserveBtn" class="sticky-reserve-btn btn-hover"><span data-i18n="sticky_btn">Reserve Now</span></button>
 
-        // Submit form function
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Validate form first
-            if (!validateForm()) {
-                // Shake animation for visual feedback
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    form.style.animation = '';
-                }, 500);
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
-            
-            try {
-                // Generate reference number first
-                const refNumber = generateReferenceNumber();
-                
-                // Collect all form data
-                const formData = new FormData(form);
-                
-                // Add reference number to form data
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'Hang Bar');
-                
-                // Submit to Formspree
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success - show success message
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Request';
-                submitBtn.classList.remove('submitting');
-            }
-        }
+  <div id="reserveModal" class="reserve-modal fixed inset-0 z-[1000] items-center justify-center p-4">
+    <div class="reserve-backdrop absolute inset-0 bg-black/75"></div>
+    <div class="relative z-10 w-full max-w-xl border border-white/10 bg-[#0b0b0b] p-7 shadow-soft md:p-10">
+      <button id="closeReserveModal" class="absolute right-5 top-5 text-white/65 transition hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+      <h3 class="mt-4 font-serif text-4xl text-white md:text-5xl"><span data-i18n="modal_title">Book Your Night</span></h3>
+      <p class="mt-4 max-w-lg text-sm leading-7 text-white/60"><span data-i18n="modal_desc">Submit a request for a reservation, bottle service, or birthday booking at Hang Bar. Montreal Hospitality will follow up to confirm.</span></p>
+      <form id="quickReserveForm" action="https://formspree.io/f/mykdvnra" method="POST" class="mt-8 grid gap-4 md:grid-cols-2">
+        <input type="hidden" name="venue" value="Hang Bar">
+        <div class="md:col-span-2"><label class="eyebrow block text-white/45"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Reservation</option><option>Bottle Service</option><option>Birthday / Group</option><option>Corporate After-Work</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_special">Special Request</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Birthday, booth preference, occasion"></div>
+        <div class="md:col-span-2"><button type="submit" class="magnetic-btn btn-fill w-full bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button></div>
+      </form>
+    </div>
+  </div>
 
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+  <footer class="bg-black px-6 pb-10 pt-20 md:px-10">
+    <div class="mx-auto grid max-w-7xl gap-12 border-b border-white/10 pb-14 md:grid-cols-[1.1fr_.7fr_.7fr_.8fr]">
+      <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 object-contain"><p class="mt-6 max-w-md text-sm leading-8 text-white/52"><span data-i18n="footer_tagline">Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.</span></p></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_explore">Explore</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><a class="block hover:text-white" href="venues.html" data-i18n="nav_venues">Venues</a><a class="block hover:text-white" href="packages.html" data-i18n="nav_packages">Packages</a><a class="block hover:text-white" href="service.html" data-i18n="nav_services">Services</a><a class="block hover:text-white" href="event.html" data-i18n="nav_events">Events</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_contact">Contact</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><p>514-378-0154</p><a class="block hover:text-white" href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a><a class="block hover:text-white" href="https://www.instagram.com/montrealhospitality/?hl=en">Instagram</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_venue_label">The Venue</span></p><p class="mt-5 text-sm leading-8 text-white/60"><span data-i18n="footer_venue_text">Hang Bar shares a unified visual system with Yoko Luna, 212, and the rest of the venue pages — same editorial direction, tailored to each room's identity.</span></p></div>
+    </div>
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 pt-8 text-[11px] uppercase tracking-[0.24em] text-white/32 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Montreal Hospitality</p>
+      <div class="flex gap-6"><a href="#" class="hover:text-white/70"><span data-i18n="footer_privacy">Privacy</span></a><a href="#" class="hover:text-white/70"><span data-i18n="footer_terms">Terms</span></a></div>
+    </div>
+  </footer>
 
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
-
-        // Loader and Hero Animation Trigger
-        let loaderHidden = false;
-
-        function hideLoader() {
-            if (loaderHidden) return;
-            loaderHidden = true;
-            const loader = document.getElementById('loader');
-            if (!loader) return;
-
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-                document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
-            }, 800);
-        }
-
-        window.addEventListener('load', () => {
-            setTimeout(hideLoader, 700);
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(hideLoader, 1800);
-        });
-
-        setTimeout(hideLoader, 3000);
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-
-        // Extra-safe loader fallback
-        document.addEventListener('readystatechange', () => {
-            if (document.readyState === 'interactive' || document.readyState === 'complete') {
-                setTimeout(hideLoader, 150);
-            }
-        });
-
-        window.addEventListener('pageshow', () => {
-            setTimeout(hideLoader, 150);
-        });
-
-        // Mobile Menu listeners with null checks
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', toggleMenu);
-            });
-        }
-    </script>
+  <script>
+    const galleryImages=[
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185566/unnamed_kn0c7o.webp',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185813/514784393_17985437336824543_3293680289249778558_n_wrw5s6.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771185896/504353455_17985437411824543_4879830470796959571_n_syurq8.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186039/481778608_17972112833824543_2187971896455543792_n_imqtko.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg'
+    ];
+    let currentIndex=0;
+    function openLightbox(i){currentIndex=i;const box=document.getElementById('lightbox');const img=document.getElementById('lightbox-image');if(!box||!img)return;img.src=galleryImages[i];box.classList.add('open');document.body.style.overflow='hidden';}
+    function closeLightbox(){const box=document.getElementById('lightbox');if(!box)return;box.classList.remove('open');document.body.style.overflow='';}
+    function changeLightbox(dir){const img=document.getElementById('lightbox-image');if(!img)return;currentIndex=(currentIndex+dir+galleryImages.length)%galleryImages.length;img.src=galleryImages[currentIndex];}
+    document.addEventListener('keydown',(e)=>{const box=document.getElementById('lightbox');if(box&&box.classList.contains('open')){if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeLightbox(-1);if(e.key==='ArrowRight')changeLightbox(1);}});
+    (function(){const navbar=document.getElementById('navbar');if(!navbar)return;let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{navbar.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+    (function(){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));})();
+    (function(){const btn=document.getElementById('mobile-menu-btn');const menu=document.getElementById('mobile-menu');if(!btn||!menu)return;let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+    (function(){const btn=document.getElementById('venues-menu-btn');const mega=document.getElementById('venues-mega');const chevron=document.getElementById('venues-chevron');const wrapper=document.getElementById('venues-menu-wrapper');const previewImg=document.getElementById('venues-preview-img');const previewLabel=document.getElementById('venues-preview-label');if(!btn||!mega||!chevron||!wrapper||!previewImg||!previewLabel)return;let closeTimer=null;function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenu();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});})();
+    (function(){const rail=document.getElementById('social-rail');const prev=document.getElementById('social-prev');const next=document.getElementById('social-next');if(!rail||!prev||!next)return;const getAmt=()=>Math.min(rail.clientWidth*0.9,520);prev.addEventListener('click',()=>rail.scrollBy({left:-getAmt(),behavior:'smooth'}));next.addEventListener('click',()=>rail.scrollBy({left:getAmt(),behavior:'smooth'}));rail.addEventListener('wheel',(e)=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();rail.scrollLeft+=e.deltaY;}},{passive:false});})();
+    (function(){const dividers=document.querySelectorAll('.section-divider');const heroMedia=document.querySelector('.hero-parallax');const rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.2});dividers.forEach(d=>obs.observe(d));if(!rm&&heroMedia){let t=false;const onScroll=()=>{if(t)return;t=true;requestAnimationFrame(()=>{const offset=Math.min(window.scrollY*0.12,70);heroMedia.style.setProperty('--hero-offset',`${offset}px`);t=false;});};onScroll();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);}})();
+    (function(){if(window.matchMedia('(hover:none)').matches)return;document.querySelectorAll('.magnetic-btn').forEach((btn)=>{btn.addEventListener('mousemove',(e)=>{const rect=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-rect.left-rect.width/2)*0.06}px,${(e.clientY-rect.top-rect.height/2)*0.10}px)`;});btn.addEventListener('mouseleave',()=>{btn.style.transform='';});});})();
+    (function(){const form=document.getElementById('reservationForm');const success=document.getElementById('formSuccess');if(!form||!success)return;form.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(r.ok){success.classList.remove('hidden');form.reset();setTimeout(()=>success.classList.add('hidden'),5000);}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});})();
+    (function(){const stickyBtn=document.getElementById('stickyReserveBtn');const modal=document.getElementById('reserveModal');const closeBtn=document.getElementById('closeReserveModal');if(!stickyBtn||!modal||!closeBtn)return;const open=()=>modal.classList.add('open');const close=()=>modal.classList.remove('open');stickyBtn.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',(e)=>{if(e.target===modal||e.target.classList.contains('reserve-backdrop'))close();});document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close();});const qf=document.getElementById('quickReserveForm');if(qf){qf.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(qf.action,{method:'POST',body:new FormData(qf),headers:{Accept:'application/json'}});if(r.ok){qf.reset();close();alert('Request sent successfully.');}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});}})();
+  </script>
 </body>
 </html>

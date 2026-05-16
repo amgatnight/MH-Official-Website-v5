@@ -1,1188 +1,613 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Voute | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Voute | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script>
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 750);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 800));
+      } else { setTimeout(hideLoader, 800); }
+      setTimeout(hideLoader, 2800);
+    })();
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink:'#050505', sand:'#d8c2a1', stone:'#a8a29e', bronze:'#b28a5a', ash:'#111111', 'mh-navy':'#0B0F19', 'mh-gold':'#C5A059', 'mh-gold-light':'#D6B88A', 'mh-dark':'#05070A', 'mh-gray':'#1A1D24' },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] },
+        boxShadow: { soft:'0 25px 80px rgba(0,0,0,0.28)' }
+      }}
+    }
 
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+    const translations = {
+      en: {
+        page_title:"La Voute | Montreal Hospitality", nav_home:"Home", nav_venues:"Venues", nav_packages:"Packages", nav_sports:"Sports", nav_services:"Services", nav_events:"Events", nav_careers:"Careers", mega_our_venues:"Our Venues", mega_view_all_venues:"View All Venues", mega_featured:"Featured", mega_now_open:"Now Open",
+        hero_eyebrow:"Old Montreal · Historic Bank Vault",
+        hero_cta_primary:"Reserve a Table", hero_cta_secondary:"View Gallery",
+        hero_card_1_label:"Music", hero_card_1_value:"World-class DJs, live acts",
+        hero_card_2_label:"Experience", hero_card_2_value:"Casino nights, bottle service, VIP",
+        hero_card_3_label:"Location", hero_card_3_value:"Old Montreal",
+        hero_card_4_label:"Dress", hero_card_4_value:"Upscale elegant / cocktail"
+      },
+      fr: {
+        page_title:"La Voute | Montreal Hospitality", nav_home:"Accueil", nav_venues:"Établissements", nav_packages:"Forfaits", nav_sports:"Sports", nav_services:"Services", nav_events:"Événements", nav_careers:"Carrières", mega_our_venues:"Nos Établissements", mega_view_all_venues:"Voir Tous Les Établissements", mega_featured:"En Vedette", mega_now_open:"Maintenant Ouvert",
+        hero_eyebrow:"Vieux-Montréal · Voûte Bancaire Historique",
+        hero_cta_primary:"Réserver une table", hero_cta_secondary:"Voir la galerie",
+        hero_card_1_label:"Musique", hero_card_1_value:"DJs de classe mondiale, performances live",
+        hero_card_2_label:"Expérience", hero_card_2_value:"Soirées casino, service aux bouteilles, VIP",
+        hero_card_3_label:"Emplacement", hero_card_3_value:"Vieux-Montréal",
+        hero_card_4_label:"Tenue", hero_card_4_value:"Élégant chic / tenue de soirée"
+      }
+    };
 
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
-
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Nav */
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-        }
-
-        /* Image Hover Effects */
-        .img-zoom-container { overflow: hidden; }
-        .img-zoom {
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .group:hover .img-zoom {
-            transform: scale(1.08);
-        }
-
-        /* Smooth underline animation */
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
-
-        /* Button hover animations */
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
-
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Gallery Grid */
-        .gallery-item {
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* Lightbox */
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        #lightbox.active {
-            display: flex;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        /* Form Styles */
-        .form-input {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 18px;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #C5A059;
-        }
-
-        /* Custom Select */
-        .custom-select {
-            position: relative;
-        }
-        .custom-select select {
-            appearance: none;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 14px 40px 14px 18px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .custom-select select:focus {
-            outline: none;
-            border-color: #C5A059;
-        }
-        .custom-select::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #C5A059;
-            pointer-events: none;
-        }
-        .custom-select select option {
-            background: #0B0F19;
-            color: white;
-        }
-
-        /* Radio Buttons */
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .radio-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        .radio-item input[type="radio"] {
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .radio-item input[type="radio"]:checked {
-            border-color: #C5A059;
-        }
-        .radio-item input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 8px;
-            height: 8px;
-            background: #C5A059;
-            border-radius: 50%;
-        }
-        .radio-item label {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-            cursor: pointer;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* Validation error styles */
-        .form-input:invalid:not(:placeholder-shown) {
-            border-color: #ef4444;
-        }
-        .validation-error {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 4px;
-            display: none;
-        }
-        .form-input:invalid:not(:placeholder-shown) + .validation-error {
-            display: block;
-        }
-
-        /* Shake animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-    
-
-        /* Language Switcher Styles */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.1);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-    </style>
-<base target="_self">
-<base target="_self">
-<base target="_self">
+    window.translator = {
+      currentLang:'en',
+      init() {
+        const savedLang=localStorage.getItem('preferred_language'); const urlLang=new URLSearchParams(window.location.search).get('lang'); const browserLang=(navigator.language||'en').split('-')[0];
+        this.currentLang=[urlLang,savedLang,browserLang,'en'].find(l=>translations[l])||'en';
+        localStorage.setItem('preferred_language',this.currentLang); document.documentElement.lang=this.currentLang;
+        this.updateUI(); this.translatePage(); this.translateLinks(); this.bindLanguageButtons();
+      },
+      setLanguage(lang) { if(!translations[lang])return; this.currentLang=lang; localStorage.setItem('preferred_language',lang); document.documentElement.lang=lang; this.updateUI(); this.translatePage(); this.translateLinks(); const url=new URL(window.location.href); url.searchParams.set('lang',lang); window.history.replaceState({},'',`${url.pathname}${url.search}${url.hash}`); },
+      updateUI() { document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===this.currentLang)); },
+      translatePage() { const t=translations[this.currentLang]||translations.en; document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t[el.dataset.i18n];if(!v)return;if(v.includes('<'))el.innerHTML=v;else el.textContent=v;}); if(t.page_title)document.title=t.page_title; },
+      translateLinks() { document.querySelectorAll('a[href]').forEach(link=>{const rawHref=link.getAttribute('href');if(!rawHref||rawHref.startsWith('#')||rawHref.startsWith('mailto:')||rawHref.startsWith('tel:')||rawHref.startsWith('javascript:')||rawHref.startsWith('http'))return;try{const url=new URL(rawHref,window.location.href);if(url.origin!==window.location.origin)return;url.searchParams.set('lang',this.currentLang);const normalized=`${url.pathname.split('/').pop()||'index.html'}${url.search}${url.hash}`;link.setAttribute('href',normalized);}catch(e){}});},
+      bindLanguageButtons() { document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>this.setLanguage(btn.dataset.lang))); }
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
+  </script>
+  <style>
+    body{background:#050505;color:#fff;font-family:'Montserrat',sans-serif;}
+    .eyebrow{letter-spacing:.36em;text-transform:uppercase;font-size:.7rem;}
+    .hero-grad{background:linear-gradient(to top,rgba(5,5,5,.94),rgba(5,5,5,.45),rgba(5,5,5,.15));}
+    .line-soft{border-color:rgba(255,255,255,.12);}
+    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+    .fade-up.in{opacity:1;transform:none;}
+    .story-copy p{color:rgba(255,255,255,.72);line-height:1.95;}
+    .scroll-fade{opacity:1;transform:none;transition:none;will-change:auto;}
+    .interactive-card{transition:transform .45s cubic-bezier(0.16,1,0.3,1),box-shadow .45s cubic-bezier(0.16,1,0.3,1),border-color .3s ease;will-change:transform;}
+    @media(hover:hover){.interactive-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.28);}.interactive-card:hover .card-shift{transform:translateY(-4px);}}
+    .card-shift{transition:transform .45s cubic-bezier(0.16,1,0.3,1),color .3s ease;}
+    .magnetic-btn{transition:transform .25s ease;will-change:transform;}
+    .hero-parallax{transform:scale(1.05) translateY(var(--hero-offset,0px));transition:transform .12s linear;will-change:transform;}
+    .section-divider{height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(197,160,89,.85),transparent);transition:width 1.1s cubic-bezier(0.16,1,0.3,1);}
+    .section-divider.in{width:100%;}
+    .nav-scrolled{background-color:rgba(11,15,25,0.95);backdrop-filter:blur(10px);padding-top:1.2rem!important;padding-bottom:1.2rem!important;border-bottom:1px solid rgba(197,160,89,0.1);}
+    #navbar{will-change:background-color,padding;}
+    .link-hover{position:relative;}
+    .link-hover::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#C5A059;transition:width 0.4s cubic-bezier(0.16,1,0.3,1);}
+    .link-hover:hover::after{width:100%;}
+    .lang-switcher{display:flex;align-items:center;gap:0.5rem;font-size:11px;letter-spacing:0.15em;font-weight:500;}
+    .lang-btn{padding:0.25rem 0.5rem;border:1px solid transparent;background:transparent;color:#ffffff;cursor:pointer;transition:all 0.3s ease;text-transform:uppercase;}
+    .lang-btn:hover{color:#C5A059;} .lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,0.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,0.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,0.2);}
+    #loader{position:fixed;inset:0;background:#0B0F19;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity 0.7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+    .img-hover img{transition:transform .9s ease,opacity .5s ease;} .img-hover:hover img{transform:scale(1.06);}
+    .btn-fill,.btn-stroke{transition:all .28s ease;} .btn-fill:hover{transform:translateY(-1px);filter:brightness(1.05);} .btn-stroke:hover{background:#fff;color:#000;}
+    .btn-hover{position:relative;overflow:hidden;transition:all 0.3s ease;}
+    .btn-hover::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);transition:left 0.5s ease;}
+    .btn-hover:hover::before{left:100%;}
+    .card-border{border:1px solid rgba(255,255,255,.1);}
+    .lightbox{display:none;} .lightbox.open{display:flex;}
+    input,textarea,select{appearance:none;}
+    #social-rail::-webkit-scrollbar{display:none;}
+    .sticky-reserve-btn{position:fixed;right:1.5rem;bottom:1.5rem;z-index:999;background:#C5A059;color:#050505;border:1px solid rgba(197,160,89,.9);padding:.95rem 1.35rem;font-size:11px;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease;}
+    .sticky-reserve-btn:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.45);}
+    .reserve-modal{display:none;} .reserve-modal.open{display:flex;}
+    .reserve-backdrop{backdrop-filter:blur(10px);}
+    .poster-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);transition:transform .35s ease,border-color .35s ease;}
+    .poster-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.45);}
+    .poster-date{min-width:74px;} .poster-date .day{font-size:3.25rem;line-height:.9;font-weight:300;}
+    .poster-date .month,.poster-date .weekday{font-size:.82rem;line-height:1.1;}
+    .lux-grid-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);transition:transform .3s ease,border-color .3s ease;}
+    .lux-grid-card:hover{transform:translateY(-4px);border-color:rgba(216,194,161,.45);}
+    .map-frame{filter:grayscale(1) contrast(1.1) brightness(.8);}
+    /* La Voute — stone / vault accent */
+    .vault-card{position:relative;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.4));transition:transform .35s ease,border-color .35s ease;}
+    .vault-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.55);}
+    .vault-card::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,#C5A059 30%,#C5A059 70%,transparent);opacity:.55;}
+    .menu-row{border-bottom:1px dashed rgba(255,255,255,.1);padding:1.2rem 0;display:flex;align-items:baseline;gap:1.25rem;}
+    .menu-row:last-child{border-bottom:none;}
+    .menu-row .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);height:.7em;transform:translateY(-.25em);}
+    .menu-row .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;}
+    .menu-row .price{font-family:'Cormorant Garamond',serif;color:#d8c2a1;font-size:1.25rem;letter-spacing:.05em;}
+    .menu-row .desc{display:block;color:rgba(255,255,255,.55);font-size:.8rem;letter-spacing:.06em;margin-top:.25rem;}
+    @media(max-width:768px){.sticky-reserve-btn{left:1rem;right:1rem;bottom:1rem;text-align:center;}}
+    .hero-title .title-line{
+      display:block;
+      opacity:0;
+      transform:translateY(40px);
+      filter:blur(10px);
+      animation:heroTextReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-title .title-line:nth-child(1){animation-delay:0.4s;}
+    .hero-title .title-line:nth-child(2){animation-delay:0.9s;}
+    @keyframes heroTextReveal{
+      0%{opacity:0;transform:translateY(40px) scale(0.98);filter:blur(10px);}
+      60%{opacity:1;}
+      100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    }
+  </style>
+  <base target="_self">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
 </head>
-<body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
+<body class="antialiased selection:bg-white selection:text-black">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox fixed inset-0 z-[100] items-center justify-center bg-black/95 p-4">
+    <button onclick="closeLightbox()" class="absolute right-6 top-6 text-white/80 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+    <button onclick="changeLightbox(-1)" class="absolute left-5 md:left-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightbox-image" src="" alt="La Voute gallery image" class="max-h-[88vh] max-w-[92vw] object-contain">
+    <button onclick="changeLightbox(1)" class="absolute right-5 md:right-8 text-white/70 hover:text-white text-2xl"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <header class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0">
+      <video autoplay muted loop playsinline class="h-full w-full object-cover hero-parallax">
+        <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1778706691/Quelle_fin_d_ann%C3%A9e_incroyable_Merci_%C3%A0_tous_d_avoir_c%C3%A9l%C3%A9br%C3%A9_avec_nous_et_d_avoir_fait_partie_de_kjnsr0.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.88) 0%,rgba(5,5,5,0.35) 50%,rgba(5,5,5,0.25) 100%)"></div>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="closeLightbox()">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        <img id="lightbox-img" src="" alt="Gallery Image">
-        <button class="absolute left-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="absolute right-6 text-white text-3xl hover:text-mh-gold transition-colors z-50" onclick="changeImage(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-
-        <!-- Logo -->
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
-        </a>
-
-        <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a>
-            <a href="venues.html" target="_self" class="link-hover text-mh-gold transition-colors">Venues</a>
-            <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a>
-            <a href="service.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Services</a>
-            <a href="event.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a>
-            <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
-        </div>
-
-        <!-- Right Actions -->
-        <div class="hidden lg:flex items-center gap-8">
-            
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+      <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+      </a>
+      <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+        <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+        <div class="relative" id="venues-menu-wrapper">
+          <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium text-mh-gold" aria-expanded="false">
+            <span data-i18n="nav_venues">Venues</span>
+            <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+          </a>
+          <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity 0.22s ease,transform 0.22s ease;right:auto;width:fit-content;">
+            <div class="px-20 py-12 flex gap-0">
+              <div class="flex-1 border-r border-white/10 pr-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+                <ul>
+                  <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                  <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>                </ul>
+              </div>
+              <div class="flex-1 border-r border-white/10 px-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+                <ul>
+                  <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                  <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                  <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                </ul>
+                <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+              </div>
+              <div class="w-[280px] pl-12 flex flex-col gap-4">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+                <div class="relative overflow-hidden aspect-[3/4] w-full">
+                  <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">La Voute</p>
+                </div>
+                <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+              </div>
             </div>
-<a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+          </div>
         </div>
+        <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+        <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+        <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+        <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+        <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="lang-switcher"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+        <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+      </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
-        <a href="venues.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
-        <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
-        <a href="service.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
-        <a href="event.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
-        <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
+      <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+      <a href="venues.html" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
+      <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages">Packages</a>
+      <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
+      <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
+      <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
+      <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" 
-                 class="w-full h-full object-cover" 
-                 alt="La Voute"
-                 style="object-position: center;">
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/70 via-mh-navy/50 to-mh-navy"></div>
+    <!-- Hero: centered logo + serif headline (matching Hang Bar style) -->
+    <div class="relative z-10 flex min-h-screen flex-col items-center justify-center text-center px-6">
+      <div class="fade-up">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1778706929/80992330-50d9-4ce5-bd7d-bab38939e76f_sksyjk.png" alt="La Voute" class="mx-auto w-28 sm:w-36 md:w-44 lg:w-52 object-contain mb-10">
+        <p class="eyebrow mb-8 text-white/50 tracking-[0.5em]" data-i18n="hero_eyebrow">Old Montreal · Historic Bank Vault</p>
+        <p class="font-serif text-white leading-[1.05] hero-title" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;">
+          <span class="title-line">La Voute - Montreal's most</span>
+          <span class="title-line"><em style="font-style:italic;font-weight:400;">dramatic room.</em></span>
+        </p>
+        <div class="mt-12 flex flex-wrap gap-4 justify-center">
+          <a href="#reserve" class="magnetic-btn btn-fill bg-white px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-black" data-i18n="hero_cta_primary">Reserve a Table</a>
+          <a href="#gallery" class="magnetic-btn btn-stroke border border-white/35 px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-white" data-i18n="hero_cta_secondary">View Gallery</a>
         </div>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      <span class="eyebrow text-white text-[9px] tracking-[0.4em]">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);"></div>
+    </div>
+  </header>
 
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <span class="tao-subheading text-mh-gold text-[11px] block mb-4 reveal">Old Montreal</span>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-6 leading-[0.95] reveal">
-                La Voute
-            </h1>
-            <p class="text-gray-300 max-w-2xl mx-auto font-light text-lg reveal">
-                A breathtaking cathedral of nightlife with soaring ceilings and divine energy
-            </p>
+  <section class="relative h-[72vh] overflow-hidden border-y line-soft bg-black">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg" alt="La Voute atmosphere" class="h-full w-full object-cover opacity-50">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/80"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+      <div>
+        <p class="eyebrow mb-5 text-sand/80">Atmosphere</p>
+        <h2 class="font-serif text-5xl text-white md:text-7xl">A Room That Earns Its Name</h2>
+        <p class="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/70 md:text-base">Forty feet of original bank vault rising above you, stone arches framing the room, and an energy that turns a Tuesday into a memory. There's no venue in Montreal quite like La Voute.</p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="scroll-fade border-y line-soft bg-[#080808]">
+      <div class="mx-auto grid max-w-7xl gap-0 md:grid-cols-3">
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone">Architecture</p><p class="mt-3 text-xl font-serif">40-foot original bank vault ceilings — a converted historic space that is unlike anything else in the city.</p></div>
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone">Casino Nights</p><p class="mt-3 text-xl font-serif">Roulette, blackjack, and poker tables — casino programming that turns the venue into a high-stakes evening.</p></div>
+        <div class="px-6 py-7 md:px-10"><p class="eyebrow text-stone">Service</p><p class="mt-3 text-xl font-serif">Guest list, VIP tables, bottle service, casino event packages, and full concierge booking through Montreal Hospitality.</p></div>
+      </div>
+    </section>
+
+    <section class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <div class="fade-up story-copy">
+          <p class="eyebrow text-sand/80">Built Different</p>
+          <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-[0.95] md:text-6xl">A historic bank vault turned into Montreal's most dramatic nightlife room.</h2>
+          <div class="mt-8 max-w-2xl space-y-6 text-[15px]">
+            <p>La Voute occupies the original vaulted hall of one of Old Montreal's historic bank buildings — a space whose 40-foot stone ceilings and arched architecture were never designed for nightlife, which is exactly what makes them so extraordinary inside it. The acoustics are perfect. The atmosphere is unmatched. The room announces itself the moment you walk in.</p>
+            <p>Through Montreal Hospitality, La Voute handles casino nights, headline DJ events, private buyouts, and regular weekend programming. Whether you're coming for a casino night with friends, a bottle table at a headline show, or a full corporate buyout of one of Old Montreal's most storied spaces, La Voute handles every scale of the occasion.</p>
+          </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="bg-mh-dark">
-        
-        <!-- Venue Info -->
-        <section class="py-16 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-12 text-center reveal">
-                    <div>
-                        <i class="fa-solid fa-church text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Historic Vault</h3>
-                        <p class="text-gray-400 text-sm">Architectural Marvel</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-dice-d20 text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Casino Nights</h3>
-                        <p class="text-gray-400 text-sm">Gaming & Entertainment</p>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-crown text-mh-gold text-2xl mb-4"></i>
-                        <h3 class="tao-subheading text-white text-[11px] mb-2">Royal Treatment</h3>
-                        <p class="text-gray-400 text-sm">VIP Experience</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery & Form Split Section -->
-        <section class="py-20">
-            <div class="max-w-[95%] mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
-                    
-                    <!-- Left Side: Gallery -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Gallery</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8">Experience La Voute</h2>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(0)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute Main">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(1)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute Interior">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(2)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute Vault">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(3)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute Casino">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(4)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute Dance Floor">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="gallery-item group relative overflow-hidden aspect-[4/3]" onclick="openLightbox(5)">
-                                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg" 
-                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                                     alt="La Voute VIP">
-                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                                    <i class="fa-solid fa-expand text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-2xl"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-gray-500 text-sm mt-6 italic">Click images to expand</p>
-                    </div>
-
-                    <!-- Right Side: Guest List / Tickets Form -->
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Reservations</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-8">Guest List & Tickets</h2>
-                        
-                        <div class="bg-mh-gray/30 border border-white/10 p-8 lg:p-10">
-                            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate>
-                                
-                                <!-- Request Type -->
-                                <div class="mb-8">
-                                    <label class="form-label">Request Type</label>
-                                    <div class="radio-group">
-                                        <div class="radio-item">
-                                            <input type="radio" id="guestlist" name="requestType" value="guestlist" checked>
-                                            <label for="guestlist">Guest List</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="tickets" name="requestType" value="tickets">
-                                            <label for="tickets">Tickets</label>
-                                        </div>
-                                        <div class="radio-item">
-                                            <input type="radio" id="bottle" name="requestType" value="bottle">
-                                            <label for="bottle">Bottle Service</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Name -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="fullName">Full Name *</label>
-                                    <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" data-required="true">
-                                    <span class="validation-error">Please enter your full name</span>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="email">Email Address *</label>
-                                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" data-required="true">
-                                    <span class="validation-error">Please enter a valid email</span>
-                                </div>
-
-                                <!-- Phone -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="phone">Phone Number *</label>
-                                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="(514) 000-0000" data-required="true">
-                                    <span class="validation-error">Please enter your phone number</span>
-                                </div>
-
-                                <!-- Date -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="date">Preferred Date *</label>
-                                    <input type="date" id="date" name="date" class="form-input" data-required="true">
-                                    <span class="validation-error">Please select a date</span>
-                                </div>
-
-                                <!-- Guests -->
-                                <div class="mb-6">
-                                    <label class="form-label" for="guests">Number of Guests *</label>
-                                    <div class="custom-select">
-                                        <select id="guests" name="guests" data-required="true">
-                                            <option value="">Select number of guests</option>
-                                            <option value="1">1 Guest</option>
-                                            <option value="2">2 Guests</option>
-                                            <option value="3">3 Guests</option>
-                                            <option value="4">4 Guests</option>
-                                            <option value="5">5 Guests</option>
-                                            <option value="6">6+ Guests</option>
-                                            <option value="10">10+ Guests (Large Party)</option>
-                                        </select>
-                                    </div>
-                                    <span class="validation-error">Please select number of guests</span>
-                                </div>
-
-                                <!-- Special Requests -->
-                                <div class="mb-8">
-                                    <label class="form-label" for="requests">Special Requests</label>
-                                    <textarea id="requests" name="requests" rows="3" class="form-input resize-none" placeholder="Birthday celebration, special occasion, preferred seating..."></textarea>
-                                </div>
-
-                                <!-- Honeypot field to prevent spam -->
-                                <input type="text" name="_gotcha" style="display:none">
-
-                                <!-- Submit Button -->
-                                <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover w-full bg-mh-gold text-mh-navy py-4 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-white transition-all duration-300">
-                                    Submit Request
-                                </button>
-
-                                <p class="text-gray-500 text-xs mt-4 text-center">
-                                    Our team will confirm your reservation within 24 hours
-                                </p>
-                            </form>
-
-                            <!-- Success Message -->
-                            <div id="successMessage" class="success-message">
-                                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                                <h3 class="text-white font-serif text-2xl mb-2">Request Received!</h3>
-                                <p class="text-gray-400 text-sm mb-4">We've received your request and will contact you shortly to confirm your reservation at La Voute.</p>
-                                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1">Your Reference Number</p>
-                                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                                </div>
-                                <div class="space-y-1 text-gray-400 text-xs">
-                                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> Confirmation sent to <span id="confirmEmail">your@email.com</span></p>
-                                </div>
-                            </div>
-
-                            <!-- Error Message -->
-                            <div id="errorMessage" class="error-message">
-                                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                                <p class="font-light text-sm">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-                            </div>
-                        </div>
-
-                        <!-- Contact Info -->
-                        <div class="mt-8 flex items-center gap-4 text-sm text-gray-400">
-                            <i class="fa-solid fa-phone text-mh-gold"></i>
-                            <span>For immediate assistance: <a href="tel:514-378-0154" class="text-white hover:text-mh-gold transition-colors">514-378-0154</a></span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="py-20 bg-mh-navy">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="text-center mb-16 reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Highlights</span>
-                    <h2 class="text-3xl md:text-4xl tao-heading text-white">What to Expect</h2>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-archway text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Soaring Vaults</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Breathtaking 40-foot ceilings in a converted historic bank vault.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-dice text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Casino Gaming</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Roulette, blackjack, and poker tables for high-stakes entertainment.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-music text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Live Performances</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">World-class DJs and live acts in an acoustically perfect space.</p>
-                    </div>
-
-                    <div class="group p-6 border border-white/10 hover:border-mh-gold/50 transition-all duration-300 reveal">
-                        <div class="w-12 h-12 rounded-full border border-mh-gold/30 flex items-center justify-center mb-6 group-hover:bg-mh-gold/10 transition-colors">
-                            <i class="fa-solid fa-gem text-mh-gold"></i>
-                        </div>
-                        <h3 class="text-white font-serif text-xl mb-3">Luxury Gaming</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Premium casino experience with private high-limit rooms.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Location -->
-        <section class="py-20 bg-mh-dark">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="reveal">
-                        <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Location</span>
-                        <h2 class="text-3xl md:text-4xl tao-heading text-white mb-6">Find Us</h2>
-                        <div class="space-y-4 text-gray-400">
-                            <p class="flex items-start gap-4">
-                                <i class="fa-solid fa-location-dot text-mh-gold mt-1"></i>
-                                <span>360 Rue Saint-Jacques<br>Old Montreal, QC H2Y 1P5</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-clock text-mh-gold"></i>
-                                <span>Thu-Sat: 10PM - 3AM<br>Sun-Wed: Closed</span>
-                            </p>
-                            <p class="flex items-center gap-4">
-                                <i class="fa-solid fa-shirt text-mh-gold"></i>
-                                <span>Dress Code: Upscale Elegant / Cocktail</span>
-                            </p>
-                        </div>
-                        
-                        <div class="mt-8 flex gap-4">
-                            <a href="#" class="btn-hover inline-flex items-center gap-2 border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all">
-                                <i class="fa-solid fa-map"></i> Get Directions
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="reveal aspect-video border border-white/10 overflow-hidden">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.845123456789!2d-73.5745!3d45.4975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a41d3f6e7d7%3A0x8c9c7b8a6e5f4d3c!2s360%20Rue%20Saint-Jacques%2C%20Montr%C3%A9al%2C%20QC%20H2Y%201P5!5e0!3m2!1sen!2sca!4v1234567890"
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Back to Venues -->
-        <section class="py-12 border-t border-white/10">
-            <div class="max-w-7xl mx-auto px-6 text-center reveal">
-                <a href="venues.html" target="_self" class="inline-flex items-center gap-3 text-mh-gold hover:text-white transition-colors text-sm tracking-[0.2em] uppercase">
-                    <i class="fa-solid fa-arrow-left"></i> Back to All Venues
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
-                        <li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
-                        
-                        <li><a href="service.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Service</a></li>
-                        <li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Contact</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
-            </div>
+        <div class="fade-up img-hover overflow-hidden shadow-soft">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" alt="La Voute interior" class="h-full w-full object-cover">
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Gallery Images Array
-        const galleryImages = [
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg",
-            "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg"
-        ];
+    <!-- Drink / Experience Menu -->
+    <section class="scroll-fade bg-[#070707] py-20 lg:py-28 border-y line-soft">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-sand/80">Experience Program</p>
+            <h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl">The Vault Offerings</h2>
+          </div>
+          <p class="max-w-md text-sm leading-7 text-white/55">Signature experiences inside one of Old Montreal's most storied spaces — built for guests who want more than a nightclub.</p>
+        </div>
+        <div class="section-divider fade-up mb-12"></div>
+        <div class="grid gap-x-16 gap-y-2 md:grid-cols-2">
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Casino Night</span><span class="desc">Roulette · blackjack · poker under the vaults</span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name">Bottle Service</span><span class="desc">Premium spirits · reserved section · full service</span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name">DJ Headline Show</span><span class="desc">World-class acts · extraordinary acoustics</span></div><span class="dots"></span><span class="price">VIP</span></div>
+          </div>
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Private Buyout</span><span class="desc">Corporate events · milestone celebrations</span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name">Birthday Group</span><span class="desc">Table reservation · bottle package · concierge</span></div><span class="dots"></span><span class="price">VIP</span></div>
+            <div class="menu-row"><div><span class="name">Guest List Access</span><span class="desc">Priority entry · curated evenings</span></div><span class="dots"></span><span class="price">VIP</span></div>
+          </div>
+        </div>
+        <p class="fade-up mt-12 text-center text-xs uppercase tracking-[0.28em] text-white/40">Full programming and pricing available through Montreal Hospitality concierge</p>
+      </div>
+    </section>
 
-        let currentImageIndex = 0;
+    <!-- Gallery -->
+    <section id="gallery" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="fade-up mb-10 flex items-end justify-between gap-6">
+        <div><p class="eyebrow text-sand/80">Gallery</p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl">Inside La Voute</h2></div>
+        <p class="hidden max-w-md text-sm leading-7 text-white/55 md:block">The vaults, the casino floor, the crowd, and the architecture — the room tells its own story.</p>
+      </div>
+      <div class="section-divider fade-up mb-10"></div>
+      <div class="grid gap-4 md:grid-cols-12 md:grid-rows-2">
+        <button onclick="openLightbox(0)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-7 md:row-span-2">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" alt="La Voute main room" class="h-[520px] w-full object-cover md:h-full">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent"></div>
+          <span class="absolute bottom-5 left-5 text-left"><span class="eyebrow text-white/75">The Vault</span><span class="mt-2 block font-serif text-3xl">40 feet of history</span></span>
+        </button>
+        <button onclick="openLightbox(1)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" alt="La Voute interior" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+        <button onclick="openLightbox(2)" class="img-hover group relative col-span-12 overflow-hidden md:col-span-5">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg" alt="La Voute atmosphere" class="h-[255px] w-full object-cover">
+          <div class="absolute inset-0 bg-black/20"></div>
+        </button>
+      </div>
+      <div class="mt-4 grid gap-4 md:grid-cols-3">
+        <button onclick="openLightbox(3)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg" alt="La Voute vault" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(4)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg" alt="La Voute crowd" class="h-[230px] w-full object-cover"></button>
+        <button onclick="openLightbox(5)" class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg" alt="La Voute night" class="h-[230px] w-full object-cover"></button>
+      </div>
+    </section>
 
-        // Lightbox Functions
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = galleryImages[index];
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    <!-- Social rail -->
+    <section id="social-feed" class="scroll-fade border-y line-soft bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80">Social Moments</p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl">See the room in motion</h2></div>
+          <div class="flex items-center gap-3">
+            <button type="button" id="social-prev" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-left"></i></button>
+            <button type="button" id="social-next" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="section-divider fade-up mb-10"></div>
+        <div id="social-rail" class="fade-up flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4" style="scrollbar-width:none;-ms-overflow-style:none;">
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" alt="La Voute vault" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">The Vault</p><p class="mt-3 text-sm leading-7 text-white/70">40 feet of original bank architecture — the room makes its impression before the music even starts.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" alt="La Voute interior" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Interior</p><p class="mt-3 text-sm leading-7 text-white/70">The room from the floor — stone arches, ambient light, and a crowd that arrives dressed for the occasion.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg" alt="La Voute atmosphere" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Casino Night</p><p class="mt-3 text-sm leading-7 text-white/70">Tables under the vaults — La Voute's casino programming is one of the most distinctive evenings in Old Montreal.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg" alt="La Voute crowd" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Crowd</p><p class="mt-3 text-sm leading-7 text-white/70">The people who come to La Voute know what they're walking into — the room attracts a specific kind of guest.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg" alt="La Voute event" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Private Events</p><p class="mt-3 text-sm leading-7 text-white/70">Corporate buyouts, milestone celebrations, and private programming — all coordinated through Montreal Hospitality.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    <!-- Who Comes Here -->
+    <section class="bg-[#090909] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10"><p class="eyebrow text-sand/80">Who Comes Here</p><h2 class="mt-4 font-serif text-5xl md:text-6xl">Old Montreal's Most Memorable Room</h2><p class="mt-5 max-w-2xl text-sm leading-8 text-white/60 md:text-base">La Voute draws guests who want more than a nightclub — visitors looking for an architectural event, local groups booking casino nights, and anyone who wants a story to tell the next morning.</p></div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" alt="La Voute vault" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg" alt="La Voute atmosphere" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg" alt="La Voute night" class="h-[430px] w-full object-cover"></div>
+        </div>
+      </div>
+    </section>
 
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
-            if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
-            document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
-        }
+    <!-- Event Nights -->
+    <section id="event-nights" class="bg-[#121212] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80">Weekly Programming</p><h2 class="mt-4 font-serif text-5xl md:text-6xl">This Week at La Voute</h2></div>
+          <a href="#reserve" class="magnetic-btn btn-stroke border border-white/25 px-6 py-3 text-[11px] uppercase tracking-[0.28em] text-white">Reserve for an Event Night</a>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg" alt="Casino Night" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">15</div><div class="weekday text-white/75">Thursday</div></div>
+              <div><h3 class="font-serif text-2xl text-white">Casino Night</h3><p class="mt-1 text-lg text-white/85">Roulette &amp; Blackjack</p><p class="mt-3 text-sm leading-7 text-white/55">Tables under the vaults — roulette, blackjack, and poker in one of Montreal's most dramatic settings.</p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg" alt="Friday Headline" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">16</div><div class="weekday text-white/75">Friday</div></div>
+              <div><h3 class="font-serif text-2xl text-white">Headline Show</h3><p class="mt-1 text-lg text-white/85">DJ &amp; Live Performance</p><p class="mt-3 text-sm leading-7 text-white/55">World-class DJs in an acoustically extraordinary space — the Friday show at La Voute is a different category.</p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg" alt="Saturday VIP" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">17</div><div class="weekday text-white/75">Saturday</div></div>
+              <div><h3 class="font-serif text-2xl text-white">Saturday VIP</h3><p class="mt-1 text-lg text-white/85">Full Programming Night</p><p class="mt-3 text-sm leading-7 text-white/55">Peak Saturday at La Voute — casino tables, bottle service, DJ headline, and the full weight of the vault above you.</p></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
 
-        // Keyboard navigation for lightbox
-        document.addEventListener('keydown', (e) => {
-            if (document.getElementById('lightbox').classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox();
-                if (e.key === 'ArrowLeft') changeImage(-1);
-                if (e.key === 'ArrowRight') changeImage(1);
-            }
-        });
+    <!-- How a Night Works -->
+    <section class="bg-[#0a0a0a] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 text-center"><p class="eyebrow text-sand/80">The Experience</p><h2 class="mt-4 font-serif text-5xl md:text-6xl">How a Night at La Voute Works</h2></div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="vault-card p-8"><p class="eyebrow text-white/45">01</p><h3 class="mt-4 font-serif text-3xl text-white">Arrive</h3><p class="mt-4 text-sm leading-8 text-white/62">Walking into La Voute is the experience — the vault announces itself before the night has even started.</p></div>
+          <div class="vault-card p-8"><p class="eyebrow text-white/45">02</p><h3 class="mt-4 font-serif text-3xl text-white">Casino Floor</h3><p class="mt-4 text-sm leading-8 text-white/62">Roulette, blackjack, and poker under 40 feet of original stone — casino programming unlike anything else in the city.</p></div>
+          <div class="vault-card p-8"><p class="eyebrow text-white/45">03</p><h3 class="mt-4 font-serif text-3xl text-white">Live Show</h3><p class="mt-4 text-sm leading-8 text-white/62">The acoustics are genuinely extraordinary. DJs and live acts use the vault the way it was meant to be used.</p></div>
+          <div class="vault-card p-8"><p class="eyebrow text-white/45">04</p><h3 class="mt-4 font-serif text-3xl text-white">Last Round</h3><p class="mt-4 text-sm leading-8 text-white/62">A closing time worthy of the room — the kind of night that starts conversations the next day.</p></div>
+        </div>
+      </div>
+    </section>
 
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            
-            // Generate random alphanumeric string: XX123XX123X1
-            let randomPart = '';
-            
-            // Pattern: XX123XX123X1 (2 letters, 3 numbers, 2 letters, 3 numbers, 1 letter, 1 number)
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        // Random letter A-Z
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        // Random number 0-9
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            
-            return prefix + randomPart;
-        }
+    <!-- Three pillars -->
+    <section class="scroll-fade bg-[#0a0a0a] py-20 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-3">
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80">Architecture</p><h3 class="card-shift mt-4 font-serif text-3xl">The room is the headline</h3><p class="mt-4 text-sm leading-8 text-white/68">La Voute's 40-foot original bank vault ceilings make every event inside them feel like an occasion — the space does half the work before the music starts.</p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80">Casino</p><h3 class="card-shift mt-4 font-serif text-3xl">Tables worth talking about</h3><p class="mt-4 text-sm leading-8 text-white/68">Roulette, blackjack, and poker in a converted historic bank — La Voute's casino nights are one of the most singular entertainment offerings in Old Montreal.</p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80">Events</p><h3 class="card-shift mt-4 font-serif text-3xl">Built for the big occasion</h3><p class="mt-4 text-sm leading-8 text-white/68">Corporate buyouts, major celebrations, and headline shows — La Voute scales to any event size without ever losing the intimacy the vault naturally creates.</p></div>
+      </div>
+    </section>
 
-        // Validate form fields
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
+    <!-- Reserve -->
+    <section id="reserve" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="fade-up">
+          <p class="eyebrow text-sand/80">Reserve</p>
+          <h2 class="card-shift mt-4 font-serif text-5xl leading-[0.95] md:text-6xl">Tables, casino nights, and private events.</h2>
+          <p class="mt-6 max-w-xl text-[15px] leading-8 text-white/68">Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right package, and handle the details.</p>
+          <div class="mt-10 space-y-8 text-white/75">
+            <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45">Location</p><p class="mt-1">360 Rue Saint-Jacques, Old Montreal</p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-clock mt-1 text-sand"></i><div><p class="eyebrow text-white/45">Hours</p><p class="mt-1">Thu–Sat: 10PM – 3AM · Sun–Wed: Closed</p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-user-tie mt-1 text-sand"></i><div><p class="eyebrow text-white/45">Concierge Support</p><p class="mt-1">514-378-0154 · info@montrealhospitality.com</p></div></div>
+          </div>
+        </div>
+        <div class="fade-up border border-white/10 bg-[#0b0b0b] p-7 md:p-10 shadow-soft">
+          <form id="reservationForm" action="https://formspree.io/f/mykdvnra" method="POST" class="grid gap-5 md:grid-cols-2">
+            <input type="hidden" name="venue" value="La Voute">
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55">Request Type</label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Bottle Service</option><option>Casino Night Package</option><option>Birthday / Group</option><option>Private Buyout</option></select></div>
+            <div><label class="eyebrow block text-white/55">Full Name</label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+            <div><label class="eyebrow block text-white/55">Phone</label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+            <div><label class="eyebrow block text-white/55">Email</label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+            <div><label class="eyebrow block text-white/55">Date</label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+            <div><label class="eyebrow block text-white/55">Guests</label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+            <div><label class="eyebrow block text-white/55">Budget / Notes</label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Optional"></div>
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55">Special Request</label><textarea name="requests" rows="4" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Casino package, birthday, VIP table, event details..."></textarea></div>
+            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-5 pt-2">
+              <p class="text-xs leading-6 text-white/45">Montreal Hospitality will review and follow up to confirm availability and pricing.</p>
+              <button type="submit" class="magnetic-btn btn-fill bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black">Submit Request</button>
+            </div>
+            <div id="formSuccess" class="hidden md:col-span-2 border border-emerald-400/30 bg-emerald-400/10 px-4 py-4 text-sm text-emerald-100">Request sent successfully.</div>
+          </form>
+        </div>
+      </div>
+    </section>
 
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
+    <!-- Concierge/Complete your night -->
+    <section class="bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80">Complete Your Night</p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl">Concierge-led evenings that go beyond the vault.</h2>
+            <p class="mt-6 max-w-2xl text-sm leading-8 text-white/65 md:text-base">La Voute pairs naturally with the rest of the Montreal Hospitality network — dinner before, transport between, and another room after — all coordinated through one channel.</p>
+            <div class="mt-10 grid gap-4 sm:grid-cols-2">
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white">Dinner</h3><p class="mt-3 text-sm leading-7 text-white/60">Pre-vault dinner recommendations and arrival timing built around the reservation.</p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white">Transport</h3><p class="mt-3 text-sm leading-7 text-white/60">Limos, sprinters, and chauffeur pickups for groups arriving in Old Montreal.</p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white">Nightlife</h3><p class="mt-3 text-sm leading-7 text-white/60">A move to a partner club after the show, all coordinated in advance.</p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white">After Hours</h3><p class="mt-3 text-sm leading-7 text-white/60">Concierge handling for clients who want the whole evening planned end-to-end.</p></div>
+            </div>
+          </div>
+          <div class="fade-up img-hover overflow-hidden shadow-soft">
+            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" alt="La Voute concierge" class="h-full min-h-[520px] w-full object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
 
-            return isValid;
-        }
+    <!-- Location -->
+    <section class="bg-[#0b0b0b] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80">Location</p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl">Saint-Jacques Street, Old Montreal.</h2>
+            <p class="mt-6 max-w-xl text-sm leading-8 text-white/65 md:text-base">La Voute sits on Rue Saint-Jacques in the financial district heart of Old Montreal — surrounded by the city's most historic architecture and a short walk from every major Old Port hotel.</p>
+            <div class="mt-10 space-y-6 text-white/72">
+              <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45">Address</p><p class="mt-1">360 Rue Saint-Jacques, Old Montreal, QC H2Y 1P5</p></div></div>
+              <div class="flex gap-4"><i class="fa-solid fa-car-side mt-1 text-sand"></i><div><p class="eyebrow text-white/45">Arrival</p><p class="mt-1">Chauffeur drop-off on Saint-Jacques; walking distance from Place d'Armes and major hotels.</p></div></div>
+            </div>
+          </div>
+          <div class="fade-up overflow-hidden shadow-soft">
+            <iframe class="map-frame h-[460px] w-full" src="https://www.google.com/maps?q=360+Rue+Saint-Jacques+Montreal&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Submit form function
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Validate form first
-            if (!validateForm()) {
-                // Shake animation for visual feedback
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    form.style.animation = '';
-                }, 500);
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
-            
-            try {
-                // Generate reference number first
-                const refNumber = generateReferenceNumber();
-                
-                // Collect all form data
-                const formData = new FormData(form);
-                
-                // Add reference number to form data
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'La Voute');
-                
-                // Submit to Formspree
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success - show success message
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Request';
-                submitBtn.classList.remove('submitting');
-            }
-        }
+    <!-- Venue Features -->
+    <section class="scroll-fade border-y line-soft bg-[#080808] py-20">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80">Venue Features</p><h2 class="mt-4 font-serif text-5xl md:text-6xl">What guests come back for</h2></div>
+          <p class="max-w-md text-sm leading-7 text-white/55">Everything that makes La Voute one of the most distinctive rooms on the island.</p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">01</p><h3 class="mt-5 font-serif text-3xl">40-foot vaults</h3><p class="mt-4 text-sm leading-8 text-white/62">Original historic bank ceilings that no renovation can replicate — the architecture is the venue.</p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">02</p><h3 class="mt-5 font-serif text-3xl">Casino nights</h3><p class="mt-4 text-sm leading-8 text-white/62">Roulette, blackjack, and poker under vaulted stone — a category of evening that doesn't exist anywhere else.</p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">03</p><h3 class="mt-5 font-serif text-3xl">DJ headline shows</h3><p class="mt-4 text-sm leading-8 text-white/62">Acoustics designed by history — world-class acts in a space that elevates everything played inside it.</p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">04</p><h3 class="mt-5 font-serif text-3xl">Private buyouts</h3><p class="mt-4 text-sm leading-8 text-white/62">Corporate events, milestone celebrations, and filming locations — the vault handles every scale of occasion.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+  <button id="stickyReserveBtn" class="sticky-reserve-btn btn-hover">Reserve Now</button>
 
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
+  <div id="reserveModal" class="reserve-modal fixed inset-0 z-[1000] items-center justify-center p-4">
+    <div class="reserve-backdrop absolute inset-0 bg-black/75"></div>
+    <div class="relative z-10 w-full max-w-xl border border-white/10 bg-[#0b0b0b] p-7 shadow-soft md:p-10">
+      <button id="closeReserveModal" class="absolute right-5 top-5 text-white/65 transition hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+      <p class="eyebrow text-sand/80">Reserve</p>
+      <h3 class="mt-4 font-serif text-4xl text-white md:text-5xl">Book Your Night</h3>
+      <p class="mt-4 max-w-lg text-sm leading-7 text-white/60">Submit a request for a table, casino night package, or private event. Montreal Hospitality will follow up to confirm.</p>
+      <form id="quickReserveForm" action="https://formspree.io/f/mykdvnra" method="POST" class="mt-8 grid gap-4 md:grid-cols-2">
+        <input type="hidden" name="venue" value="La Voute">
+        <div class="md:col-span-2"><label class="eyebrow block text-white/45">Request Type</label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Bottle Service</option><option>Casino Night Package</option><option>Birthday / Group</option><option>Private Buyout</option></select></div>
+        <div><label class="eyebrow block text-white/45">Full Name</label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+        <div><label class="eyebrow block text-white/45">Phone</label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+        <div><label class="eyebrow block text-white/45">Email</label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+        <div><label class="eyebrow block text-white/45">Date</label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+        <div><label class="eyebrow block text-white/45">Guests</label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+        <div><label class="eyebrow block text-white/45">Special Request</label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Casino package, birthday, VIP table"></div>
+        <div class="md:col-span-2"><button type="submit" class="magnetic-btn btn-fill w-full bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black">Submit Request</button></div>
+      </form>
+    </div>
+  </div>
 
-        // Loader handling with hard fallbacks
-        let loaderHidden = false;
+  <footer class="bg-black px-6 pb-10 pt-20 md:px-10">
+    <div class="mx-auto grid max-w-7xl gap-12 border-b border-white/10 pb-14 md:grid-cols-[1.1fr_.7fr_.7fr_.8fr]">
+      <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 object-contain"><p class="mt-6 max-w-md text-sm leading-8 text-white/52">Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.</p></div>
+      <div><p class="eyebrow text-white/45">Explore</p><div class="mt-5 space-y-3 text-sm text-white/72"><a class="block hover:text-white" href="venues.html" data-i18n="nav_venues">Venues</a><a class="block hover:text-white" href="packages.html" data-i18n="nav_packages">Packages</a><a class="block hover:text-white" href="service.html" data-i18n="nav_services">Services</a><a class="block hover:text-white" href="event.html" data-i18n="nav_events">Events</a></div></div>
+      <div><p class="eyebrow text-white/45">Contact</p><div class="mt-5 space-y-3 text-sm text-white/72"><p>514-378-0154</p><a class="block hover:text-white" href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a><a class="block hover:text-white" href="https://www.instagram.com/montrealhospitality/?hl=en">Instagram</a></div></div>
+      <div><p class="eyebrow text-white/45">The Venue</p><p class="mt-5 text-sm leading-8 text-white/60">La Voute shares a unified visual system with Hang Bar, Bord'Elle, and the rest of the venue pages — same editorial direction, tailored to each room's identity.</p></div>
+    </div>
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 pt-8 text-[11px] uppercase tracking-[0.24em] text-white/32 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Montreal Hospitality</p>
+      <div class="flex gap-6"><a href="#" class="hover:text-white/70">Privacy</a><a href="#" class="hover:text-white/70">Terms</a></div>
+    </div>
+  </footer>
 
-        function hideLoader(force = false) {
-            if (loaderHidden && !force) return;
-            loaderHidden = true;
-
-            const loader = document.getElementById('loader');
-            if (!loader) return;
-
-            loader.style.opacity = '0';
-            loader.style.pointerEvents = 'none';
-            document.body.style.overflow = 'auto';
-
-            setTimeout(() => {
-                loader.style.display = 'none';
-
-                const revealElements = document.querySelectorAll('.reveal');
-                revealElements.forEach(el => el.classList.add('active'));
-            }, 250);
-        }
-
-        // Fire as soon as DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(() => hideLoader(), 300);
-            }, { once: true });
-        } else {
-            setTimeout(() => hideLoader(), 300);
-        }
-
-        // Additional fallbacks in case external assets delay the window load event
-        window.addEventListener('load', () => hideLoader(), { once: true });
-        window.addEventListener('pageshow', () => hideLoader());
-        setTimeout(() => hideLoader(true), 2200);
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', toggleMenu);
-
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', toggleMenu);
-            });
-        }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (!navbar) return;
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-    </script>
-
-    <script>
-        const translator = {
-            currentLang: 'en',
-            originalsCaptured: false,
-            translations: {"title_en": "La Voute | Montreal Hospitality", "title_fr": "La Voute | Montreal Hospitality", "en": {"Accueil": "Home", "Lieux": "Venues", "Sports": "Sports", "Services": "Services", "Événements": "Events", "Carrières": "Careers", "Contact": "Contact", "Galerie": "Gallery", "Cliquez pour agrandir": "Click images to expand", "Réservations": "Reservations", "Liste d’Invités et Billets": "Guest List & Tickets", "Type de Demande": "Request Type", "Liste d’Invités": "Guest List", "Billets": "Tickets", "Service aux Bouteilles": "Bottle Service", "Nom Complet *": "Full Name *", "Veuillez entrer votre nom complet": "Please enter your full name", "Adresse Courriel *": "Email Address *", "Veuillez entrer une adresse courriel valide": "Please enter a valid email", "Numéro de Téléphone *": "Phone Number *", "Veuillez entrer votre numéro de téléphone": "Please enter your phone number", "Date Préférée *": "Preferred Date *", "Veuillez sélectionner une date": "Please select a date", "Nombre d’Invités *": "Number of Guests *", "Sélectionnez le nombre d’invités": "Select number of guests", "1 invité": "1 Guest", "2 invités": "2 Guests", "3 invités": "3 Guests", "4 invités": "4 Guests", "5 invités": "5 Guests", "6+ invités": "6+ Guests", "10+ invités (grand groupe)": "10+ Guests (Large Party)", "Veuillez sélectionner le nombre d’invités": "Please select number of guests", "Demandes Spéciales": "Special Requests", "Soumettre la Demande": "Submit Request", "Notre équipe confirmera votre réservation dans les 24 heures": "Our team will confirm your reservation within 24 hours", "Demande Reçue !": "Request Received!", "Votre Numéro de Référence": "Your Reference Number", "Confirmation envoyée à": "Confirmation sent to", "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.": "Something went wrong. Please try again or contact us directly at 514-378-0154.", "Pour une assistance immédiate :": "For immediate assistance:", "Points Forts": "Highlights", "À Quoi Vous Attendre": "What to Expect", "Emplacement": "Location", "Nous Trouver": "Find Us", "Obtenir l’Itinéraire": "Get Directions", "Retour à Tous les Lieux": "Back to All Venues", "Redéfinir l’art de la nuit à Montréal.": "Redefining the art of the night in Montreal.", "Explorer": "Explore", "Service": "Service", "Suivre": "Follow", "Confidentialité": "Privacy", "Conditions": "Terms", "votre@courriel.com": "your@email.com", "Vieux-Montréal": "Old Montreal", "Une cathédrale nocturne spectaculaire avec des plafonds majestueux et une énergie divine": "A breathtaking cathedral of nightlife with soaring ceilings and divine energy", "Voûte Historique": "Historic Vault", "Merveille Architecturale": "Architectural Marvel", "Soirées Casino": "Casino Nights", "Jeux et Divertissement": "Gaming & Entertainment", "Traitement Royal": "Royal Treatment", "Expérience VIP": "VIP Experience", "Découvrir La Voute": "Experience La Voute", "Nous avons reçu votre demande et vous contacterons sous peu pour confirmer votre réservation à La Voute.": "We've received your request and will contact you shortly to confirm your reservation at La Voute.", "Voûtes Majestueuses": "Soaring Vaults", "Des plafonds impressionnants de 40 pieds dans une ancienne voûte bancaire historique convertie.": "Breathtaking 40-foot ceilings in a converted historic bank vault.", "Jeux de Casino": "Casino Gaming", "Roulette, blackjack et tables de poker pour un divertissement haut de gamme.": "Roulette, blackjack, and poker tables for high-stakes entertainment.", "Performances en Direct": "Live Performances", "Des DJs de classe mondiale et des performances live dans un espace à l’acoustique parfaite.": "World-class DJs and live acts in an acoustically perfect space.", "Jeu de Luxe": "Luxury Gaming", "Une expérience casino premium avec des salons privés à mises élevées.": "Premium casino experience with private high-limit rooms.", "360 Rue Saint-Jacques": "360 Rue Saint-Jacques", "Vieux-Montréal, QC H2Y 1P5": "Old Montreal, QC H2Y 1P5", "Jeu-Sam : 22h - 3h": "Thu-Sat: 10PM - 3AM", "Dim-Mer : Fermé": "Sun-Wed: Closed", "Code vestimentaire : élégant / cocktail": "Dress Code: Upscale Elegant / Cocktail"}, "fr": {"Home": "Accueil", "Venues": "Lieux", "Sports": "Sports", "Services": "Services", "Events": "Événements", "Careers": "Carrières", "Contact": "Contact", "Gallery": "Galerie", "Click images to expand": "Cliquez pour agrandir", "Reservations": "Réservations", "Guest List & Tickets": "Liste d’Invités et Billets", "Request Type": "Type de Demande", "Guest List": "Liste d’Invités", "Tickets": "Billets", "Bottle Service": "Service aux Bouteilles", "Full Name *": "Nom Complet *", "Please enter your full name": "Veuillez entrer votre nom complet", "Email Address *": "Adresse Courriel *", "Please enter a valid email": "Veuillez entrer une adresse courriel valide", "Phone Number *": "Numéro de Téléphone *", "Please enter your phone number": "Veuillez entrer votre numéro de téléphone", "Preferred Date *": "Date Préférée *", "Please select a date": "Veuillez sélectionner une date", "Number of Guests *": "Nombre d’Invités *", "Select number of guests": "Sélectionnez le nombre d’invités", "1 Guest": "1 invité", "2 Guests": "2 invités", "3 Guests": "3 invités", "4 Guests": "4 invités", "5 Guests": "5 invités", "6+ Guests": "6+ invités", "10+ Guests (Large Party)": "10+ invités (grand groupe)", "Please select number of guests": "Veuillez sélectionner le nombre d’invités", "Special Requests": "Demandes Spéciales", "Submit Request": "Soumettre la Demande", "Our team will confirm your reservation within 24 hours": "Notre équipe confirmera votre réservation dans les 24 heures", "Request Received!": "Demande Reçue !", "Your Reference Number": "Votre Numéro de Référence", "Confirmation sent to": "Confirmation envoyée à", "Something went wrong. Please try again or contact us directly at 514-378-0154.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.", "For immediate assistance:": "Pour une assistance immédiate :", "Highlights": "Points Forts", "What to Expect": "À Quoi Vous Attendre", "Location": "Emplacement", "Find Us": "Nous Trouver", "Get Directions": "Obtenir l’Itinéraire", "Back to All Venues": "Retour à Tous les Lieux", "Redefining the art of the night in Montreal.": "Redéfinir l’art de la nuit à Montréal.", "Explore": "Explorer", "Service": "Service", "Follow": "Suivre", "Privacy": "Confidentialité", "Terms": "Conditions", "your@email.com": "votre@courriel.com", "Old Montreal": "Vieux-Montréal", "A breathtaking cathedral of nightlife with soaring ceilings and divine energy": "Une cathédrale nocturne spectaculaire avec des plafonds majestueux et une énergie divine", "Historic Vault": "Voûte Historique", "Architectural Marvel": "Merveille Architecturale", "Casino Nights": "Soirées Casino", "Gaming & Entertainment": "Jeux et Divertissement", "Royal Treatment": "Traitement Royal", "VIP Experience": "Expérience VIP", "Experience La Voute": "Découvrir La Voute", "We've received your request and will contact you shortly to confirm your reservation at La Voute.": "Nous avons reçu votre demande et vous contacterons sous peu pour confirmer votre réservation à La Voute.", "Soaring Vaults": "Voûtes Majestueuses", "Breathtaking 40-foot ceilings in a converted historic bank vault.": "Des plafonds impressionnants de 40 pieds dans une ancienne voûte bancaire historique convertie.", "Casino Gaming": "Jeux de Casino", "Roulette, blackjack, and poker tables for high-stakes entertainment.": "Roulette, blackjack et tables de poker pour un divertissement haut de gamme.", "Live Performances": "Performances en Direct", "World-class DJs and live acts in an acoustically perfect space.": "Des DJs de classe mondiale et des performances live dans un espace à l’acoustique parfaite.", "Luxury Gaming": "Jeu de Luxe", "Premium casino experience with private high-limit rooms.": "Une expérience casino premium avec des salons privés à mises élevées.", "360 Rue Saint-Jacques": "360 Rue Saint-Jacques", "Old Montreal, QC H2Y 1P5": "Vieux-Montréal, QC H2Y 1P5", "Thu-Sat: 10PM - 3AM": "Jeu-Sam : 22h - 3h", "Sun-Wed: Closed": "Dim-Mer : Fermé", "Dress Code: Upscale Elegant / Cocktail": "Code vestimentaire : élégant / cocktail"}},
-            placeholderTranslations: {"en": {"Entrez votre nom complet": "Enter your full name", "votre@courriel.com": "your@email.com", "(514) 000-0000": "(514) 000-0000", "Anniversaire, occasion spéciale, préférence de placement...": "Birthday celebration, special occasion, preferred seating...", "Détails supplémentaires sur votre événement, exigences particulières, thème, etc.": "Additional details about your event, special requirements, theme, etc...", "Nombre de participants": "Number of attendees", "Nombre approximatif d’invités": "Approximate guests", "Entreprise ou organisation": "Company or organization"}, "fr": {"Enter your full name": "Entrez votre nom complet", "your@email.com": "votre@courriel.com", "(514) 000-0000": "(514) 000-0000", "Birthday celebration, special occasion, preferred seating...": "Anniversaire, occasion spéciale, préférence de placement...", "Additional details about your event, special requirements, theme, etc...": "Détails supplémentaires sur votre événement, exigences particulières, thème, etc.", "Number of attendees": "Nombre de participants", "Approximate guests": "Nombre approximatif d’invités", "Company or organization": "Entreprise ou organisation"}},
-            captureOriginals() {
-                if (this.originalsCaptured) return;
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    const node = walker.currentNode;
-                    node.__originalText = node.nodeValue;
-                }
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    el.dataset.originalPlaceholder = el.getAttribute('placeholder') || '';
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    el.dataset.originalOption = el.textContent;
-                });
-                document.titleOriginal = document.title;
-                this.originalsCaptured = true;
-            },
-            init() {
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                if (savedLang === 'fr' || savedLang === 'en') {
-                    this.currentLang = savedLang;
-                } else if (browserLang === 'fr') {
-                    this.currentLang = 'fr';
-                }
-                this.captureOriginals();
-                this.updateUI();
-                this.translatePage();
-            },
-            setLanguage(lang) {
-                if (!['en', 'fr'].includes(lang)) return;
-                this.currentLang = lang;
-                localStorage.setItem('preferred_language', lang);
-                this.updateUI();
-                this.translatePage();
-            },
-            updateUI() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                });
-            },
-            replaceTextNode(node, map) {
-                const original = node.__originalText || node.nodeValue;
-                const trimmed = original.trim();
-                const translated = map[trimmed];
-                if (!translated) {
-                    node.nodeValue = original;
-                    return;
-                }
-                const leading = original.match(/^\s*/)[0];
-                const trailing = original.match(/\s*$/)[0];
-                node.nodeValue = leading + translated + trailing;
-            },
-            translatePage() {
-                this.captureOriginals();
-                const map = this.currentLang === 'fr' ? this.translations.fr : this.translations.en;
-                const placeholderMap = this.currentLang === 'fr' ? this.placeholderTranslations.fr : this.placeholderTranslations.en;
-                document.documentElement.lang = this.currentLang;
-                document.title = this.currentLang === 'fr' ? (this.translations.title_fr || document.titleOriginal) : (this.translations.title_en || document.titleOriginal);
-
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    this.replaceTextNode(walker.currentNode, map);
-                }
-
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    const original = el.dataset.originalPlaceholder || el.getAttribute('placeholder') || '';
-                    el.setAttribute('placeholder', placeholderMap[original] || original);
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    const original = el.dataset.originalOption || el.textContent;
-                    el.textContent = map[original.trim()] || original;
-                });
-            }
-        };
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
-    </script>
-
+  <script>
+    const galleryImages=[
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188064/468592051_18311895265165925_5700969317094141740_n_dccuuz.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188093/468592142_18311894071165925_8125831250971667918_n_qf4kd7.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188134/468732365_18311767942165925_3897396612317760409_n_jcgafl.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg'
+    ];
+    let currentIndex=0;
+    function openLightbox(i){currentIndex=i;const box=document.getElementById('lightbox');const img=document.getElementById('lightbox-image');if(!box||!img)return;img.src=galleryImages[i];box.classList.add('open');document.body.style.overflow='hidden';}
+    function closeLightbox(){const box=document.getElementById('lightbox');if(!box)return;box.classList.remove('open');document.body.style.overflow='';}
+    function changeLightbox(dir){const img=document.getElementById('lightbox-image');if(!img)return;currentIndex=(currentIndex+dir+galleryImages.length)%galleryImages.length;img.src=galleryImages[currentIndex];}
+    document.addEventListener('keydown',(e)=>{const box=document.getElementById('lightbox');if(box&&box.classList.contains('open')){if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeLightbox(-1);if(e.key==='ArrowRight')changeLightbox(1);}});
+    (function(){const navbar=document.getElementById('navbar');if(!navbar)return;let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{navbar.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+    (function(){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));})();
+    (function(){const btn=document.getElementById('mobile-menu-btn');const menu=document.getElementById('mobile-menu');if(!btn||!menu)return;let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+    (function(){const btn=document.getElementById('venues-menu-btn');const mega=document.getElementById('venues-mega');const chevron=document.getElementById('venues-chevron');const wrapper=document.getElementById('venues-menu-wrapper');const previewImg=document.getElementById('venues-preview-img');const previewLabel=document.getElementById('venues-preview-label');if(!btn||!mega||!chevron||!wrapper||!previewImg||!previewLabel)return;let closeTimer=null;function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenu();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});})();
+    (function(){const rail=document.getElementById('social-rail');const prev=document.getElementById('social-prev');const next=document.getElementById('social-next');if(!rail||!prev||!next)return;const getAmt=()=>Math.min(rail.clientWidth*0.9,520);prev.addEventListener('click',()=>rail.scrollBy({left:-getAmt(),behavior:'smooth'}));next.addEventListener('click',()=>rail.scrollBy({left:getAmt(),behavior:'smooth'}));rail.addEventListener('wheel',(e)=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();rail.scrollLeft+=e.deltaY;}},{passive:false});})();
+    (function(){const dividers=document.querySelectorAll('.section-divider');const heroMedia=document.querySelector('.hero-parallax');const rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.2});dividers.forEach(d=>obs.observe(d));if(!rm&&heroMedia){let t=false;const onScroll=()=>{if(t)return;t=true;requestAnimationFrame(()=>{const offset=Math.min(window.scrollY*0.12,70);heroMedia.style.setProperty('--hero-offset',`${offset}px`);t=false;});};onScroll();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);}})();
+    (function(){if(window.matchMedia('(hover:none)').matches)return;document.querySelectorAll('.magnetic-btn').forEach((btn)=>{btn.addEventListener('mousemove',(e)=>{const rect=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-rect.left-rect.width/2)*0.06}px,${(e.clientY-rect.top-rect.height/2)*0.10}px)`;});btn.addEventListener('mouseleave',()=>{btn.style.transform='';});});})();
+    (function(){const form=document.getElementById('reservationForm');const success=document.getElementById('formSuccess');if(!form||!success)return;form.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(r.ok){success.classList.remove('hidden');form.reset();setTimeout(()=>success.classList.add('hidden'),5000);}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});})();
+    (function(){const stickyBtn=document.getElementById('stickyReserveBtn');const modal=document.getElementById('reserveModal');const closeBtn=document.getElementById('closeReserveModal');if(!stickyBtn||!modal||!closeBtn)return;const open=()=>modal.classList.add('open');const close=()=>modal.classList.remove('open');stickyBtn.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',(e)=>{if(e.target===modal||e.target.classList.contains('reserve-backdrop'))close();});document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close();});const qf=document.getElementById('quickReserveForm');if(qf){qf.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(qf.action,{method:'POST',body:new FormData(qf),headers:{Accept:'application/json'}});if(r.ok){qf.reset();close();alert('Request sent successfully.');}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});}})();
+  </script>
 </body>
 </html>

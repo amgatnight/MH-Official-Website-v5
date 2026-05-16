@@ -1,1122 +1,1264 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMW M3 Competition | Exotic Fleet | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMW M3 Competition | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'mh-navy':'#0B0F19','mh-gold':'#C5A059','mh-gold-light':'#D6B88A',
+          'mh-dark':'#05070A','mh-gray':'#1A1D24','old-port':'#8B7355'
+        },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] }
+      }}
+    }
+  </script>
+  <style>
+    body { background:#0B0F19; color:#fff; overflow-x:hidden; font-family:'Montserrat',sans-serif; }
+    .tao-heading { font-family:'Cormorant Garamond',serif; font-weight:300; letter-spacing:-0.02em; }
+    .tao-subheading { font-family:'Montserrat',sans-serif; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    /* hero animate */
+    .hero-animate { opacity:0; transform:translateY(30px); filter:blur(8px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1), filter .9s cubic-bezier(.16,1,.3,1);
+      will-change: opacity,transform,filter; }
+    .hero-animate.visible { opacity:1; transform:translateY(0); filter:blur(0); }
+    .delay-1 { transition-delay:.2s; } .delay-2 { transition-delay:.5s; }
+    .delay-3 { transition-delay:.8s; } .delay-4 { transition-delay:1.1s; }
 
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+    /* reveal / stagger */
+    .reveal { opacity:0; transform:translateY(32px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .stagger-children > * { opacity:0; transform:translateY(24px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+    .stagger-children.active > *:nth-child(1) { transition-delay:0ms;   opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(2) { transition-delay:100ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(3) { transition-delay:200ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(4) { transition-delay:300ms; opacity:1; transform:translateY(0); }
 
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+    /* nav */
+    #navbar { will-change: background-color,padding; }
+    .nav-scrolled { background-color:rgba(11,15,25,.95)!important; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      padding-top:1.2rem!important; padding-bottom:1.2rem!important; border-bottom:1px solid rgba(197,160,89,.1); }
 
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
+    /* img zoom */
+    .img-zoom-container { overflow:hidden; }
+    .img-zoom { transition:transform 1.1s cubic-bezier(.16,1,.3,1); will-change:transform; }
+    .group:hover .img-zoom { transform:scale(1.07); }
 
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
+    /* links */
+    .link-hover { position:relative; }
+    .link-hover::after { content:''; position:absolute; width:0; height:1px; bottom:-4px; left:0;
+      background:#C5A059; transition:width .3s ease; }
+    .link-hover:hover::after { width:100%; }
 
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
+    /* buttons */
+    .btn-hover { position:relative; overflow:hidden; transition:all .3s ease; }
+    .btn-hover::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); transition:left .5s ease; }
+    .btn-hover:hover::before { left:100%; }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
+    /* card lift */
+    @media (hover:hover) {
+      .card-lift { transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1); will-change:transform; }
+      .card-lift:hover { transform:translateY(-6px); box-shadow:0 18px 36px rgba(0,0,0,.35); }
+    }
+    a.card-lift { display:block; text-decoration:none; }
 
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-        }
+    /* gradient text */
+    @keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .gradient-text { background:linear-gradient(90deg,#C5A059,#D6B88A,#C5A059); background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:gradient-shift 4s ease infinite; }
 
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
+    /* loader */
+    #loader { position:fixed; inset:0; background:#0B0F19; z-index:9999; display:flex; justify-content:center; align-items:center; transition:opacity .7s ease; }
+    @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
 
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
+    /* line reveal */
+    .line-reveal { width:0; height:1px; background:#C5A059; margin:0 auto; transition:width 1s cubic-bezier(.16,1,.3,1); }
+    .line-reveal.visible { width:60px; }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* form inputs */
+    .form-field { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.25);
+      color:#fff; padding:12px 0; width:100%; font-family:'Montserrat',sans-serif; font-size:.875rem;
+      transition:border-color .3s ease; }
+    .form-field:focus { outline:none; border-color:#C5A059; }
+    .form-field::placeholder { color:rgba(255,255,255,.4); }
+    select.form-field option { background:#0B0F19; }
 
-        .gallery-main {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        
-        .gallery-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .gallery-main:hover img {
-            transform: scale(1.05);
-        }
+    /* gallery / lightbox */
+    #lightbox { position:fixed; inset:0; background:rgba(0,0,0,.96); z-index:10000;
+      display:none; justify-content:center; align-items:center; opacity:0; transition:opacity .3s ease; }
+    #lightbox.active { display:flex; opacity:1; }
+    #lb-img { max-width:90%; max-height:85vh; object-fit:contain; }
+    .lb-btn { position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(197,160,89,.8); border:none; width:50px; height:50px; border-radius:50%;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; color:#0B0F19;
+      font-size:1.1rem; transition:background .2s; }
+    .lb-btn:hover { background:#C5A059; }
+    .lb-close { position:absolute; top:2rem; right:2rem; background:rgba(197,160,89,.2);
+      border:none; width:48px; height:48px; border-radius:50%; color:#fff; font-size:1.2rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    .lb-close:hover { background:#C5A059; color:#0B0F19; }
 
-        .gallery-thumbs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    /* spec boxes */
+    .spec-box { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); transition:all .3s ease; }
+    .spec-box:hover { border-color:#C5A059; background:rgba(197,160,89,.05); }
+    .spec-card { background:linear-gradient(135deg,#1A1D24 0%,#0B0F19 100%);
+      border:1px solid rgba(197,160,89,.2); transition:all .3s ease; }
+    .spec-card:hover { border-color:#C5A059; transform:translateY(-4px); }
 
-        .gallery-thumb {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            aspect-ratio: 16/10;
-        }
+    /* success / error */
+    .success-box { display:none; background:rgba(197,160,89,.08); border:1px solid #C5A059; padding:40px; text-align:center; margin-top:24px; }
+    .success-box.active { display:block; animation:slideIn .5s ease; }
+    .error-box { display:none; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.5); padding:20px; text-align:center; margin-top:16px; color:#ef4444; }
+    .error-box.active { display:block; animation:slideIn .5s ease; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
 
-        .gallery-thumb:hover,
-        .gallery-thumb.active {
-            border-color: #C5A059;
-        }
+    /* lang switcher */
+    .lang-switcher { display:flex; align-items:center; gap:.5rem; font-size:11px; letter-spacing:.15em; font-weight:500; }
+    .lang-btn { padding:.25rem .5rem; border:1px solid transparent; background:transparent; color:#fff; cursor:pointer; transition:all .3s ease; text-transform:uppercase; }
+    .lang-btn:hover { color:#C5A059; }
+    .lang-btn.active { border-color:#C5A059; color:#C5A059; background:rgba(197,160,89,.1); }
+    .lang-divider { width:1px; height:12px; background:rgba(255,255,255,.3); }
+    .mobile-lang-switcher { display:flex; justify-content:center; gap:1rem; margin-top:2rem; padding-top:2rem; border-top:1px solid rgba(197,160,89,.2); }
 
-        .gallery-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
+    /* scroll indicator */
+    .scroll-indicator { opacity:0; animation:bounce 2s infinite 2.5s, fadeIn 1s ease 2.5s forwards; }
+    @keyframes fadeIn { to{opacity:1} }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-8px)} }
 
-        .gallery-thumb:hover img {
-            transform: scale(1.1);
-        }
+    img { max-width:100%; height:auto; display:block; }
 
-        .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    @media (prefers-reduced-motion:reduce) {
+      .hero-animate,.reveal,.stagger-children > *,.img-zoom,.card-lift,.gradient-text,.btn-hover::before { transition:none!important; animation:none!important; }
+      .hero-animate { opacity:1; transform:none; filter:none; }
+      .reveal { opacity:1; transform:none; }
+      .stagger-children > * { opacity:1; transform:none; }
+      .line-reveal { width:60px; }
+    }
+  </style>
+  <base target="_self">
+<script>
+  window._i18n = {
+  "en": {
+    "nav_home": "Home",
+    "nav_venues": "Venues",
+    "nav_packages": "Packages",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Events",
+    "nav_careers": "Careers",
+    "mega_our_venues": "Our Venues",
+    "mega_view_all_venues": "View All Venues",
+    "mega_featured": "Featured",
+    "mega_now_open": "Now Open",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Redefining the art of the night in Montreal.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "footer_follow": "Follow",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Reserve Now",
+    "reserve_modal_title": "Book Your Night",
+    "reserve_modal_eyebrow": "Reserve",
+    "form_request_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_special_request": "Special Request",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "page_title": "BMW M3 | Montreal Hospitality",
+    "hero_cat": "Performance Sedan",
+    "hero_tagline": "Precision German engineering meets raw M-series power.",
+    "hero_reserve_btn": "Reserve Now",
+    "hero_gallery_btn": "Gallery",
+    "hero_back_btn": "Exotic Fleet",
+    "stats_hp_label": "Horsepower",
+    "stats_speed_label": "0–100 km/h",
+    "stats_engine_label": "Engine",
+    "stats_length_label": "Length",
+    "stats_guests_label": "Max Guests",
+    "stats_topspeed_label": "Top Speed",
+    "stats_range_label": "Range",
+    "stats_passengers_label": "Passengers",
+    "stats_crew_label": "Crew",
+    "overview_eyebrow": "Overview",
+    "overview_title": "BMW M3",
+    "overview_desc": "The BMW M3 delivers the perfect blend of everyday practicality and track-ready performance. Its inline-6 turbocharged engine produces over 500 horsepower, launching the M3 to 100 km/h in just 3.5 seconds while offering the refinement expected of a premium sedan.",
+    "overview_seats": "Seats",
+    "overview_bags": "Bag",
+    "overview_guests": "Guests",
+    "overview_cabins": "Cabins",
+    "overview_passengers": "Passengers",
+    "overview_hours": "Flight Hours",
+    "overview_book_btn": "Book Now",
+    "specs_eyebrow": "Specifications",
+    "specs_title": "Technical Details",
+    "perf_label": "Performance",
+    "features_label": "Features",
+    "vessel_label": "Vessel",
+    "accomm_label": "Accommodations",
+    "amenities_label": "Amenities",
+    "gallery_eyebrow": "Gallery",
+    "gallery_title": "Interior & Exterior",
+    "gallery_expand": "Expand",
+    "whymh_1_title": "Fully Insured",
+    "whymh_1_desc": "Comprehensive coverage for complete peace of mind during your experience.",
+    "whymh_2_title": "24/7 Concierge",
+    "whymh_2_desc": "Our dedicated team is on call around the clock to handle every detail.",
+    "whymh_3_title": "White Glove Service",
+    "whymh_3_desc": "Meticulously prepared and delivered to your exact standard.",
+    "reserve_eyebrow": "Reservation",
+    "reserve_title": "Reserve This Performance Sedan",
+    "reserve_desc": "Our team confirms within 2 hours.",
+    "form_first_name": "First Name",
+    "form_last_name": "Last Name",
+    "form_pickup_date": "Pickup Date",
+    "form_return_date": "Return Date",
+    "form_departure_date": "Departure Date",
+    "form_return_flight": "Return Date",
+    "form_charter_date": "Charter Date",
+    "form_end_date": "End Date",
+    "form_chauffeur": "Add Chauffeur",
+    "form_chauffeur_label": "Professional Chauffeur (+$150/day)",
+    "form_special_requests": "Special Requests",
+    "form_submit_btn": "Submit Reservation",
+    "form_sending": "Sending…",
+    "success_title": "Request Received",
+    "success_ref_label": "Reference Number",
+    "success_confirm_prefix": "Confirmation sent to",
+    "error_msg": "Something went wrong. Please try again or call 514-378-0154.",
+    "contact_phone_label": "Phone",
+    "contact_phone_sub": "24/7 Concierge",
+    "contact_email_label": "Email",
+    "contact_email_sub": "Response within 2h",
+    "contact_wa_label": "WhatsApp",
+    "contact_wa_sub": "Instant Booking"
+  ,
+    "nav_contact_btn": "Contact",
+    "now_open_label": "Now Open",
+    "premium_badge": "Premium",
+    "stat_hp": "Horsepower",
+    "stat_0100": "0–100 km/h",
+    "stat_engine": "Engine",
+    "stat_length": "Length",
+    "stat_guests": "Max Guests",
+    "stat_topspeed": "Top Speed",
+    "stat_range": "Range",
+    "stat_passengers": "Passengers",
+    "stat_crew": "Crew",
+    "ov_eyebrow": "Overview",
+    "ov_seats": "2 Seats",
+    "ov_seats_sub": "Sport Configuration",
+    "ov_bag": "1 Bag",
+    "ov_bag_sub": "Front Storage",
+    "ov_guests_10": "10 Guests",
+    "ov_guests_cap": "Maximum Capacity",
+    "ov_cabins_2": "2 Cabins",
+    "ov_cabins_sub": "Overnight Stays",
+    "ov_book_btn": "Book Now",
+    "spec_eyebrow": "Specifications",
+    "spec_title": "Technical Details",
+    "spec_perf": "Performance",
+    "spec_feat": "Features",
+    "spec_vessel": "Vessel",
+    "spec_accomm": "Accommodations",
+    "spec_amenities": "Amenities",
+    "spec_hp": "Horsepower",
+    "spec_0100": "0–100 km/h",
+    "spec_topspeed": "Top Speed",
+    "spec_engine_lbl": "Engine",
+    "spec_trans": "Transmission",
+    "spec_aero": "Aero",
+    "spec_cockpit": "Cockpit",
+    "spec_steering": "Steering",
+    "spec_suspension": "Suspension",
+    "spec_exhaust": "Exhaust",
+    "spec_yl": "Length",
+    "spec_beam": "Beam",
+    "spec_draft": "Draft",
+    "spec_engines": "Engines",
+    "spec_speed_y": "Speed",
+    "spec_guests_y": "Guests",
+    "spec_crew_y": "Crew",
+    "spec_cabins": "Cabins",
+    "spec_baths": "Bathrooms",
+    "spec_galley": "Galley",
+    "spec_deck": "Deck",
+    "spec_sound": "Sound",
+    "spec_catering": "Catering",
+    "spec_nav": "Navigation",
+    "spec_safety": "Safety",
+    "spec_range": "Range",
+    "spec_pax": "Passengers",
+    "spec_crew_j": "Crew",
+    "spec_cabin_h": "Cabin Height",
+    "spec_cabin_w": "Cabin Width",
+    "spec_baggage": "Baggage",
+    "spec_speed_j": "Cruise Speed",
+    "spec_ceiling": "Max Altitude",
+    "spec_engines_j": "Engines",
+    "spec_thrust": "Thrust",
+    "spec_avionics": "Avionics",
+    "spec_wifi": "WiFi",
+    "spec_apt": "Amenities",
+    "gal_eyebrow": "Gallery",
+    "gal_title": "Interior & Exterior",
+    "gal_expand": "Expand",
+    "mh_ins_title": "Fully Insured",
+    "mh_ins_desc": "Comprehensive coverage for complete peace of mind during your experience.",
+    "mh_247_title": "24/7 Concierge",
+    "mh_247_desc": "Our dedicated team is on call around the clock to handle every detail.",
+    "mh_wg_title": "White Glove Service",
+    "mh_wg_desc": "Meticulously prepared and delivered to your exact standard.",
+    "res_eyebrow": "Reservation",
+    "res_team_conf": "Our team confirms within 2 hours.",
+    "form_fn": "First Name",
+    "form_ln": "Last Name",
+    "form_em": "Email",
+    "form_ph": "Phone",
+    "form_pickup": "Pickup Date",
+    "form_return": "Return Date",
+    "form_dep": "Departure Date",
+    "form_charter": "Charter Date",
+    "form_end_dt": "End Date",
+    "form_chauff": "Add Chauffeur",
+    "form_chauff_lbl": "Professional Chauffeur (+$150/day)",
+    "form_spec_req": "Special Requests",
+    "form_sub_btn": "Submit Reservation",
+    "success_h3": "Request Received",
+    "success_ref_p": "Reference Number",
+    "error_p": "Something went wrong. Please try again or call 514-378-0154.",
+    "cb_phone_lbl": "Phone",
+    "cb_email_lbl": "Email",
+    "cb_wa_lbl": "WhatsApp",
+    "cb_phone_sub": "24/7 Concierge",
+    "cb_email_sub": "Response within 2h",
+    "cb_wa_sub": "Instant Booking",
+    "ft_tagline": "Redefining the art of the night in Montreal.",
+    "ft_explore": "Explore",
+    "ft_contact": "Contact",
+    "ft_follow": "Follow",
+    "ft_venues": "Venues",
+    "ft_sports": "Sports",
+    "ft_services": "Services",
+    "ft_careers": "Careers",
+    "ft_privacy": "Privacy",
+    "ft_terms": "Terms",
+    "hero_subtitle": "Performance · 4-Door · 503 HP",
+    "ov_desc": "The BMW M3 delivers the perfect blend of everyday practicality and track-ready performance. Its inline-6 turbocharged engine produces over 500 horsepower, launching the M3 to 100 km/h in just 3.5 seconds while offering the refinement expected of a premium sedan.",
+    "res_title_v": "Reserve This Performance Sedan",
+    "success_desc": "We've received your reservation for the BMW M3. Our team will confirm within 2 hours."},
+  "fr": {
+    "nav_home": "Accueil",
+    "nav_venues": "Établissements",
+    "nav_packages": "Forfaits",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Événements",
+    "nav_careers": "Carrières",
+    "mega_our_venues": "Nos Établissements",
+    "mega_view_all_venues": "Voir Tous Les Établissements",
+    "mega_featured": "En Vedette",
+    "mega_now_open": "Maintenant Ouvert",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Redéfinir l'art de la nuit à Montréal.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "footer_follow": "Suivez-nous",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Réserver Maintenant",
+    "reserve_modal_title": "Réservez Votre Soirée",
+    "reserve_modal_eyebrow": "Réserver",
+    "form_request_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_special_request": "Demande spéciale",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "page_title": "BMW M3 | Montreal Hospitality",
+    "hero_cat": "Berline Sport",
+    "hero_tagline": "L'ingénierie allemande de précision rencontre la puissance brute de la série M.",
+    "hero_reserve_btn": "Réserver Maintenant",
+    "hero_gallery_btn": "Galerie",
+    "hero_back_btn": "Flotte exotique",
+    "stats_hp_label": "Chevaux",
+    "stats_speed_label": "0–100 km/h",
+    "stats_engine_label": "Moteur",
+    "stats_length_label": "Longueur",
+    "stats_guests_label": "Invités max",
+    "stats_topspeed_label": "Vitesse max",
+    "stats_range_label": "Autonomie",
+    "stats_passengers_label": "Passagers",
+    "stats_crew_label": "Équipage",
+    "overview_eyebrow": "Aperçu",
+    "overview_title": "BMW M3",
+    "overview_desc": "La BMW M3 offre le mélange parfait entre praticité quotidienne et performances de circuit. Son moteur 6 cylindres turbo produit plus de 500 chevaux, propulsant la M3 à 100 km/h en seulement 3,5 secondes, tout en offrant le raffinement attendu d'une berline premium.",
+    "overview_seats": "Sièges",
+    "overview_bags": "Bagage",
+    "overview_guests": "Invités",
+    "overview_cabins": "Cabines",
+    "overview_passengers": "Passagers",
+    "overview_hours": "Heures de vol",
+    "overview_book_btn": "Réserver",
+    "specs_eyebrow": "Spécifications",
+    "specs_title": "Détails Techniques",
+    "perf_label": "Performance",
+    "features_label": "Caractéristiques",
+    "vessel_label": "Navire",
+    "accomm_label": "Hébergements",
+    "amenities_label": "Équipements",
+    "gallery_eyebrow": "Galerie",
+    "gallery_title": "Intérieur & Extérieur",
+    "gallery_expand": "Agrandir",
+    "whymh_1_title": "Pleinement assuré",
+    "whymh_1_desc": "Couverture complète pour une totale tranquillité d'esprit pendant votre expérience.",
+    "whymh_2_title": "Conciergerie 24h/24",
+    "whymh_2_desc": "Notre équipe dédiée est disponible en permanence pour gérer chaque détail.",
+    "whymh_3_title": "Service haut de gamme",
+    "whymh_3_desc": "Préparé méticuleusement et livré selon vos normes exactes.",
+    "reserve_eyebrow": "Réservation",
+    "reserve_title": "Réserver BMW M3",
+    "reserve_desc": "Notre équipe confirme dans les 2 heures.",
+    "form_first_name": "Prénom",
+    "form_last_name": "Nom de famille",
+    "form_pickup_date": "Date de prise en charge",
+    "form_return_date": "Date de retour",
+    "form_departure_date": "Date de départ",
+    "form_return_flight": "Date de retour",
+    "form_charter_date": "Date d'affrètement",
+    "form_end_date": "Date de fin",
+    "form_chauffeur": "Ajouter un chauffeur",
+    "form_chauffeur_label": "Chauffeur professionnel (+150$/jour)",
+    "form_special_requests": "Demandes spéciales",
+    "form_submit_btn": "Soumettre la réservation",
+    "form_sending": "Envoi en cours…",
+    "success_title": "Demande reçue",
+    "success_ref_label": "Numéro de référence",
+    "success_confirm_prefix": "Confirmation envoyée à",
+    "error_msg": "Une erreur s'est produite. Veuillez réessayer ou appeler le 514-378-0154.",
+    "contact_phone_label": "Téléphone",
+    "contact_phone_sub": "Conciergerie 24h/24",
+    "contact_email_label": "Courriel",
+    "contact_email_sub": "Réponse en moins de 2h",
+    "contact_wa_label": "WhatsApp",
+    "contact_wa_sub": "Réservation instantanée"
+  ,
+    "nav_contact_btn": "Contact",
+    "now_open_label": "Maintenant Ouvert",
+    "premium_badge": "Premium",
+    "stat_hp": "Chevaux",
+    "stat_0100": "0–100 km/h",
+    "stat_engine": "Moteur",
+    "stat_length": "Longueur",
+    "stat_guests": "Invités max",
+    "stat_topspeed": "Vitesse max",
+    "stat_range": "Autonomie",
+    "stat_passengers": "Passagers",
+    "stat_crew": "Équipage",
+    "ov_eyebrow": "Aperçu",
+    "ov_seats": "2 Sièges",
+    "ov_seats_sub": "Configuration sport",
+    "ov_bag": "1 Bagage",
+    "ov_bag_sub": "Coffre avant",
+    "ov_guests_10": "10 Invités",
+    "ov_guests_cap": "Capacité maximale",
+    "ov_cabins_2": "2 Cabines",
+    "ov_cabins_sub": "Hébergements de nuit",
+    "ov_book_btn": "Réserver",
+    "spec_eyebrow": "Spécifications",
+    "spec_title": "Détails Techniques",
+    "spec_perf": "Performance",
+    "spec_feat": "Caractéristiques",
+    "spec_vessel": "Navire",
+    "spec_accomm": "Hébergements",
+    "spec_amenities": "Équipements",
+    "spec_hp": "Chevaux",
+    "spec_0100": "0–100 km/h",
+    "spec_topspeed": "Vitesse max",
+    "spec_engine_lbl": "Moteur",
+    "spec_trans": "Transmission",
+    "spec_aero": "Aérodynamique",
+    "spec_cockpit": "Cockpit",
+    "spec_steering": "Direction",
+    "spec_suspension": "Suspension",
+    "spec_exhaust": "Échappement",
+    "spec_yl": "Longueur",
+    "spec_beam": "Largeur",
+    "spec_draft": "Tirant d'eau",
+    "spec_engines": "Moteurs",
+    "spec_speed_y": "Vitesse",
+    "spec_guests_y": "Invités",
+    "spec_crew_y": "Équipage",
+    "spec_cabins": "Cabines",
+    "spec_baths": "Salles de bain",
+    "spec_galley": "Cuisine",
+    "spec_deck": "Pont",
+    "spec_sound": "Sonorisation",
+    "spec_catering": "Traiteur",
+    "spec_nav": "Navigation",
+    "spec_safety": "Sécurité",
+    "spec_range": "Autonomie",
+    "spec_pax": "Passagers",
+    "spec_crew_j": "Équipage",
+    "spec_cabin_h": "Hauteur de cabine",
+    "spec_cabin_w": "Largeur de cabine",
+    "spec_baggage": "Bagages",
+    "spec_speed_j": "Vitesse de croisière",
+    "spec_ceiling": "Altitude max",
+    "spec_engines_j": "Moteurs",
+    "spec_thrust": "Poussée",
+    "spec_avionics": "Avionique",
+    "spec_wifi": "WiFi",
+    "spec_apt": "Équipements",
+    "gal_eyebrow": "Galerie",
+    "gal_title": "Intérieur & Extérieur",
+    "gal_expand": "Agrandir",
+    "mh_ins_title": "Pleinement assuré",
+    "mh_ins_desc": "Couverture complète pour une totale tranquillité d'esprit pendant votre expérience.",
+    "mh_247_title": "Conciergerie 24h/24",
+    "mh_247_desc": "Notre équipe dédiée est disponible en permanence pour gérer chaque détail.",
+    "mh_wg_title": "Service haut de gamme",
+    "mh_wg_desc": "Préparé méticuleusement et livré selon vos normes exactes.",
+    "res_eyebrow": "Réservation",
+    "res_team_conf": "Notre équipe confirme dans les 2 heures.",
+    "form_fn": "Prénom",
+    "form_ln": "Nom de famille",
+    "form_em": "Courriel",
+    "form_ph": "Téléphone",
+    "form_pickup": "Date de prise en charge",
+    "form_return": "Date de retour",
+    "form_dep": "Date de départ",
+    "form_charter": "Date d'affrètement",
+    "form_end_dt": "Date de fin",
+    "form_chauff": "Ajouter un chauffeur",
+    "form_chauff_lbl": "Chauffeur professionnel (+150$/jour)",
+    "form_spec_req": "Demandes spéciales",
+    "form_sub_btn": "Soumettre la réservation",
+    "success_h3": "Demande reçue",
+    "success_ref_p": "Numéro de référence",
+    "error_p": "Une erreur s'est produite. Veuillez réessayer ou appeler le 514-378-0154.",
+    "cb_phone_lbl": "Téléphone",
+    "cb_email_lbl": "Courriel",
+    "cb_wa_lbl": "WhatsApp",
+    "cb_phone_sub": "Conciergerie 24h/24",
+    "cb_email_sub": "Réponse en moins de 2h",
+    "cb_wa_sub": "Réservation instantanée",
+    "ft_tagline": "Redéfinir l'art de la nuit à Montréal.",
+    "ft_explore": "Explorer",
+    "ft_contact": "Contact",
+    "ft_follow": "Suivez-nous",
+    "ft_venues": "Établissements",
+    "ft_sports": "Sports",
+    "ft_services": "Services",
+    "ft_careers": "Carrières",
+    "ft_privacy": "Confidentialité",
+    "ft_terms": "Conditions",
+    "hero_subtitle": "Performance · 4 portes · 503 CV",
+    "ov_desc": "La BMW M3 offre le mélange parfait entre praticité quotidienne et performances de circuit. Son moteur 6 cylindres en ligne turbo produit plus de 500 chevaux, propulsant la M3 à 100 km/h en seulement 3,5 secondes, tout en offrant le raffinement attendu d'une berline premium.",
+    "res_title_v": "Réserver cette berline sport",
+    "success_desc": "Nous avons reçu votre réservation pour la BMW M3. Notre équipe confirmera dans les 2 heures."}
+};
 
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
 
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+    window.translator = {
+      currentLang:'en',
+      init() {
+        const saved=localStorage.getItem('preferred_language');
+        const url=new URLSearchParams(window.location.search).get('lang');
+        const browser=(navigator.language||'en').split('-')[0];
+        this.currentLang=[url,saved,browser,'en'].find(l=>window._i18n&&window._i18n[l])||'en';
+        localStorage.setItem('preferred_language',this.currentLang);
+        document.documentElement.lang=this.currentLang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks(); this.bindButtons();
+      },
+      setLanguage(lang){
+        if(!window._i18n||!window._i18n[lang])return;
+        this.currentLang=lang;
+        localStorage.setItem('preferred_language',lang);
+        document.documentElement.lang=lang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks();
+        const u=new URL(window.location.href);
+        u.searchParams.set('lang',lang);
+        window.history.replaceState({},'',`${u.pathname}${u.search}${u.hash}`);
+      },
+      updateUI(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));
+      },
+      applyTranslations(){
+        const t=(window._i18n&&window._i18n[this.currentLang])||{};
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const v=t[el.dataset.i18n]; if(!v)return;
+          if(v.includes('<'))el.innerHTML=v; else el.textContent=v;
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+          const v=t[el.dataset.i18nPlaceholder]; if(v)el.placeholder=v;
+        });
+        document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+          const v=t[el.dataset.i18nLabel]; if(v)el.textContent=v;
+        });
+        if(t.page_title)document.title=t.page_title;
+      },
+      translateLinks(){
+        document.querySelectorAll('a[href]').forEach(link=>{
+          const h=link.getAttribute('href');
+          if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:')||h.startsWith('javascript:')||h.startsWith('http'))return;
+          try{
+            const u=new URL(h,window.location.href);
+            if(u.origin!==window.location.origin)return;
+            u.searchParams.set('lang',this.currentLang);
+            link.setAttribute('href',`${u.pathname.split('/').pop()||'index.html'}${u.search}${u.hash}`);
+          }catch(e){}
+        });
+      },
+      bindButtons(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));
+      }
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
 
-        .lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10001;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(197, 160, 89, 0.2);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-close:hover {
-            background: #C5A059;
-            color: #0B0F19;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(197, 160, 89, 0.8);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0B0F19;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-nav:hover {
-            background: #C5A059;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .lightbox-prev { left: 2rem; }
-        .lightbox-next { right: 2rem; }
-
-        .lightbox-counter {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-        }
-
-        .spec-card {
-            background: linear-gradient(135deg, #1A1D24 0%, #0B0F19 100%);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .spec-card:hover {
-            border-color: #C5A059;
-            transform: translateY(-5px);
-        }
-
-        .form-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 12px 0;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-
-        @media (max-width: 768px) {
-            .gallery-thumbs {
-                gap: 0.5rem;
-            }
-            .lightbox-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            .lightbox-prev { left: 1rem; }
-            .lightbox-next { right: 1rem; }
-        }
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            font-weight: 600;
-        }
-        .lang-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 38px;
-            height: 30px;
-            padding: 0 10px;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.08);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.38);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-        .nav-instagram-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-        .nav-instagram-link:hover {
-            color: #C5A059;
-            transform: scale(1.06);
-        }
-        .nav-contact-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 120px;
-            height: 34px;
-            padding: 0 20px;
-            border: 1px solid rgba(255, 255, 255, 0.42);
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 11px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .nav-contact-btn:hover {
-            border-color: #C5A059;
-            color: #C5A059;
-        }
-
-    </style>
-    <base target="_self">
+</script>
 </head>
 <body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
+        <div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+    <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
 
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
+    <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+    </a>
+
+    <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+      <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+
+      <div class="relative" id="venues-menu-wrapper">
+        <a href="venues.html" id="venues-menu-btn"
+           class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium"
+           aria-expanded="false">
+          <span data-i18n="nav_venues"><span data-i18n="ft_venues">Venues</span></span>
+          <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
         </a>
-
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a>
-            <a href="venues.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Venues</a>
-            <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a>
-            <a href="service.html" target="_self" class="link-hover text-mh-gold transition-colors">Services</a>
-            <a href="index.html#private-events" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a>
-            <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
-        </div>
-
-        <div class="hidden lg:flex items-center gap-8">
-            
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+        <div id="venues-mega"
+             class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none"
+             style="top:72px; transform:translateY(-8px); transition:opacity .22s ease,transform .22s ease; right:auto; width:fit-content;">
+          <div class="px-20 py-12 flex gap-0">
+            <div class="flex-1 border-r border-white/8 pr-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+              <ul>
+                <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="hang bar.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="Bordelle.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                <li><a href="212.html"       class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
             </div>
-<a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="nav-instagram-link"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="nav-contact-btn">CONTACT</a>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
-        <a href="venues.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
-        <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
-        <a href="service.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
-        <a href="index.html#private-events" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
-        <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-    
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
-
-
-</div>
-
-    <!-- Hero Section -->
-    <header class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <img src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" 
-                 alt="BMW M3 Competition" 
-                 class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/60 via-mh-navy/40 to-mh-navy"></div>
-        </div>
-
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <span class="tao-subheading text-mh-gold mb-4 tracking-[0.3em] text-xs block reveal">SUPER SEDAN</span>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-4 leading-[0.95] reveal">
-                BMW M3<br>Competition
-            </h1>
-            <p class="text-gray-400 text-xl font-light mb-8 reveal">G80 Generation</p>
-            <div class="reveal">
-                <a href="#gallery" class="btn-hover inline-flex items-center gap-3 border border-white/30 text-white px-8 py-3 text-xs tracking-[0.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
-                    View Gallery <i class="fa-solid fa-images"></i>
-                </a>
+            <div class="flex-1 border-r border-white/8 px-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8 invisible">x</p>
+              <ul>
+                <li><a href="la voute.html"    class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                <li><a href="Soubois.html"      class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="beachclub.html"   class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
+              <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[.25em] uppercase transition-all group">
+                <span data-i18n="mega_view_all_venues">View All Venues</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+              </a>
             </div>
+            <div class="w-[380px] flex-shrink-0 pl-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8" data-i18n="mega_featured">Featured</p>
+              <div class="relative overflow-hidden" style="height:320px;">
+                <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg"
+                     class="w-full h-full object-cover" style="transition:opacity .2s ease;" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-5 left-5">
+                  <p class="text-gray-400 text-[9px] tracking-[.3em] uppercase mb-1"><span data-i18n="now_open_label"><span data-i18n="now_open_label">Now Open</span></span></p>
+                  <p id="venues-preview-label" class="text-white font-bold text-base tracking-widest uppercase">Yoko Luna</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-mh-dark">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                
-                <!-- Image Gallery -->
-                <div class="reveal">
-                    <div class="gallery-main aspect-[16/10] bg-mh-gray" onclick="openLightbox(0)">
-                        <img id="mainImage" src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" alt="BMW M3 Competition">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                            <span class="text-white text-sm tracking-[0.2em] uppercase"><i class="fa-solid fa-expand mr-2"></i> Click to Expand</span>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-thumbs">
-                        <div class="gallery-thumb active" onclick="changeImage(0)">
-                            <img src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" alt="M3 Comp - View 1">
-                        </div>
-                        <div class="gallery-thumb" onclick="changeImage(1)">
-                            <img src="https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg" alt="M3 Comp - View 2">
-                        </div>
-                        <div class="gallery-thumb" onclick="changeImage(2)">
-                            <img src="https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg" alt="M3 Comp - View 3">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Car Details -->
-                <div class="reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] tracking-[0.3em] block mb-4">Vehicle Details</span>
-                    <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">BMW M3 Competition</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8 font-light">
-                        The BMW M3 Competition G80 represents the most aggressive evolution of the iconic sports sedan. Featuring a twin-turbo 3.0L inline-6 (S58) derived from the M4 GT3 race car, this track weapon delivers explosive acceleration and razor-sharp handling. The bold kidney grille, carbon fiber roof, and quad exhaust tips signal serious intent, while the competition-tuned suspension and M xDrive all-wheel-drive system provide unmatched agility. Inside, carbon bucket seats, a curved display, and M-specific controls create an immersive cockpit designed for driving purists.
-                    </p>
-
-                    <!-- Specs Grid -->
-                    <div class="grid grid-cols-3 gap-4 mb-10">
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-gauge-high text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">503</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">Horsepower</p>
-                        </div>
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-stopwatch text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">3.5</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">0-100 sec</p>
-                        </div>
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-gears text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">I6</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">Twin-Turbo</p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mb-10">
-                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
-                            <i class="fa-solid fa-chair text-mh-gold text-xl"></i>
-                            <div>
-                                <p class="text-white font-medium">5 Seats</p>
-                                <p class="text-xs text-gray-500">Carbon Buckets</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
-                            <i class="fa-solid fa-suitcase text-mh-gold text-xl"></i>
-                            <div>
-                                <p class="text-white font-medium">3 Bags</p>
-                                <p class="text-xs text-gray-500">Luggage Space</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#inquiry" class="btn-hover flex-1 text-center bg-mh-gold text-mh-navy px-8 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">
-                            Reserve Now <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="exotic fleet.html" class="btn-hover flex-1 text-center border border-white/30 text-white px-8 py-4 text-xs tracking-[0.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
-                            Back to Fleet
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-24 bg-mh-navy">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Highlights</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">Exceptional Features</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-shield-halved text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">Fully Insured</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Comprehensive coverage for complete peace of mind during your rental period.</p>
-                </div>
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-clock text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">24/7 Support</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Round-the-clock assistance from our dedicated fleet management team.</p>
-                </div>
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-star text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">Premium Service</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Meticulously maintained vehicles delivered to your location.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Inquiry Form -->
-    <section id="inquiry" class="py-24 bg-mh-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
-            <div class="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Reservation</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">Reserve This Vehicle</h2>
-                <p class="text-gray-400 font-light text-lg">
-                    Complete the form below and our fleet manager will confirm your reservation within 2 hours.
-                </p>
-            </div>
-
-            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">First Name</label>
-                        <input type="text" name="firstName" class="form-input" placeholder="John" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Last Name</label>
-                        <input type="text" name="lastName" class="form-input" placeholder="Doe" data-required="true">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="john@example.com" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Phone</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="+1 (514) 555-0199" data-required="true">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Pickup Date</label>
-                        <input type="date" name="pickupDate" class="form-input" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Return Date</label>
-                        <input type="date" name="returnDate" class="form-input">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" name="chauffeur" value="yes" class="w-5 h-5 border border-white/30 rounded bg-transparent text-mh-gold focus:ring-mh-gold">
-                        <span class="text-gray-400 text-sm">Add Professional Chauffeur Service (+$150/day)</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Special Requests</label>
-                    <textarea name="specialRequests" class="form-input resize-none" rows="4" placeholder="Any specific requirements..."></textarea>
-                </div>
-
-                <!-- Honeypot field to prevent spam -->
-                <input type="text" name="_gotcha" style="display:none">
-
-                <div class="text-center">
-                    <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-12 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">
-                        Submit Reservation <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </form>
-
-            <!-- Success Message -->
-            <div id="successMessage" class="success-message">
-                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                <h3 class="text-white font-serif text-2xl mb-2">Request Received!</h3>
-                <p class="text-gray-400 text-sm mb-4">We've received your reservation for the BMW M3 Competition. Our fleet manager will confirm within 2 hours.</p>
-                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1">Your Reference Number</p>
-                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                </div>
-                <div class="space-y-1 text-gray-400 text-xs">
-                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> Confirmation sent to <span id="confirmEmail"></span></p>
-                </div>
-            </div>
-
-            <!-- Error Message -->
-            <div id="errorMessage" class="error-message">
-                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                <p class="font-light text-sm">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Bar -->
-    <section class="py-12 bg-mh-navy border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="reveal">
-                    <i class="fa-solid fa-phone text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">Phone</h4>
-                    <p class="text-gray-400">514-378-0154</p>
-                    <p class="text-gray-500 text-sm">24/7 Fleet Manager</p>
-                </div>
-                <div class="reveal">
-                    <i class="fa-solid fa-envelope text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">Email</h4>
-                    <p class="text-gray-400">info@montrealhospitality.com</p>
-                    <p class="text-gray-500 text-sm">Response within 2h</p>
-                </div>
-                <div class="reveal">
-                    <i class="fa-brands fa-whatsapp text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">WhatsApp</h4>
-                    <p class="text-gray-400">514-378-0154</p>
-                    <p class="text-gray-500 text-sm">Instant Booking</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
-                        <li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
-                        <li><a href="service.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Service</a></li>
-                        <li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">CONTACT</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-        <div class="lightbox-close" onclick="closeLightbox(event)"><i class="fa-solid fa-times"></i></div>
-        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <img id="lightboxImg" class="lightbox-img" src="" alt="">
-        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <div class="lightbox-counter"><span id="currentImg">1</span> / 3</div>
+      <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+      <a href="sports.html"   class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports"><span data-i18n="ft_sports"><span data-i18n="ft_sports">Sports</span></span></a>
+      <a href="service.html"  class="link-hover hover:text-mh-gold transition-colors text-mh-gold" data-i18n="nav_services"><span data-i18n="ft_services"><span data-i18n="ft_services">Services</span></span></a>
+      <a href="event.html"    class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers"><span data-i18n="ft_careers"><span data-i18n="ft_careers">Careers</span></span></a>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Image Gallery Data - BMW M3 Competition
-        const galleryImages = [
-            "https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg",
-            "https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg",
-            "https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg"
-        ];
-        let currentImageIndex = 0;
+    <div class="hidden lg:flex items-center gap-8">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <div class="lang-divider"></div>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+      <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+      <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all"><span data-i18n="nav_contact_btn"><span data-i18n="nav_contact_btn"><span data-i18n="ft_contact">Contact</span></span></span></a>
+    </div>
+  </nav>
 
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            let randomPart = '';
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            return prefix + randomPart;
-        }
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+    <a href="index.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+    <a href="venues.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform"><span data-i18n="ft_venues"><span data-i18n="ft_venues">Venues</span></span></a>
+    <a href="packages.html"    class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages">Packages</a>
+    <a href="sports.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports"><span data-i18n="ft_sports"><span data-i18n="ft_sports">Sports</span></span></a>
+    <a href="service.html"     class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services"><span data-i18n="ft_services"><span data-i18n="ft_services">Services</span></span></a>
+    <a href="event.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+    <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers"><span data-i18n="ft_careers"><span data-i18n="ft_careers">Careers</span></span></a>
+    <div class="mobile-lang-switcher">
+      <button class="lang-btn active text-lg" data-lang="en">EN</button>
+      <div class="lang-divider h-6"></div>
+      <button class="lang-btn text-lg" data-lang="fr">FR</button>
+    </div>
+  </div>
 
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
-            return isValid;
-        }
+  <!-- Hero -->
+  <header class="relative h-screen w-full overflow-hidden flex items-end justify-start">
+    <div class="absolute inset-0 z-0">
+      <img src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" alt="BMW M3 Competition" class="w-full h-full object-cover" loading="eager">
+      <div class="absolute inset-0 bg-gradient-to-t from-mh-navy via-mh-navy/60 to-mh-navy/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-mh-navy/70 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 pb-24 w-full">
+      <div class="max-w-2xl">
+        <div class="line-reveal hero-animate delay-1 mb-8" style="margin-left:0;"></div>
+        <p class="tao-subheading text-mh-gold text-[11px] tracking-[.35em] mb-6 hero-animate delay-2"><span data-i18n="hero_cat">Performance Sedan</span></p>
+        <h1 class="tao-heading text-white leading-[.9] mb-4 overflow-hidden">
+          <span class="block hero-animate delay-2" style="font-size:clamp(3rem,8vw,7rem);">BMW M3 Competition</span>
+        </h1>
+        <p class="text-gray-400 text-sm tracking-[.2em] uppercase mb-6 hero-animate delay-3">2022 · G80 · Twin-Turbo I6</p>
+        <p class="text-gray-300 font-light text-lg max-w-lg leading-relaxed hero-animate delay-3"><span data-i18n="hero_tagline">The ultimate sports sedan. 503 horsepower in a precision German package.</span></p>
+        <div class="flex flex-wrap gap-4 mt-10 hero-animate delay-4">
+          <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-10 py-4 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+            <span data-i18n="hero_reserve_btn">Reserve Now</span> <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#gallery" class="btn-hover inline-flex items-center gap-3 border border-white/40 text-white px-10 py-4 text-xs tracking-[.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
+            <i class="fa-solid fa-images"></i> <span data-i18n="hero_gallery_btn"><span data-i18n="gal_eyebrow">Gallery</span></span>
+          </a>
+          <a href="exotic fleet.html" class="btn-hover inline-flex items-center gap-3 border border-white/20 text-white/60 px-8 py-4 text-xs tracking-[.25em] uppercase hover:border-white/50 hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i> Exotic Fleet
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 scroll-indicator text-mh-gold/50">
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+  </header>
 
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
+  <!-- Quick Stats Bar -->
+  <section class="py-8 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-3 gap-0 stagger-children">
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-gauge-high text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">503</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest"><span data-i18n="stat_hp"><span data-i18n="spec_hp">Horsepower</span></span></span>
+        </div>
+        <div class="text-center py-2 border-x border-white/8 reveal">
+          <i class="fa-solid fa-stopwatch text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">3.5s</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest"><span data-i18n="stat_0100"><span data-i18n="spec_0100">0–100 km/h</span></span></span>
+        </div>
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-gears text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">I6 TT</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest"><span data-i18n="stat_engine"><span data-i18n="spec_engine_lbl">Engine</span></span></span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            if (!validateForm()) {
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => { form.style.animation = ''; }, 500);
-                return;
-            }
+  <!-- Overview -->
+  <section class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+      <div class="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="reveal">
+          <span class="tao-subheading text-mh-gold text-[11px] block mb-6 tracking-[.3em]"><span data-i18n="overview_eyebrow"><span data-i18n="ov_eyebrow">Overview</span></span></span>
+          <h2 class="tao-heading text-white text-5xl md:text-6xl mb-8">BMW M3 Competition</h2>
+          <p class="text-gray-400 font-light text-lg leading-relaxed mb-10">The BMW M3 Competition G80 is the most aggressive evolution of the iconic sports sedan. A twin-turbo 3.0L inline-6 from the M4 GT3 race car delivers explosive acceleration, while M xDrive AWD and competition-tuned suspension make this a track weapon in a business suit.</p>
+          <div class="grid grid-cols-2 gap-4 mb-10">
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-users text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">5 Seats</p>
+              <p class="text-gray-500 text-xs mt-1">Passenger Capacity</p>
+            </div>
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-suitcase-rolling text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">3 Bags</p>
+              <p class="text-gray-500 text-xs mt-1">Luggage Space</p>
+            </div>
+          </div>
+          <div class="flex gap-4 flex-wrap">
+            <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-8 py-3 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+              Book Now <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="relative group">
+            <div class="img-zoom-container h-[580px] overflow-hidden">
+              <img src="https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg" alt="BMW M3 Competition" class="img-zoom w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-mh-gold p-6 hidden lg:block">
+              <span class="text-mh-navy text-xs uppercase tracking-widest block mb-1"><span data-i18n="premium_badge">Premium</span></span>
+              <span class="tao-heading text-mh-navy text-2xl">Performance Sedan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
+  <!-- Technical Specs -->
+  <section class="py-32 bg-mh-dark">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]"><span data-i18n="specs_eyebrow"><span data-i18n="spec_eyebrow">Specifications</span></span></span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl"><span data-i18n="specs_title"><span data-i18n="spec_title">Technical Details</span></span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6"><span data-i18n="spec_perf"><span data-i18n="spec_perf">Performance</span></span></h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="stat_hp"><span data-i18n="spec_hp">Horsepower</span></span></span><span class="text-white">503 HP</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="stat_0100"><span data-i18n="spec_0100">0–100 km/h</span></span></span><span class="text-white">3.5 sec</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="stat_topspeed"><span data-i18n="spec_topspeed">Top Speed</span></span></span><span class="text-white">290 km/h</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="stat_engine"><span data-i18n="spec_engine_lbl">Engine</span></span></span><span class="text-white">3.0L Twin-Turbo I6</span></li><li class="flex justify-between "><span>Drive</span><span class="text-white">M xDrive AWD</span></li></ul></div><div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6"><span data-i18n="spec_feat"><span data-i18n="spec_feat">Features</span></span></h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Seats</span><span class="text-white">Carbon Buckets</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Display</span><span class="text-white">Curved OLED</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="spec_sound">Sound</span></span><span class="text-white">Harman Kardon</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span><span data-i18n="spec_suspension">Suspension</span></span><span class="text-white">Adaptive M</span></li><li class="flex justify-between "><span>Mode</span><span class="text-white">Drift Mode</span></li></ul></div>
+      </div>
+    </div>
+  </section>
 
-            try {
-                const refNumber = generateReferenceNumber();
-                const formData = new FormData(form);
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'BMW M3 Competition');
+  <!-- Gallery -->
+  <section id="gallery" class="py-32 bg-mh-navy">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]"><span data-i18n="gallery_eyebrow"><span data-i18n="gal_eyebrow">Gallery</span></span></span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl"><span data-i18n="gallery_title">Interior &amp; Exterior</span></h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6" style="grid-auto-rows:240px;">
+        
+      <div class="img-zoom-container h-[500px] md:row-span-2 overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(0)">
+        <img src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" alt="Gallery 1" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(1)">
+        <img src="https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg" alt="Gallery 2" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(2)">
+        <img src="https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg" alt="Gallery 3" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(3)">
+        <img src="https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg" alt="Gallery 4" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(4)">
+        <img src="https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg" alt="Gallery 5" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(5)">
+        <img src="https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg" alt="Gallery 6" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i><span data-i18n="gallery_expand"><span data-i18n="gal_expand">Expand</span></span></span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
 
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
+  <!-- Why MH -->
+  <section class="py-20 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-12 stagger-children text-center">
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3"><span data-i18n="whymh_1_title"><span data-i18n="mh_ins_title">Fully Insured</span></span></h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed"><span data-i18n="whymh_1_desc"><span data-i18n="mh_ins_desc">Comprehensive coverage for complete peace of mind during your experience.</span></span></p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-headset text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3"><span data-i18n="whymh_2_title"><span data-i18n="mh_247_title"><span data-i18n="cb_phone_sub">24/7 Concierge</span></span></span></h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed"><span data-i18n="mh_247_desc"><span data-i18n="mh_247_desc">Our dedicated team is on call around the clock to handle every detail.</span></span></p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-star text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3"><span data-i18n="whymh_3_title"><span data-i18n="mh_wg_title">White Glove Service</span></span></h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed"><span data-i18n="mh_wg_desc"><span data-i18n="mh_wg_desc">Meticulously prepared and delivered to your exact standard.</span></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                if (response.ok) {
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Reservation <i class="fa-solid fa-paper-plane"></i>';
-                submitBtn.classList.remove('submitting');
-            }
-        }
+  <!-- Reservation Form -->
+  <section id="reserve" class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]"><span data-i18n="reserve_eyebrow"><span data-i18n="res_eyebrow">Reservation</span></span></span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl mb-4"><span data-i18n="res_title_v"><span data-i18n="res_title_v">Reserve This Performance Sedan</span></span></h2>
+        <p class="text-gray-400 font-light"><span data-i18n="reserve_desc"><span data-i18n="res_team_conf">Our team confirms within 2 hours.</span></span></p>
+      </div>
+      <form id="res-form" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_first_name"><span data-i18n="form_fn">First Name</span></span></label>
+            <input type="text" name="firstName" class="form-field" placeholder="John" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_last_name"><span data-i18n="form_ln">Last Name</span></span></label>
+            <input type="text" name="lastName" class="form-field" placeholder="Doe" data-req>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_email"><span data-i18n="form_em"><span data-i18n="cb_email_lbl">Email</span></span></span></label>
+            <input type="email" name="email" class="form-field" placeholder="john@example.com" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_phone"><span data-i18n="form_ph"><span data-i18n="cb_phone_lbl">Phone</span></span></span></label>
+            <input type="tel" name="phone" class="form-field" placeholder="+1 (514) 555-0199" data-req>
+          </div>
+        </div>
+        <div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_pickup"><span data-i18n="form_pickup">Pickup Date</span></span></label><input type="date" name="pickupDate" class="form-field" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_return"><span data-i18n="form_return">Return Date</span></span></label><input type="date" name="returnDate" class="form-field"></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_chauff"><span data-i18n="form_chauff">Add Chauffeur</span></span></label><label class="flex items-center gap-3 cursor-pointer mt-2"><input type="checkbox" name="chauffeur" value="yes" class="w-4 h-4 border border-white/30 bg-transparent accent-mh-gold"> <span class="text-gray-400 text-sm font-light"><span data-i18n="form_chauff_lbl">Professional Chauffeur (+$150/day)</span></span></label></div>
+        <div>
+          <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2"><span data-i18n="form_special_requests"><span data-i18n="form_spec_req">Special Requests</span></span></label>
+          <textarea name="specialRequests" class="form-field resize-none" rows="4" placeholder="Any specific requirements…"></textarea>
+        </div>
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="text-center">
+          <button type="button" onclick="submitForm()" id="submit-btn"
+            class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-14 py-4 text-xs tracking-[.25em] uppercase font-bold hover:bg-mh-gold-light transition-all duration-300"><span data-i18n="form_submit_btn"><span data-i18n="form_sub_btn">Submit Reservation</span></span> <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </form>
+      <div id="success-box" class="success-box">
+        <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
+        <h3 class="tao-heading text-white text-3xl mb-2"><span data-i18n="success_h3"><span data-i18n="success_h3">Request Received</span></span></h3>
+        <p class="text-gray-400 text-sm mb-6">We've received your reservation for the BMW M3 Competition. Our team will confirm within 2 hours.</p>
+        <div class="bg-mh-navy/60 p-6 inline-block mb-4">
+          <p class="text-mh-gold text-xs uppercase tracking-wider mb-2"><span data-i18n="success_ref_p"><span data-i18n="success_ref_p">Reference Number</span></span></p>
+          <p class="tao-heading text-white text-2xl" id="ref-num">MH-XXXXXXXX</p>
+        </div>
+        <p class="text-gray-500 text-xs"><i class="fa-solid fa-envelope text-mh-gold mr-2"></i>Confirmation sent to <span id="confirm-email"></span></p>
+      </div>
+      <div id="error-box" class="error-box">
+        <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
+        <p class="font-light text-sm"><span data-i18n="error_p"><span data-i18n="error_p">Something went wrong. Please try again or call 514-378-0154.</span></span></p>
+      </div>
+    </div>
+  </section>
 
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+  <!-- Contact Bar -->
+  <section class="py-16 bg-mh-dark border-t border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center stagger-children">
+        <div class="reveal">
+          <i class="fa-solid fa-phone text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2"><span data-i18n="contact_phone_label"><span data-i18n="form_ph"><span data-i18n="cb_phone_lbl">Phone</span></span></span></h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest"><span data-i18n="contact_phone_sub"><span data-i18n="mh_247_title"><span data-i18n="cb_phone_sub">24/7 Concierge</span></span></span></p>
+        </div>
+        <div class="reveal">
+          <i class="fa-solid fa-envelope text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2"><span data-i18n="contact_email_label"><span data-i18n="form_em"><span data-i18n="cb_email_lbl">Email</span></span></span></h4>
+          <p class="text-gray-400">info@montrealhospitality.com</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest"><span data-i18n="contact_email_sub"><span data-i18n="cb_email_sub">Response within 2h</span></span></p>
+        </div>
+        <div class="reveal">
+          <i class="fa-brands fa-whatsapp text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2"><span data-i18n="contact_wa_label"><span data-i18n="cb_wa_lbl">WhatsApp</span></span></h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest"><span data-i18n="contact_wa_sub"><span data-i18n="cb_wa_sub">Instant Booking</span></span></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
 
-        // Loader
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    const revealElements = document.querySelectorAll('.reveal');
-                    revealElements.forEach(el => {
-                        el.classList.add('active');
-                    });
-                }, 800);
-            }, 1200);
+  <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-20">
+        <div class="col-span-1">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 mb-8 object-contain" loading="lazy">
+          <p class="text-gray-500 text-sm leading-relaxed font-light"><span data-i18n="ft_tagline"><span data-i18n="ft_tagline">Redefining the art of the night in Montreal.</span></span></p>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]"><span data-i18n="footer_explore"><span data-i18n="ft_explore">Explore</span></span></h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="venues.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform"><span data-i18n="ft_venues"><span data-i18n="ft_venues">Venues</span></span></a></li>
+            <li><a href="sports.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform"><span data-i18n="ft_sports"><span data-i18n="ft_sports">Sports</span></span></a></li>
+            <li><a href="service.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform"><span data-i18n="ft_services"><span data-i18n="ft_services">Services</span></span></a></li>
+            <li><a href="index.html#careers" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform"><span data-i18n="ft_careers"><span data-i18n="ft_careers">Careers</span></span></a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]"><span data-i18n="footer_contact"><span data-i18n="nav_contact_btn"><span data-i18n="ft_contact">Contact</span></span></span></h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
+            <li>514-378-0154</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]"><span data-i18n="footer_follow"><span data-i18n="ft_follow">Follow</span></span></h4>
+          <div class="flex gap-6">
+            <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Instagram"><i class="fa-brands fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="TikTok"><i class="fa-brands fa-tiktok text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
+        <p>&copy; 2026 Montreal Hospitality Group</p>
+        <div class="flex gap-8 mt-4 md:mt-0">
+          <a href="privacy.html" class="hover:text-white transition-colors"><span data-i18n="ft_privacy"><span data-i18n="ft_privacy">Privacy</span></span></a>
+          <a href="terms.html" class="hover:text-white transition-colors"><span data-i18n="ft_terms"><span data-i18n="ft_terms">Terms</span></span></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="lightbox" onclick="if(event.target===this)closeLB()">
+    <button class="lb-close" onclick="closeLB()"><i class="fa-solid fa-times"></i></button>
+    <button class="lb-btn" style="left:2rem;" onclick="shiftLB(-1);event.stopPropagation()"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lb-img" src="" alt="" style="max-width:90%;max-height:85vh;object-fit:contain;">
+    <button class="lb-btn" style="right:2rem;" onclick="shiftLB(1);event.stopPropagation()"><i class="fa-solid fa-chevron-right"></i></button>
+    <p style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.8rem;letter-spacing:.1em;"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></p>
+  </div>
+
+  <script>
+    // ── Prevent scroll restore ──
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    // ── Loader ──
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const l = document.getElementById('loader');
+        if (!l) return;
+        l.style.opacity = '0';
+        setTimeout(() => {
+          l.style.display = 'none';
+          document.querySelectorAll('.hero-animate').forEach(el => el.classList.add('visible'));
+          const line = document.querySelector('.line-reveal');
+          if (line) line.classList.add('visible');
+        }, 750);
+      }
+      document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 1100));
+      setTimeout(hideLoader, 2800);
+    })();
+
+    // ── Navbar scroll (throttled) ──
+    (function() {
+      const nav = document.getElementById('navbar');
+      let tick = false;
+      window.addEventListener('scroll', () => {
+        if (tick) return; tick = true;
+        requestAnimationFrame(() => { nav.classList.toggle('nav-scrolled', window.scrollY > 50); tick = false; });
+      }, { passive: true });
+    })();
+
+    // ── IntersectionObserver reveal ──
+    (function() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal, .stagger-children').forEach(el => io.observe(el));
+    })();
+
+    // ── Mobile menu ──
+    (function() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const links = menu.querySelectorAll('.mobile-link');
+      let open = false;
+      function toggle() {
+        open = !open;
+        menu.classList.toggle('-translate-x-full', !open);
+        btn.innerHTML = open ? '<i class="fa-solid fa-times text-xl"></i>' : '<i class="fa-solid fa-bars text-xl"></i>';
+      }
+      btn.addEventListener('click', toggle);
+      links.forEach(l => l.addEventListener('click', () => { if (open) toggle(); }));
+    })();
+
+    // ── Mega venues menu ──
+    (function() {
+      const btn = document.getElementById('venues-menu-btn');
+      const mega = document.getElementById('venues-mega');
+      const chevron = document.getElementById('venues-chevron');
+      const wrapper = document.getElementById('venues-menu-wrapper');
+      const previewImg = document.getElementById('venues-preview-img');
+      const previewLabel = document.getElementById('venues-preview-label');
+      if (!btn || !mega) return;
+      let timer = null;
+      function open() {
+        clearTimeout(timer);
+        mega.style.opacity = '1'; mega.style.transform = 'translateY(0)'; mega.style.pointerEvents = 'all';
+        chevron.style.transform = 'rotate(180deg)'; btn.style.color = '#C5A059'; btn.setAttribute('aria-expanded','true');
+      }
+      function close() {
+        mega.style.opacity = '0'; mega.style.transform = 'translateY(-8px)'; mega.style.pointerEvents = 'none';
+        chevron.style.transform = ''; btn.style.color = ''; btn.setAttribute('aria-expanded','false');
+      }
+      function sched() { timer = setTimeout(close, 150); }
+      wrapper.addEventListener('mouseenter', open); wrapper.addEventListener('mouseleave', sched);
+      mega.addEventListener('mouseenter', () => clearTimeout(timer)); mega.addEventListener('mouseleave', sched);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      document.querySelectorAll('.venue-menu-link').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          if (previewImg && link.dataset.img) { previewImg.style.opacity = '0'; setTimeout(() => { previewImg.src = link.dataset.img; previewImg.style.opacity = '1'; }, 150); }
+          if (previewLabel && link.dataset.name) previewLabel.textContent = link.dataset.name;
         });
+      });
+    })();
 
-        // Gallery Functions
-        function changeImage(index) {
-            currentImageIndex = index;
-            const mainImage = document.getElementById('mainImage');
-            mainImage.style.opacity = '0';
-            
-            setTimeout(() => {
-                mainImage.src = galleryImages[index];
-                mainImage.style.opacity = '1';
-            }, 200);
+    // ── Language switcher (minimal) ──
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.lang-btn[data-lang="'+btn.dataset.lang+'"]').forEach(b => b.classList.add('active'));
+        localStorage.setItem('preferred_language', btn.dataset.lang);
+      });
+    });
+    const savedLang = localStorage.getItem('preferred_language');
+    if (savedLang) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === savedLang));
+    }
 
-            // Update active thumb
-            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
-                if (i === index) {
-                    thumb.classList.add('active');
-                } else {
-                    thumb.classList.remove('active');
-                }
-            });
-        }
+    // ── Lightbox ──
+    const galleryImages = ["https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg", "https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg", "https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg", "https://cdn.bmwblog.com/wp-content/uploads/2020/09/2021-bmw-m3-m-performance-parts-black-12.jpg", "https://www.platinumautohaus.com/imagetag/14729/19/l/Used-2022-BMW-M3-Competition.jpg", "https://di-uploads-pod20.dealerinspire.com/pacificbmw/uploads/2023/01/M3-CS-Interior.jpg"];
+    let lbIdx = 0;
+    function openLB(i) {
+      lbIdx = i;
+      document.getElementById('lb-img').src = galleryImages[i];
+      document.getElementById('lb-cur').textContent = i + 1;
+      document.getElementById('lb-tot').textContent = galleryImages.length;
+      const lb = document.getElementById('lightbox');
+      lb.style.display = 'flex'; requestAnimationFrame(() => lb.style.opacity = '1');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+      const lb = document.getElementById('lightbox');
+      lb.style.opacity = '0'; setTimeout(() => lb.style.display = 'none', 300);
+      document.body.style.overflow = '';
+    }
+    function shiftLB(d) {
+      lbIdx = (lbIdx + d + galleryImages.length) % galleryImages.length;
+      document.getElementById('lb-img').src = galleryImages[lbIdx];
+      document.getElementById('lb-cur').textContent = lbIdx + 1;
+    }
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('lightbox').style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLB();
+      if (e.key === 'ArrowLeft') shiftLB(-1);
+      if (e.key === 'ArrowRight') shiftLB(1);
+    });
 
-        // Lightbox Functions
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            lightboxImg.src = galleryImages[currentImageIndex];
-            document.getElementById('currentImg').textContent = currentImageIndex + 1;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox(event) {
-            if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
-                const lightbox = document.getElementById('lightbox');
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-
-        function changeLightboxImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
-            if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
-            
-            document.getElementById('lightboxImg').src = galleryImages[currentImageIndex];
-            document.getElementById('currentImg').textContent = currentImageIndex + 1;
-        }
-
-        // Keyboard navigation for lightbox
-        document.addEventListener('keydown', (e) => {
-            const lightbox = document.getElementById('lightbox');
-            if (lightbox.classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox({target: {id: 'lightbox'}});
-                if (e.key === 'ArrowLeft') changeLightboxImage(-1);
-                if (e.key === 'ArrowRight') changeLightboxImage(1);
-            }
-        });
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-    </script>
-
-    <script>
-        const translator = {
-            currentLang: 'en',
-            originalsCaptured: false,
-            translations: {"title_en": null, "title_fr": "BMW M3 Competition | Flotte exotique | Montreal Hospitality", "en": {"Accueil": "Home", "Lieux": "Venues", "Sports": "Sports", "Services": "Services", "Événements": "Events", "Carrières": "Careers", "Contact": "Contact", "Voir la galerie": "View Gallery", "Cliquer pour agrandir": "Click to Expand", "Détails du véhicule": "Vehicle Details", "Points forts": "Highlights", "Caractéristiques exceptionnelles": "Exceptional Features", "Entièrement assuré": "Fully Insured", "Couverture complète pour une tranquillité d’esprit totale pendant votre période de location.": "Comprehensive coverage for complete peace of mind during your rental period.", "Assistance 24/7": "24/7 Support", "Assistance en tout temps de notre équipe de gestion de flotte dédiée.": "Round-the-clock assistance from our dedicated fleet management team.", "Service haut de gamme": "Premium Service", "Véhicules entretenus avec soin et livrés à votre emplacement.": "Meticulously maintained vehicles delivered to your location.", "Réservation": "Reservation", "Réserver ce véhicule": "Reserve This Vehicle", "Remplissez le formulaire ci-dessous et notre gestionnaire de flotte confirmera votre réservation dans les 2 heures.": "Complete the form below and our fleet manager will confirm your reservation within 2 hours.", "Prénom": "First Name", "Nom de famille": "Last Name", "Courriel": "Email", "Téléphone": "Phone", "Date de prise en charge": "Pickup Date", "Date de retour": "Return Date", "Ajouter le service de chauffeur professionnel (+150 $/jour)": "Add Professional Chauffeur Service (+$150/day)", "Demandes spéciales": "Special Requests", "Soumettre la réservation": "Submit Reservation", "Demande reçue !": "Request Received!", "Votre numéro de référence": "Your Reference Number", "Confirmation envoyée à": "Confirmation sent to", "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.": "Something went wrong. Please try again or contact us directly at 514-378-0154.", "514-378-0154": "514-378-0154", "Gestionnaire de flotte 24/7": "24/7 Fleet Manager", "info@montrealhospitality.com": "info@montrealhospitality.com", "Réponse sous 2 h": "Response within 2h", "Réponse sous 24 h": "Response within 24h", "WhatsApp": "WhatsApp", "Réservation instantanée": "Instant Booking", "Redéfinir l’art de la nuit à Montréal.": "Redefining the art of the night in Montreal.", "Explorer": "Explore", "Service": "Service", "Suivre": "Follow", "Confidentialité": "Privacy", "Conditions": "Terms", "Retour à la flotte": "Back to Fleet", "Réserver maintenant": "Reserve Now", "Puissance": "Horsepower", "0-100 s": "0-100 sec", "Flotte": "Fleet", "Affréter maintenant": "Charter Now", "Aperçu": "Overview", "Spécifications": "Specifications", "Détails techniques": "Technical Details", "Performance": "Performance", "Autonomie": "Range", "Autonomie (nm)": "Range (nm)", "Vitesse max": "Max Speed", "Vitesse de croisière": "Cruise Speed", "Plafond": "Ceiling", "Distance de décollage": "Takeoff Distance", "Cabine": "Cabin", "Passagers": "Passengers", "Hauteur cabine": "Cabin Height", "Largeur cabine": "Cabin Width", "Longueur cabine": "Cabin Length", "Bagages": "Baggage", "Dimensions": "Dimensions", "Longueur": "Length", "Envergure": "Wingspan", "Hauteur": "Height", "Moteurs": "Engines", "Équipage": "Crew", "Galerie": "Gallery", "Intérieur et extérieur": "Interior & Exterior", "Affréter cet appareil": "Charter This Aircraft", "Départ": "Departure", "Destination": "Destination", "Date": "Date", "Demander un vol": "Request Charter", "Jet grande cabine": "Large Cabin Jet", "Jet intermédiaire": "Mid-Size Jet", "Super jet intermédiaire": "Super Mid-Size Jet", "Jusqu’à 14": "Up to 14", "Jusqu’à 16": "Up to 16", "Jusqu’à 9": "Up to 9", "Jusqu’à 10": "Up to 10", "2 + 1 agent de bord": "2 + 1 Attendant", "2": "2", "© 2024 Montreal Hospitality Group": "© 2024 Montreal Hospitality Group", "BERLINE SUPERSPORTIVE": "SUPER SEDAN", "Génération G80": "G80 Generation", "La BMW M3 Competition G80 représente l’évolution la plus agressive de l’emblématique berline sportive. Équipée d’un 6 cylindres en ligne biturbo de 3,0 L (S58) dérivé de la voiture de course M4 GT3, cette machine de piste offre des accélérations explosives et une tenue de route ultra précise. L’imposante calandre, le toit en fibre de carbone et les quatre sorties d’échappement affichent des intentions sérieuses, tandis que la suspension affûtée Competition et le rouage intégral M xDrive procurent une agilité exceptionnelle. À l’intérieur, les sièges baquets carbone, l’écran incurvé et les commandes spécifiques M créent un cockpit immersif pensé pour les puristes de la conduite.": "The BMW M3 Competition G80 represents the most aggressive evolution of the iconic sports sedan. Featuring a twin-turbo 3.0L inline-6 (S58) derived from the M4 GT3 race car, this track weapon delivers explosive acceleration and razor-sharp handling. The bold kidney grille, carbon fiber roof, and quad exhaust tips signal serious intent, while the competition-tuned suspension and M xDrive all-wheel-drive system provide unmatched agility. Inside, carbon bucket seats, a curved display, and M-specific controls create an immersive cockpit designed for driving purists.", "5 places": "5 Seats", "Baquets carbone": "Carbon Buckets", "3 bagages": "3 Bags", "Espace bagages": "Luggage Space", "Nous avons reçu votre réservation pour la BMW M3 Competition. Notre gestionnaire de flotte confirmera dans les 2 heures.": "We've received your reservation for the BMW M3 Competition. Our fleet manager will confirm within 2 hours."}, "fr": {"Home": "Accueil", "Venues": "Lieux", "Sports": "Sports", "Services": "Services", "Events": "Événements", "Careers": "Carrières", "Contact": "Contact", "View Gallery": "Voir la galerie", "Click to Expand": "Cliquer pour agrandir", "Vehicle Details": "Détails du véhicule", "Highlights": "Points forts", "Exceptional Features": "Caractéristiques exceptionnelles", "Fully Insured": "Entièrement assuré", "Comprehensive coverage for complete peace of mind during your rental period.": "Couverture complète pour une tranquillité d’esprit totale pendant votre période de location.", "24/7 Support": "Assistance 24/7", "Round-the-clock assistance from our dedicated fleet management team.": "Assistance en tout temps de notre équipe de gestion de flotte dédiée.", "Premium Service": "Service haut de gamme", "Meticulously maintained vehicles delivered to your location.": "Véhicules entretenus avec soin et livrés à votre emplacement.", "Reservation": "Réservation", "Reserve This Vehicle": "Réserver ce véhicule", "Complete the form below and our fleet manager will confirm your reservation within 2 hours.": "Remplissez le formulaire ci-dessous et notre gestionnaire de flotte confirmera votre réservation dans les 2 heures.", "First Name": "Prénom", "Last Name": "Nom de famille", "Email": "Courriel", "Phone": "Téléphone", "Pickup Date": "Date de prise en charge", "Return Date": "Date de retour", "Add Professional Chauffeur Service (+$150/day)": "Ajouter le service de chauffeur professionnel (+150 $/jour)", "Special Requests": "Demandes spéciales", "Submit Reservation": "Soumettre la réservation", "Request Received!": "Demande reçue !", "Your Reference Number": "Votre numéro de référence", "Confirmation sent to": "Confirmation envoyée à", "Something went wrong. Please try again or contact us directly at 514-378-0154.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.", "514-378-0154": "514-378-0154", "24/7 Fleet Manager": "Gestionnaire de flotte 24/7", "info@montrealhospitality.com": "info@montrealhospitality.com", "Response within 2h": "Réponse sous 2 h", "Response within 24h": "Réponse sous 24 h", "WhatsApp": "WhatsApp", "Instant Booking": "Réservation instantanée", "Redefining the art of the night in Montreal.": "Redéfinir l’art de la nuit à Montréal.", "Explore": "Explorer", "Service": "Service", "Follow": "Suivre", "Privacy": "Confidentialité", "Terms": "Conditions", "Back to Fleet": "Retour à la flotte", "Reserve Now": "Réserver maintenant", "Horsepower": "Puissance", "0-100 sec": "0-100 s", "Fleet": "Flotte", "Charter Now": "Affréter maintenant", "Overview": "Aperçu", "Specifications": "Spécifications", "Technical Details": "Détails techniques", "Performance": "Performance", "Range": "Autonomie", "Range (nm)": "Autonomie (nm)", "Max Speed": "Vitesse max", "Cruise Speed": "Vitesse de croisière", "Ceiling": "Plafond", "Takeoff Distance": "Distance de décollage", "Cabin": "Cabine", "Passengers": "Passagers", "Cabin Height": "Hauteur cabine", "Cabin Width": "Largeur cabine", "Cabin Length": "Longueur cabine", "Baggage": "Bagages", "Dimensions": "Dimensions", "Length": "Longueur", "Wingspan": "Envergure", "Height": "Hauteur", "Engines": "Moteurs", "Crew": "Équipage", "Gallery": "Galerie", "Interior & Exterior": "Intérieur et extérieur", "Charter This Aircraft": "Affréter cet appareil", "Departure": "Départ", "Destination": "Destination", "Date": "Date", "Request Charter": "Demander un vol", "Large Cabin Jet": "Jet grande cabine", "Mid-Size Jet": "Jet intermédiaire", "Super Mid-Size Jet": "Super jet intermédiaire", "Up to 14": "Jusqu’à 14", "Up to 16": "Jusqu’à 16", "Up to 9": "Jusqu’à 9", "Up to 10": "Jusqu’à 10", "2 + 1 Attendant": "2 + 1 agent de bord", "2": "2", "© 2024 Montreal Hospitality Group": "© 2024 Montreal Hospitality Group", "SUPER SEDAN": "BERLINE SUPERSPORTIVE", "G80 Generation": "Génération G80", "The BMW M3 Competition G80 represents the most aggressive evolution of the iconic sports sedan. Featuring a twin-turbo 3.0L inline-6 (S58) derived from the M4 GT3 race car, this track weapon delivers explosive acceleration and razor-sharp handling. The bold kidney grille, carbon fiber roof, and quad exhaust tips signal serious intent, while the competition-tuned suspension and M xDrive all-wheel-drive system provide unmatched agility. Inside, carbon bucket seats, a curved display, and M-specific controls create an immersive cockpit designed for driving purists.": "La BMW M3 Competition G80 représente l’évolution la plus agressive de l’emblématique berline sportive. Équipée d’un 6 cylindres en ligne biturbo de 3,0 L (S58) dérivé de la voiture de course M4 GT3, cette machine de piste offre des accélérations explosives et une tenue de route ultra précise. L’imposante calandre, le toit en fibre de carbone et les quatre sorties d’échappement affichent des intentions sérieuses, tandis que la suspension affûtée Competition et le rouage intégral M xDrive procurent une agilité exceptionnelle. À l’intérieur, les sièges baquets carbone, l’écran incurvé et les commandes spécifiques M créent un cockpit immersif pensé pour les puristes de la conduite.", "5 Seats": "5 places", "Carbon Buckets": "Baquets carbone", "3 Bags": "3 bagages", "Luggage Space": "Espace bagages", "We've received your reservation for the BMW M3 Competition. Our fleet manager will confirm within 2 hours.": "Nous avons reçu votre réservation pour la BMW M3 Competition. Notre gestionnaire de flotte confirmera dans les 2 heures."}},
-            placeholderTranslations: {"en": {"Jean": "John", "Tremblay": "Doe", "jean@exemple.com": "john@example.com", "+1 (514) 555-0199": "+1 (514) 555-0199", "Des demandes particulières...": "Any specific requirements..."}, "fr": {"John": "Jean", "Doe": "Tremblay", "john@example.com": "jean@exemple.com", "+1 (514) 555-0199": "+1 (514) 555-0199", "Any specific requirements...": "Des demandes particulières..."}},
-            captureOriginals() {
-                if (this.originalsCaptured) return;
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    const node = walker.currentNode;
-                    node.__originalText = node.nodeValue;
-                }
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    el.dataset.originalPlaceholder = el.getAttribute('placeholder') || '';
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    el.dataset.originalOption = el.textContent;
-                });
-                document.titleOriginal = document.title;
-                this.originalsCaptured = true;
-            },
-            init() {
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                if (savedLang === 'fr' || savedLang === 'en') {
-                    this.currentLang = savedLang;
-                } else if (browserLang === 'fr') {
-                    this.currentLang = 'fr';
-                }
-                this.captureOriginals();
-                this.updateUI();
-                this.translatePage();
-            },
-            setLanguage(lang) {
-                if (!['en', 'fr'].includes(lang)) return;
-                this.currentLang = lang;
-                localStorage.setItem('preferred_language', lang);
-                this.updateUI();
-                this.translatePage();
-            },
-            updateUI() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                });
-            },
-            replaceTextNode(node, map) {
-                const original = node.__originalText || node.nodeValue;
-                const trimmed = original.trim();
-                const translated = map[trimmed];
-                if (!translated) {
-                    node.nodeValue = original;
-                    return;
-                }
-                const leading = original.match(/^\s*/)[0];
-                const trailing = original.match(/\s*$/)[0];
-                node.nodeValue = leading + translated + trailing;
-            },
-            translatePage() {
-                this.captureOriginals();
-                const map = this.currentLang === 'fr' ? this.translations.fr : this.translations.en;
-                const placeholderMap = this.currentLang === 'fr' ? this.placeholderTranslations.fr : this.placeholderTranslations.en;
-                document.documentElement.lang = this.currentLang;
-                document.title = this.currentLang === 'fr' ? (this.translations.title_fr || document.titleOriginal) : (this.translations.title_en || document.titleOriginal);
-
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    this.replaceTextNode(walker.currentNode, map);
-                }
-
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    const original = el.dataset.originalPlaceholder || el.getAttribute('placeholder') || '';
-                    el.setAttribute('placeholder', placeholderMap[original] || original);
-                });
-
-                document.querySelectorAll('option').forEach(el => {
-                    const original = el.dataset.originalOption || el.textContent;
-                    el.textContent = map[original.trim()] || original;
-                });
-            }
-        };
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
-    </script>
-
+    // ── Form ──
+    function genRef() {
+      const ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', nu = '0123456789';
+      let r = '';
+      [[2,'l'],[3,'n'],[2,'l'],[3,'n'],[1,'l'],[1,'n']].forEach(([c,t]) => {
+        for (let i=0;i<c;i++) r += t==='l' ? ch[Math.floor(Math.random()*26)] : nu[Math.floor(Math.random()*10)];
+      });
+      return 'MH-' + r;
+    }
+    function validateForm() {
+      let ok = true;
+      document.querySelectorAll('[data-req]').forEach(f => {
+        if (!f.value.trim()) { f.style.borderColor='#ef4444'; ok=false; }
+        else f.style.borderColor = 'rgba(255,255,255,.25)';
+      });
+      return ok;
+    }
+    async function submitForm() {
+      if (!validateForm()) {
+        const form = document.getElementById('res-form');
+        if (form) { form.style.animation='shake .5s'; setTimeout(()=>form.style.animation='',500); }
+        return;
+      }
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '.6';
+      try {
+        const ref = genRef();
+        const fd = new FormData(document.getElementById('res-form'));
+        fd.append('reference', ref); fd.append('vehicle', 'BMW M3 Competition');
+        const res = await fetch('https://formspree.io/f/mykdvnra', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+        if (res.ok) {
+          document.getElementById('ref-num').textContent = ref;
+          document.getElementById('confirm-email').textContent = fd.get('email') || '';
+          document.getElementById('res-form').style.display = 'none';
+          document.getElementById('success-box').classList.add('active');
+        } else throw new Error();
+      } catch(e) {
+        document.getElementById('error-box').classList.add('active');
+        btn.textContent = 'Submit Reservation'; btn.disabled = false; btn.style.opacity = '1';
+      }
+    }
+  </script>
 </body>
 </html>

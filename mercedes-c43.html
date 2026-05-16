@@ -1,1125 +1,771 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercedes-AMG C43 | Exotic Fleet | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercedes-AMG C43 | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'mh-navy':'#0B0F19','mh-gold':'#C5A059','mh-gold-light':'#D6B88A',
+          'mh-dark':'#05070A','mh-gray':'#1A1D24','old-port':'#8B7355'
+        },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] }
+      }}
+    }
+  </script>
+  <style>
+    body { background:#0B0F19; color:#fff; overflow-x:hidden; font-family:'Montserrat',sans-serif; }
+    .tao-heading { font-family:'Cormorant Garamond',serif; font-weight:300; letter-spacing:-0.02em; }
+    .tao-subheading { font-family:'Montserrat',sans-serif; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    /* hero animate */
+    .hero-animate { opacity:0; transform:translateY(30px); filter:blur(8px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1), filter .9s cubic-bezier(.16,1,.3,1);
+      will-change: opacity,transform,filter; }
+    .hero-animate.visible { opacity:1; transform:translateY(0); filter:blur(0); }
+    .delay-1 { transition-delay:.2s; } .delay-2 { transition-delay:.5s; }
+    .delay-3 { transition-delay:.8s; } .delay-4 { transition-delay:1.1s; }
 
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
+    /* reveal / stagger */
+    .reveal { opacity:0; transform:translateY(32px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .stagger-children > * { opacity:0; transform:translateY(24px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+    .stagger-children.active > *:nth-child(1) { transition-delay:0ms;   opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(2) { transition-delay:100ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(3) { transition-delay:200ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(4) { transition-delay:300ms; opacity:1; transform:translateY(0); }
 
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+    /* nav */
+    #navbar { will-change: background-color,padding; }
+    .nav-scrolled { background-color:rgba(11,15,25,.95)!important; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      padding-top:1.2rem!important; padding-bottom:1.2rem!important; border-bottom:1px solid rgba(197,160,89,.1); }
 
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
+    /* img zoom */
+    .img-zoom-container { overflow:hidden; }
+    .img-zoom { transition:transform 1.1s cubic-bezier(.16,1,.3,1); will-change:transform; }
+    .group:hover .img-zoom { transform:scale(1.07); }
 
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
+    /* links */
+    .link-hover { position:relative; }
+    .link-hover::after { content:''; position:absolute; width:0; height:1px; bottom:-4px; left:0;
+      background:#C5A059; transition:width .3s ease; }
+    .link-hover:hover::after { width:100%; }
 
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
+    /* buttons */
+    .btn-hover { position:relative; overflow:hidden; transition:all .3s ease; }
+    .btn-hover::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); transition:left .5s ease; }
+    .btn-hover:hover::before { left:100%; }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
+    /* card lift */
+    @media (hover:hover) {
+      .card-lift { transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1); will-change:transform; }
+      .card-lift:hover { transform:translateY(-6px); box-shadow:0 18px 36px rgba(0,0,0,.35); }
+    }
+    a.card-lift { display:block; text-decoration:none; }
 
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-        }
+    /* gradient text */
+    @keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .gradient-text { background:linear-gradient(90deg,#C5A059,#D6B88A,#C5A059); background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:gradient-shift 4s ease infinite; }
 
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
+    /* loader */
+    #loader { position:fixed; inset:0; background:#0B0F19; z-index:9999; display:flex; justify-content:center; align-items:center; transition:opacity .7s ease; }
+    @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
 
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
+    /* line reveal */
+    .line-reveal { width:0; height:1px; background:#C5A059; margin:0 auto; transition:width 1s cubic-bezier(.16,1,.3,1); }
+    .line-reveal.visible { width:60px; }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* form inputs */
+    .form-field { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.25);
+      color:#fff; padding:12px 0; width:100%; font-family:'Montserrat',sans-serif; font-size:.875rem;
+      transition:border-color .3s ease; }
+    .form-field:focus { outline:none; border-color:#C5A059; }
+    .form-field::placeholder { color:rgba(255,255,255,.4); }
+    select.form-field option { background:#0B0F19; }
 
-        .gallery-main {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        
-        .gallery-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .gallery-main:hover img {
-            transform: scale(1.05);
-        }
+    /* gallery / lightbox */
+    #lightbox { position:fixed; inset:0; background:rgba(0,0,0,.96); z-index:10000;
+      display:none; justify-content:center; align-items:center; opacity:0; transition:opacity .3s ease; }
+    #lightbox.active { display:flex; opacity:1; }
+    #lb-img { max-width:90%; max-height:85vh; object-fit:contain; }
+    .lb-btn { position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(197,160,89,.8); border:none; width:50px; height:50px; border-radius:50%;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; color:#0B0F19;
+      font-size:1.1rem; transition:background .2s; }
+    .lb-btn:hover { background:#C5A059; }
+    .lb-close { position:absolute; top:2rem; right:2rem; background:rgba(197,160,89,.2);
+      border:none; width:48px; height:48px; border-radius:50%; color:#fff; font-size:1.2rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    .lb-close:hover { background:#C5A059; color:#0B0F19; }
 
-        .gallery-thumbs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+    /* spec boxes */
+    .spec-box { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); transition:all .3s ease; }
+    .spec-box:hover { border-color:#C5A059; background:rgba(197,160,89,.05); }
+    .spec-card { background:linear-gradient(135deg,#1A1D24 0%,#0B0F19 100%);
+      border:1px solid rgba(197,160,89,.2); transition:all .3s ease; }
+    .spec-card:hover { border-color:#C5A059; transform:translateY(-4px); }
 
-        .gallery-thumb {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            aspect-ratio: 16/10;
-        }
+    /* success / error */
+    .success-box { display:none; background:rgba(197,160,89,.08); border:1px solid #C5A059; padding:40px; text-align:center; margin-top:24px; }
+    .success-box.active { display:block; animation:slideIn .5s ease; }
+    .error-box { display:none; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.5); padding:20px; text-align:center; margin-top:16px; color:#ef4444; }
+    .error-box.active { display:block; animation:slideIn .5s ease; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
 
-        .gallery-thumb:hover,
-        .gallery-thumb.active {
-            border-color: #C5A059;
-        }
+    /* lang switcher */
+    .lang-switcher { display:flex; align-items:center; gap:.5rem; font-size:11px; letter-spacing:.15em; font-weight:500; }
+    .lang-btn { padding:.25rem .5rem; border:1px solid transparent; background:transparent; color:#fff; cursor:pointer; transition:all .3s ease; text-transform:uppercase; }
+    .lang-btn:hover { color:#C5A059; }
+    .lang-btn.active { border-color:#C5A059; color:#C5A059; background:rgba(197,160,89,.1); }
+    .lang-divider { width:1px; height:12px; background:rgba(255,255,255,.3); }
+    .mobile-lang-switcher { display:flex; justify-content:center; gap:1rem; margin-top:2rem; padding-top:2rem; border-top:1px solid rgba(197,160,89,.2); }
 
-        .gallery-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
+    /* scroll indicator */
+    .scroll-indicator { opacity:0; animation:bounce 2s infinite 2.5s, fadeIn 1s ease 2.5s forwards; }
+    @keyframes fadeIn { to{opacity:1} }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-8px)} }
 
-        .gallery-thumb:hover img {
-            transform: scale(1.1);
-        }
+    img { max-width:100%; height:auto; display:block; }
 
-        .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .lightbox-img {
-            max-width: 90%;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10001;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(197, 160, 89, 0.2);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-close:hover {
-            background: #C5A059;
-            color: #0B0F19;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(197, 160, 89, 0.8);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #0B0F19;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-nav:hover {
-            background: #C5A059;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .lightbox-prev { left: 2rem; }
-        .lightbox-next { right: 2rem; }
-
-        .lightbox-counter {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-        }
-
-        .spec-card {
-            background: linear-gradient(135deg, #1A1D24 0%, #0B0F19 100%);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .spec-card:hover {
-            border-color: #C5A059;
-            transform: translateY(-5px);
-        }
-
-        .form-input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 12px 0;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.5);
-        }
-
-        @media (max-width: 768px) {
-            .gallery-thumbs {
-                gap: 0.5rem;
-            }
-            .lightbox-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-            .lightbox-prev { left: 1rem; }
-            .lightbox-next { right: 1rem; }
-        }
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            font-weight: 600;
-        }
-        .lang-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 38px;
-            height: 30px;
-            padding: 0 10px;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.08);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.38);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-        .nav-instagram-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-        .nav-instagram-link:hover {
-            color: #C5A059;
-            transform: scale(1.06);
-        }
-        .nav-contact-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 120px;
-            height: 34px;
-            padding: 0 20px;
-            border: 1px solid rgba(255, 255, 255, 0.42);
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 11px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .nav-contact-btn:hover {
-            border-color: #C5A059;
-            color: #C5A059;
-        }
-
-    </style>
-    <base target="_self">
+    @media (prefers-reduced-motion:reduce) {
+      .hero-animate,.reveal,.stagger-children > *,.img-zoom,.card-lift,.gradient-text,.btn-hover::before { transition:none!important; animation:none!important; }
+      .hero-animate { opacity:1; transform:none; filter:none; }
+      .reveal { opacity:1; transform:none; }
+      .stagger-children > * { opacity:1; transform:none; }
+      .line-reveal { width:60px; }
+    }
+  </style>
+  <base target="_self">
 </head>
 <body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
+        <div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+    <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
 
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
+    <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+    </a>
+
+    <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+      <a href="index.html" class="link-hover hover:text-mh-gold transition-colors">Home</a>
+
+      <div class="relative" id="venues-menu-wrapper">
+        <a href="venues.html" id="venues-menu-btn"
+           class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium"
+           aria-expanded="false">
+          <span>Venues</span>
+          <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
         </a>
-
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a>
-            <a href="venues.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Venues</a>
-            <a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a>
-            <a href="service.html" target="_self" class="link-hover text-mh-gold transition-colors">Services</a>
-            <a href="index.html#private-events" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a>
-            <a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
-        </div>
-
-        <div class="hidden lg:flex items-center gap-8">
-            
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+        <div id="venues-mega"
+             class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none"
+             style="top:72px; transform:translateY(-8px); transition:opacity .22s ease,transform .22s ease; right:auto; width:fit-content;">
+          <div class="px-20 py-12 flex gap-0">
+            <div class="flex-1 border-r border-white/8 pr-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8">Our Venues</p>
+              <ul>
+                <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="hang bar.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="Bordelle.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                <li><a href="212.html"       class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
             </div>
-<a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="nav-instagram-link"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="nav-contact-btn">CONTACT</a>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
-        <a href="venues.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
-        <a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
-        <a href="service.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
-        <a href="index.html#private-events" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
-        <a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-    
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
-
-
-</div>
-
-    <!-- Hero Section -->
-    <header class="relative h-[70vh] w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" 
-                 alt="Mercedes-AMG C43" 
-                 class="w-full h-full object-cover opacity-50">
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/60 via-mh-navy/40 to-mh-navy"></div>
-        </div>
-
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <span class="tao-subheading text-mh-gold mb-4 tracking-[0.3em] text-xs block reveal">PERFORMANCE SEDAN</span>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-4 leading-[0.95] reveal">
-                Mercedes-AMG<br>C43 4MATIC
-            </h1>
-            <p class="text-gray-400 text-xl font-light mb-8 reveal">Night Package</p>
-            <div class="reveal">
-                <a href="#gallery" class="btn-hover inline-flex items-center gap-3 border border-white/30 text-white px-8 py-3 text-xs tracking-[0.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
-                    View Gallery <i class="fa-solid fa-images"></i>
-                </a>
+            <div class="flex-1 border-r border-white/8 px-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8 invisible">x</p>
+              <ul>
+                <li><a href="la voute.html"    class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                <li><a href="Soubois.html"      class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="beachclub.html"   class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
+              <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[.25em] uppercase transition-all group">
+                <span>View All Venues</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+              </a>
             </div>
+            <div class="w-[380px] flex-shrink-0 pl-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8">Featured</p>
+              <div class="relative overflow-hidden" style="height:320px;">
+                <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg"
+                     class="w-full h-full object-cover" style="transition:opacity .2s ease;" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-5 left-5">
+                  <p class="text-gray-400 text-[9px] tracking-[.3em] uppercase mb-1">Now Open</p>
+                  <p id="venues-preview-label" class="text-white font-bold text-base tracking-widest uppercase">Yoko Luna</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-mh-dark">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                
-                <!-- Image Gallery -->
-                <div class="reveal">
-                    <div class="gallery-main aspect-[16/10] bg-mh-gray" onclick="openLightbox(0)">
-                        <img id="mainImage" src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" alt="Mercedes-AMG C43">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                            <span class="text-white text-sm tracking-[0.2em] uppercase"><i class="fa-solid fa-expand mr-2"></i> Click to Expand</span>
-                        </div>
-                    </div>
-                    
-                    <div class="gallery-thumbs">
-                        <div class="gallery-thumb active" onclick="changeImage(0)">
-                            <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" alt="C43 - View 1">
-                        </div>
-                        <div class="gallery-thumb" onclick="changeImage(1)">
-                            <img src="https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg?crop=0.567xw:0.478xh;0.319xw,0.464xh&resize=1200:*" alt="C43 - View 2">
-                        </div>
-                        <div class="gallery-thumb" onclick="changeImage(2)">
-                            <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp" alt="C43 - View 3">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Car Details -->
-                <div class="reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] tracking-[0.3em] block mb-4">Vehicle Details</span>
-                    <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">Mercedes-AMG C43 4MATIC</h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8 font-light">
-                        The Mercedes-AMG C43 4MATIC represents the perfect entry into the AMG performance world. Powered by a revolutionary 2.0L turbocharged engine with electric exhaust gas turbocharger technology derived from Formula 1, this compact executive sedan delivers instant throttle response and agile handling. The AMG Night Package adds blacked-out accents for a menacing presence, while the tech-forward interior features the latest MBUX system with augmented reality navigation and a portrait-oriented touchscreen.
-                    </p>
-
-                    <!-- Specs Grid -->
-                    <div class="grid grid-cols-3 gap-4 mb-10">
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-gauge-high text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">402</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">Horsepower</p>
-                        </div>
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-stopwatch text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">4.6</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">0-100 sec</p>
-                        </div>
-                        <div class="spec-card p-6 text-center rounded-lg">
-                            <i class="fa-solid fa-gears text-mh-gold text-2xl mb-3"></i>
-                            <p class="text-3xl font-serif text-white mb-1">L4</p>
-                            <p class="text-xs text-gray-500 uppercase tracking-wider">Turbo + EQ</p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 mb-10">
-                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
-                            <i class="fa-solid fa-chair text-mh-gold text-xl"></i>
-                            <div>
-                                <p class="text-white font-medium">5 Seats</p>
-                                <p class="text-xs text-gray-500">Sport Configuration</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-lg">
-                            <i class="fa-solid fa-suitcase text-mh-gold text-xl"></i>
-                            <div>
-                                <p class="text-white font-medium">3 Bags</p>
-                                <p class="text-xs text-gray-500">Luggage Space</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#inquiry" class="btn-hover flex-1 text-center bg-mh-gold text-mh-navy px-8 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">
-                            Reserve Now <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="exotic fleet.html" class="btn-hover flex-1 text-center border border-white/30 text-white px-8 py-4 text-xs tracking-[0.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
-                            Back to Fleet
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-24 bg-mh-navy">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Highlights</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">Exceptional Features</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-shield-halved text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">Fully Insured</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Comprehensive coverage for complete peace of mind during your rental period.</p>
-                </div>
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-clock text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">24/7 Support</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Round-the-clock assistance from our dedicated fleet management team.</p>
-                </div>
-                <div class="text-center p-8 reveal">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
-                        <i class="fa-solid fa-star text-mh-gold text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-serif text-white mb-3">Premium Service</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Meticulously maintained vehicles delivered to your location.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Inquiry Form -->
-    <section id="inquiry" class="py-24 bg-mh-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
-            <div class="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Reservation</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-6">Reserve This Vehicle</h2>
-                <p class="text-gray-400 font-light text-lg">
-                    Complete the form below and our fleet manager will confirm your reservation within 2 hours.
-                </p>
-            </div>
-
-            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">First Name</label>
-                        <input type="text" name="firstName" class="form-input" placeholder="John" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Last Name</label>
-                        <input type="text" name="lastName" class="form-input" placeholder="Doe" data-required="true">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="john@example.com" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Phone</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="+1 (514) 555-0199" data-required="true">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Pickup Date</label>
-                        <input type="date" name="pickupDate" class="form-input" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Return Date</label>
-                        <input type="date" name="returnDate" class="form-input">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="flex items-center gap-3 cursor-pointer">
-                        <input type="checkbox" name="chauffeur" value="yes" class="w-5 h-5 border border-white/30 rounded bg-transparent text-mh-gold focus:ring-mh-gold">
-                        <span class="text-gray-400 text-sm">Add Professional Chauffeur Service (+$150/day)</span>
-                    </label>
-                </div>
-
-                <div>
-                    <label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Special Requests</label>
-                    <textarea name="specialRequests" class="form-input resize-none" rows="4" placeholder="Any specific requirements..."></textarea>
-                </div>
-
-                <!-- Honeypot field to prevent spam -->
-                <input type="text" name="_gotcha" style="display:none">
-
-                <div class="text-center">
-                    <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-12 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">
-                        Submit Reservation <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </form>
-
-            <!-- Success Message -->
-            <div id="successMessage" class="success-message">
-                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                <h3 class="text-white font-serif text-2xl mb-2">Request Received!</h3>
-                <p class="text-gray-400 text-sm mb-4">We've received your reservation for the Mercedes-AMG C43. Our fleet manager will confirm within 2 hours.</p>
-                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1">Your Reference Number</p>
-                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                </div>
-                <div class="space-y-1 text-gray-400 text-xs">
-                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> Confirmation sent to <span id="confirmEmail"></span></p>
-                </div>
-            </div>
-
-            <!-- Error Message -->
-            <div id="errorMessage" class="error-message">
-                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                <p class="font-light text-sm">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Bar -->
-    <section class="py-12 bg-mh-navy border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="reveal">
-                    <i class="fa-solid fa-phone text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">Phone</h4>
-                    <p class="text-gray-400">514-378-0154</p>
-                    <p class="text-gray-500 text-sm">24/7 Fleet Manager</p>
-                </div>
-                <div class="reveal">
-                    <i class="fa-solid fa-envelope text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">Email</h4>
-                    <p class="text-gray-400">info@montrealhospitality.com</p>
-                    <p class="text-gray-500 text-sm">Response within 2h</p>
-                </div>
-                <div class="reveal">
-                    <i class="fa-brands fa-whatsapp text-mh-gold text-2xl mb-4"></i>
-                    <h4 class="text-white font-serif text-lg mb-2">WhatsApp</h4>
-                    <p class="text-gray-400">514-378-0154</p>
-                    <p class="text-gray-500 text-sm">Instant Booking</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
-                        <li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
-                        <li><a href="service.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Service</a></li>
-                        <li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">CONTACT</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
-        <div class="lightbox-close" onclick="closeLightbox(event)"><i class="fa-solid fa-times"></i></div>
-        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <img id="lightboxImg" class="lightbox-img" src="" alt="">
-        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <div class="lightbox-counter"><span id="currentImg">1</span> / 3</div>
+      <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors">Packages</a>
+      <a href="sports.html"   class="link-hover hover:text-mh-gold transition-colors">Sports</a>
+      <a href="service.html"  class="link-hover hover:text-mh-gold transition-colors text-mh-gold">Services</a>
+      <a href="event.html"    class="link-hover hover:text-mh-gold transition-colors">Events</a>
+      <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Image Gallery Data - Mercedes-AMG C43
-        const galleryImages = [
-            "https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp",
-            "https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg?crop=0.567xw:0.478xh;0.319xw,0.464xh&resize=1200:*",
-            "https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp"
-        ];
-        let currentImageIndex = 0;
+    <div class="hidden lg:flex items-center gap-8">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <div class="lang-divider"></div>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+      <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+      <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+    </div>
+  </nav>
 
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            let randomPart = '';
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            return prefix + randomPart;
-        }
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+    <a href="index.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
+    <a href="venues.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
+    <a href="packages.html"    class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Packages</a>
+    <a href="sports.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
+    <a href="service.html"     class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
+    <a href="event.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
+    <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
+    <div class="mobile-lang-switcher">
+      <button class="lang-btn active text-lg" data-lang="en">EN</button>
+      <div class="lang-divider h-6"></div>
+      <button class="lang-btn text-lg" data-lang="fr">FR</button>
+    </div>
+  </div>
 
-        // Validate form fields
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
-            return isValid;
-        }
+  <!-- Hero -->
+  <header class="relative h-screen w-full overflow-hidden flex items-end justify-start">
+    <div class="absolute inset-0 z-0">
+      <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" alt="Mercedes-AMG C43" class="w-full h-full object-cover" loading="eager">
+      <div class="absolute inset-0 bg-gradient-to-t from-mh-navy via-mh-navy/60 to-mh-navy/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-mh-navy/70 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 pb-24 w-full">
+      <div class="max-w-2xl">
+        <div class="line-reveal hero-animate delay-1 mb-8" style="margin-left:0;"></div>
+        <p class="tao-subheading text-mh-gold text-[11px] tracking-[.35em] mb-6 hero-animate delay-2">AMG Performance</p>
+        <h1 class="tao-heading text-white leading-[.9] mb-4 overflow-hidden">
+          <span class="block hero-animate delay-2" style="font-size:clamp(3rem,8vw,7rem);">Mercedes-AMG C43</span>
+        </h1>
+        <p class="text-gray-400 text-sm tracking-[.2em] uppercase mb-6 hero-animate delay-3">2024 · 4MATIC · 402 HP</p>
+        <p class="text-gray-300 font-light text-lg max-w-lg leading-relaxed hero-animate delay-3">Entry to AMG performance. 402 hp turbocharged excellence in a perfectly proportioned sport sedan.</p>
+        <div class="flex flex-wrap gap-4 mt-10 hero-animate delay-4">
+          <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-10 py-4 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+            Reserve Now <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#gallery" class="btn-hover inline-flex items-center gap-3 border border-white/40 text-white px-10 py-4 text-xs tracking-[.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
+            <i class="fa-solid fa-images"></i> Gallery
+          </a>
+          <a href="exotic fleet.html" class="btn-hover inline-flex items-center gap-3 border border-white/20 text-white/60 px-8 py-4 text-xs tracking-[.25em] uppercase hover:border-white/50 hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i> Exotic Fleet
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 scroll-indicator text-mh-gold/50">
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+  </header>
 
-        // Submit form function
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
+  <!-- Quick Stats Bar -->
+  <section class="py-8 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-3 gap-0 stagger-children">
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-gauge-high text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">402</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">Horsepower</span>
+        </div>
+        <div class="text-center py-2 border-x border-white/8 reveal">
+          <i class="fa-solid fa-stopwatch text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">4.6s</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">0–100 km/h</span>
+        </div>
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-gears text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">L4 TT</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">Engine</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            if (!validateForm()) {
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => { form.style.animation = ''; }, 500);
-                return;
-            }
+  <!-- Overview -->
+  <section class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+      <div class="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="reveal">
+          <span class="tao-subheading text-mh-gold text-[11px] block mb-6 tracking-[.3em]">Overview</span>
+          <h2 class="tao-heading text-white text-5xl md:text-6xl mb-8">Mercedes-AMG C43</h2>
+          <p class="text-gray-400 font-light text-lg leading-relaxed mb-10">The Mercedes-AMG C43 blends refined luxury with genuine AMG performance credentials. Its turbocharged 2.0L four-cylinder with 48V EQ Boost delivers 402 horsepower through AMG Speedshift TCT transmission, while active rear-wheel steering and a sport-tuned chassis deliver confidence and agility rarely found in this segment.</p>
+          <div class="grid grid-cols-2 gap-4 mb-10">
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-users text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">5 Seats</p>
+              <p class="text-gray-500 text-xs mt-1">Passenger Capacity</p>
+            </div>
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-suitcase-rolling text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">3 Bags</p>
+              <p class="text-gray-500 text-xs mt-1">Luggage Space</p>
+            </div>
+          </div>
+          <div class="flex gap-4 flex-wrap">
+            <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-8 py-3 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+              Book Now <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="relative group">
+            <div class="img-zoom-container h-[580px] overflow-hidden">
+              <img src="https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg" alt="Mercedes-AMG C43" class="img-zoom w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-mh-gold p-6 hidden lg:block">
+              <span class="text-mh-navy text-xs uppercase tracking-widest block mb-1">Premium</span>
+              <span class="tao-heading text-mh-navy text-2xl">AMG Performance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
+  <!-- Technical Specs -->
+  <section class="py-32 bg-mh-dark">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Specifications</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl">Technical Details</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6">Performance</h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Horsepower</span><span class="text-white">402 HP</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>0–100 km/h</span><span class="text-white">4.6 sec</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Engine</span><span class="text-white">2.0L L4 Turbo + EQ</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Drive</span><span class="text-white">4MATIC+ AWD</span></li><li class="flex justify-between "><span>Transmission</span><span class="text-white">AMG Speedshift 9G</span></li></ul></div><div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6">Features</h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Steering</span><span class="text-white">Active Rear-Wheel</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Display</span><span class="text-white">Hyperscreen MBUX</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>AMG Seats</span><span class="text-white">Sport Plus</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Exhaust</span><span class="text-white">AMG Sport</span></li><li class="flex justify-between "><span>Interior</span><span class="text-white">Nappa Leather</span></li></ul></div>
+      </div>
+    </div>
+  </section>
 
-            try {
-                const refNumber = generateReferenceNumber();
-                const formData = new FormData(form);
+  <!-- Gallery -->
+  <section id="gallery" class="py-32 bg-mh-navy">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Gallery</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl">Interior &amp; Exterior</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6" style="grid-auto-rows:240px;">
+        
+      <div class="img-zoom-container h-[500px] md:row-span-2 overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(0)">
+        <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" alt="Gallery 1" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(1)">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg" alt="Gallery 2" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(2)">
+        <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp" alt="Gallery 3" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(3)">
+        <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp" alt="Gallery 4" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(4)">
+        <img src="https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg" alt="Gallery 5" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(5)">
+        <img src="https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp" alt="Gallery 6" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
 
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'Mercedes-AMG C43');
+  <!-- Why MH -->
+  <section class="py-20 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-12 stagger-children text-center">
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">Fully Insured</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Comprehensive coverage for complete peace of mind during your experience.</p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-headset text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">24/7 Concierge</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Our dedicated team is on call around the clock to handle every detail.</p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-star text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">White Glove Service</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Meticulously prepared and delivered to your exact standard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
+  <!-- Reservation Form -->
+  <section id="reserve" class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Reservation</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl mb-4">Reserve This AMG Performance</h2>
+        <p class="text-gray-400 font-light">Our team confirms within 2 hours.</p>
+      </div>
+      <form id="res-form" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">First Name</label>
+            <input type="text" name="firstName" class="form-field" placeholder="John" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Last Name</label>
+            <input type="text" name="lastName" class="form-field" placeholder="Doe" data-req>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Email</label>
+            <input type="email" name="email" class="form-field" placeholder="john@example.com" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Phone</label>
+            <input type="tel" name="phone" class="form-field" placeholder="+1 (514) 555-0199" data-req>
+          </div>
+        </div>
+        <div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Pickup Date</label><input type="date" name="pickupDate" class="form-field" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Return Date</label><input type="date" name="returnDate" class="form-field"></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Add Chauffeur</label><label class="flex items-center gap-3 cursor-pointer mt-2"><input type="checkbox" name="chauffeur" value="yes" class="w-4 h-4 border border-white/30 bg-transparent accent-mh-gold"> <span class="text-gray-400 text-sm font-light">Professional Chauffeur (+$150/day)</span></label></div>
+        <div>
+          <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Special Requests</label>
+          <textarea name="specialRequests" class="form-field resize-none" rows="4" placeholder="Any specific requirements…"></textarea>
+        </div>
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="text-center">
+          <button type="button" onclick="submitForm()" id="submit-btn"
+            class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-14 py-4 text-xs tracking-[.25em] uppercase font-bold hover:bg-mh-gold-light transition-all duration-300">
+            Submit Reservation <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </form>
+      <div id="success-box" class="success-box">
+        <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
+        <h3 class="tao-heading text-white text-3xl mb-2">Request Received</h3>
+        <p class="text-gray-400 text-sm mb-6">We've received your reservation for the Mercedes-AMG C43. Our team will confirm within 2 hours.</p>
+        <div class="bg-mh-navy/60 p-6 inline-block mb-4">
+          <p class="text-mh-gold text-xs uppercase tracking-wider mb-2">Reference Number</p>
+          <p class="tao-heading text-white text-2xl" id="ref-num">MH-XXXXXXXX</p>
+        </div>
+        <p class="text-gray-500 text-xs"><i class="fa-solid fa-envelope text-mh-gold mr-2"></i>Confirmation sent to <span id="confirm-email"></span></p>
+      </div>
+      <div id="error-box" class="error-box">
+        <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
+        <p class="font-light text-sm">Something went wrong. Please try again or call 514-378-0154.</p>
+      </div>
+    </div>
+  </section>
 
-                if (response.ok) {
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Reservation <i class="fa-solid fa-paper-plane"></i>';
-                submitBtn.classList.remove('submitting');
-            }
-        }
+  <!-- Contact Bar -->
+  <section class="py-16 bg-mh-dark border-t border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center stagger-children">
+        <div class="reveal">
+          <i class="fa-solid fa-phone text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">Phone</h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">24/7 Concierge</p>
+        </div>
+        <div class="reveal">
+          <i class="fa-solid fa-envelope text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">Email</h4>
+          <p class="text-gray-400">info@montrealhospitality.com</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Response within 2h</p>
+        </div>
+        <div class="reveal">
+          <i class="fa-brands fa-whatsapp text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">WhatsApp</h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Instant Booking</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
 
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
+  <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-20">
+        <div class="col-span-1">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 mb-8 object-contain" loading="lazy">
+          <p class="text-gray-500 text-sm leading-relaxed font-light">Redefining the art of the night in Montreal.</p>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="venues.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
+            <li><a href="sports.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
+            <li><a href="service.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Services</a></li>
+            <li><a href="index.html#careers" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Contact</h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
+            <li>514-378-0154</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
+          <div class="flex gap-6">
+            <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Instagram"><i class="fa-brands fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="TikTok"><i class="fa-brands fa-tiktok text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
+        <p>&copy; 2026 Montreal Hospitality Group</p>
+        <div class="flex gap-8 mt-4 md:mt-0">
+          <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-        // Loader
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    const revealElements = document.querySelectorAll('.reveal');
-                    revealElements.forEach(el => {
-                        el.classList.add('active');
-                    });
-                }, 800);
-            }, 1200);
+  <div id="lightbox" onclick="if(event.target===this)closeLB()">
+    <button class="lb-close" onclick="closeLB()"><i class="fa-solid fa-times"></i></button>
+    <button class="lb-btn" style="left:2rem;" onclick="shiftLB(-1);event.stopPropagation()"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lb-img" src="" alt="" style="max-width:90%;max-height:85vh;object-fit:contain;">
+    <button class="lb-btn" style="right:2rem;" onclick="shiftLB(1);event.stopPropagation()"><i class="fa-solid fa-chevron-right"></i></button>
+    <p style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.8rem;letter-spacing:.1em;"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></p>
+  </div>
+
+  <script>
+    // ── Prevent scroll restore ──
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    // ── Loader ──
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const l = document.getElementById('loader');
+        if (!l) return;
+        l.style.opacity = '0';
+        setTimeout(() => {
+          l.style.display = 'none';
+          document.querySelectorAll('.hero-animate').forEach(el => el.classList.add('visible'));
+          const line = document.querySelector('.line-reveal');
+          if (line) line.classList.add('visible');
+        }, 750);
+      }
+      document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 1100));
+      setTimeout(hideLoader, 2800);
+    })();
+
+    // ── Navbar scroll (throttled) ──
+    (function() {
+      const nav = document.getElementById('navbar');
+      let tick = false;
+      window.addEventListener('scroll', () => {
+        if (tick) return; tick = true;
+        requestAnimationFrame(() => { nav.classList.toggle('nav-scrolled', window.scrollY > 50); tick = false; });
+      }, { passive: true });
+    })();
+
+    // ── IntersectionObserver reveal ──
+    (function() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal, .stagger-children').forEach(el => io.observe(el));
+    })();
+
+    // ── Mobile menu ──
+    (function() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const links = menu.querySelectorAll('.mobile-link');
+      let open = false;
+      function toggle() {
+        open = !open;
+        menu.classList.toggle('-translate-x-full', !open);
+        btn.innerHTML = open ? '<i class="fa-solid fa-times text-xl"></i>' : '<i class="fa-solid fa-bars text-xl"></i>';
+      }
+      btn.addEventListener('click', toggle);
+      links.forEach(l => l.addEventListener('click', () => { if (open) toggle(); }));
+    })();
+
+    // ── Mega venues menu ──
+    (function() {
+      const btn = document.getElementById('venues-menu-btn');
+      const mega = document.getElementById('venues-mega');
+      const chevron = document.getElementById('venues-chevron');
+      const wrapper = document.getElementById('venues-menu-wrapper');
+      const previewImg = document.getElementById('venues-preview-img');
+      const previewLabel = document.getElementById('venues-preview-label');
+      if (!btn || !mega) return;
+      let timer = null;
+      function open() {
+        clearTimeout(timer);
+        mega.style.opacity = '1'; mega.style.transform = 'translateY(0)'; mega.style.pointerEvents = 'all';
+        chevron.style.transform = 'rotate(180deg)'; btn.style.color = '#C5A059'; btn.setAttribute('aria-expanded','true');
+      }
+      function close() {
+        mega.style.opacity = '0'; mega.style.transform = 'translateY(-8px)'; mega.style.pointerEvents = 'none';
+        chevron.style.transform = ''; btn.style.color = ''; btn.setAttribute('aria-expanded','false');
+      }
+      function sched() { timer = setTimeout(close, 150); }
+      wrapper.addEventListener('mouseenter', open); wrapper.addEventListener('mouseleave', sched);
+      mega.addEventListener('mouseenter', () => clearTimeout(timer)); mega.addEventListener('mouseleave', sched);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      document.querySelectorAll('.venue-menu-link').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          if (previewImg && link.dataset.img) { previewImg.style.opacity = '0'; setTimeout(() => { previewImg.src = link.dataset.img; previewImg.style.opacity = '1'; }, 150); }
+          if (previewLabel && link.dataset.name) previewLabel.textContent = link.dataset.name;
         });
+      });
+    })();
 
-        // Gallery Functions
-        function changeImage(index) {
-            currentImageIndex = index;
-            const mainImage = document.getElementById('mainImage');
-            mainImage.style.opacity = '0';
-            
-            setTimeout(() => {
-                mainImage.src = galleryImages[index];
-                mainImage.style.opacity = '1';
-            }, 200);
+    // ── Language switcher (minimal) ──
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.lang-btn[data-lang="'+btn.dataset.lang+'"]').forEach(b => b.classList.add('active'));
+        localStorage.setItem('preferred_language', btn.dataset.lang);
+      });
+    });
+    const savedLang = localStorage.getItem('preferred_language');
+    if (savedLang) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === savedLang));
+    }
 
-            // Update active thumb
-            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
-                if (i === index) {
-                    thumb.classList.add('active');
-                } else {
-                    thumb.classList.remove('active');
-                }
-            });
-        }
+    // ── Lightbox ──
+    const galleryImages = ["https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp", "https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg", "https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp", "https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-3.webp", "https://hips.hearstapps.com/hmg-prod/images/2023-mercedes-amg-c43-115-6537e51f40e6b.jpg", "https://cdn-ilecilb.nitrocdn.com/dNTmoPetMCiIvnXaqTlCkDPzHbDkFKpz/assets/images/optimized/rev-6a3c188/tflstudios.wpenginepowered.com/wp-content/uploads/2024/05/Mercedes-AMG-C43-Review-12.webp"];
+    let lbIdx = 0;
+    function openLB(i) {
+      lbIdx = i;
+      document.getElementById('lb-img').src = galleryImages[i];
+      document.getElementById('lb-cur').textContent = i + 1;
+      document.getElementById('lb-tot').textContent = galleryImages.length;
+      const lb = document.getElementById('lightbox');
+      lb.style.display = 'flex'; requestAnimationFrame(() => lb.style.opacity = '1');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+      const lb = document.getElementById('lightbox');
+      lb.style.opacity = '0'; setTimeout(() => lb.style.display = 'none', 300);
+      document.body.style.overflow = '';
+    }
+    function shiftLB(d) {
+      lbIdx = (lbIdx + d + galleryImages.length) % galleryImages.length;
+      document.getElementById('lb-img').src = galleryImages[lbIdx];
+      document.getElementById('lb-cur').textContent = lbIdx + 1;
+    }
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('lightbox').style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLB();
+      if (e.key === 'ArrowLeft') shiftLB(-1);
+      if (e.key === 'ArrowRight') shiftLB(1);
+    });
 
-        // Lightbox Functions
-        function openLightbox(index) {
-            currentImageIndex = index;
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            lightboxImg.src = galleryImages[currentImageIndex];
-            document.getElementById('currentImg').textContent = currentImageIndex + 1;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox(event) {
-            if (event.target.id === 'lightbox' || event.target.closest('.lightbox-close')) {
-                const lightbox = document.getElementById('lightbox');
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-
-        function changeLightboxImage(direction) {
-            currentImageIndex += direction;
-            if (currentImageIndex < 0) currentImageIndex = galleryImages.length - 1;
-            if (currentImageIndex >= galleryImages.length) currentImageIndex = 0;
-            
-            document.getElementById('lightboxImg').src = galleryImages[currentImageIndex];
-            document.getElementById('currentImg').textContent = currentImageIndex + 1;
-        }
-
-        // Keyboard navigation for lightbox
-        document.addEventListener('keydown', (e) => {
-            const lightbox = document.getElementById('lightbox');
-            if (lightbox.classList.contains('active')) {
-                if (e.key === 'Escape') closeLightbox({target: {id: 'lightbox'}});
-                if (e.key === 'ArrowLeft') changeLightboxImage(-1);
-                if (e.key === 'ArrowRight') changeLightboxImage(1);
-            }
-        });
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-    </script>
-
-    <script>
-        const translator = {
-            currentLang: 'en',
-            originalsCaptured: false,
-            translations: {"title_en": null, "title_fr": "Mercedes-AMG C43 | Flotte exotique | Montreal Hospitality", "en": {"Accueil": "Home", "Lieux": "Venues", "Sports": "Sports", "Services": "Services", "Événements": "Events", "Carrières": "Careers", "Contact": "Contact", "Voir la galerie": "View Gallery", "Cliquer pour agrandir": "Click to Expand", "Détails du véhicule": "Vehicle Details", "Points forts": "Highlights", "Caractéristiques exceptionnelles": "Exceptional Features", "Entièrement assuré": "Fully Insured", "Couverture complète pour une tranquillité d’esprit totale pendant votre période de location.": "Comprehensive coverage for complete peace of mind during your rental period.", "Assistance 24/7": "24/7 Support", "Assistance en tout temps de notre équipe de gestion de flotte dédiée.": "Round-the-clock assistance from our dedicated fleet management team.", "Service haut de gamme": "Premium Service", "Véhicules entretenus avec soin et livrés à votre emplacement.": "Meticulously maintained vehicles delivered to your location.", "Réservation": "Reservation", "Réserver ce véhicule": "Reserve This Vehicle", "Remplissez le formulaire ci-dessous et notre gestionnaire de flotte confirmera votre réservation dans les 2 heures.": "Complete the form below and our fleet manager will confirm your reservation within 2 hours.", "Prénom": "First Name", "Nom de famille": "Last Name", "Courriel": "Email", "Téléphone": "Phone", "Date de prise en charge": "Pickup Date", "Date de retour": "Return Date", "Ajouter le service de chauffeur professionnel (+150 $/jour)": "Add Professional Chauffeur Service (+$150/day)", "Demandes spéciales": "Special Requests", "Soumettre la réservation": "Submit Reservation", "Demande reçue !": "Request Received!", "Votre numéro de référence": "Your Reference Number", "Confirmation envoyée à": "Confirmation sent to", "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.": "Something went wrong. Please try again or contact us directly at 514-378-0154.", "514-378-0154": "514-378-0154", "Gestionnaire de flotte 24/7": "24/7 Fleet Manager", "info@montrealhospitality.com": "info@montrealhospitality.com", "Réponse sous 2 h": "Response within 2h", "Réponse sous 24 h": "Response within 24h", "WhatsApp": "WhatsApp", "Réservation instantanée": "Instant Booking", "Redéfinir l’art de la nuit à Montréal.": "Redefining the art of the night in Montreal.", "Explorer": "Explore", "Service": "Service", "Suivre": "Follow", "Confidentialité": "Privacy", "Conditions": "Terms", "Retour à la flotte": "Back to Fleet", "Réserver maintenant": "Reserve Now", "Puissance": "Horsepower", "0-100 s": "0-100 sec", "Flotte": "Fleet", "Affréter maintenant": "Charter Now", "Aperçu": "Overview", "Spécifications": "Specifications", "Détails techniques": "Technical Details", "Performance": "Performance", "Autonomie": "Range", "Autonomie (nm)": "Range (nm)", "Vitesse max": "Max Speed", "Vitesse de croisière": "Cruise Speed", "Plafond": "Ceiling", "Distance de décollage": "Takeoff Distance", "Cabine": "Cabin", "Passagers": "Passengers", "Hauteur cabine": "Cabin Height", "Largeur cabine": "Cabin Width", "Longueur cabine": "Cabin Length", "Bagages": "Baggage", "Dimensions": "Dimensions", "Longueur": "Length", "Envergure": "Wingspan", "Hauteur": "Height", "Moteurs": "Engines", "Équipage": "Crew", "Galerie": "Gallery", "Intérieur et extérieur": "Interior & Exterior", "Affréter cet appareil": "Charter This Aircraft", "Départ": "Departure", "Destination": "Destination", "Date": "Date", "Demander un vol": "Request Charter", "Jet grande cabine": "Large Cabin Jet", "Jet intermédiaire": "Mid-Size Jet", "Super jet intermédiaire": "Super Mid-Size Jet", "Jusqu’à 14": "Up to 14", "Jusqu’à 16": "Up to 16", "Jusqu’à 9": "Up to 9", "Jusqu’à 10": "Up to 10", "2 + 1 agent de bord": "2 + 1 Attendant", "2": "2", "© 2024 Montreal Hospitality Group": "© 2024 Montreal Hospitality Group", "BERLINE PERFORMANCE": "PERFORMANCE SEDAN", "Ensemble Night": "Night Package", "La Mercedes-AMG C43 4MATIC représente l’entrée idéale dans l’univers de la performance AMG. Propulsée par un moteur révolutionnaire turbocompressé de 2,0 L avec technologie de turbocompresseur électrique dérivée de la Formule 1, cette berline exécutive compacte offre une réponse instantanée à l’accélérateur et une conduite agile. L’ensemble AMG Night ajoute des accents noircis pour une présence plus menaçante, tandis que l’habitacle technologique intègre le plus récent système MBUX avec navigation en réalité augmentée et écran tactile orienté portrait.": "The Mercedes-AMG C43 4MATIC represents the perfect entry into the AMG performance world. Powered by a revolutionary 2.0L turbocharged engine with electric exhaust gas turbocharger technology derived from Formula 1, this compact executive sedan delivers instant throttle response and agile handling. The AMG Night Package adds blacked-out accents for a menacing presence, while the tech-forward interior features the latest MBUX system with augmented reality navigation and a portrait-oriented touchscreen.", "5 places": "5 Seats", "Configuration sport": "Sport Configuration", "3 bagages": "3 Bags", "Espace bagages": "Luggage Space", "Nous avons reçu votre réservation pour la Mercedes-AMG C43. Notre gestionnaire de flotte confirmera dans les 2 heures.": "We've received your reservation for the Mercedes-AMG C43. Our fleet manager will confirm within 2 hours."}, "fr": {"Home": "Accueil", "Venues": "Lieux", "Sports": "Sports", "Services": "Services", "Events": "Événements", "Careers": "Carrières", "Contact": "Contact", "View Gallery": "Voir la galerie", "Click to Expand": "Cliquer pour agrandir", "Vehicle Details": "Détails du véhicule", "Highlights": "Points forts", "Exceptional Features": "Caractéristiques exceptionnelles", "Fully Insured": "Entièrement assuré", "Comprehensive coverage for complete peace of mind during your rental period.": "Couverture complète pour une tranquillité d’esprit totale pendant votre période de location.", "24/7 Support": "Assistance 24/7", "Round-the-clock assistance from our dedicated fleet management team.": "Assistance en tout temps de notre équipe de gestion de flotte dédiée.", "Premium Service": "Service haut de gamme", "Meticulously maintained vehicles delivered to your location.": "Véhicules entretenus avec soin et livrés à votre emplacement.", "Reservation": "Réservation", "Reserve This Vehicle": "Réserver ce véhicule", "Complete the form below and our fleet manager will confirm your reservation within 2 hours.": "Remplissez le formulaire ci-dessous et notre gestionnaire de flotte confirmera votre réservation dans les 2 heures.", "First Name": "Prénom", "Last Name": "Nom de famille", "Email": "Courriel", "Phone": "Téléphone", "Pickup Date": "Date de prise en charge", "Return Date": "Date de retour", "Add Professional Chauffeur Service (+$150/day)": "Ajouter le service de chauffeur professionnel (+150 $/jour)", "Special Requests": "Demandes spéciales", "Submit Reservation": "Soumettre la réservation", "Request Received!": "Demande reçue !", "Your Reference Number": "Votre numéro de référence", "Confirmation sent to": "Confirmation envoyée à", "Something went wrong. Please try again or contact us directly at 514-378-0154.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.", "514-378-0154": "514-378-0154", "24/7 Fleet Manager": "Gestionnaire de flotte 24/7", "info@montrealhospitality.com": "info@montrealhospitality.com", "Response within 2h": "Réponse sous 2 h", "Response within 24h": "Réponse sous 24 h", "WhatsApp": "WhatsApp", "Instant Booking": "Réservation instantanée", "Redefining the art of the night in Montreal.": "Redéfinir l’art de la nuit à Montréal.", "Explore": "Explorer", "Service": "Service", "Follow": "Suivre", "Privacy": "Confidentialité", "Terms": "Conditions", "Back to Fleet": "Retour à la flotte", "Reserve Now": "Réserver maintenant", "Horsepower": "Puissance", "0-100 sec": "0-100 s", "Fleet": "Flotte", "Charter Now": "Affréter maintenant", "Overview": "Aperçu", "Specifications": "Spécifications", "Technical Details": "Détails techniques", "Performance": "Performance", "Range": "Autonomie", "Range (nm)": "Autonomie (nm)", "Max Speed": "Vitesse max", "Cruise Speed": "Vitesse de croisière", "Ceiling": "Plafond", "Takeoff Distance": "Distance de décollage", "Cabin": "Cabine", "Passengers": "Passagers", "Cabin Height": "Hauteur cabine", "Cabin Width": "Largeur cabine", "Cabin Length": "Longueur cabine", "Baggage": "Bagages", "Dimensions": "Dimensions", "Length": "Longueur", "Wingspan": "Envergure", "Height": "Hauteur", "Engines": "Moteurs", "Crew": "Équipage", "Gallery": "Galerie", "Interior & Exterior": "Intérieur et extérieur", "Charter This Aircraft": "Affréter cet appareil", "Departure": "Départ", "Destination": "Destination", "Date": "Date", "Request Charter": "Demander un vol", "Large Cabin Jet": "Jet grande cabine", "Mid-Size Jet": "Jet intermédiaire", "Super Mid-Size Jet": "Super jet intermédiaire", "Up to 14": "Jusqu’à 14", "Up to 16": "Jusqu’à 16", "Up to 9": "Jusqu’à 9", "Up to 10": "Jusqu’à 10", "2 + 1 Attendant": "2 + 1 agent de bord", "2": "2", "© 2024 Montreal Hospitality Group": "© 2024 Montreal Hospitality Group", "PERFORMANCE SEDAN": "BERLINE PERFORMANCE", "Night Package": "Ensemble Night", "The Mercedes-AMG C43 4MATIC represents the perfect entry into the AMG performance world. Powered by a revolutionary 2.0L turbocharged engine with electric exhaust gas turbocharger technology derived from Formula 1, this compact executive sedan delivers instant throttle response and agile handling. The AMG Night Package adds blacked-out accents for a menacing presence, while the tech-forward interior features the latest MBUX system with augmented reality navigation and a portrait-oriented touchscreen.": "La Mercedes-AMG C43 4MATIC représente l’entrée idéale dans l’univers de la performance AMG. Propulsée par un moteur révolutionnaire turbocompressé de 2,0 L avec technologie de turbocompresseur électrique dérivée de la Formule 1, cette berline exécutive compacte offre une réponse instantanée à l’accélérateur et une conduite agile. L’ensemble AMG Night ajoute des accents noircis pour une présence plus menaçante, tandis que l’habitacle technologique intègre le plus récent système MBUX avec navigation en réalité augmentée et écran tactile orienté portrait.", "5 Seats": "5 places", "Sport Configuration": "Configuration sport", "3 Bags": "3 bagages", "Luggage Space": "Espace bagages", "We've received your reservation for the Mercedes-AMG C43. Our fleet manager will confirm within 2 hours.": "Nous avons reçu votre réservation pour la Mercedes-AMG C43. Notre gestionnaire de flotte confirmera dans les 2 heures."}},
-            placeholderTranslations: {"en": {"Jean": "John", "Tremblay": "Doe", "jean@exemple.com": "john@example.com", "+1 (514) 555-0199": "+1 (514) 555-0199", "Des demandes particulières...": "Any specific requirements..."}, "fr": {"John": "Jean", "Doe": "Tremblay", "john@example.com": "jean@exemple.com", "+1 (514) 555-0199": "+1 (514) 555-0199", "Any specific requirements...": "Des demandes particulières..."}},
-            captureOriginals() {
-                if (this.originalsCaptured) return;
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    const node = walker.currentNode;
-                    node.__originalText = node.nodeValue;
-                }
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    el.dataset.originalPlaceholder = el.getAttribute('placeholder') || '';
-                });
-                document.querySelectorAll('option').forEach(el => {
-                    el.dataset.originalOption = el.textContent;
-                });
-                document.titleOriginal = document.title;
-                this.originalsCaptured = true;
-            },
-            init() {
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                if (savedLang === 'fr' || savedLang === 'en') {
-                    this.currentLang = savedLang;
-                } else if (browserLang === 'fr') {
-                    this.currentLang = 'fr';
-                }
-                this.captureOriginals();
-                this.updateUI();
-                this.translatePage();
-            },
-            setLanguage(lang) {
-                if (!['en', 'fr'].includes(lang)) return;
-                this.currentLang = lang;
-                localStorage.setItem('preferred_language', lang);
-                this.updateUI();
-                this.translatePage();
-            },
-            updateUI() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                });
-            },
-            replaceTextNode(node, map) {
-                const original = node.__originalText || node.nodeValue;
-                const trimmed = original.trim();
-                const translated = map[trimmed];
-                if (!translated) {
-                    node.nodeValue = original;
-                    return;
-                }
-                const leading = original.match(/^\s*/)[0];
-                const trailing = original.match(/\s*$/)[0];
-                node.nodeValue = leading + translated + trailing;
-            },
-            translatePage() {
-                this.captureOriginals();
-                const map = this.currentLang === 'fr' ? this.translations.fr : this.translations.en;
-                const placeholderMap = this.currentLang === 'fr' ? this.placeholderTranslations.fr : this.placeholderTranslations.en;
-                document.documentElement.lang = this.currentLang;
-                document.title = this.currentLang === 'fr' ? (this.translations.title_fr || document.titleOriginal) : (this.translations.title_en || document.titleOriginal);
-
-                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                    acceptNode(node) {
-                        if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                        const tag = node.parentElement.tagName;
-                        if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                });
-                while (walker.nextNode()) {
-                    this.replaceTextNode(walker.currentNode, map);
-                }
-
-                document.querySelectorAll('[placeholder]').forEach(el => {
-                    const original = el.dataset.originalPlaceholder || el.getAttribute('placeholder') || '';
-                    el.setAttribute('placeholder', placeholderMap[original] || original);
-                });
-
-                document.querySelectorAll('option').forEach(el => {
-                    const original = el.dataset.originalOption || el.textContent;
-                    el.textContent = map[original.trim()] || original;
-                });
-            }
-        };
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
-    </script>
-
+    // ── Form ──
+    function genRef() {
+      const ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', nu = '0123456789';
+      let r = '';
+      [[2,'l'],[3,'n'],[2,'l'],[3,'n'],[1,'l'],[1,'n']].forEach(([c,t]) => {
+        for (let i=0;i<c;i++) r += t==='l' ? ch[Math.floor(Math.random()*26)] : nu[Math.floor(Math.random()*10)];
+      });
+      return 'MH-' + r;
+    }
+    function validateForm() {
+      let ok = true;
+      document.querySelectorAll('[data-req]').forEach(f => {
+        if (!f.value.trim()) { f.style.borderColor='#ef4444'; ok=false; }
+        else f.style.borderColor = 'rgba(255,255,255,.25)';
+      });
+      return ok;
+    }
+    async function submitForm() {
+      if (!validateForm()) {
+        const form = document.getElementById('res-form');
+        if (form) { form.style.animation='shake .5s'; setTimeout(()=>form.style.animation='',500); }
+        return;
+      }
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '.6';
+      try {
+        const ref = genRef();
+        const fd = new FormData(document.getElementById('res-form'));
+        fd.append('reference', ref); fd.append('vehicle', 'Mercedes-AMG C43');
+        const res = await fetch('https://formspree.io/f/mykdvnra', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+        if (res.ok) {
+          document.getElementById('ref-num').textContent = ref;
+          document.getElementById('confirm-email').textContent = fd.get('email') || '';
+          document.getElementById('res-form').style.display = 'none';
+          document.getElementById('success-box').classList.add('active');
+        } else throw new Error();
+      } catch(e) {
+        document.getElementById('error-box').classList.add('active');
+        btn.textContent = 'Submit Reservation'; btn.disabled = false; btn.style.opacity = '1';
+      }
+    }
+  </script>
 </body>
 </html>

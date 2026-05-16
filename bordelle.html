@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bord'Elle | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <style>
+    body{background:#050505;color:#fff;font-family:'Montserrat',sans-serif;}
+    .eyebrow{letter-spacing:.36em;text-transform:uppercase;font-size:.7rem;}
+    .hero-grad{background:linear-gradient(to top,rgba(5,5,5,.94),rgba(5,5,5,.45),rgba(5,5,5,.15));}
+    .line-soft{border-color:rgba(255,255,255,.12);}
+    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}
+    .fade-up.in{opacity:1;transform:none;}
+    .story-copy p{color:rgba(255,255,255,.72);line-height:1.95;}
+    .scroll-fade{opacity:1;transform:none;transition:none;will-change:auto;}
+    .interactive-card{transition:transform .45s cubic-bezier(0.16,1,0.3,1),box-shadow .45s cubic-bezier(0.16,1,0.3,1),border-color .3s ease;will-change:transform;}
+    @media(hover:hover){.interactive-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 60px rgba(0,0,0,.28);}.interactive-card:hover .card-shift{transform:translateY(-4px);}}
+    .card-shift{transition:transform .45s cubic-bezier(0.16,1,0.3,1),color .3s ease;}
+    .magnetic-btn{transition:transform .25s ease;will-change:transform;}
+    .hero-parallax{transform:scale(1.05) translateY(var(--hero-offset,0px));transition:transform .12s linear;will-change:transform;}
+    .section-divider{height:1px;width:0;background:linear-gradient(90deg,transparent,rgba(197,160,89,.85),transparent);transition:width 1.1s cubic-bezier(0.16,1,0.3,1);}
+    .section-divider.in{width:100%;}
+    .nav-scrolled{background-color:rgba(11,15,25,0.95);backdrop-filter:blur(10px);padding-top:1.2rem!important;padding-bottom:1.2rem!important;border-bottom:1px solid rgba(197,160,89,0.1);}
+    #navbar{will-change:background-color,padding;}
+    .link-hover{position:relative;}
+    .link-hover::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#C5A059;transition:width 0.4s cubic-bezier(0.16,1,0.3,1);}
+    .link-hover:hover::after{width:100%;}
+    .lang-switcher{display:flex;align-items:center;gap:0.5rem;font-size:11px;letter-spacing:0.15em;font-weight:500;}
+    .lang-btn{padding:0.25rem 0.5rem;border:1px solid transparent;background:transparent;color:#ffffff;cursor:pointer;transition:all 0.3s ease;text-transform:uppercase;}
+    .lang-btn:hover{color:#C5A059;} .lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,0.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,0.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,0.2);}
+    #loader{position:fixed;inset:0;background:#0B0F19;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity 0.7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+    .img-hover img{transition:transform .9s ease,opacity .5s ease;} .img-hover:hover img{transform:scale(1.06);}
+    .btn-fill,.btn-stroke{transition:all .28s ease;} .btn-fill:hover{transform:translateY(-1px);filter:brightness(1.05);} .btn-stroke:hover{background:#fff;color:#000;}
+    .btn-hover{position:relative;overflow:hidden;transition:all 0.3s ease;}
+    .btn-hover::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);transition:left 0.5s ease;}
+    .btn-hover:hover::before{left:100%;}
+    .card-border{border:1px solid rgba(255,255,255,.1);}
+    .lightbox{display:none;} .lightbox.open{display:flex;}
+    input,textarea,select{appearance:none;}
+    #social-rail::-webkit-scrollbar{display:none;}
+    .sticky-reserve-btn{position:fixed;right:1.5rem;bottom:1.5rem;z-index:999;background:#C5A059;color:#050505;border:1px solid rgba(197,160,89,.9);padding:.95rem 1.35rem;font-size:11px;letter-spacing:.24em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:transform .25s ease,box-shadow .25s ease;}
+    .sticky-reserve-btn:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.45);}
+    .reserve-modal{display:none;} .reserve-modal.open{display:flex;}
+    .reserve-backdrop{backdrop-filter:blur(10px);}
+    .poster-card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);transition:transform .35s ease,border-color .35s ease;}
+    .poster-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.45);}
+    .poster-date{min-width:74px;} .poster-date .day{font-size:3.25rem;line-height:.9;font-weight:300;}
+    .poster-date .month,.poster-date .weekday{font-size:.82rem;line-height:1.1;}
+    .lux-grid-card{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);transition:transform .3s ease,border-color .3s ease;}
+    .lux-grid-card:hover{transform:translateY(-4px);border-color:rgba(216,194,161,.45);}
+    .map-frame{filter:grayscale(1) contrast(1.1) brightness(.8);}
+    /* Bord'Elle specific — champagne rose / candlelight accent */
+    .bordelle-card{position:relative;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(0,0,0,.4));transition:transform .35s ease,border-color .35s ease;}
+    .bordelle-card:hover{transform:translateY(-6px);border-color:rgba(216,194,161,.55);}
+    .bordelle-card::before{content:"";position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,#C5A059 30%,#C5A059 70%,transparent);opacity:.55;}
+    .menu-row{border-bottom:1px dashed rgba(255,255,255,.1);padding:1.2rem 0;display:flex;align-items:baseline;gap:1.25rem;}
+    .menu-row:last-child{border-bottom:none;}
+    .menu-row .dots{flex:1;border-bottom:1px dotted rgba(255,255,255,.18);height:.7em;transform:translateY(-.25em);}
+    .menu-row .name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;}
+    .menu-row .price{font-family:'Cormorant Garamond',serif;color:#d8c2a1;font-size:1.25rem;letter-spacing:.05em;}
+    .menu-row .desc{display:block;color:rgba(255,255,255,.55);font-size:.8rem;letter-spacing:.06em;margin-top:.25rem;}
+    @media(max-width:768px){.sticky-reserve-btn{left:1rem;right:1rem;bottom:1rem;text-align:center;}}
+
+    /* ── Hero title animation — identical to Yoko Luna ── */
+    .hero-title .title-line{
+      display:block;
+      opacity:0;
+      transform:translateY(40px);
+      filter:blur(10px);
+      animation:heroTextReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .hero-title .title-line:nth-child(1){animation-delay:0.4s;}
+    .hero-title .title-line:nth-child(2){animation-delay:0.9s;}
+    @keyframes heroTextReveal{
+      0%{opacity:0;transform:translateY(40px) scale(0.98);filter:blur(10px);}
+      60%{opacity:1;}
+      100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0);}
+    }
+  </style>
+  <base target="_self">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+<script>
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.style.opacity = '0';
+        setTimeout(() => { loader.style.display = 'none'; }, 750);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 800));
+      } else { setTimeout(hideLoader, 800); }
+      setTimeout(hideLoader, 2800);
+    })();
+
+    tailwind.config = {
+      theme: { extend: {
+        colors: { ink:'#050505', sand:'#d8c2a1', stone:'#a8a29e', bronze:'#b28a5a', ash:'#111111', 'mh-navy':'#0B0F19', 'mh-gold':'#C5A059', 'mh-gold-light':'#D6B88A', 'mh-dark':'#05070A', 'mh-gray':'#1A1D24' },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] },
+        boxShadow: { soft:'0 25px 80px rgba(0,0,0,0.28)' }
+      }}
+    }
+
+  </script>
+  <script>
+  window._i18n = {
+  "en": {
+    "nav_home": "Home",
+    "nav_venues": "Venues",
+    "nav_packages": "Packages",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Events",
+    "nav_careers": "Careers",
+    "mega_our_venues": "Our Venues",
+    "mega_view_all_venues": "View All Venues",
+    "mega_featured": "Featured",
+    "mega_now_open": "Now Open",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "footer_follow": "Follow",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Reserve Now",
+    "reserve_modal_title": "Book Your Night",
+    "reserve_modal_eyebrow": "Reserve",
+    "form_request_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_special_request": "Special Request",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review and follow up to confirm availability and pricing.",
+    "page_title": "Bord'Elle | Montreal Hospitality",
+    "hero_eyebrow": "Old Port · Burlesque Cabaret & Nightclub",
+    "hero_cta_primary": "Reserve a Table",
+    "hero_card_1_label": "Music",
+    "hero_card_1_value": "Live jazz, cabaret, curated sets",
+    "hero_card_2_label": "Experience",
+    "hero_card_2_value": "Champagne, dining, nightlife",
+    "hero_card_3_label": "Location",
+    "hero_card_3_value": "Old Montreal",
+    "hero_card_4_label": "Dress",
+    "hero_card_4_value": "Elegant / cocktail attire"
+  ,
+    "hero_title_line1": "Montreal's most",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">electrifying room.</em>",
+    "s_atm_label": "Atmosphere",
+    "s_atm_title": "Where Elegance Meets the Night",
+    "s_atm_desc": "Champagne, burlesque, and an Old Port room that has never needed to explain itself.",
+    "p1_label": "Champagne",
+    "p1_text": "Prestige cuvées, house pours, and sabering service — a cellar built for the room.",
+    "p2_label": "Entertainment",
+    "p2_text": "Burlesque, cabaret, jazz, and curated DJ sets — live programming every night of the week.",
+    "p3_label": "Service",
+    "p3_text": "Guest list, bottle service, private dining, birthday packages, and corporate events through Montreal Hospitality.",
+    "story_eyebrow": "The Old Port Standard",
+    "story_title": "Montreal's most theatrical evening experience.",
+    "story_p1": "Bord'Elle is Old Montreal's answer to the European supper club — a room where dinner, live entertainment, and late-night bottle service exist on the same floor, in the right sequence. Velvet booths, arched ceilings, and a stage that anchors the room rather than competing with it.",
+    "story_p2": "Through Montreal Hospitality, Bord'Elle handles full evening programming — from champagne bar reservations to private dining buyouts, anniversary packages, and corporate evening events. The team coordinates the table, the show, and what comes after.",
+    "menu_eyebrow": "The Menu",
+    "menu_title": "Champagne & Supper",
+    "menu_desc": "The cellar and the kitchen working in sequence — designed for the pace of an evening like this.",
+    "menu_footer": "Full menu and bottle list available at the venue · Prices in CAD, taxes & service not included",
+    "gallery_eyebrow": "Gallery",
+    "gallery_title": "Inside Bord'Elle",
+    "gallery_desc": "The booths, the stage, the bar, and the room at its finest — Old Port elegance in motion.",
+    "social_eyebrow": "Social Moments",
+    "social_title": "See the room in motion",
+    "who_eyebrow": "Who Comes Here",
+    "who_title": "The Old Port's Most Loyal Room",
+    "who_desc": "Bord'Elle draws couples celebrating milestones, corporate groups with taste, and out-of-towners who've been told this is the one room in Montreal they can't miss.",
+    "events_eyebrow": "Weekly Lineup",
+    "events_title": "This Week at Bord'Elle",
+    "events_btn": "Reserve for an Event Night",
+    "ev1_title": "Thursday Jazz",
+    "ev1_subtitle": "Live Jazz Night",
+    "ev1_desc": "The week starts here — live jazz trio, dinner service, and a room that knows how to ease into a Thursday.",
+    "ev2_title": "Friday Cabaret",
+    "ev2_subtitle": "Burlesque & Bottle Service",
+    "ev2_desc": "Friday peak — live burlesque show, champagne service, and a crowd dressed for the occasion.",
+    "ev3_title": "Saturday Signature",
+    "ev3_subtitle": "The Full Experience",
+    "ev3_desc": "Peak Saturday programming — bottle service, private booths, live entertainment, and the Old Port at its finest.",
+    "exp_eyebrow": "The Experience",
+    "exp_title": "How a Night at Bord'Elle Works",
+    "step1_title": "Champagne Bar",
+    "step1_desc": "The evening opens at the bar — a glass in hand, the room filling up around you, before you're shown to your table.",
+    "step2_title": "Supper",
+    "step2_desc": "French-inspired small plates designed to share — paced to the evening, not rushed through it.",
+    "step3_title": "Live Show",
+    "step3_desc": "Burlesque, cabaret, or a curated DJ set — Bord'Elle's entertainment is the second course of the night.",
+    "step4_title": "Late Night",
+    "step4_desc": "The room shifts — bottle service, dancing, and an Old Port closing time that earns its reputation.",
+    "pil2_1_eyebrow": "Champagne",
+    "pil2_1_title": "A serious cellar",
+    "pil2_1_desc": "Bord'Elle's champagne list is the lead product — prestige cuvées, house pours, sabering service, and tableside magnums for the moments worth marking.",
+    "pil2_2_eyebrow": "Dining",
+    "pil2_2_title": "Plates worth staying for",
+    "pil2_2_desc": "French-inspired small plates and sharing menus that pair with the champagne program — designed by chefs who understand the rhythm of an evening like this.",
+    "pil2_3_eyebrow": "Atmosphere",
+    "pil2_3_title": "Built for occasion",
+    "pil2_3_desc": "Few rooms in Montreal carry themselves the way Bord'Elle does — Old Port architecture, velvet booths, live performance, and a crowd that dresses for it.",
+    "res_eyebrow": "Reserve",
+    "res_title": "Guest list, bottle service, and private dining.",
+    "res_desc": "Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right table, and take care of the night.",
+    "res_loc_label": "Location",
+    "res_loc_val": "390 Rue Saint-Jacques, Old Montreal",
+    "res_hrs_label": "Hours",
+    "res_hrs_val": "Tue–Sat: 6PM – 3AM · Sun–Mon: Closed",
+    "res_conc_label": "Concierge Support",
+    "comp_eyebrow": "Complete Your Night",
+    "comp_title": "Concierge-led evenings that start before dinner.",
+    "comp_desc": "Bord'Elle pairs naturally with the rest of the Montreal Hospitality network — transport in, a partner venue after, and everything coordinated through one channel.",
+    "comp_t1_title": "Transport",
+    "comp_t1_desc": "Limos, sprinters, and chauffeur arrivals for groups coming to the Old Port in style.",
+    "comp_t2_title": "Nightlife",
+    "comp_t2_desc": "A move from Bord'Elle to a partner club after midnight — all coordinated in advance.",
+    "comp_t3_title": "Packages",
+    "comp_t3_desc": "Birthday and group packages that bundle the table, champagne, and concierge handling.",
+    "comp_t4_title": "After Hours",
+    "comp_t4_desc": "Full evening planning for guests who want dinner, the show, and what comes after — all covered.",
+    "loc_eyebrow": "Location",
+    "loc_title": "In the heart of the Old Port.",
+    "loc_desc": "Bord'Elle sits on Rue Saint-Jacques in the core of Old Montreal — steps from the waterfront, surrounded by the city's most storied architecture, and accessible from the best hotels in the district.",
+    "loc_addr_label": "Address",
+    "loc_addr_val": "390 Rue Saint-Jacques, Old Montreal, QC H2Y 1S1",
+    "loc_arr_label": "Arrival",
+    "loc_arr_val": "Chauffeur drop-offs on Saint-Jacques, walking distance from Place d'Armes and Old Port hotels.",
+    "feat_eyebrow": "Venue Features",
+    "feat_title": "What guests come back for",
+    "feat_desc": "Everything that makes Bord'Elle the Old Port's most enduring evening destination.",
+    "feat1_title": "Champagne cellar",
+    "feat1_desc": "A list built for the room — from house pours to prestige cuvées and sabering service.",
+    "feat2_title": "Live entertainment",
+    "feat2_desc": "Burlesque, jazz, cabaret, and curated DJ sets — the kind of programming that makes a night memorable.",
+    "feat3_title": "Private dining",
+    "feat3_desc": "Velvet booths, intimate alcoves, and full buyout capacity for corporate and milestone events.",
+    "feat4_title": "Old Port address",
+    "feat4_desc": "The architecture, the neighbourhood, and the kind of room that makes the address part of the occasion.",
+    "sticky_btn": "Reserve Now",
+    "modal_eyebrow": "Reserve",
+    "modal_title": "Book Your Night",
+    "modal_desc": "Submit a request for guest list, bottle service, or private dining at Bord'Elle. Montreal Hospitality will follow up to confirm.",
+    "form_req_type": "Request Type",
+    "form_full_name": "Full Name",
+    "form_phone": "Phone",
+    "form_email": "Email",
+    "form_date": "Date",
+    "form_guests": "Guests",
+    "form_budget": "Budget / Notes",
+    "form_special": "Special Request",
+    "form_submit": "Submit Request",
+    "form_success": "Request sent successfully.",
+    "form_disclaimer": "Montreal Hospitality will review the inquiry and follow up to confirm availability and pricing.",
+    "footer_explore": "Explore",
+    "footer_contact": "Contact",
+    "footer_tagline": "Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.",
+    "footer_venue_label": "The Venue",
+    "footer_venue_text": "Bord'Elle shares a unified visual system with Yoko Luna, 212, and the rest of the venue pages — same editorial direction, tailored to each room's identity.",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "scroll_lbl": "Scroll"},
+  "fr": {
+    "nav_home": "Accueil",
+    "nav_venues": "Établissements",
+    "nav_packages": "Forfaits",
+    "nav_sports": "Sports",
+    "nav_services": "Services",
+    "nav_events": "Événements",
+    "nav_careers": "Carrières",
+    "mega_our_venues": "Nos Établissements",
+    "mega_view_all_venues": "Voir Tous Les Établissements",
+    "mega_featured": "En Vedette",
+    "mega_now_open": "Maintenant Ouvert",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité à Montréal.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "footer_follow": "Suivez-nous",
+    "btn_contact": "Contact",
+    "btn_reserve_now": "Réserver Maintenant",
+    "reserve_modal_title": "Réservez Votre Soirée",
+    "reserve_modal_eyebrow": "Réserver",
+    "form_request_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_special_request": "Demande spéciale",
+    "form_budget_notes": "Budget / Notes",
+    "form_special_requests_long": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera votre demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "page_title": "Bord'Elle | Montreal Hospitality",
+    "hero_eyebrow": "Vieux-Port · Cabaret Burlesque & Boîte de Nuit",
+    "hero_cta_primary": "Réserver une table",
+    "hero_card_1_label": "Musique",
+    "hero_card_1_value": "Jazz live, cabaret, sets curatés",
+    "hero_card_2_label": "Expérience",
+    "hero_card_2_value": "Champagne, gastronomie, vie nocturne",
+    "hero_card_3_label": "Emplacement",
+    "hero_card_3_value": "Vieux-Montréal",
+    "hero_card_4_label": "Tenue",
+    "hero_card_4_value": "Élégante / tenue de soirée"
+  ,
+    "hero_title_line1": "La salle la plus",
+    "hero_title_line2": "<em style=\"font-style:italic;font-weight:400;\">électrisante de Montréal.</em>",
+    "s_atm_label": "Atmosphère",
+    "s_atm_title": "Là où l'élégance rencontre la nuit",
+    "s_atm_desc": "Champagne, burlesque, et une salle du Vieux-Port qui n'a jamais eu besoin de s'expliquer.",
+    "p1_label": "Champagne",
+    "p1_text": "Cuvées prestige, servies maison, et service au sabre — une cave construite pour la salle.",
+    "p2_label": "Divertissement",
+    "p2_text": "Burlesque, cabaret, jazz et sets DJ curatés — programmation en direct chaque soir de la semaine.",
+    "p3_label": "Service",
+    "p3_text": "Liste d'invités, service aux bouteilles, dîner privé, forfaits anniversaire et événements corporatifs via Montreal Hospitality.",
+    "story_eyebrow": "La référence du Vieux-Port",
+    "story_title": "L'expérience nocturne la plus théâtrale de Montréal.",
+    "story_p1": "Bord'Elle est la réponse du Vieux-Montréal au supper club européen — une salle où le dîner, le divertissement en direct et le service aux bouteilles de fin de soirée coexistent sur le même étage, dans le bon ordre. Alcôves en velours, plafonds voûtés et une scène qui ancre la salle plutôt que d'en rivaliser.",
+    "story_p2": "Via Montreal Hospitality, Bord'Elle gère la programmation complète de la soirée — des réservations au bar à champagne aux privatisations de salle pour dîner, aux forfaits anniversaire et aux événements corporatifs du soir. L'équipe coordonne la table, le spectacle et ce qui suit.",
+    "menu_eyebrow": "La carte",
+    "menu_title": "Champagne & Souper",
+    "menu_desc": "La cave et la cuisine travaillant en séquence — conçues pour le rythme d'une soirée comme celle-ci.",
+    "menu_footer": "Menu complet et liste des bouteilles disponibles à l'établissement · Prix en CAD, taxes et service non inclus",
+    "gallery_eyebrow": "Galerie",
+    "gallery_title": "À l'intérieur de Bord'Elle",
+    "gallery_desc": "Les alcôves, la scène, le bar et la salle dans toute sa splendeur — l'élégance du Vieux-Port en mouvement.",
+    "social_eyebrow": "Moments sociaux",
+    "social_title": "La salle en mouvement",
+    "who_eyebrow": "Notre clientèle",
+    "who_title": "La salle la plus fidèle du Vieux-Port",
+    "who_desc": "Bord'Elle attire des couples qui célèbrent des moments importants, des groupes corporatifs de goût, et des visiteurs à qui on a dit que c'est la seule salle à Montréal qu'ils ne peuvent pas manquer.",
+    "events_eyebrow": "Programme hebdomadaire",
+    "events_title": "Cette semaine à Bord'Elle",
+    "events_btn": "Réserver pour une soirée événement",
+    "ev1_title": "Jazz du jeudi",
+    "ev1_subtitle": "Soirée jazz en direct",
+    "ev1_desc": "La semaine commence ici — trio de jazz en direct, service de dîner et une salle qui sait comment aborder un jeudi.",
+    "ev2_title": "Cabaret du vendredi",
+    "ev2_subtitle": "Burlesque & Service aux bouteilles",
+    "ev2_desc": "Vendredi au sommet — spectacle de burlesque en direct, service de champagne et une clientèle habillée pour l'occasion.",
+    "ev3_title": "Samedi Signature",
+    "ev3_subtitle": "L'expérience complète",
+    "ev3_desc": "Programmation du samedi au sommet — service aux bouteilles, alcôves privées, divertissement en direct et le Vieux-Port dans toute sa splendeur.",
+    "exp_eyebrow": "L'expérience",
+    "exp_title": "Comment se déroule une soirée à Bord'Elle",
+    "step1_title": "Bar à champagne",
+    "step1_desc": "La soirée commence au bar — un verre à la main, la salle se remplit autour de vous, avant d'être conduit à votre table.",
+    "step2_title": "Souper",
+    "step2_desc": "Petites assiettes d'inspiration française conçues pour être partagées — au rythme de la soirée, sans précipitation.",
+    "step3_title": "Spectacle en direct",
+    "step3_desc": "Burlesque, cabaret ou un set DJ curatés — le divertissement de Bord'Elle est le deuxième service de la soirée.",
+    "step4_title": "Fin de soirée",
+    "step4_desc": "La salle change — service aux bouteilles, danse et une heure de fermeture du Vieux-Port qui mérite sa réputation.",
+    "pil2_1_eyebrow": "Champagne",
+    "pil2_1_title": "Une cave sérieuse",
+    "pil2_1_desc": "La carte des champagnes de Bord'Elle est le produit phare — cuvées prestige, servies maison, service au sabre et magnums à table pour les moments qui méritent d'être soulignés.",
+    "pil2_2_eyebrow": "Gastronomie",
+    "pil2_2_title": "Des plats qui méritent qu'on reste",
+    "pil2_2_desc": "Petites assiettes d'inspiration française et menus à partager qui s'accordent avec le programme de champagne — conçus par des chefs qui comprennent le rythme d'une soirée comme celle-ci.",
+    "pil2_3_eyebrow": "Atmosphère",
+    "pil2_3_title": "Conçu pour l'occasion",
+    "pil2_3_desc": "Peu de salles à Montréal se portent comme Bord'Elle — architecture du Vieux-Port, alcôves en velours, spectacle en direct et une clientèle qui s'habille pour l'occasion.",
+    "res_eyebrow": "Réserver",
+    "res_title": "Liste d'invités, service aux bouteilles et dîner privé.",
+    "res_desc": "Soumettez une demande et Montreal Hospitality fera un suivi pour confirmer la disponibilité, recommander la bonne table et prendre soin de la soirée.",
+    "res_loc_label": "Emplacement",
+    "res_loc_val": "390 Rue Saint-Jacques, Vieux-Montréal",
+    "res_hrs_label": "Heures",
+    "res_hrs_val": "Mar–Sam : 18h – 3h · Dim–Lun : Fermé",
+    "res_conc_label": "Support Conciergerie",
+    "comp_eyebrow": "Complétez votre soirée",
+    "comp_title": "Des soirées dirigées par un concierge qui commencent avant le dîner.",
+    "comp_desc": "Bord'Elle s'intègre naturellement au reste du réseau Montreal Hospitality — transport à l'aller, un établissement partenaire après, et tout coordonné par un seul canal.",
+    "comp_t1_title": "Transport",
+    "comp_t1_desc": "Limousines, sprinters et arrivées par chauffeur pour les groupes venant au Vieux-Port avec style.",
+    "comp_t2_title": "Vie nocturne",
+    "comp_t2_desc": "Un passage de Bord'Elle à un club partenaire après minuit — tout coordonné à l'avance.",
+    "comp_t3_title": "Forfaits",
+    "comp_t3_desc": "Forfaits anniversaire et de groupe qui regroupent la table, le champagne et la gestion par conciergerie.",
+    "comp_t4_title": "Après minuit",
+    "comp_t4_desc": "Planification complète de la soirée pour les clients qui veulent le dîner, le spectacle et ce qui suit — tout inclus.",
+    "loc_eyebrow": "Emplacement",
+    "loc_title": "Au cœur du Vieux-Port.",
+    "loc_desc": "Bord'Elle est situé sur la Rue Saint-Jacques au cœur du Vieux-Montréal — à quelques pas du bord de l'eau, entouré de l'architecture la plus emblématique de la ville, et accessible depuis les meilleurs hôtels du quartier.",
+    "loc_addr_label": "Adresse",
+    "loc_addr_val": "390 Rue Saint-Jacques, Vieux-Montréal, QC H2Y 1S1",
+    "loc_arr_label": "Arrivée",
+    "loc_arr_val": "Dépôts par chauffeur sur Saint-Jacques, à distance de marche de la Place d'Armes et des hôtels du Vieux-Port.",
+    "feat_eyebrow": "Caractéristiques",
+    "feat_title": "Ce qui fait revenir les clients",
+    "feat_desc": "Tout ce qui fait de Bord'Elle la destination nocturne la plus durable du Vieux-Port.",
+    "feat1_title": "Cave à champagne",
+    "feat1_desc": "Une carte construite pour la salle — des servies maison aux cuvées prestige et au service au sabre.",
+    "feat2_title": "Divertissement en direct",
+    "feat2_desc": "Burlesque, jazz, cabaret et sets DJ curatés — le genre de programmation qui rend une soirée mémorable.",
+    "feat3_title": "Dîner privé",
+    "feat3_desc": "Alcôves en velours, recoins intimes et capacité de privatisation complète pour les événements corporatifs et les occasions importantes.",
+    "feat4_title": "Adresse du Vieux-Port",
+    "feat4_desc": "L'architecture, le quartier, et le genre de salle qui fait de l'adresse une partie de l'occasion.",
+    "sticky_btn": "Réserver Maintenant",
+    "modal_eyebrow": "Réserver",
+    "modal_title": "Réservez votre soirée",
+    "modal_desc": "Soumettez une demande de liste d'invités, service aux bouteilles ou dîner privé à Bord'Elle. Montreal Hospitality fera un suivi pour confirmer.",
+    "form_req_type": "Type de demande",
+    "form_full_name": "Nom complet",
+    "form_phone": "Téléphone",
+    "form_email": "Courriel",
+    "form_date": "Date",
+    "form_guests": "Invités",
+    "form_budget": "Budget / Notes",
+    "form_special": "Demande spéciale",
+    "form_submit": "Envoyer la demande",
+    "form_success": "Demande envoyée avec succès.",
+    "form_disclaimer": "Montreal Hospitality examinera la demande et fera un suivi pour confirmer la disponibilité et les tarifs.",
+    "footer_explore": "Explorer",
+    "footer_contact": "Contact",
+    "footer_tagline": "Service de conciergerie de luxe, accès à la vie nocturne et expériences d'hospitalité curatées à Montréal.",
+    "footer_venue_label": "L'établissement",
+    "footer_venue_text": "Bord'Elle partage un système visuel unifié avec Yoko Luna, 212 et le reste des pages de lieux — même direction éditoriale, adaptée à l'identité de chaque salle.",
+    "footer_privacy": "Confidentialité",
+    "footer_terms": "Conditions",
+    "scroll_lbl": "Défiler"}
+};
+
+
+    window.translator = {
+      currentLang:'en',
+      init() {
+        const saved=localStorage.getItem('preferred_language');
+        const url=new URLSearchParams(window.location.search).get('lang');
+        const browser=(navigator.language||'en').split('-')[0];
+        this.currentLang=[url,saved,browser,'en'].find(l=>window._i18n&&window._i18n[l])||'en';
+        localStorage.setItem('preferred_language',this.currentLang);
+        document.documentElement.lang=this.currentLang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks(); this.bindButtons();
+      },
+      setLanguage(lang){
+        if(!window._i18n||!window._i18n[lang])return;
+        this.currentLang=lang;
+        localStorage.setItem('preferred_language',lang);
+        document.documentElement.lang=lang;
+        this.updateUI(); this.applyTranslations(); this.translateLinks();
+        const u=new URL(window.location.href);
+        u.searchParams.set('lang',lang);
+        window.history.replaceState({},'',`${u.pathname}${u.search}${u.hash}`);
+      },
+      updateUI(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));
+      },
+      applyTranslations(){
+        const t=(window._i18n&&window._i18n[this.currentLang])||{};
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+          const v=t[el.dataset.i18n]; if(!v)return;
+          if(v.includes('<'))el.innerHTML=v; else el.textContent=v;
+        });
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+          const v=t[el.dataset.i18nPlaceholder]; if(v)el.placeholder=v;
+        });
+        document.querySelectorAll('[data-i18n-label]').forEach(el=>{
+          const v=t[el.dataset.i18nLabel]; if(v)el.textContent=v;
+        });
+        if(t.page_title)document.title=t.page_title;
+      },
+      translateLinks(){
+        document.querySelectorAll('a[href]').forEach(link=>{
+          const h=link.getAttribute('href');
+          if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:')||h.startsWith('javascript:')||h.startsWith('http'))return;
+          try{
+            const u=new URL(h,window.location.href);
+            if(u.origin!==window.location.origin)return;
+            u.searchParams.set('lang',this.currentLang);
+            link.setAttribute('href',`${u.pathname.split('/').pop()||'index.html'}${u.search}${u.hash}`);
+          }catch(e){}
+        });
+      },
+      bindButtons(){
+        document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));
+      }
+    };
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
+
+</script>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div></div>
+    </div>
+  </div>
+
+  <div id="lightbox" class="lightbox fixed inset-0 z-[100] items-center justify-center bg-black/95 p-4">
+    <button onclick="closeLightbox()" class="absolute right-6 top-6 text-white/80 hover:text-white text-2xl" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <button onclick="changeLightbox(-1)" class="absolute left-5 md:left-8 text-white/70 hover:text-white text-2xl" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lightbox-image" src="" alt="Bord'Elle gallery image" class="max-h-[88vh] max-w-[92vw] object-contain">
+    <button onclick="changeLightbox(1)" class="absolute right-5 md:right-8 text-white/70 hover:text-white text-2xl" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — Yoko Luna structure: fullscreen video, centered logo + title
+       ═══════════════════════════════════════════════════════ -->
+  <header class="relative min-h-screen overflow-hidden">
+    <div class="absolute inset-0">
+      <video autoplay muted loop playsinline class="h-full w-full object-cover hero-parallax">
+        <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1778705381/Bord_Elle_is_Montreal_s_most_electrifying_nightlife_experience._Burlesque_aerialists_g_fgzrbp.mp4" type="video/mp4">
+      </video>
+      <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(5,5,5,0.88) 0%,rgba(5,5,5,0.35) 50%,rgba(5,5,5,0.25) 100%)"></div>
+    </div>
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+      <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300" aria-label="Toggle menu"><i class="fa-solid fa-bars text-xl"></i></button>
+      <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+      </a>
+      <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+        <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+        <div class="relative" id="venues-menu-wrapper">
+          <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium text-mh-gold" aria-expanded="false">
+            <span data-i18n="nav_venues">Venues</span>
+            <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+          </a>
+          <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity 0.22s ease,transform 0.22s ease;right:auto;width:fit-content;">
+            <div class="px-20 py-12 flex gap-0">
+              <div class="flex-1 border-r border-white/10 pr-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+                <ul>
+                  <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                  <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>                </ul>
+              </div>
+              <div class="flex-1 border-r border-white/10 px-12">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+                <ul>
+                  <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                  <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                  <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                  <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                </ul>
+                <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+              </div>
+              <div class="w-[280px] pl-12 flex flex-col gap-4">
+                <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+                <div class="relative overflow-hidden aspect-[3/4] w-full">
+                  <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                  <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">Bord'Elle</p>
+                </div>
+                <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages"><span data-i18n="comp_t3_title">Packages</span></a>
+        <a href="sports.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
+        <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+        <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+        <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+      </div>
+      <div class="hidden lg:flex items-center gap-8">
+        <div class="lang-switcher"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+        <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+        <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all"><span data-i18n="footer_contact">Contact</span></a>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+      <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
+      <a href="venues.html" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
+      <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_packages"><span data-i18n="comp_t3_title">Packages</span></a>
+      <a href="sports.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
+      <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
+      <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
+      <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
+      <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
+    </div>
+
+    <!-- Centered hero content — same layout as Yoko Luna -->
+    <div class="relative z-10 flex min-h-screen flex-col items-center justify-center text-center px-6">
+      <div class="fade-up in">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1778705785/aac9c243-c6ed-4aff-bc8a-da7fbb324f78_hwhgtv.png"
+             alt="Bord'Elle"
+             class="mx-auto w-28 sm:w-36 md:w-44 lg:w-52 object-contain mb-10"
+             id="bordelle-logo-img">
+        <p class="eyebrow mb-8 text-white/50 tracking-[0.5em]" data-i18n="hero_eyebrow">Old Port · Burlesque Cabaret &amp; Nightclub</p>
+        <p class="font-serif text-white leading-[1.05] hero-title" style="font-size:clamp(2.8rem,7vw,5.5rem);font-weight:300;">
+          <span class="title-line" data-i18n="hero_title_line1">Montreal's most</span>
+          <span class="title-line" data-i18n="hero_title_line2"><em style="font-style:italic;font-weight:400;">electrifying room.</em></span>
+        </p>
+        <div class="mt-12">
+          <a href="#reserve" class="magnetic-btn btn-fill bg-white px-10 py-4 text-[11px] font-medium uppercase tracking-[0.32em] text-black" data-i18n="hero_cta_primary">Reserve a Table</a>
+        </div>
+      </div>
+    </div>
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      <span class="eyebrow text-white text-[9px] tracking-[0.4em]">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.6),transparent);"></div>
+    </div>
+  </header>
+
+  <!-- Atmosphere banner -->
+  <section class="relative h-[72vh] overflow-hidden border-y line-soft bg-black">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186893/550706146_18410648617116443_3457180014845744166_n_bke0jd.jpg" alt="Bord'Elle atmosphere" class="h-full w-full object-cover opacity-50">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/80"></div>
+    <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+      <div>
+        <p class="eyebrow mb-5 text-sand/80"><span data-i18n="pil2_3_eyebrow">Atmosphere</span></p>
+        <h2 class="font-serif text-5xl text-white md:text-7xl"><span data-i18n="s_atm_title">Where Elegance Meets the Night</span></h2>
+        <p class="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/70 md:text-base">From champagne service and gourmet plates to live burlesque and a room that moves — Bord'Elle holds its elegance all night long without ever losing the energy.</p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="scroll-fade border-y line-soft bg-[#080808]">
+      <div class="mx-auto grid max-w-7xl gap-0 md:grid-cols-3">
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="pil2_1_eyebrow">Champagne</span></p><p class="mt-3 text-xl font-serif">Premium selections from the cellar — house pours, prestige cuvées, and magnums for the table.</p></div>
+        <div class="border-b line-soft px-6 py-7 md:border-b-0 md:border-r md:px-10"><p class="eyebrow text-stone"><span data-i18n="p2_label">Entertainment</span></p><p class="mt-3 text-xl font-serif">Burlesque aerialists, cabaret performances, and curated DJ sets that build through the evening.</p></div>
+        <div class="px-6 py-7 md:px-10"><p class="eyebrow text-stone"><span data-i18n="p3_label">Service</span></p><p class="mt-3 text-xl font-serif">Guest list, VIP tables, bottle service, private dining, and concierge event coordination.</p></div>
+      </div>
+    </section>
+
+    <section class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-16 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
+        <div class="fade-up story-copy">
+          <p class="eyebrow text-sand/80">A Room Like No Other</p>
+          <h2 class="mt-4 max-w-3xl font-serif text-5xl leading-[0.95] md:text-6xl">French elegance, Old Port energy, one unforgettable room.</h2>
+          <div class="mt-8 max-w-2xl space-y-6 text-[15px]">
+            <p>Bord'Elle occupies a singular position in Montreal's nightlife — a supper club and cabaret that takes the Old Port's architectural grandeur and charges it with an after-dark energy that's equal parts refined and alive. The room does dinner and it does late night, and it does both without compromise.</p>
+            <p>Through Montreal Hospitality, Bord'Elle accommodates everything from intimate date nights and corporate dining to full venue buyouts, birthday celebrations, and guest list programming. The champagne program is the lead act, backed by French-inspired small plates and entertainment that builds through the evening.</p>
+          </div>
+        </div>
+        <div class="fade-up img-hover overflow-hidden shadow-soft">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186911/542805827_18408606703116443_4925103620855617631_n_itm5na.jpg" alt="Bord'Elle interior" class="h-full w-full object-cover">
+        </div>
+      </div>
+    </section>
+
+    <!-- Champagne & Menu -->
+    <section class="scroll-fade bg-[#070707] py-20 lg:py-28 border-y line-soft">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-sand/80">House Selections</p>
+            <h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl">Champagne &amp; Small Plates</h2>
+          </div>
+          <p class="max-w-md text-sm leading-7 text-white/55">Six selections from the champagne cellar and kitchen — built for sharing, paced for a full evening.</p>
+        </div>
+        <div class="section-divider fade-up mb-12"></div>
+        <div class="grid gap-x-16 gap-y-2 md:grid-cols-2">
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Veuve Clicquot Brut</span><span class="desc">Yellow Label · NV · 750ml</span></div><span class="dots"></span><span class="price">165</span></div>
+            <div class="menu-row"><div><span class="name">Moët &amp; Chandon Impérial</span><span class="desc">Brut · NV · bottle service</span></div><span class="dots"></span><span class="price">145</span></div>
+            <div class="menu-row"><div><span class="name">Burrata &amp; Truffle</span><span class="desc">Fresh burrata · black truffle shaving · grilled sourdough</span></div><span class="dots"></span><span class="price">28</span></div>
+          </div>
+          <div class="fade-up">
+            <div class="menu-row"><div><span class="name">Dom Pérignon Vintage</span><span class="desc">Blanc · prestige cuvée · by the bottle</span></div><span class="dots"></span><span class="price">425</span></div>
+            <div class="menu-row"><div><span class="name">Tuna Tartare</span><span class="desc">Yellowfin · avocado · yuzu · wonton crisp</span></div><span class="dots"></span><span class="price">26</span></div>
+            <div class="menu-row"><div><span class="name">Foie Gras Toast</span><span class="desc">Torchon · brioche · Sauternes gelée · micro herbs</span></div><span class="dots"></span><span class="price">32</span></div>
+          </div>
+        </div>
+        <p class="fade-up mt-12 text-center text-xs uppercase tracking-[0.28em] text-white/40">Full menu and bottle list available at the venue · Prices in CAD, taxes &amp; service not included</p>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="scroll-fade py-20 lg:py-28">
+      <div class="fade-up mb-10 mx-auto max-w-7xl px-6 md:px-10 flex items-end justify-between gap-6">
+        <div><p class="eyebrow text-sand/80"><span data-i18n="gallery_eyebrow">Gallery</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="gallery_title">Inside Bord'Elle</span></h2></div>
+        <p class="hidden max-w-md text-sm leading-7 text-white/55 md:block">Velvet booths, live performance, champagne service, and the Old Port backdrop.</p>
+      </div>
+      <div class="section-divider fade-up mb-10 mx-auto max-w-7xl px-6 md:px-10"></div>
+      <div class="hidden md:flex items-center mx-auto max-w-7xl px-6 md:px-10 mb-4 gap-4">
+        <button id="gallery-prev" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60 transition-all shrink-0"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="gallery-next" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60 transition-all shrink-0"><i class="fa-solid fa-arrow-right"></i></button>
+        <div class="flex-1 h-[1px] bg-white/10 relative ml-4">
+          <div id="gallery-progress" class="absolute top-0 left-0 h-full bg-mh-gold transition-all duration-200" style="width:0%"></div>
+        </div>
+      </div>
+      <div id="gallery-rail" class="flex gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory px-6 md:px-10 pb-4" style="scrollbar-width:none;-ms-overflow-style:none;"></div>
+    </section>
+
+    <!-- Social Feed -->
+    <section id="social-feed" class="scroll-fade border-y line-soft bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="social_eyebrow">Social Moments</span></p><h2 class="card-shift mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="social_title">See the room in motion</span></h2></div>
+          <div class="flex items-center gap-3">
+            <button type="button" id="social-prev" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60" aria-label="Scroll left"><i class="fa-solid fa-arrow-left"></i></button>
+            <button type="button" id="social-next" class="magnetic-btn btn-stroke border border-white/20 px-4 py-3 text-white hover:border-white/60" aria-label="Scroll right"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+        <div class="section-divider fade-up mb-10"></div>
+        <div id="social-rail" class="fade-up flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4" style="scrollbar-width:none;-ms-overflow-style:none;">
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" alt="Bord'Elle main room" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">The Main Room</p><p class="mt-3 text-sm leading-7 text-white/70">Where the evening begins — champagne service, velvet seating, and the Old Port atmosphere that defines Bord'Elle.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186893/550706146_18410648617116443_3457180014845744166_n_bke0jd.jpg" alt="Bord'Elle atmosphere" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Evening Energy</p><p class="mt-3 text-sm leading-7 text-white/70">The room holds its tone all night — refined at dinner, electric at midnight.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186941/573800260_18418294435116443_3035315577795766418_n_ryhdzb.jpg" alt="Bord'Elle champagne" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Champagne Program</p><p class="mt-3 text-sm leading-7 text-white/70">Prestige cuvées, sabering service, and a cellar curated for the room's level of occasion.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186976/488221308_1082093630624386_1451221733486931798_n_b8jo6f.jpg" alt="Bord'Elle group" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45">Private Events</p><p class="mt-3 text-sm leading-7 text-white/70">Corporate dinners, milestone celebrations, and birthday buyouts — all handled through Montreal Hospitality.</p></div>
+          </article>
+          <article class="interactive-card snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[460px] border border-white/10 bg-black/30">
+            <div class="aspect-[4/5] overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187009/463339699_18363139012116443_565809555549906035_n_fwsbmy.jpg" alt="Bord'Elle night" class="h-full w-full object-cover"></div>
+            <div class="p-5"><p class="eyebrow text-white/45"><span data-i18n="step4_title">Late Night</span></p><p class="mt-3 text-sm leading-7 text-white/70">Past midnight the room shifts — Bord'Elle keeps its elegance while the energy climbs.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who Comes Here -->
+    <section class="bg-[#090909] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12"><p class="eyebrow text-sand/80"><span data-i18n="who_eyebrow">Who Comes Here</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl">Old Port's Most Discerning Crowd</h2><p class="mt-5 max-w-2xl text-sm leading-8 text-white/60 md:text-base">Bord'Elle draws the city's dinner-and-nightlife crowd — tables for two, corporate entertaining, birthday reservations, and the kind of guest who knows the difference between a good room and a great one.</p></div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186911/542805827_18408606703116443_4925103620855617631_n_itm5na.jpg" alt="Bord'Elle dining" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186941/573800260_18418294435116443_3035315577795766418_n_ryhdzb.jpg" alt="Bord'Elle champagne" class="h-[430px] w-full object-cover"></div>
+          <div class="img-hover overflow-hidden"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186976/488221308_1082093630624386_1451221733486931798_n_b8jo6f.jpg" alt="Bord'Elle late night" class="h-[430px] w-full object-cover"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weekly Programming -->
+    <section id="event-nights" class="bg-[#121212] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80">Weekly Programming</p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="events_title">This Week at Bord'Elle</span></h2></div>
+          <a href="#reserve" class="magnetic-btn btn-stroke border border-white/25 px-6 py-3 text-[11px] uppercase tracking-[0.28em] text-white"><span data-i18n="events_btn">Reserve for an Event Night</span></a>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186893/550706146_18410648617116443_3457180014845744166_n_bke0jd.jpg" alt="Tuesday Dining" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">20</div><div class="weekday text-white/75">Tuesday</div></div>
+              <div><h3 class="font-serif text-2xl text-white">Dinner Service</h3><p class="mt-1 text-lg text-white/85">Champagne &amp; Small Plates</p><p class="mt-3 text-sm leading-7 text-white/55">The full supper club experience — from a glass of champagne at the bar to the last plate of the evening.</p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186941/573800260_18418294435116443_3035315577795766418_n_ryhdzb.jpg" alt="Friday Cabaret" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">23</div><div class="weekday text-white/75">Friday</div></div>
+              <div><h3 class="font-serif text-2xl text-white">Cabaret Night</h3><p class="mt-1 text-lg text-white/85">Live Performance</p><p class="mt-3 text-sm leading-7 text-white/55">Burlesque, jazz, and a room that builds — Bord'Elle's Friday cabaret is the reason reservations fill up by Wednesday.</p></div>
+            </div>
+          </a>
+          <a href="#reserve" class="poster-card block overflow-hidden">
+            <div class="overflow-hidden rounded-t-[22px]"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187009/463339699_18363139012116443_565809555549906035_n_fwsbmy.jpg" alt="Saturday Signature" class="h-[340px] w-full object-cover"></div>
+            <div class="flex items-end gap-5 px-5 py-5">
+              <div class="poster-date border-r border-white/25 pr-5 text-white"><div class="month uppercase tracking-[0.18em] text-white/70">May</div><div class="day font-serif">24</div><div class="weekday text-white/75">Saturday</div></div>
+              <div><h3 class="font-serif text-2xl text-white"><span data-i18n="ev3_title">Saturday Signature</span></h3><p class="mt-1 text-lg text-white/85"><span data-i18n="ev3_subtitle">The Full Experience</span></p><p class="mt-3 text-sm leading-7 text-white/55"><span data-i18n="ev3_desc">Peak Saturday programming — bottle service, private booths, live entertainment, and the Old Port at its finest.</span></p></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Experience -->
+    <section class="bg-[#0a0a0a] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 text-center"><p class="eyebrow text-sand/80"><span data-i18n="exp_eyebrow">The Experience</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="exp_title">How a Night at Bord'Elle Works</span></h2></div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="bordelle-card p-8"><p class="eyebrow text-white/45">01</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step1_title">Champagne Bar</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step1_desc">The evening opens at the bar — a glass in hand, the room filling up around you, before you're shown to your table.</span></p></div>
+          <div class="bordelle-card p-8"><p class="eyebrow text-white/45">02</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step2_title">Supper</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step2_desc">French-inspired small plates designed to share — paced to the evening, not rushed through it.</span></p></div>
+          <div class="bordelle-card p-8"><p class="eyebrow text-white/45">03</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step3_title">Live Show</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step3_desc">Burlesque, cabaret, or a curated DJ set — Bord'Elle's entertainment is the second course of the night.</span></p></div>
+          <div class="bordelle-card p-8"><p class="eyebrow text-white/45">04</p><h3 class="mt-4 font-serif text-3xl text-white"><span data-i18n="step4_title">Late Night</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="step4_desc">The room shifts — bottle service, dancing, and an Old Port closing time that earns its reputation.</span></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scroll-fade bg-[#0a0a0a] py-20 lg:py-28">
+      <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-10 lg:grid-cols-3">
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_1_eyebrow">Champagne</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_1_title">A serious cellar</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_1_desc">Bord'Elle's champagne list is the lead product — prestige cuvées, house pours, sabering service, and tableside magnums for the moments worth marking.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_2_eyebrow">Dining</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_2_title">Plates worth staying for</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_2_desc">French-inspired small plates and sharing menus that pair with the champagne program — designed by chefs who understand the rhythm of an evening like this.</span></p></div>
+        <div class="fade-up interactive-card card-border p-8"><p class="eyebrow text-sand/80"><span data-i18n="pil2_3_eyebrow">Atmosphere</span></p><h3 class="card-shift mt-4 font-serif text-3xl"><span data-i18n="pil2_3_title">Built for occasion</span></h3><p class="mt-4 text-sm leading-8 text-white/68"><span data-i18n="pil2_3_desc">Few rooms in Montreal carry themselves the way Bord'Elle does — Old Port architecture, velvet booths, live performance, and a crowd that dresses for it.</span></p></div>
+      </div>
+    </section>
+
+    <!-- Reserve -->
+    <section id="reserve" class="scroll-fade mx-auto max-w-7xl px-6 py-20 md:px-10 lg:py-28">
+      <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr]">
+        <div class="fade-up">
+          <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+          <h2 class="card-shift mt-4 font-serif text-5xl leading-[0.95] md:text-6xl"><span data-i18n="res_title">Guest list, bottle service, and private dining.</span></h2>
+          <p class="mt-6 max-w-xl text-[15px] leading-8 text-white/68"><span data-i18n="res_desc">Submit a request and Montreal Hospitality will follow up to confirm availability, recommend the right table, and take care of the night.</span></p>
+          <div class="mt-10 space-y-8 text-white/75">
+            <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_eyebrow">Location</span></p><p class="mt-1"><span data-i18n="res_loc_val">390 Rue Saint-Jacques, Old Montreal</span></p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-clock mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_hrs_label">Hours</span></p><p class="mt-1"><span data-i18n="res_hrs_val">Tue–Sat: 6PM – 3AM · Sun–Mon: Closed</span></p></div></div>
+            <div class="flex gap-4"><i class="fa-solid fa-user-tie mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="res_conc_label">Concierge Support</span></p><p class="mt-1">514-378-0154 · info@montrealhospitality.com</p></div></div>
+          </div>
+        </div>
+        <div class="fade-up border border-white/10 bg-[#0b0b0b] p-7 md:p-10 shadow-soft">
+          <form id="reservationForm" action="https://formspree.io/f/mykdvnra" method="POST" class="grid gap-5 md:grid-cols-2">
+            <input type="hidden" name="venue" value="Bord'Elle">
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Bottle Service</option><option>Private Dining</option><option>Birthday / Group</option><option>Corporate Event</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+            <div><label class="eyebrow block text-white/55"><span data-i18n="form_budget">Budget / Notes</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Optional"></div>
+            <div class="md:col-span-2"><label class="eyebrow block text-white/55"><span data-i18n="form_special">Special Request</span></label><textarea name="requests" rows="5" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Anniversary, preferred booth, bottle preferences, occasion details..."></textarea></div>
+            <div class="md:col-span-2 flex flex-wrap items-center justify-between gap-5 pt-2">
+              <p class="text-xs leading-6 text-white/45"><span data-i18n="form_disclaimer">Montreal Hospitality will review the inquiry and follow up to confirm availability and pricing.</span></p>
+              <button type="submit" class="magnetic-btn btn-fill bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button>
+            </div>
+            <div id="formSuccess" class="hidden md:col-span-2 border border-emerald-400/30 bg-emerald-400/10 px-4 py-4 text-sm text-emerald-100">Request sent successfully.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Concierge / Complete Your Night -->
+    <section class="bg-[#070707] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="comp_eyebrow">Complete Your Night</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="comp_title">Concierge-led evenings that start before dinner.</span></h2>
+            <p class="mt-6 max-w-2xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="comp_desc">Bord'Elle pairs naturally with the rest of the Montreal Hospitality network — transport in, a partner venue after, and everything coordinated through one channel.</span></p>
+            <div class="mt-10 grid gap-4 sm:grid-cols-2">
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t1_title">Transport</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t1_desc">Limos, sprinters, and chauffeur arrivals for groups coming to the Old Port in style.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t2_title">Nightlife</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t2_desc">A move from Bord'Elle to a partner club after midnight — all coordinated in advance.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t3_title">Packages</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t3_desc">Birthday and group packages that bundle the table, champagne, and concierge handling.</span></p></div>
+              <div class="lux-grid-card p-6"><h3 class="font-serif text-2xl text-white"><span data-i18n="comp_t4_title">After Hours</span></h3><p class="mt-3 text-sm leading-7 text-white/60"><span data-i18n="comp_t4_desc">Full evening planning for guests who want dinner, the show, and what comes after — all covered.</span></p></div>
+            </div>
+          </div>
+          <div class="fade-up img-hover overflow-hidden shadow-soft">
+            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" alt="Bord'Elle concierge experience" class="h-full min-h-[520px] w-full object-cover">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location -->
+    <section class="bg-[#0b0b0b] py-20 lg:py-24">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div class="fade-up">
+            <p class="eyebrow text-sand/80"><span data-i18n="loc_eyebrow">Location</span></p>
+            <h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="loc_title">In the heart of the Old Port.</span></h2>
+            <p class="mt-6 max-w-xl text-sm leading-8 text-white/65 md:text-base"><span data-i18n="loc_desc">Bord'Elle sits on Rue Saint-Jacques in the core of Old Montreal — steps from the waterfront, surrounded by the city's most storied architecture, and accessible from the best hotels in the district.</span></p>
+            <div class="mt-10 space-y-6 text-white/72">
+              <div class="flex gap-4"><i class="fa-solid fa-location-dot mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_addr_label">Address</span></p><p class="mt-1"><span data-i18n="loc_addr_val">390 Rue Saint-Jacques, Old Montreal, QC H2Y 1S1</span></p></div></div>
+              <div class="flex gap-4"><i class="fa-solid fa-car-side mt-1 text-sand"></i><div><p class="eyebrow text-white/45"><span data-i18n="loc_arr_label">Arrival</span></p><p class="mt-1"><span data-i18n="loc_arr_val">Chauffeur drop-offs on Saint-Jacques, walking distance from Place d'Armes and Old Port hotels.</span></p></div></div>
+            </div>
+          </div>
+          <div class="fade-up overflow-hidden shadow-soft">
+            <iframe class="map-frame h-[460px] w-full" src="https://www.google.com/maps?q=390+Rue+Saint-Jacques+Montreal&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue Features -->
+    <section class="scroll-fade border-y line-soft bg-[#080808] py-20">
+      <div class="mx-auto max-w-7xl px-6 md:px-10">
+        <div class="fade-up mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div><p class="eyebrow text-sand/80"><span data-i18n="feat_eyebrow">Venue Features</span></p><h2 class="mt-4 font-serif text-5xl md:text-6xl"><span data-i18n="feat_title">What guests come back for</span></h2></div>
+          <p class="max-w-md text-sm leading-7 text-white/55"><span data-i18n="feat_desc">Everything that makes Bord'Elle the Old Port's most enduring evening destination.</span></p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">01</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat1_title">Champagne cellar</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat1_desc">A list built for the room — from house pours to prestige cuvées and sabering service.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">02</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat2_title">Live entertainment</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat2_desc">Burlesque, jazz, cabaret, and curated DJ sets — the kind of programming that makes a night memorable.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">03</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat3_title">Private dining</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat3_desc">Velvet booths, intimate alcoves, and full buyout capacity for corporate and milestone events.</span></p></div>
+          <div class="fade-up interactive-card card-border p-7"><p class="eyebrow text-white/45">04</p><h3 class="mt-5 font-serif text-3xl"><span data-i18n="feat4_title">Old Port address</span></h3><p class="mt-4 text-sm leading-8 text-white/62"><span data-i18n="feat4_desc">The architecture, the neighbourhood, and the kind of room that makes the address part of the occasion.</span></p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="stickyReserveBtn" class="sticky-reserve-btn btn-hover"><span data-i18n="sticky_btn">Reserve Now</span></button>
+
+  <div id="reserveModal" class="reserve-modal fixed inset-0 z-[1000] items-center justify-center p-4">
+    <div class="reserve-backdrop absolute inset-0 bg-black/75"></div>
+    <div class="relative z-10 w-full max-w-xl border border-white/10 bg-[#0b0b0b] p-7 shadow-soft md:p-10">
+      <button id="closeReserveModal" class="absolute right-5 top-5 text-white/65 transition hover:text-white" aria-label="Close"><i class="fa-solid fa-xmark text-xl"></i></button>
+      <p class="eyebrow text-sand/80"><span data-i18n="modal_eyebrow">Reserve</span></p>
+      <h3 class="mt-4 font-serif text-4xl text-white md:text-5xl"><span data-i18n="modal_title">Book Your Night</span></h3>
+      <p class="mt-4 max-w-lg text-sm leading-7 text-white/60">Submit a request for a table, bottle service, or private dining. Montreal Hospitality will follow up to confirm availability and details.</p>
+      <form id="quickReserveForm" action="https://formspree.io/f/mykdvnra" method="POST" class="mt-8 grid gap-4 md:grid-cols-2">
+        <input type="hidden" name="venue" value="Bord'Elle">
+        <div class="md:col-span-2"><label class="eyebrow block text-white/45"><span data-i18n="form_req_type">Request Type</span></label><select name="requestType" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>Guest List</option><option>Bottle Service</option><option>Private Dining</option><option>Birthday / Group</option><option>Corporate Event</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_full_name">Full Name</span></label><input type="text" name="fullName" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Your full name"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_phone">Phone</span></label><input type="tel" name="phone" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="(514) 000-0000"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_email">Email</span></label><input type="email" name="email" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="your@email.com"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_date">Date</span></label><input type="date" name="date" required class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_guests">Guests</span></label><select name="guests" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white"><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>8</option><option>10+</option></select></div>
+        <div><label class="eyebrow block text-white/45"><span data-i18n="form_special">Special Request</span></label><input type="text" name="budget" class="mt-3 w-full border border-white/12 bg-black px-4 py-4 text-white placeholder:text-white/28" placeholder="Anniversary, booth preference, champagne"></div>
+        <div class="md:col-span-2"><button type="submit" class="magnetic-btn btn-fill w-full bg-white px-7 py-4 text-[11px] font-medium uppercase tracking-[0.28em] text-black"><span data-i18n="form_submit">Submit Request</span></button></div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-black px-6 pb-10 pt-20 md:px-10">
+    <div class="mx-auto grid max-w-7xl gap-12 border-b border-white/10 pb-14 md:grid-cols-[1.1fr_.7fr_.7fr_.8fr]">
+      <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 object-contain"><p class="mt-6 max-w-md text-sm leading-8 text-white/52"><span data-i18n="footer_tagline">Luxury concierge, nightlife access, and curated hospitality experiences in Montreal.</span></p></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_explore">Explore</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><a class="block hover:text-white" href="venues.html" data-i18n="nav_venues">Venues</a><a class="block hover:text-white" href="packages.html" data-i18n="nav_packages"><span data-i18n="comp_t3_title">Packages</span></a><a class="block hover:text-white" href="service.html" data-i18n="nav_services">Services</a><a class="block hover:text-white" href="event.html" data-i18n="nav_events">Events</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_contact">Contact</span></p><div class="mt-5 space-y-3 text-sm text-white/72"><p>514-378-0154</p><a class="block hover:text-white" href="mailto:info@montrealhospitality.com">info@montrealhospitality.com</a><a class="block hover:text-white" href="https://www.instagram.com/montrealhospitality/?hl=en">Instagram</a></div></div>
+      <div><p class="eyebrow text-white/45"><span data-i18n="footer_venue_label">The Venue</span></p><p class="mt-5 text-sm leading-8 text-white/60">Bord'Elle shares a unified visual system with Hang Bar, Yoko Luna, and the rest of the venue pages — same editorial direction, tailored to each room's identity.</p></div>
+    </div>
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 pt-8 text-[11px] uppercase tracking-[0.24em] text-white/32 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Montreal Hospitality</p>
+      <div class="flex gap-6"><a href="#" class="hover:text-white/70"><span data-i18n="footer_privacy">Privacy</span></a><a href="#" class="hover:text-white/70"><span data-i18n="footer_terms">Terms</span></a></div>
+    </div>
+  </footer>
+
+  <script>
+    const galleryImages = [
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186893/550706146_18410648617116443_3457180014845744166_n_bke0jd.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186911/542805827_18408606703116443_4925103620855617631_n_itm5na.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186941/573800260_18418294435116443_3035315577795766418_n_ryhdzb.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771186976/488221308_1082093630624386_1451221733486931798_n_b8jo6f.jpg',
+      'https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187009/463339699_18363139012116443_565809555549906035_n_fwsbmy.jpg'
+    ];
+
+    // Build scrolling gallery rail (same as Yoko Luna)
+    (function(){
+      const rail = document.getElementById('gallery-rail');
+      if (!rail) return;
+      const shuffled = [...galleryImages].sort(() => Math.random() - 0.5);
+      shuffled.forEach((src) => {
+        const btn = document.createElement('button');
+        btn.className = 'img-hover overflow-hidden relative group shrink-0 snap-start';
+        btn.style.cssText = 'height:420px;width:auto;';
+        btn.onclick = () => openLightbox(galleryImages.indexOf(src));
+        const img = document.createElement('img');
+        img.src = src; img.alt = "Bord'Elle";
+        img.className = 'h-full w-auto object-cover block transition-transform duration-700 group-hover:scale-105';
+        img.loading = 'lazy';
+        const overlay = document.createElement('div');
+        overlay.className = 'absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-300';
+        btn.appendChild(img); btn.appendChild(overlay);
+        rail.appendChild(btn);
+      });
+      (function(){
+        const prev=document.getElementById('gallery-prev');
+        const next=document.getElementById('gallery-next');
+        const progress=document.getElementById('gallery-progress');
+        if(!rail)return;
+        const scrollAmt=()=>Math.min(rail.clientWidth*0.75,600);
+        if(prev)prev.addEventListener('click',()=>rail.scrollBy({left:-scrollAmt(),behavior:'smooth'}));
+        if(next)next.addEventListener('click',()=>rail.scrollBy({left:scrollAmt(),behavior:'smooth'}));
+        const updateProgress=()=>{if(!progress)return;const max=rail.scrollWidth-rail.clientWidth;const pct=max>0?Math.round((rail.scrollLeft/max)*100):0;progress.style.width=pct+'%';};
+        rail.addEventListener('scroll',updateProgress,{passive:true});
+        setTimeout(updateProgress,300);
+      })();
+      let isDown=false,startX,scrollLeft;
+      rail.addEventListener('mousedown',(e)=>{isDown=true;rail.style.cursor='grabbing';startX=e.pageX-rail.offsetLeft;scrollLeft=rail.scrollLeft;});
+      rail.addEventListener('mouseleave',()=>{isDown=false;rail.style.cursor='';});
+      rail.addEventListener('mouseup',()=>{isDown=false;rail.style.cursor='';});
+      rail.addEventListener('mousemove',(e)=>{if(!isDown)return;e.preventDefault();const x=e.pageX-rail.offsetLeft;rail.scrollLeft=scrollLeft-(x-startX)*1.2;});
+    })();
+
+    let currentIndex = 0;
+    function openLightbox(i){currentIndex=i;const box=document.getElementById('lightbox');const img=document.getElementById('lightbox-image');if(!box||!img)return;img.src=galleryImages[i];box.classList.add('open');document.body.style.overflow='hidden';}
+    function closeLightbox(){const box=document.getElementById('lightbox');if(!box)return;box.classList.remove('open');document.body.style.overflow='';}
+    function changeLightbox(dir){const img=document.getElementById('lightbox-image');if(!img)return;currentIndex=(currentIndex+dir+galleryImages.length)%galleryImages.length;img.src=galleryImages[currentIndex];}
+    document.addEventListener('keydown',(e)=>{const box=document.getElementById('lightbox');if(box&&box.classList.contains('open')){if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')changeLightbox(-1);if(e.key==='ArrowRight')changeLightbox(1);}});
+
+    (function(){const navbar=document.getElementById('navbar');if(!navbar)return;let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{navbar.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+    (function(){const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));})();
+    (function(){const btn=document.getElementById('mobile-menu-btn');const menu=document.getElementById('mobile-menu');if(!btn||!menu)return;let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+    (function(){const btn=document.getElementById('venues-menu-btn');const mega=document.getElementById('venues-mega');const chevron=document.getElementById('venues-chevron');const wrapper=document.getElementById('venues-menu-wrapper');const previewImg=document.getElementById('venues-preview-img');const previewLabel=document.getElementById('venues-preview-label');if(!btn||!mega||!chevron||!wrapper||!previewImg||!previewLabel)return;let closeTimer=null;function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeMenu();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});})();
+    (function(){const rail=document.getElementById('social-rail');const prev=document.getElementById('social-prev');const next=document.getElementById('social-next');if(!rail||!prev||!next)return;const getAmt=()=>Math.min(rail.clientWidth*0.9,520);prev.addEventListener('click',()=>rail.scrollBy({left:-getAmt(),behavior:'smooth'}));next.addEventListener('click',()=>rail.scrollBy({left:getAmt(),behavior:'smooth'}));rail.addEventListener('wheel',(e)=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();rail.scrollLeft+=e.deltaY;}},{passive:false});})();
+    (function(){const dividers=document.querySelectorAll('.section-divider');const heroMedia=document.querySelector('.hero-parallax');const rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.2});dividers.forEach(d=>obs.observe(d));if(!rm&&heroMedia){let t=false;const onScroll=()=>{if(t)return;t=true;requestAnimationFrame(()=>{const offset=Math.min(window.scrollY*0.12,70);heroMedia.style.setProperty('--hero-offset',`${offset}px`);t=false;});};onScroll();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);}})();
+    (function(){if(window.matchMedia('(hover:none)').matches)return;document.querySelectorAll('.magnetic-btn').forEach((btn)=>{btn.addEventListener('mousemove',(e)=>{const rect=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-rect.left-rect.width/2)*0.06}px,${(e.clientY-rect.top-rect.height/2)*0.10}px)`;});btn.addEventListener('mouseleave',()=>{btn.style.transform='';});});})();
+    (function(){const form=document.getElementById('reservationForm');const success=document.getElementById('formSuccess');if(!form||!success)return;form.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(r.ok){success.classList.remove('hidden');form.reset();setTimeout(()=>success.classList.add('hidden'),5000);}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});})();
+    (function(){const stickyBtn=document.getElementById('stickyReserveBtn');const modal=document.getElementById('reserveModal');const closeBtn=document.getElementById('closeReserveModal');if(!stickyBtn||!modal||!closeBtn)return;const open=()=>modal.classList.add('open');const close=()=>modal.classList.remove('open');stickyBtn.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',(e)=>{if(e.target===modal||e.target.classList.contains('reserve-backdrop'))close();});document.addEventListener('keydown',(e)=>{if(e.key==='Escape')close();});const qf=document.getElementById('quickReserveForm');if(qf){qf.addEventListener('submit',async(e)=>{e.preventDefault();try{const r=await fetch(qf.action,{method:'POST',body:new FormData(qf),headers:{Accept:'application/json'}});if(r.ok){qf.reset();close();alert('Request sent successfully.');}else{alert('There was a problem submitting the request.');}}catch(err){alert('There was a problem submitting the request.');}});}})();
+
+    // Logo fallback — if Cloudinary URL fails, render text mark
+    (function(){
+      const img = document.getElementById('bordelle-logo-img');
+      if (!img) return;
+      img.onerror = function(){
+        this.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.innerHTML = "<span style=\"font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,3.5rem);font-weight:300;letter-spacing:0.22em;color:#C5A059;text-transform:uppercase;\">Bord'Elle</span>";
+        fallback.className = 'mx-auto mb-10';
+        this.parentNode.insertBefore(fallback, this);
+      };
+    })();
+  </script>
+</body>
+</html>

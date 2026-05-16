@@ -1,333 +1,771 @@
-<!-- limos-prestige.html -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Limo Prestige | Private Limousines | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { 'mh-navy': '#0B0F19','mh-gold': '#C5A059','mh-gold-light': '#D6B88A','mh-dark': '#05070A','mh-gray': '#1A1D24' },
-                    fontFamily: { serif: ['"Cormorant Garamond"', 'serif'], sans: ['"Montserrat"', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: #0B0F19; color: #ffffff; overflow-x: hidden; font-family: 'Montserrat', sans-serif; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .tao-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: -0.02em; }
-        .tao-subheading { font-family: 'Montserrat', sans-serif; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; }
-        #loader { position: fixed; inset: 0; background: #0B0F19; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .nav-scrolled { background-color: rgba(11,15,25,0.95); backdrop-filter: blur(10px); padding-top: 1.2rem !important; padding-bottom: 1.2rem !important; border-bottom: 1px solid rgba(197,160,89,0.1); }
-        .link-hover { position: relative; } .link-hover::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0; background-color: #C5A059; transition: width 0.3s ease; } .link-hover:hover::after { width: 100%; }
-        .btn-hover { position: relative; overflow: hidden; transition: all 0.3s ease; } .btn-hover::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent); transition: left 0.5s ease; } .btn-hover:hover::before { left: 100%; }
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16,1,0.3,1); } .reveal.active { opacity: 1; transform: translateY(0); }
-        .spec-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; } .spec-box:hover { border-color: #C5A059; background: rgba(197,160,89,0.05); }
-        .gallery-img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); } .gallery-item:hover .gallery-img { transform: scale(1.05); }
-        .form-input { background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px 0; width: 100%; transition: border-color 0.3s ease; } .form-input:focus { outline: none; border-color: #C5A059; } .form-input::placeholder { color: rgba(255,255,255,0.5); } select.form-input option { background: #05070A; }
-        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #0B0F19; } ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 4px; }
-    
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-        }
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .lang-btn:hover { color: #C5A059; }
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.1);
-        }
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Limo Prestige | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          'mh-navy':'#0B0F19','mh-gold':'#C5A059','mh-gold-light':'#D6B88A',
+          'mh-dark':'#05070A','mh-gray':'#1A1D24','old-port':'#8B7355'
+        },
+        fontFamily: { serif:['"Cormorant Garamond"','serif'], sans:['"Montserrat"','sans-serif'] }
+      }}
+    }
+  </script>
+  <style>
+    body { background:#0B0F19; color:#fff; overflow-x:hidden; font-family:'Montserrat',sans-serif; }
+    .tao-heading { font-family:'Cormorant Garamond',serif; font-weight:300; letter-spacing:-0.02em; }
+    .tao-subheading { font-family:'Montserrat',sans-serif; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; }
 
-    </style>
-    <base target="_self">
+    /* hero animate */
+    .hero-animate { opacity:0; transform:translateY(30px); filter:blur(8px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1), filter .9s cubic-bezier(.16,1,.3,1);
+      will-change: opacity,transform,filter; }
+    .hero-animate.visible { opacity:1; transform:translateY(0); filter:blur(0); }
+    .delay-1 { transition-delay:.2s; } .delay-2 { transition-delay:.5s; }
+    .delay-3 { transition-delay:.8s; } .delay-4 { transition-delay:1.1s; }
+
+    /* reveal / stagger */
+    .reveal { opacity:0; transform:translateY(32px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .reveal.active { opacity:1; transform:translateY(0); }
+    .stagger-children > * { opacity:0; transform:translateY(24px);
+      transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+    .stagger-children.active > *:nth-child(1) { transition-delay:0ms;   opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(2) { transition-delay:100ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(3) { transition-delay:200ms; opacity:1; transform:translateY(0); }
+    .stagger-children.active > *:nth-child(4) { transition-delay:300ms; opacity:1; transform:translateY(0); }
+
+    /* nav */
+    #navbar { will-change: background-color,padding; }
+    .nav-scrolled { background-color:rgba(11,15,25,.95)!important; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+      padding-top:1.2rem!important; padding-bottom:1.2rem!important; border-bottom:1px solid rgba(197,160,89,.1); }
+
+    /* img zoom */
+    .img-zoom-container { overflow:hidden; }
+    .img-zoom { transition:transform 1.1s cubic-bezier(.16,1,.3,1); will-change:transform; }
+    .group:hover .img-zoom { transform:scale(1.07); }
+
+    /* links */
+    .link-hover { position:relative; }
+    .link-hover::after { content:''; position:absolute; width:0; height:1px; bottom:-4px; left:0;
+      background:#C5A059; transition:width .3s ease; }
+    .link-hover:hover::after { width:100%; }
+
+    /* buttons */
+    .btn-hover { position:relative; overflow:hidden; transition:all .3s ease; }
+    .btn-hover::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); transition:left .5s ease; }
+    .btn-hover:hover::before { left:100%; }
+
+    /* card lift */
+    @media (hover:hover) {
+      .card-lift { transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1); will-change:transform; }
+      .card-lift:hover { transform:translateY(-6px); box-shadow:0 18px 36px rgba(0,0,0,.35); }
+    }
+    a.card-lift { display:block; text-decoration:none; }
+
+    /* gradient text */
+    @keyframes gradient-shift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    .gradient-text { background:linear-gradient(90deg,#C5A059,#D6B88A,#C5A059); background-size:200% auto;
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      animation:gradient-shift 4s ease infinite; }
+
+    /* loader */
+    #loader { position:fixed; inset:0; background:#0B0F19; z-index:9999; display:flex; justify-content:center; align-items:center; transition:opacity .7s ease; }
+    @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+    /* line reveal */
+    .line-reveal { width:0; height:1px; background:#C5A059; margin:0 auto; transition:width 1s cubic-bezier(.16,1,.3,1); }
+    .line-reveal.visible { width:60px; }
+
+    /* form inputs */
+    .form-field { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.25);
+      color:#fff; padding:12px 0; width:100%; font-family:'Montserrat',sans-serif; font-size:.875rem;
+      transition:border-color .3s ease; }
+    .form-field:focus { outline:none; border-color:#C5A059; }
+    .form-field::placeholder { color:rgba(255,255,255,.4); }
+    select.form-field option { background:#0B0F19; }
+
+    /* gallery / lightbox */
+    #lightbox { position:fixed; inset:0; background:rgba(0,0,0,.96); z-index:10000;
+      display:none; justify-content:center; align-items:center; opacity:0; transition:opacity .3s ease; }
+    #lightbox.active { display:flex; opacity:1; }
+    #lb-img { max-width:90%; max-height:85vh; object-fit:contain; }
+    .lb-btn { position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(197,160,89,.8); border:none; width:50px; height:50px; border-radius:50%;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; color:#0B0F19;
+      font-size:1.1rem; transition:background .2s; }
+    .lb-btn:hover { background:#C5A059; }
+    .lb-close { position:absolute; top:2rem; right:2rem; background:rgba(197,160,89,.2);
+      border:none; width:48px; height:48px; border-radius:50%; color:#fff; font-size:1.2rem;
+      cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+    .lb-close:hover { background:#C5A059; color:#0B0F19; }
+
+    /* spec boxes */
+    .spec-box { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.1); transition:all .3s ease; }
+    .spec-box:hover { border-color:#C5A059; background:rgba(197,160,89,.05); }
+    .spec-card { background:linear-gradient(135deg,#1A1D24 0%,#0B0F19 100%);
+      border:1px solid rgba(197,160,89,.2); transition:all .3s ease; }
+    .spec-card:hover { border-color:#C5A059; transform:translateY(-4px); }
+
+    /* success / error */
+    .success-box { display:none; background:rgba(197,160,89,.08); border:1px solid #C5A059; padding:40px; text-align:center; margin-top:24px; }
+    .success-box.active { display:block; animation:slideIn .5s ease; }
+    .error-box { display:none; background:rgba(239,68,68,.1); border:1px solid rgba(239,68,68,.5); padding:20px; text-align:center; margin-top:16px; color:#ef4444; }
+    .error-box.active { display:block; animation:slideIn .5s ease; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+
+    /* lang switcher */
+    .lang-switcher { display:flex; align-items:center; gap:.5rem; font-size:11px; letter-spacing:.15em; font-weight:500; }
+    .lang-btn { padding:.25rem .5rem; border:1px solid transparent; background:transparent; color:#fff; cursor:pointer; transition:all .3s ease; text-transform:uppercase; }
+    .lang-btn:hover { color:#C5A059; }
+    .lang-btn.active { border-color:#C5A059; color:#C5A059; background:rgba(197,160,89,.1); }
+    .lang-divider { width:1px; height:12px; background:rgba(255,255,255,.3); }
+    .mobile-lang-switcher { display:flex; justify-content:center; gap:1rem; margin-top:2rem; padding-top:2rem; border-top:1px solid rgba(197,160,89,.2); }
+
+    /* scroll indicator */
+    .scroll-indicator { opacity:0; animation:bounce 2s infinite 2.5s, fadeIn 1s ease 2.5s forwards; }
+    @keyframes fadeIn { to{opacity:1} }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-8px)} }
+
+    img { max-width:100%; height:auto; display:block; }
+
+    @media (prefers-reduced-motion:reduce) {
+      .hero-animate,.reveal,.stagger-children > *,.img-zoom,.card-lift,.gradient-text,.btn-hover::before { transition:none!important; animation:none!important; }
+      .hero-animate { opacity:1; transform:none; filter:none; }
+      .reveal { opacity:1; transform:none; }
+      .stagger-children > * { opacity:1; transform:none; }
+      .line-reveal { width:60px; }
+    }
+  </style>
+  <base target="_self">
 </head>
 <body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
 
-    <div id="loader"><div class="text-center"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto"><div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div></div></div></div>
-
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium bg-mh-navy/90 backdrop-blur-md border-b border-white/10">
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
-        <a href="index.html" target="_self" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain"></a>
-        <div class="hidden lg:flex items-center gap-12"><a href="index.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Home</a><a href="venues.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Venues</a><a href="sports.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Sports</a><a href="service.html" target="_self" class="link-hover text-mh-gold transition-colors">Services</a><a href="event.html" target="_self" class="link-hover hover:text-mh-gold transition-colors">Events</a><a href="index.html#careers" target="_self" class="link-hover hover:text-mh-gold transition-colors">Careers</a></div>
-        <div class="hidden lg:flex items-center gap-6">
-    <div class="lang-switcher">
-        <button class="lang-btn active" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-        <div class="lang-divider"></div>
-        <button class="lang-btn" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
+  <div id="loader">
+    <div class="text-center">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-24 mb-6 animate-pulse object-contain mx-auto" loading="eager">
+      <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
+        <div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite;"></div>
+      </div>
     </div>
-    <a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
-    <a href="contact.html" class="btn-hover border border-white/30 px-8 py-3 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
-</div>
-    </nav>
-    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a><a href="venues.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a><a href="sports.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a><a href="service.html" target="_self" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a><a href="event.html" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a><a href="index.html#careers" target="_self" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
-    
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" type="button" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" type="button" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
-</div>
+  </div>
 
-    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771461426/IMG_3053_1_jyc480.jpg" alt="Limo Prestige" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-b from-mh-navy/70 via-mh-navy/50 to-mh-navy"></div></div>
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto pt-20">
-            <p class="tao-subheading text-mh-gold mb-6 tracking-[0.3em] text-xs md:text-sm reveal">The Classic</p>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl tao-heading text-white mb-6 leading-[0.95] reveal">Limo Prestige</h1>
-            <p class="text-gray-300 max-w-2xl mx-auto font-light text-lg mb-10 reveal">The epitome of classic luxury. With elegant lines, plush leather seating, and ambient lighting, perfect for weddings, proms, and exclusive events where sophistication is paramount.</p>
-            <div class="reveal"><a href="#inquiry" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-10 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">Reserve Now <i class="fa-solid fa-arrow-down"></i></a></div>
-        </div>
-    </header>
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+    <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
 
-    <section class="py-24 bg-mh-dark">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal"><span class="tao-subheading text-mh-gold text-[11px] block mb-4">Gallery</span><h2 class="text-4xl md:text-5xl tao-heading text-white">Exterior Excellence</h2></div>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="gallery-item overflow-hidden rounded-sm h-[400px] reveal"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772240076/Screenshot_2026-02-27_195414_eevcoo.png" class="gallery-img w-full h-full object-cover" alt="Limo Prestige Front View"></div>
-                <div class="gallery-item overflow-hidden rounded-sm h-[400px] reveal"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239947/IMG_3053_3_n9idwx.jpg" class="gallery-img w-full h-full object-cover" alt="Limo Prestige Side View"></div>
-                <div class="gallery-item overflow-hidden rounded-sm h-[400px] reveal"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239946/IMG_5062_2_bcplaw.jpg" class="gallery-img w-full h-full object-cover" alt="Limo Prestige Detail"></div>
+    <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain" loading="eager">
+    </a>
+
+    <div class="hidden lg:flex items-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+      <a href="index.html" class="link-hover hover:text-mh-gold transition-colors">Home</a>
+
+      <div class="relative" id="venues-menu-wrapper">
+        <a href="venues.html" id="venues-menu-btn"
+           class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1 uppercase text-[11px] tracking-[0.2em] font-medium"
+           aria-expanded="false">
+          <span>Venues</span>
+          <i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+        </a>
+        <div id="venues-mega"
+             class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none"
+             style="top:72px; transform:translateY(-8px); transition:opacity .22s ease,transform .22s ease; right:auto; width:fit-content;">
+          <div class="px-20 py-12 flex gap-0">
+            <div class="flex-1 border-r border-white/8 pr-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8">Our Venues</p>
+              <ul>
+                <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="hang bar.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="Bordelle.html"  class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+                <li><a href="212.html"       class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
             </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-mh-navy">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Specifications</span>
-                    <h2 class="text-4xl md:text-5xl tao-heading text-white mb-8">Vehicle Details</h2>
-                    <div class="grid grid-cols-2 gap-6 mb-10">
-                        <div class="spec-box p-6"><i class="fa-solid fa-users text-mh-gold text-xl mb-3"></i><span class="text-gray-400 text-xs block mb-1">Capacity</span><span class="text-white font-serif text-xl">10-12 Guests</span></div>
-                        <div class="spec-box p-6"><i class="fa-solid fa-ruler-horizontal text-mh-gold text-xl mb-3"></i><span class="text-gray-400 text-xs block mb-1">Length</span><span class="text-white font-serif text-xl">30 Feet</span></div>
-                        <div class="spec-box p-6"><i class="fa-solid fa-wine-glass text-mh-gold text-xl mb-3"></i><span class="text-gray-400 text-xs block mb-1">Bar</span><span class="text-white font-serif text-xl">Wet Bar</span></div>
-                        <div class="spec-box p-6"><i class="fa-solid fa-clock text-mh-gold text-xl mb-3"></i><span class="text-gray-400 text-xs block mb-1">Min. Rental</span><span class="text-white font-serif text-xl">3 Hours</span></div>
-                    </div>
-                    <h3 class="text-2xl font-serif text-white mb-6">Interior Features</h3>
-                    <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-mh-gold"></i><span>Perimeter seating configuration</span></li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-mh-gold"></i><span>Starlight headliner & fiber optic lighting</span></li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-mh-gold"></i><span>Privacy partition with intercom</span></li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-mh-gold"></i><span>Premium leather upholstery</span></li>
-                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-mh-gold"></i><span>Climate control system</span></li>
-                    </ul>
+            <div class="flex-1 border-r border-white/8 px-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8 invisible">x</p>
+              <ul>
+                <li><a href="la voute.html"    class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+                <li><a href="Soubois.html"      class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+                <li><a href="beachclub.html"   class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+                <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/8 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              </ul>
+              <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[.25em] uppercase transition-all group">
+                <span>View All Venues</span>
+                <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+              </a>
+            </div>
+            <div class="w-[380px] flex-shrink-0 pl-12">
+              <p class="text-gray-500 text-[9px] tracking-[.35em] uppercase mb-8">Featured</p>
+              <div class="relative overflow-hidden" style="height:320px;">
+                <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg"
+                     class="w-full h-full object-cover" style="transition:opacity .2s ease;" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-5 left-5">
+                  <p class="text-gray-400 text-[9px] tracking-[.3em] uppercase mb-1">Now Open</p>
+                  <p id="venues-preview-label" class="text-white font-bold text-base tracking-widest uppercase">Yoko Luna</p>
                 </div>
-                <div class="reveal"><div class="relative"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771460586/limousine-montreal_ipowy9.jpg" class="w-full h-[600px] object-cover rounded-sm" alt="Limo Prestige Interior"><div class="absolute inset-0 border border-mh-gold/20 rounded-sm m-4 pointer-events-none"></div></div></div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Inquiry Form -->
-    <section id="inquiry" class="py-24 bg-mh-dark relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10"><div class="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div></div>
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4">Reserve Today</span>
-                <h2 class="text-4xl md:text-6xl tao-heading text-white mb-6">Experience Classic Elegance</h2>
-                <p class="text-gray-400">Complete the form below and our concierge team will be in touch within 24 hours.</p>
-            </div>
+      <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors">Packages</a>
+      <a href="sports.html"   class="link-hover hover:text-mh-gold transition-colors">Sports</a>
+      <a href="service.html"  class="link-hover hover:text-mh-gold transition-colors ">Services</a>
+      <a href="event.html"    class="link-hover hover:text-mh-gold transition-colors">Events</a>
+      <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors">Careers</a>
+    </div>
 
-            <div id="form-success" class="hidden text-center py-16">
-                <div class="w-20 h-20 rounded-full bg-mh-gold/10 border border-mh-gold/40 flex items-center justify-center mx-auto mb-8"><i class="fa-solid fa-check text-mh-gold text-3xl"></i></div>
-                <h3 class="text-3xl tao-heading text-white mb-4">Request Received</h3>
-                <p class="text-gray-400 font-light mb-8">Our concierge team will contact you within 24 hours.</p>
-                <div class="inline-block border border-mh-gold/30 bg-mh-gold/5 px-10 py-6">
-                    <span class="tao-subheading text-mh-gold text-[10px] block mb-2 tracking-[0.25em]">Your Reference Number</span>
-                    <span id="ref-number" class="text-3xl font-serif text-white tracking-widest"></span>
-                </div>
-                <p class="text-gray-600 text-xs mt-6 tracking-widest uppercase">Please keep this number for your records</p>
-            </div>
+    <div class="hidden lg:flex items-center gap-8">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <div class="lang-divider"></div>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+      <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
+      <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+    </div>
+  </nav>
 
-            <form id="limo-form" class="space-y-8 reveal" onsubmit="submitLimoForm(event)">
-                <input type="hidden" name="reference_number" id="hidden-ref">
-                <input type="hidden" name="vehicle" value="Limo Prestige">
-                <div class="grid md:grid-cols-2 gap-8"><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">First Name</label><input type="text" name="first_name" class="form-input" placeholder="John" required></div><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Last Name</label><input type="text" name="last_name" class="form-input" placeholder="Doe" required></div></div>
-                <div class="grid md:grid-cols-2 gap-8"><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Email</label><input type="email" name="email" class="form-input" placeholder="john@example.com" required></div><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Phone</label><input type="tel" name="phone" class="form-input" placeholder="514-378-0154" required></div></div>
-                <div class="grid md:grid-cols-2 gap-8"><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Event Date</label><input type="date" name="event_date" class="form-input" required></div><div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Number of Guests</label><input type="number" name="guests" min="1" max="12" class="form-input" placeholder="8" required></div></div>
-                <div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Pickup Location</label><input type="text" name="pickup_location" class="form-input" placeholder="Hotel, address, venue..." required></div>
-                <div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Event Type</label><input type="text" name="event_type" class="form-input" placeholder="Wedding, prom, anniversary, gala..." required></div>
-                <div><label class="block text-xs tracking-[0.2em] uppercase text-gray-400 mb-2">Special Requests</label><textarea name="special_requests" class="form-input resize-none" rows="4" placeholder="Decorations, flowers, champagne, itinerary, or any other requests..."></textarea></div>
-                <div class="text-center"><button type="submit" id="submit-btn" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-12 py-4 text-xs tracking-[0.25em] uppercase hover:bg-white transition-all duration-300">Request Booking <i class="fa-solid fa-paper-plane"></i></button></div>
-                <p id="form-error" class="hidden text-center text-red-400 text-sm tracking-wider">Something went wrong. Please try again or contact us directly.</p>
-            </form>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+    <a href="index.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Home</a>
+    <a href="venues.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Venues</a>
+    <a href="packages.html"    class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Packages</a>
+    <a href="sports.html"      class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Sports</a>
+    <a href="service.html"     class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Services</a>
+    <a href="event.html"       class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Events</a>
+    <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform">Careers</a>
+    <div class="mobile-lang-switcher">
+      <button class="lang-btn active text-lg" data-lang="en">EN</button>
+      <div class="lang-divider h-6"></div>
+      <button class="lang-btn text-lg" data-lang="fr">FR</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="relative h-screen w-full overflow-hidden flex items-end justify-start">
+    <div class="absolute inset-0 z-0">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771461426/IMG_3053_1_jyc480.jpg" alt="Limo Prestige" class="w-full h-full object-cover" loading="eager">
+      <div class="absolute inset-0 bg-gradient-to-t from-mh-navy via-mh-navy/60 to-mh-navy/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-mh-navy/70 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 pb-24 w-full">
+      <div class="max-w-2xl">
+        <div class="line-reveal hero-animate delay-1 mb-8" style="margin-left:0;"></div>
+        <p class="tao-subheading text-mh-gold text-[11px] tracking-[.35em] mb-6 hero-animate delay-2">Classic Limousine</p>
+        <h1 class="tao-heading text-white leading-[.9] mb-4 overflow-hidden">
+          <span class="block hero-animate delay-2" style="font-size:clamp(3rem,8vw,7rem);">Limo Prestige</span>
+        </h1>
+        <p class="text-gray-400 text-sm tracking-[.2em] uppercase mb-6 hero-animate delay-3">12 Passengers · Starlight Interior · Privacy Partition</p>
+        <p class="text-gray-300 font-light text-lg max-w-lg leading-relaxed hero-animate delay-3">The epitome of classic luxury. Elegant lines, starlight headliner, and plush leather — for moments that demand sophistication.</p>
+        <div class="flex flex-wrap gap-4 mt-10 hero-animate delay-4">
+          <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-10 py-4 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+            Reserve Now <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#gallery" class="btn-hover inline-flex items-center gap-3 border border-white/40 text-white px-10 py-4 text-xs tracking-[.25em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all duration-300">
+            <i class="fa-solid fa-images"></i> Gallery
+          </a>
+          <a href="limousine.html" class="btn-hover inline-flex items-center gap-3 border border-white/20 text-white/60 px-8 py-4 text-xs tracking-[.25em] uppercase hover:border-white/50 hover:text-white transition-all duration-300">
+            <i class="fa-solid fa-arrow-left text-[10px]"></i> All Limousines
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+    <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 scroll-indicator text-mh-gold/50">
+      <i class="fa-solid fa-chevron-down text-sm"></i>
+    </div>
+  </header>
 
-    <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 mb-8 object-contain"><p class="text-gray-500 text-sm leading-relaxed font-light">Redefining the art of the night in Montreal. Premium limousine service for those who demand excellence.</p></div>
-                <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4><ul class="space-y-4 text-sm text-gray-500 font-light"><li><a href="venues.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li><li><a href="sports.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li><li><a href="sprinters.html" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sprinters</a></li><li><a href="index.html#careers" target="_self" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li></ul></div>
-                <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Contact</h4><ul class="space-y-4 text-sm text-gray-500 font-light"><li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li><li>514-378-0154</li></ul></div>
-                <div><h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4><div class="flex gap-6"><a href="https://www.instagram.com/montrealhospitality/?hl=en" target="_self" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a><a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a><a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a></div></div>
-            </div>
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest"><p>&copy; 2024 Montreal Hospitality Group</p><div class="flex gap-8 mt-4 md:mt-0"><a href="#" class="hover:text-white transition-colors">Privacy</a><a href="#" class="hover:text-white transition-colors">Terms</a></div></div>
+  <!-- Quick Stats Bar -->
+  <section class="py-8 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-3 gap-0 stagger-children">
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-users text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">12</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">Passengers</span>
         </div>
-    </footer>
+        <div class="text-center py-2 border-x border-white/8 reveal">
+          <i class="fa-solid fa-star text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">Starlight</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">Headliner</span>
+        </div>
+        <div class="text-center py-2 reveal">
+          <i class="fa-solid fa-door-closed text-mh-gold text-xl mb-2 block"></i>
+          <span class="tao-heading text-white text-3xl block">Private</span>
+          <span class="text-gray-500 text-[10px] uppercase tracking-widest">Partition</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
-        function generateRef() { const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let ref = 'MH-'; for (let i = 0; i < 8; i++) ref += chars.charAt(Math.floor(Math.random() * chars.length)); return ref; }
-        async function submitLimoForm(e) {
-            e.preventDefault(); const btn = document.getElementById('submit-btn'); const form = document.getElementById('limo-form'); const errorMsg = document.getElementById('form-error');
-            const ref = generateRef(); document.getElementById('hidden-ref').value = ref;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...'; btn.disabled = true; errorMsg.classList.add('hidden');
-            try { const response = await fetch('https://formspree.io/f/mykdvnra', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } }); if (response.ok) { document.getElementById('ref-number').textContent = ref; form.classList.add('hidden'); const s = document.getElementById('form-success'); s.classList.remove('hidden'); s.scrollIntoView({ behavior: 'smooth', block: 'center' }); } else { throw new Error(); } }
-            catch { errorMsg.classList.remove('hidden'); btn.innerHTML = 'Request Booking <i class="fa-solid fa-paper-plane"></i>'; btn.disabled = false; }
-        }
-        window.addEventListener('load', () => { const loader = document.getElementById('loader'); setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => { loader.style.display = 'none'; document.querySelectorAll('.reveal').forEach(el => el.classList.add('active')); }, 800); }, 1200); });
-        const navbar = document.getElementById('navbar'); window.addEventListener('scroll', () => { navbar.classList.toggle('nav-scrolled', window.scrollY > 50); });
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn'); const mobileMenu = document.getElementById('mobile-menu'); let isMenuOpen = false;
-        function toggleMenu() { isMenuOpen = !isMenuOpen; mobileMenu.classList.toggle('-translate-x-full', !isMenuOpen); mobileMenuBtn.innerHTML = isMenuOpen ? '<i class="fa-solid fa-times text-xl"></i>' : '<i class="fa-solid fa-bars text-xl"></i>'; }
-        mobileMenuBtn.addEventListener('click', toggleMenu); document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
-    </script>
+  <!-- Overview -->
+  <section class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+      <div class="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="reveal">
+          <span class="tao-subheading text-mh-gold text-[11px] block mb-6 tracking-[.3em]">Overview</span>
+          <h2 class="tao-heading text-white text-5xl md:text-6xl mb-8">Limo Prestige</h2>
+          <p class="text-gray-400 font-light text-lg leading-relaxed mb-10">The Limo Prestige defines classic elegance for weddings, proms, and exclusive events where every detail matters. A starlight headliner with fiber optic lighting creates a breathtaking atmosphere, while a privacy partition with intercom ensures complete discretion. Premium leather upholstery, individual climate control, and impeccable finishing make every journey feel like a ceremony.</p>
+          <div class="grid grid-cols-2 gap-4 mb-10">
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-users text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">12 Passengers</p>
+              <p class="text-gray-500 text-xs mt-1">Maximum Capacity</p>
+            </div>
+            <div class="spec-card p-5">
+              <i class="fa-solid fa-suitcase-rolling text-mh-gold text-lg mb-3 block"></i>
+              <p class="text-white font-medium text-sm">Fiber Optic</p>
+              <p class="text-gray-500 text-xs mt-1">Starlight Ceiling System</p>
+            </div>
+          </div>
+          <div class="flex gap-4 flex-wrap">
+            <a href="#reserve" class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-8 py-3 text-xs tracking-[.25em] uppercase hover:bg-white transition-all duration-300">
+              Book Now <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="relative group">
+            <div class="img-zoom-container h-[580px] overflow-hidden">
+              <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772240076/Screenshot_2026-02-27_195414_eevcoo.png" alt="Limo Prestige" class="img-zoom w-full h-full object-cover">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-mh-gold p-6 hidden lg:block">
+              <span class="text-mh-navy text-xs uppercase tracking-widest block mb-1">Premium</span>
+              <span class="tao-heading text-mh-navy text-2xl">Classic Limousine</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        (function(){
-            const translator = {
-                currentLang: 'en',
-                originalsCaptured: false,
-                titleEn: "Limo Prestige | Private Limousines | Montreal Hospitality",
-                titleFr: "Limo Prestige | Limousines privées | Montreal Hospitality",
-                translations: {"fr": {"Home": "Accueil", "Venues": "Lieux", "Sports": "Sports", "Services": "Services", "Events": "Événements", "Careers": "Carrières", "Contact": "Contact", "Explore": "Explorer", "Follow": "Suivre", "Privacy": "Confidentialité", "Terms": "Conditions", "Gallery": "Galerie", "Reservations": "Réservations", "Reservation": "Réservation", "Reserve": "Réserver", "Reserve Now": "Réserver maintenant", "Reserve Today": "Réserver aujourd’hui", "Request Booking": "Demander une réservation", "Request Charter": "Demander une location", "Charter Now": "Réserver maintenant", "Charter This Yacht": "Réserver ce yacht", "Charter This Aircraft": "Réserver cet aéronef", "Book This Vehicle": "Réserver ce véhicule", "Book This Yacht": "Réserver ce yacht", "Request This Aircraft": "Demander cet aéronef", "Reserve Your Experience": "Réservez votre expérience", "Specifications": "Spécifications", "Vehicle Details": "Détails du véhicule", "Technical Details": "Détails techniques", "Overview": "Aperçu", "Highlights": "Points forts", "Features": "Caractéristiques", "Details": "Détails", "Visual Tour": "Visite visuelle", "Interior Views": "Vues intérieures", "Interior & Exterior": "Intérieur et extérieur", "Interior Features": "Caractéristiques intérieures", "Performance": "Performance", "Dimensions": "Dimensions", "Capacity": "Capacité", "Guest Capacity": "Capacité invités", "Guests": "Invités", "Passengers": "Passagers", "Crew": "Équipage", "Cabins": "Cabines", "Cabin": "Cabine", "Baggage": "Bagages", "Engines": "Moteurs", "Engine": "Moteur", "Length": "Longueur", "Length Overall": "Longueur hors tout", "Beam": "Largeur", "Draft": "Tirant d’eau", "Year": "Année", "Year Built": "Année de construction", "Max Speed": "Vitesse max", "Cruise Speed": "Vitesse de croisière", "Range": "Autonomie", "Range (nm)": "Autonomie (nm)", "Ceiling": "Plafond", "Takeoff Distance": "Distance de décollage", "Cabin Length": "Longueur cabine", "Cabin Width": "Largeur cabine", "Cabin Height": "Hauteur cabine", "Wingspan": "Envergure", "Height": "Hauteur", "Interior Height": "Hauteur intérieure", "Class": "Catégorie", "Connectivity": "Connectivité", "Chassis": "Châssis", "Seating": "Disposition", "Entertainment": "Divertissement", "Storage": "Rangement", "Video": "Vidéo", "Security": "Sécurité", "Workstations": "Postes de travail", "Bar": "Bar", "Min. Rental": "Location min.", "Inquiry Form": "Formulaire de demande", "Most Popular Choice": "Choix populaire", "Success Message": "Message de confirmation", "Request Received!": "Demande reçue !", "Request Received": "Demande reçue", "Your Reference Number": "Votre numéro de référence", "Confirmation sent to": "Confirmation envoyée à", "Please keep this number for your records": "Veuillez conserver ce numéro pour vos dossiers", "Our concierge team will contact you within 24 hours.": "Notre équipe de conciergerie vous contactera dans les 24 heures.", "Our team will confirm your reservation within 24 hours": "Notre équipe confirmera votre réservation dans les 24 heures", "Something went wrong. Please try again or contact us directly.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement.", "Something went wrong. Please try again or contact us directly at 514-378-0154.": "Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 514-378-0154.", "First Name": "Prénom", "Last Name": "Nom de famille", "Email": "Courriel", "Phone": "Téléphone", "Number of Guests": "Nombre d’invités", "Pickup Location": "Lieu de prise en charge", "Pickup Date": "Date de prise en charge", "Destination": "Destination", "Event Date": "Date de l’événement", "Event Type": "Type d’événement", "Special Requests": "Demandes spéciales", "Date": "Date", "Charter Date": "Date de location", "Duration (Days)": "Durée (jours)", "Embarkation Port": "Port d’embarquement", "Departure": "Départ", "View Other Yachts": "Voir les autres yachts", "View Other Aircraft": "Voir les autres aéronefs", "View Other Vehicles": "Voir les autres véhicules", "Fleet": "Flotte", "Yachts": "Yachts", "Sprinters": "Sprinters", "Charter Includes": "La location comprend", "Water toys and equipment": "Jouets nautiques et équipements", "Premium beverages and catering": "Boissons haut de gamme et service traiteur", "Professional captain and crew": "Capitaine et équipage professionnels", "Fuel for local cruising": "Carburant pour la croisière locale", "Port fees and taxes": "Frais de port et taxes", "Private Limousines": "Limousines privées", "Private Sprinters": "Sprinters privés", "Charter": "Location", "Motor Yacht": "Yacht à moteur", "Luxury Motor Yacht": "Yacht à moteur de luxe", "Redefining the art of the night in Montreal.": "Redéfinir l’art de la nuit à Montréal.", "Redefining the art of the night in Montreal. Premium limousine service for those who demand excellence.": "Redéfinir l’art de la nuit à Montréal. Service de limousine haut de gamme pour ceux qui exigent l’excellence.", "Complete the form below and our concierge team will be in touch within 24 hours.": "Remplissez le formulaire ci-dessous et notre équipe de conciergerie vous contactera dans les 24 heures.", "Complete the form below and our team will be in touch within 24 hours.": "Remplissez le formulaire ci-dessous et notre équipe vous contactera dans les 24 heures.", "Complete the form below and our charter team will confirm availability within 24 hours.": "Remplissez le formulaire ci-dessous et notre équipe de location confirmera la disponibilité dans les 24 heures.", "The Statement": "La déclaration", "Limo Heritage": "Limo Heritage", "Blends modern amenities with timeless grandeur. Its spacious stand-up interior, premium bar, and entertainment system make it ideal for group celebrations, VIP parties, and unforgettable nights out.": "Allie commodités modernes et grandeur intemporelle. Son intérieur spacieux avec hauteur debout, son bar haut de gamme et son système de divertissement en font le choix idéal pour les célébrations de groupe, les soirées VIP et les sorties inoubliables.", "Commanding Presence": "Présence imposante", "10-12 Guests": "10 à 12 invités", "Stand-up": "Hauteur debout", "Premium Bar": "Bar premium", "4 Hours": "4 heures", "Full standing room interior": "Intérieur pleine hauteur debout", "Multiple LCD screens & surround sound": "Écrans LCD multiples et son ambiophonique", "Extended luggage capacity": "Capacité bagages prolongée", "Premium karaoke system": "Système de karaoké premium", "Tri-zone climate control": "Contrôle climatique à trois zones", "Make Your Statement": "Affirmez votre style", "The Discreet": "La discrète", "Limo Noir": "Limo Noir", "Designed for discreet, executive travel. Enjoy rear reclining seats, a mobile WiFi office, and soundproof privacy for corporate journeys, airport transfers, or intimate evenings in absolute comfort.": "Conçue pour les déplacements exécutifs discrets. Profitez de sièges arrière inclinables, d’un bureau mobile avec Wi‑Fi et d’une intimité insonorisée pour les trajets d’affaires, les transferts aéroportuaires ou les soirées intimes dans un confort absolu.", "Understated Sophistication": "Sophistication discrète", "Limousine": "Limousine", "WiFi Office": "Bureau Wi‑Fi", "2 Hours": "2 heures", "Rear reclining seats with massage": "Sièges arrière inclinables avec massage", "Mobile office with WiFi & charging": "Bureau mobile avec Wi‑Fi et recharge", "Soundproof privacy cabin": "Cabine privée insonorisée", "4-Zone climate control": "Contrôle climatique à 4 zones", "Bluetooth connectivity": "Connectivité Bluetooth", "Executive Travel": "Voyage exécutif", "Discretion Meets Luxury": "La discrétion rencontre le luxe", "The Classic": "La classique", "Limo Prestige": "Limo Prestige", "The epitome of classic luxury. With elegant lines, plush leather seating, and ambient lighting, perfect for weddings, proms, and exclusive events where sophistication is paramount.": "L’incarnation du luxe classique. Avec ses lignes élégantes, ses sièges en cuir moelleux et son éclairage d’ambiance, elle est parfaite pour les mariages, bals et événements exclusifs où la sophistication est essentielle.", "Exterior Excellence": "Excellence extérieure", "30 Feet": "30 pieds", "Wet Bar": "Bar humide", "3 Hours": "3 heures", "Perimeter seating configuration": "Configuration de sièges périphériques", "Starlight headliner & fiber optic lighting": "Ciel étoilé et éclairage à fibre optique", "Privacy partition with intercom": "Cloison d’intimité avec interphone", "Premium leather upholstery": "Sellerie en cuir haut de gamme", "Climate control system": "Système de climatisation", "Experience Classic Elegance": "Vivez l’élégance classique", "Flagship Collection": "Collection phare", "Sprinter Executive 6": "Sprinter Executive 6", "The pinnacle of executive transportation. Maybach-style seating, private lavatory, full galley, and boardroom capabilities.": "Le summum du transport exécutif. Sièges de style Maybach, toilettes privées, kitchenette complète et configuration salle de réunion.", "6 Guests": "6 invités", "500+ Miles": "500+ miles", "Mercedes 4x4": "Mercedes 4x4", "Executive Sanctuary": "Sanctuaire exécutif", "Maybach-Style Seating": "Sièges style Maybach", "Four fully-reclining captain's chairs with massage, heating, and ventilation": "Quatre fauteuils capitaine entièrement inclinables avec massage, chauffage et ventilation", "Private Lavatory": "Toilettes privées", "Enclosed bathroom with sink, vanity, and premium fixtures": "Salle d’eau fermée avec lavabo, vanité et finitions haut de gamme", "Full Galley": "Kitchenette complète", "Refrigerator, microwave, espresso machine, and wine cooler": "Réfrigérateur, micro-ondes, machine espresso et refroidisseur à vin", "Boardroom Setup": "Configuration salle de réunion", "Convertible conference table with integrated power and HDMI": "Table de conférence convertible avec alimentation intégrée et HDMI", "Executive Collection": "Collection exécutive", "Sprinter Executive 8": "Sprinter Executive 8", "Premium group transportation with perimeter seating, premium bar, and entertainment system for larger parties.": "Transport de groupe haut de gamme avec sièges périphériques, bar premium et système de divertissement pour les groupes plus importants.", "8 Guests": "8 invités", "Perimeter": "Périphérique", "Premium": "Premium", "4K System": "Système 4K", "Group Luxury": "Luxe en groupe", "Perimeter Seating": "Sièges périphériques", "Face-to-face leather seating configuration for socializing and meetings": "Disposition de sièges en cuir face à face pour socialiser et tenir des réunions", "Built-in bar with refrigerator, glassware, and premium finishes": "Bar intégré avec réfrigérateur, verrerie et finitions haut de gamme", "Entertainment System": "Système de divertissement", "Multiple 4K displays with Apple TV, streaming, and gaming capabilities": "Écrans 4K multiples avec Apple TV, diffusion en continu et capacités de jeu", "Premium Audio": "Audio premium", "Surround sound system with individual zone controls": "Système de son ambiophonique avec commandes de zones individuelles", "Family Collection": "Collection famille", "Sprinter Grande": "Sprinter Grande", "Versatile luxury for family travel. Reclining seats, entertainment system, and ample luggage space.": "Luxe polyvalent pour les voyages en famille. Sièges inclinables, système de divertissement et vaste espace pour les bagages.", "Reclining": "Inclinable", "Extended": "Étendu", "Dual Screen": "Double écran", "Comfort": "Confort", "Family First": "La famille avant tout", "Spacious Seating": "Assises spacieuses", "10 premium reclining seats with individual climate controls": "10 sièges premium inclinables avec commandes climatiques individuelles", "Ample Storage": "Rangement généreux", "Extended rear cargo space for luggage, strollers, and equipment": "Espace cargo arrière prolongé pour bagages, poussettes et équipement", "Dual screens with gaming consoles, streaming, and wireless headphones": "Deux écrans avec consoles de jeu, diffusion en continu et écouteurs sans fil", "Climate Control": "Contrôle climatique", "Multi-zone AC with individual vents and temperature controls": "Climatisation multizone avec aérations et réglages de température individuels", "Mobile Office": "Bureau mobile", "Sprinter Signature": "Sprinter Signature", "Designed for productivity on the move. Individual workstations, video conferencing, and secure communications.": "Conçu pour la productivité en déplacement. Postes de travail individuels, visioconférence et communications sécurisées.", "4 Desks": "4 bureaux", "4K Conf": "Conf. 4K", "Encrypted": "Chiffré", "Productivity": "Productivité", "Office on Wheels": "Bureau sur roues", "Individual Workstations": "Postes de travail individuels", "Four dedicated desks with power, USB, and adjustable lighting": "Quatre bureaux dédiés avec alimentation, USB et éclairage réglable", "Video Conferencing": "Visioconférence", "4K camera system with noise-canceling audio for seamless meetings": "Système de caméra 4K avec audio à réduction de bruit pour des réunions fluides", "Starlink Connectivity": "Connectivité Starlink", "High-speed satellite internet with secure VPN and redundant connections": "Internet satellite haute vitesse avec VPN sécurisé et connexions redondantes", "Secure Communications": "Communications sécurisées", "Encrypted phone lines and data connections for sensitive business": "Lignes téléphoniques et connexions de données chiffrées pour les activités sensibles", "Workplace Views": "Vues de l’espace de travail", "40' Cruiser Yacht": "Yacht Cruiser 40'", "The perfect balance of performance and luxury. Ideal for intimate gatherings and coastal exploration.": "L’équilibre parfait entre performance et luxe. Idéal pour les rassemblements intimes et l’exploration côtière.", "Salon lounge with panoramic windows": "Salon avec fenêtres panoramiques", "Extended hydraulic swim platform": "Plateforme de baignade hydraulique prolongée", "Outdoor wet bar with grill": "Bar extérieur avec grill", "We've received your charter request for the 40' Cruiser Yacht. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour le yacht Cruiser 40'. Notre équipe confirmera dans les 24 heures.", "French sophistication in a compact package. The Prestige 420 offers remarkable volume and intelligent layout for intimate luxury cruising.": "Sophistication française dans un format compact. Le Prestige 420 offre un volume remarquable et un aménagement intelligent pour une croisière luxueuse et intime.", "IPS pod drive system": "Système de propulsion IPS", "Panoramic salon windows": "Fenêtres panoramiques du salon", "Master cabin with island berth": "Cabine principale avec lit central", "Hydraulic tender garage": "Garage hydraulique pour annexe", "Electric sun awning": "Auvent solaire électrique", "We've received your charter request for the 42' Prestige. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour le 42' Prestige. Notre équipe confirmera dans les 24 heures.", "Sporty performance meets luxury comfort. The Regal 42 Sport Coupe delivers exhilarating speeds while providing a refined onboard experience.": "Des performances sportives alliées au confort de luxe. Le Regal 42 Sport Coupe offre des vitesses exaltantes tout en proposant une expérience raffinée à bord.", "Twin Volvo Penta IPS 600": "Deux Volvo Penta IPS 600", "Power retractable hardtop": "Toit rigide rétractable électrique", "Walk-through transom": "Tableau arrière traversant", "We've received your charter request for the 42' Regal. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour le 42' Regal. Notre équipe confirmera dans les 24 heures.", "44' Sea Ray Yacht JM": "Yacht Sea Ray 44' JM", "American craftsmanship at its finest. The Sea Ray Yacht JM combines iconic styling with innovative features for the ultimate day-cruising experience.": "Le savoir-faire américain à son meilleur. Le Sea Ray Yacht JM combine un style emblématique à des fonctionnalités innovantes pour une expérience ultime de croisière de jour.", "Sundancer hardtop with sunroof": "Toit rigide Sundancer avec toit ouvrant", "Convertible aft seating": "Sièges arrière convertibles", "Submersible swim platform": "Plateforme de baignade submersible", "Dual helm stations": "Double poste de pilotage", "Generator with air conditioning": "Générateur avec climatisation", "We've received your charter request for the 44' Sea Ray Yacht JM. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour le yacht Sea Ray 44' JM. Notre équipe confirmera dans les 24 heures.", "The perfect balance of sportiness and elegance. This 49' Azimut delivers thrilling performance while maintaining the comfort standards discerning guests expect.": "L’équilibre parfait entre sportivité et élégance. Cet Azimut 49' offre des performances grisantes tout en maintenant le niveau de confort attendu par une clientèle exigeante.", "Sport fly configuration": "Configuration sport fly", "Teak decking throughout": "Pont en teck intégral", "Joystick docking system": "Système d’accostage à joystick", "Premium audio system": "Système audio premium", "Sun pad with adjustable backrests": "Bain de soleil avec dossiers réglables", "We've received your charter request for the 49' Azimut. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour l’Azimut 49'. Notre équipe confirmera dans les 24 heures.", "Elegant Italian design meets exceptional performance. The 50' Azimut offers spacious entertainment areas and luxurious accommodations for unforgettable voyages.": "Le design italien élégant rencontre des performances exceptionnelles. L’Azimut 50' offre de vastes espaces de divertissement et des aménagements luxueux pour des voyages inoubliables.", "Flybridge with wet bar": "Flybridge avec bar", "Hydraulic swim platform": "Plateforme de baignade hydraulique", "Full-beam master suite": "Suite principale pleine largeur", "Gourmet galley with Miele appliances": "Cuisine gastronomique avec appareils Miele", "Underwater lighting package": "Ensemble d’éclairage sous-marin", "We've received your charter request for the 50' Azimut. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour l’Azimut 50'. Notre équipe confirmera dans les 24 heures.", "A floating palace featuring three staterooms, beach club, and world-class amenities. The ultimate expression of maritime luxury.": "Un palais flottant doté de trois cabines, d’un beach club et d’équipements de classe mondiale. L’expression ultime du luxe maritime.", "12 Guests": "12 invités", "Master suite with private terrace": "Suite principale avec terrasse privée", "Beach club with hydraulic platform": "Beach club avec plateforme hydraulique", "Helipad for direct access": "Héliport pour accès direct", "Cinema room with 4K projection": "Salle de cinéma avec projection 4K", "Wellness center with sauna": "Centre bien-être avec sauna", "We've received your charter request for the 55' Azimut. Our team will confirm within 24 hours.": "Nous avons reçu votre demande de location pour l’Azimut 55'. Notre équipe confirmera dans les 24 heures.", "The world's fastest business jet. Mach 0.92 cruise speed for those who demand the ultimate in velocity.": "Le jet d’affaires le plus rapide au monde. Une vitesse de croisière Mach 0,92 pour ceux qui exigent le summum de la rapidité.", "Speed Demon": "Démon de vitesse", "The Citation X was the first civil aircraft to achieve Mach 0.92, making it the fastest business jet in the world. For time-sensitive travelers, no other aircraft can match its velocity.": "Le Citation X a été le premier avion civil à atteindre Mach 0,92, ce qui en fait le jet d’affaires le plus rapide au monde. Pour les voyageurs pressés, aucun autre aéronef n’égale sa vitesse.", "Beyond its impressive speed, the Citation X offers a spacious stand-up cabin accommodating up to 12 passengers. The swept-wing design not only enables high-speed cruise but also provides exceptional stability and ride quality.": "Au-delà de sa vitesse impressionnante, le Citation X offre une cabine spacieuse avec hauteur debout pouvant accueillir jusqu’à 12 passagers. Sa voilure en flèche permet non seulement une croisière à haute vitesse, mais procure aussi une stabilité et une qualité de vol exceptionnelles.", "We've received your charter request for the Cessna Citation X. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour le Cessna Citation X. Notre équipe confirmera dans les 2 heures.", "The flagship of the King Air family. Unmatched capability and comfort in the twin-turboprop category.": "Le fleuron de la famille King Air. Des capacités et un confort inégalés dans la catégorie des biturbopropulseurs.", "The King of Turboprops": "Le roi des turbopropulseurs", "The Beechcraft King Air 360 represents the pinnacle of the legendary King Air line. With over 7,600 delivered, it is the most popular business turboprop in history, known for its reliability, versatility, and value.": "Le Beechcraft King Air 360 représente l’apogée de la légendaire gamme King Air. Avec plus de 7 600 exemplaires livrés, c’est le turbopropulseur d’affaires le plus populaire de l’histoire, reconnu pour sa fiabilité, sa polyvalence et sa valeur.", "The 360 features a redesigned interior with premium materials, updated avionics, and enhanced soundproofing. With a pressurized cabin accommodating up to 11 passengers, it's perfect for regional travel, ski trips, or accessing remote destinations.": "Le 360 propose un intérieur repensé avec des matériaux haut de gamme, une avionique mise à jour et une insonorisation améliorée. Avec une cabine pressurisée pouvant accueillir jusqu’à 11 passagers, il est parfait pour les déplacements régionaux, les voyages de ski ou l’accès à des destinations éloignées.", "Up to 11": "Jusqu’à 11", "We've received your charter request for the Beechcraft King Air 360. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour le Beechcraft King Air 360. Notre équipe confirmera dans les 2 heures.", "The versatile single-engine turboprop. Unmatched flexibility for accessing remote destinations with luxury comfort.": "Le turbopropulseur monomoteur polyvalent. Une flexibilité inégalée pour accéder à des destinations éloignées avec un confort de luxe.", "Versatility Redefined": "Polyvalence redéfinie", "The Pilatus PC-12 is the world's most popular single-engine business aircraft, renowned for its versatility, reliability, and operating economics. It can land on short, unimproved runways where jets cannot.": "Le Pilatus PC-12 est l’avion d’affaires monomoteur le plus populaire au monde, réputé pour sa polyvalence, sa fiabilité et son efficacité d’exploitation. Il peut atterrir sur des pistes courtes et non aménagées là où les jets ne le peuvent pas.", "With a pressurized cabin accommodating up to 9 passengers, the PC-12 offers jet-class comfort at turboprop economics. The large cargo door allows for easy loading of oversized luggage, sports equipment, or even a vehicle.": "Avec une cabine pressurisée pouvant accueillir jusqu’à 9 passagers, le PC-12 offre un confort de classe jet à l’économie d’un turbopropulseur. La grande porte cargo permet de charger facilement des bagages volumineux, de l’équipement sportif ou même un véhicule.", "Up to 9": "Jusqu’à 9", "We've received your charter request for the Pilatus PC-12. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour le Pilatus PC-12. Notre équipe confirmera dans les 2 heures.", "The most disruptive super mid-size jet. Transatlantic range with super mid-size economics and comfort.": "Le jet super intermédiaire le plus révolutionnaire. Une autonomie transatlantique avec l’économie et le confort d’un super intermédiaire.", "Disruptive Performance": "Performance révolutionnaire", "The Embraer Praetor 600 shatters the boundaries of the super mid-size category. With a range of 4,018 nautical miles, it connects Montreal to London or Lisbon non-stop—capabilities previously reserved for much larger aircraft.": "L’Embraer Praetor 600 repousse les limites de la catégorie super intermédiaire. Avec une autonomie de 4 018 milles nautiques, il relie Montréal à Londres ou Lisbonne sans escale — des capacités autrefois réservées à des avions beaucoup plus grands.", "Featuring Embraer's exclusive turbulence reduction technology and the quietest cabin in its class, the Praetor 600 delivers an unmatched passenger experience. The stand-up cabin with six-foot headroom accommodates up to 12 passengers in true comfort.": "Doté de la technologie exclusive de réduction des turbulences d’Embraer et de la cabine la plus silencieuse de sa catégorie, le Praetor 600 offre une expérience passager inégalée. Sa cabine avec hauteur debout de six pieds accueille jusqu’à 12 passagers dans un confort réel.", "We've received your charter request for the Embraer Praetor 600. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour l’Embraer Praetor 600. Notre équipe confirmera dans les 2 heures.", "The definitive super mid-size business aircraft. Unmatched reliability, spacious stand-up cabin, and transcontinental range.": "L’avion d’affaires super intermédiaire par excellence. Fiabilité inégalée, cabine spacieuse avec hauteur debout et autonomie transcontinentale.", "A Proven Performer": "Une référence éprouvée", "The Bombardier Challenger 604 has earned its reputation as the workhorse of business aviation. With over 1,000 aircraft delivered, it remains the benchmark for reliability and performance in the super mid-size category.": "Le Bombardier Challenger 604 a acquis sa réputation de cheval de bataille de l’aviation d’affaires. Avec plus de 1 000 appareils livrés, il demeure la référence en matière de fiabilité et de performance dans la catégorie super intermédiaire.", "Featuring a flat-floor cabin standing 6.1 feet tall, the 604 offers true comfort for up to 10 passengers on flights up to 3,850 nautical miles. The spacious interior includes a full galley, private lavatory, and ample baggage compartment accessible in-flight.": "Avec une cabine à plancher plat de 6,1 pieds de hauteur, le 604 offre un véritable confort à jusqu’à 10 passagers sur des vols allant jusqu’à 3 850 milles nautiques. Son intérieur spacieux comprend une kitchenette complète, des toilettes privées et un vaste compartiment à bagages accessible en vol.", "2 + 1 Attendant": "2 + 1 agent de bord", "We've received your charter request for the Bombardier Challenger 604. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour le Bombardier Challenger 604. Notre équipe confirmera dans les 2 heures.", "The best-selling super mid-size business jet. Unmatched cabin comfort with the smoothest ride in its class.": "Le jet d’affaires super intermédiaire le plus vendu. Un confort cabine inégalé avec le vol le plus doux de sa catégorie.", "The Benchmark of Comfort": "La référence du confort", "The Bombardier Challenger 350 aircraft is the best-selling super mid-size business jet, featuring class-defining performance, a true seats-full transcontinental range, and the smoothest ride in its class.": "Le Bombardier Challenger 350 est le jet d’affaires super intermédiaire le plus vendu, offrant des performances de référence, une véritable autonomie transcontinentale à pleine capacité et le vol le plus doux de sa catégorie.", "With its flat floor, in-flight access to baggage, and Ka-band high-speed internet, the Challenger 350 is designed for productivity and comfort. The handcrafted interior features exquisite materials and meticulous attention to detail.": "Avec son plancher plat, son accès aux bagages en vol et son internet haute vitesse en bande Ka, le Challenger 350 est conçu pour la productivité et le confort. Son intérieur artisanal présente des matériaux raffinés et une attention méticuleuse aux détails.", "We've received your charter request for the Bombardier Challenger 350. Our team will confirm within 2 hours.": "Nous avons reçu votre demande de location pour le Bombardier Challenger 350. Notre équipe confirmera dans les 2 heures.", "Location": "Emplacement", "Find Us": "Nous trouver", "Get Directions": "Obtenir l’itinéraire", "Honeypot field to prevent spam": "Champ anti-pourriel", "Sending...": "Envoi...", "john@example.com": "jean@exemple.com", "John": "Jean", "Doe": "Dupont", "+1 (514) 555-0199": "+1 (514) 555-0199", "Montreal": "Montréal", "Montreal (YUL)": "Montréal (YUL)", "Los Angeles (LAX)": "Los Angeles (LAX)", "Where are you heading?": "Où allez-vous ?", "Birthday, corporate event, night out...": "Anniversaire, événement corporatif, soirée...", "Corporate transfer, airport pickup, evening out...": "Transfert corporatif, prise en charge à l’aéroport, soirée...", "Wedding, prom, anniversary, gala...": "Mariage, bal, anniversaire, gala...", "Decorations, flowers, champagne, itinerary, or any other requests...": "Décorations, fleurs, champagne, itinéraire ou toute autre demande...", "Decorations, catering, itinerary, or any other requests...": "Décorations, traiteur, itinéraire ou toute autre demande...", "Catering, itinerary stops, accessibility needs, or any other requests...": "Traiteur, arrêts sur l’itinéraire, besoins d’accessibilité ou toute autre demande...", "Dietary requirements, celebration details, preferred itinerary...": "Exigences alimentaires, détails de célébration, itinéraire préféré...", "Catering, ground transport, etc.": "Traiteur, transport terrestre, etc.", "Hotel, airport, address...": "Hôtel, aéroport, adresse...", "Hotel, address, venue...": "Hôtel, adresse, lieu...", "Preferred route, specific amenities, or any other requests...": "Trajet préféré, commodités spécifiques ou toute autre demande...", "1-10": "1-10", "1": "1", "4": "4", "6": "6", "8": "8", "Max 12": "Max 12", "514-378-0154": "514-378-0154"}},
-                captureOriginals() {
-                    if (this.originalsCaptured) return;
-                    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                        acceptNode(node) {
-                            if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                            const tag = node.parentElement.tagName;
-                            if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                            return NodeFilter.FILTER_ACCEPT;
-                        }
-                    });
-                    while (walker.nextNode()) {
-                        const node = walker.currentNode;
-                        node.__originalText = node.nodeValue;
-                    }
-                    document.querySelectorAll('[placeholder]').forEach(el => {
-                        el.dataset.originalPlaceholder = el.getAttribute('placeholder') || '';
-                    });
-                    document.querySelectorAll('option').forEach(el => {
-                        el.dataset.originalOption = el.textContent;
-                    });
-                    document.titleOriginal = document.title;
-                    this.originalsCaptured = true;
-                },
-                init() {
-                    const savedLang = localStorage.getItem('preferred_language');
-                    const browserLang = navigator.language.split('-')[0];
-                    if (savedLang === 'fr' || savedLang === 'en') {
-                        this.currentLang = savedLang;
-                    } else if (browserLang === 'fr') {
-                        this.currentLang = 'fr';
-                    }
-                    this.captureOriginals();
-                    this.updateUI();
-                    this.translatePage();
-                },
-                setLanguage(lang) {
-                    if (!['en', 'fr'].includes(lang)) return;
-                    this.currentLang = lang;
-                    localStorage.setItem('preferred_language', lang);
-                    this.updateUI();
-                    this.translatePage();
-                },
-                updateUI() {
-                    document.querySelectorAll('.lang-btn').forEach(btn => {
-                        btn.classList.toggle('active', btn.dataset.lang === this.currentLang);
-                    });
-                },
-                translateText(original) {
-                    if (this.currentLang === 'en') return original;
-                    const map = this.translations.fr || {};
-                    const trimmed = original.trim();
-                    if (!trimmed) return original;
-                    let translated = map[trimmed];
-                    if (!translated) {
-                        translated = trimmed;
-                        Object.keys(map).sort((a,b) => b.length - a.length).forEach(key => {
-                            if (translated.includes(key)) translated = translated.split(key).join(map[key]);
-                        });
-                    }
-                    const leading = original.match(/^\s*/)[0];
-                    const trailing = original.match(/\s*$/)[0];
-                    return leading + translated + trailing;
-                },
-                translatePage() {
-                    this.captureOriginals();
-                    document.documentElement.lang = this.currentLang;
-                    document.title = this.currentLang === 'fr' ? (this.titleFr || document.titleOriginal) : (this.titleEn || document.titleOriginal);
+  <!-- Technical Specs -->
+  <section class="py-32 bg-mh-dark">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Specifications</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl">Technical Details</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6">Interior</h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Capacity</span><span class="text-white">12 Passengers</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Headliner</span><span class="text-white">Starlight Fiber Optic</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Upholstery</span><span class="text-white">Premium Leather</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Partition</span><span class="text-white">Privacy + Intercom</span></li><li class="flex justify-between "><span>Climate</span><span class="text-white">Individual Control</span></li></ul></div><div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6">Ambiance</h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Lighting</span><span class="text-white">Ambient LED + Fiber Optic</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Atmosphere</span><span class="text-white">Fully Customizable</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Flooring</span><span class="text-white">Premium Carpet</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Windows</span><span class="text-white">Privacy Tinted</span></li><li class="flex justify-between "><span>Finish</span><span class="text-white">White or Black Exterior</span></li></ul></div><div class="spec-box p-8 reveal"><h4 class="text-mh-gold text-xs tracking-widest uppercase mb-6">Occasions</h4><ul class="space-y-4 text-gray-300 font-light"><li class="flex justify-between border-b border-white/10 pb-2"><span>Weddings</span><span class="text-white">Preferred Choice</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Prom</span><span class="text-white">Classic Package</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Corporate</span><span class="text-white">Available</span></li><li class="flex justify-between border-b border-white/10 pb-2"><span>Anniversaries</span><span class="text-white">Champagne Ready</span></li><li class="flex justify-between "><span>Events</span><span class="text-white">Any Special Occasion</span></li></ul></div>
+      </div>
+    </div>
+  </section>
 
-                    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-                        acceptNode(node) {
-                            if (!node.parentElement) return NodeFilter.FILTER_REJECT;
-                            const tag = node.parentElement.tagName;
-                            if (['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(tag)) return NodeFilter.FILTER_REJECT;
-                            if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-                            return NodeFilter.FILTER_ACCEPT;
-                        }
-                    });
+  <!-- Gallery -->
+  <section id="gallery" class="py-32 bg-mh-navy">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Gallery</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl">Interior &amp; Exterior</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6" style="grid-auto-rows:240px;">
+        
+      <div class="img-zoom-container h-[500px] md:row-span-2 overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(0)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771461426/IMG_3053_1_jyc480.jpg" alt="Gallery 1" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(1)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772240076/Screenshot_2026-02-27_195414_eevcoo.png" alt="Gallery 2" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(2)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239947/IMG_3053_3_n9idwx.jpg" alt="Gallery 3" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(3)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239946/IMG_5062_2_bcplaw.jpg" alt="Gallery 4" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(4)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771460586/limousine-montreal_ipowy9.jpg" alt="Gallery 5" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      <div class="img-zoom-container h-[240px]  overflow-hidden cursor-pointer card-lift reveal group relative" onclick="openLB(5)">
+        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239947/IMG_3053_3_n9idwx.jpg" alt="Gallery 6" class="img-zoom w-full h-full object-cover" loading="lazy">
+        <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-500"></div>
+        <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-white text-xs tracking-widest uppercase"><i class="fa-solid fa-expand mr-2"></i>Expand</span>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
 
-                    while (walker.nextNode()) {
-                        const node = walker.currentNode;
-                        const original = node.__originalText || node.nodeValue;
-                        node.nodeValue = this.translateText(original);
-                    }
+  <!-- Why MH -->
+  <section class="py-20 bg-mh-dark border-y border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-12 stagger-children text-center">
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">Fully Insured</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Comprehensive coverage for complete peace of mind during your experience.</p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-headset text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">24/7 Concierge</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Our dedicated team is on call around the clock to handle every detail.</p>
+        </div>
+        <div class="reveal">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-mh-gold/10 flex items-center justify-center">
+            <i class="fa-solid fa-star text-mh-gold text-2xl"></i>
+          </div>
+          <h3 class="tao-heading text-white text-2xl mb-3">White Glove Service</h3>
+          <p class="text-gray-500 text-sm font-light leading-relaxed">Meticulously prepared and delivered to your exact standard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                    document.querySelectorAll('[placeholder]').forEach(el => {
-                        const original = el.dataset.originalPlaceholder || el.getAttribute('placeholder') || '';
-                        el.setAttribute('placeholder', this.translateText(original).trim());
-                    });
+  <!-- Reservation Form -->
+  <section id="reserve" class="py-32 bg-mh-navy relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-mh-gold to-transparent"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[.3em]">Reservation</span>
+        <h2 class="tao-heading text-white text-5xl md:text-6xl mb-4">Reserve This Classic Limousine</h2>
+        <p class="text-gray-400 font-light">Our team confirms within 2 hours.</p>
+      </div>
+      <form id="res-form" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">First Name</label>
+            <input type="text" name="firstName" class="form-field" placeholder="John" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Last Name</label>
+            <input type="text" name="lastName" class="form-field" placeholder="Doe" data-req>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Email</label>
+            <input type="email" name="email" class="form-field" placeholder="john@example.com" data-req>
+          </div>
+          <div>
+            <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Phone</label>
+            <input type="tel" name="phone" class="form-field" placeholder="+1 (514) 555-0199" data-req>
+          </div>
+        </div>
+        <div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Event Date</label><input type="date" name="eventDate" class="form-field" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Pickup Location</label><input type="text" name="pickup" class="form-field" placeholder="Hotel, address or airport" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Destination</label><input type="text" name="destination" class="form-field" placeholder="Venue, hotel or address" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Number of Passengers</label><input type="number" name="passengers" min="1" max="12" class="form-field" placeholder="Up to 12 passengers" data-req></div><div><label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Occasion</label><select name="occasion" class="form-field"><option value="">Select occasion</option><option>Wedding</option><option>Prom / Graduation</option><option>Birthday Celebration</option><option>Corporate Event</option><option>Airport Transfer</option><option>Night Out</option><option>Anniversary</option><option>Other</option></select></div>
+        <div>
+          <label class="block text-gray-400 text-xs tracking-widest uppercase mb-2">Special Requests</label>
+          <textarea name="specialRequests" class="form-field resize-none" rows="4" placeholder="Any specific requirements…"></textarea>
+        </div>
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="text-center">
+          <button type="button" onclick="submitForm()" id="submit-btn"
+            class="btn-hover inline-flex items-center gap-3 bg-mh-gold text-mh-navy px-14 py-4 text-xs tracking-[.25em] uppercase font-bold hover:bg-mh-gold-light transition-all duration-300">
+            Submit Reservation <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </form>
+      <div id="success-box" class="success-box">
+        <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
+        <h3 class="tao-heading text-white text-3xl mb-2">Request Received</h3>
+        <p class="text-gray-400 text-sm mb-6">We've received your reservation for the Limo Prestige. Our team will confirm within 2 hours.</p>
+        <div class="bg-mh-navy/60 p-6 inline-block mb-4">
+          <p class="text-mh-gold text-xs uppercase tracking-wider mb-2">Reference Number</p>
+          <p class="tao-heading text-white text-2xl" id="ref-num">MH-XXXXXXXX</p>
+        </div>
+        <p class="text-gray-500 text-xs"><i class="fa-solid fa-envelope text-mh-gold mr-2"></i>Confirmation sent to <span id="confirm-email"></span></p>
+      </div>
+      <div id="error-box" class="error-box">
+        <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
+        <p class="font-light text-sm">Something went wrong. Please try again or call 514-378-0154.</p>
+      </div>
+    </div>
+  </section>
 
-                    document.querySelectorAll('option').forEach(el => {
-                        const original = el.dataset.originalOption || el.textContent;
-                        el.textContent = this.translateText(original).trim();
-                    });
-                }
-            };
-            window.translator = translator;
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => translator.init());
-            } else {
-                translator.init();
-            }
-        })();
-    </script>
+  <!-- Contact Bar -->
+  <section class="py-16 bg-mh-dark border-t border-white/8">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center stagger-children">
+        <div class="reveal">
+          <i class="fa-solid fa-phone text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">Phone</h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">24/7 Concierge</p>
+        </div>
+        <div class="reveal">
+          <i class="fa-solid fa-envelope text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">Email</h4>
+          <p class="text-gray-400">info@montrealhospitality.com</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Response within 2h</p>
+        </div>
+        <div class="reveal">
+          <i class="fa-brands fa-whatsapp text-mh-gold text-2xl mb-4"></i>
+          <h4 class="tao-heading text-white text-xl mb-2">WhatsApp</h4>
+          <p class="text-gray-400">514-378-0154</p>
+          <p class="text-gray-500 text-xs mt-1 uppercase tracking-widest">Instant Booking</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+
+  <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-20">
+        <div class="col-span-1">
+          <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-16 mb-8 object-contain" loading="lazy">
+          <p class="text-gray-500 text-sm leading-relaxed font-light">Redefining the art of the night in Montreal.</p>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Explore</h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="venues.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Venues</a></li>
+            <li><a href="sports.html"  class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Sports</a></li>
+            <li><a href="service.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Services</a></li>
+            <li><a href="index.html#careers" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform">Careers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Contact</h4>
+          <ul class="space-y-4 text-sm text-gray-500 font-light">
+            <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
+            <li>514-378-0154</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]">Follow</h4>
+          <div class="flex gap-6">
+            <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Instagram"><i class="fa-brands fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform" aria-label="TikTok"><i class="fa-brands fa-tiktok text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
+        <p>&copy; 2026 Montreal Hospitality Group</p>
+        <div class="flex gap-8 mt-4 md:mt-0">
+          <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="lightbox" onclick="if(event.target===this)closeLB()">
+    <button class="lb-close" onclick="closeLB()"><i class="fa-solid fa-times"></i></button>
+    <button class="lb-btn" style="left:2rem;" onclick="shiftLB(-1);event.stopPropagation()"><i class="fa-solid fa-chevron-left"></i></button>
+    <img id="lb-img" src="" alt="" style="max-width:90%;max-height:85vh;object-fit:contain;">
+    <button class="lb-btn" style="right:2rem;" onclick="shiftLB(1);event.stopPropagation()"><i class="fa-solid fa-chevron-right"></i></button>
+    <p style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.8rem;letter-spacing:.1em;"><span id="lb-cur">1</span> / <span id="lb-tot">1</span></p>
+  </div>
+
+  <script>
+    // ── Prevent scroll restore ──
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+
+    // ── Loader ──
+    (function() {
+      let done = false;
+      function hideLoader() {
+        if (done) return; done = true;
+        const l = document.getElementById('loader');
+        if (!l) return;
+        l.style.opacity = '0';
+        setTimeout(() => {
+          l.style.display = 'none';
+          document.querySelectorAll('.hero-animate').forEach(el => el.classList.add('visible'));
+          const line = document.querySelector('.line-reveal');
+          if (line) line.classList.add('visible');
+        }, 750);
+      }
+      document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 1100));
+      setTimeout(hideLoader, 2800);
+    })();
+
+    // ── Navbar scroll (throttled) ──
+    (function() {
+      const nav = document.getElementById('navbar');
+      let tick = false;
+      window.addEventListener('scroll', () => {
+        if (tick) return; tick = true;
+        requestAnimationFrame(() => { nav.classList.toggle('nav-scrolled', window.scrollY > 50); tick = false; });
+      }, { passive: true });
+    })();
+
+    // ── IntersectionObserver reveal ──
+    (function() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      document.querySelectorAll('.reveal, .stagger-children').forEach(el => io.observe(el));
+    })();
+
+    // ── Mobile menu ──
+    (function() {
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const links = menu.querySelectorAll('.mobile-link');
+      let open = false;
+      function toggle() {
+        open = !open;
+        menu.classList.toggle('-translate-x-full', !open);
+        btn.innerHTML = open ? '<i class="fa-solid fa-times text-xl"></i>' : '<i class="fa-solid fa-bars text-xl"></i>';
+      }
+      btn.addEventListener('click', toggle);
+      links.forEach(l => l.addEventListener('click', () => { if (open) toggle(); }));
+    })();
+
+    // ── Mega venues menu ──
+    (function() {
+      const btn = document.getElementById('venues-menu-btn');
+      const mega = document.getElementById('venues-mega');
+      const chevron = document.getElementById('venues-chevron');
+      const wrapper = document.getElementById('venues-menu-wrapper');
+      const previewImg = document.getElementById('venues-preview-img');
+      const previewLabel = document.getElementById('venues-preview-label');
+      if (!btn || !mega) return;
+      let timer = null;
+      function open() {
+        clearTimeout(timer);
+        mega.style.opacity = '1'; mega.style.transform = 'translateY(0)'; mega.style.pointerEvents = 'all';
+        chevron.style.transform = 'rotate(180deg)'; btn.style.color = '#C5A059'; btn.setAttribute('aria-expanded','true');
+      }
+      function close() {
+        mega.style.opacity = '0'; mega.style.transform = 'translateY(-8px)'; mega.style.pointerEvents = 'none';
+        chevron.style.transform = ''; btn.style.color = ''; btn.setAttribute('aria-expanded','false');
+      }
+      function sched() { timer = setTimeout(close, 150); }
+      wrapper.addEventListener('mouseenter', open); wrapper.addEventListener('mouseleave', sched);
+      mega.addEventListener('mouseenter', () => clearTimeout(timer)); mega.addEventListener('mouseleave', sched);
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      document.querySelectorAll('.venue-menu-link').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          if (previewImg && link.dataset.img) { previewImg.style.opacity = '0'; setTimeout(() => { previewImg.src = link.dataset.img; previewImg.style.opacity = '1'; }, 150); }
+          if (previewLabel && link.dataset.name) previewLabel.textContent = link.dataset.name;
+        });
+      });
+    })();
+
+    // ── Language switcher (minimal) ──
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.lang-btn[data-lang="'+btn.dataset.lang+'"]').forEach(b => b.classList.add('active'));
+        localStorage.setItem('preferred_language', btn.dataset.lang);
+      });
+    });
+    const savedLang = localStorage.getItem('preferred_language');
+    if (savedLang) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === savedLang));
+    }
+
+    // ── Lightbox ──
+    const galleryImages = ["https://res.cloudinary.com/dg79ri9bl/image/upload/v1771461426/IMG_3053_1_jyc480.jpg", "https://res.cloudinary.com/dg79ri9bl/image/upload/v1772240076/Screenshot_2026-02-27_195414_eevcoo.png", "https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239947/IMG_3053_3_n9idwx.jpg", "https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239946/IMG_5062_2_bcplaw.jpg", "https://res.cloudinary.com/dg79ri9bl/image/upload/v1771460586/limousine-montreal_ipowy9.jpg", "https://res.cloudinary.com/dg79ri9bl/image/upload/v1772239947/IMG_3053_3_n9idwx.jpg"];
+    let lbIdx = 0;
+    function openLB(i) {
+      lbIdx = i;
+      document.getElementById('lb-img').src = galleryImages[i];
+      document.getElementById('lb-cur').textContent = i + 1;
+      document.getElementById('lb-tot').textContent = galleryImages.length;
+      const lb = document.getElementById('lightbox');
+      lb.style.display = 'flex'; requestAnimationFrame(() => lb.style.opacity = '1');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+      const lb = document.getElementById('lightbox');
+      lb.style.opacity = '0'; setTimeout(() => lb.style.display = 'none', 300);
+      document.body.style.overflow = '';
+    }
+    function shiftLB(d) {
+      lbIdx = (lbIdx + d + galleryImages.length) % galleryImages.length;
+      document.getElementById('lb-img').src = galleryImages[lbIdx];
+      document.getElementById('lb-cur').textContent = lbIdx + 1;
+    }
+    document.addEventListener('keydown', e => {
+      if (document.getElementById('lightbox').style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLB();
+      if (e.key === 'ArrowLeft') shiftLB(-1);
+      if (e.key === 'ArrowRight') shiftLB(1);
+    });
+
+    // ── Form ──
+    function genRef() {
+      const ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', nu = '0123456789';
+      let r = '';
+      [[2,'l'],[3,'n'],[2,'l'],[3,'n'],[1,'l'],[1,'n']].forEach(([c,t]) => {
+        for (let i=0;i<c;i++) r += t==='l' ? ch[Math.floor(Math.random()*26)] : nu[Math.floor(Math.random()*10)];
+      });
+      return 'MH-' + r;
+    }
+    function validateForm() {
+      let ok = true;
+      document.querySelectorAll('[data-req]').forEach(f => {
+        if (!f.value.trim()) { f.style.borderColor='#ef4444'; ok=false; }
+        else f.style.borderColor = 'rgba(255,255,255,.25)';
+      });
+      return ok;
+    }
+    async function submitForm() {
+      if (!validateForm()) {
+        const form = document.getElementById('res-form');
+        if (form) { form.style.animation='shake .5s'; setTimeout(()=>form.style.animation='',500); }
+        return;
+      }
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…'; btn.disabled = true; btn.style.opacity = '.6';
+      try {
+        const ref = genRef();
+        const fd = new FormData(document.getElementById('res-form'));
+        fd.append('reference', ref); fd.append('vehicle', 'Limo Prestige');
+        const res = await fetch('https://formspree.io/f/mykdvnra', { method:'POST', body:fd, headers:{'Accept':'application/json'} });
+        if (res.ok) {
+          document.getElementById('ref-num').textContent = ref;
+          document.getElementById('confirm-email').textContent = fd.get('email') || '';
+          document.getElementById('res-form').style.display = 'none';
+          document.getElementById('success-box').classList.add('active');
+        } else throw new Error();
+      } catch(e) {
+        document.getElementById('error-box').classList.add('active');
+        btn.textContent = 'Submit Reservation'; btn.disabled = false; btn.style.opacity = '1';
+      }
+    }
+  </script>
 </body>
 </html>

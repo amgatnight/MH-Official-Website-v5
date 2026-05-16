@@ -1,1611 +1,303 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CF Montreal | Sports Hospitality | Montreal Hospitality</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'mh-navy': '#0B0F19',
-                        'mh-gold': '#C5A059',
-                        'mh-gold-light': '#D6B88A',
-                        'mh-dark': '#05070A',
-                        'mh-gray': '#1A1D24',
-                        'cf-blue': '#0033A0',
-                        'cf-black': '#000000',
-                    },
-                    fontFamily: {
-                        serif: ['"Cormorant Garamond"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: #0B0F19;
-            color: #ffffff;
-            overflow-x: hidden;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-
-        .tao-heading {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-        }
-
-        .tao-subheading {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* Text Entrance Animations */
-        .hero-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            filter: blur(10px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.6s; }
-        .delay-3 { transition-delay: 1s; }
-        .delay-4 { transition-delay: 1.4s; }
-
-        /* Nav */
-        .nav-scrolled {
-            background-color: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(10px);
-            padding-top: 1.2rem !important;
-            padding-bottom: 1.2rem !important;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
-            animation: slideDown 0.5s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-
-        /* Image Hover Effects */
-        .img-zoom-container { overflow: hidden; }
-        .img-zoom {
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .group:hover .img-zoom {
-            transform: scale(1.08);
-        }
-
-        /* Smooth underline animation */
-        .link-hover {
-            position: relative;
-        }
-        .link-hover::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #C5A059;
-            transition: width 0.3s ease;
-        }
-        .link-hover:hover::after {
-            width: 100%;
-        }
-
-        /* Button hover animations */
-        .btn-hover {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .btn-hover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-hover:hover::before {
-            left: 100%;
-        }
-
-        /* Card hover lift */
-        .card-lift {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .card-lift:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-
-        /* Gradient text animation */
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, #C5A059, #D6B88A, #C5A059);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-shift 3s ease infinite;
-        }
-
-        /* Loader */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0B0F19;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s ease;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Form styling */
-        .form-input {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 2px solid #C5A059;
-            color: white;
-            padding: 1rem;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: #C5A059;
-            background: rgba(197, 160, 89, 0.05);
-        }
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-
-        /* Mobile image fixes */
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Line animation */
-        .line-reveal {
-            width: 0;
-            height: 1px;
-            background: #C5A059;
-            margin: 0 auto;
-            transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .line-reveal.visible {
-            width: 60px;
-        }
-
-        /* Logo glow effect */
-        .logo-glow {
-            filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.3));
-            animation: logoPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-            0%, 100% { filter: drop-shadow(0 0 30px rgba(197, 160, 89, 0.3)); }
-            50% { filter: drop-shadow(0 0 50px rgba(197, 160, 89, 0.5)); }
-        }
-
-        /* Gallery grid */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .gallery-item img {
-            transition: transform 0.6s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(11, 15, 25, 0.9), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 1.5rem;
-        }
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        /* Lightbox */
-        #lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-        #lightbox.active {
-            display: flex;
-        }
-        #lightbox img {
-            max-height: 90vh;
-            max-width: 90vw;
-            object-fit: contain;
-        }
-        #lightbox-close {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 10000;
-        }
-
-        /* Package cards glow effect - all cards match the middle "VIP Lodge" styling */
-        #packages .card-lift {
-            background: linear-gradient(to bottom, rgba(197, 160, 89, 0.1), #0B0F19);
-            border: 1px solid rgba(197, 160, 89, 0.3);
-        }
-
-        #packages .card-lift:hover {
-            border-color: #C5A059;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(197, 160, 89, 0.2);
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid #C5A059;
-            padding: 40px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .success-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Error Message */
-        .error-message {
-            display: none;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-            color: #ef4444;
-        }
-        .error-message.active {
-            display: block;
-            animation: slideIn 0.5s ease;
-        }
-
-        .submitting {
-            opacity: 0.7;
-            pointer-events: none;
-        }
-
-        /* Validation error styles */
-        .validation-error {
-            color: #ef4444;
-            font-size: 12px;
-            margin-top: 4px;
-            display: none;
-        }
-
-        /* Shake animation */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
-        /* Language Switcher Styles */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            font-weight: 500;
-        }
-        
-        .lang-btn {
-            padding: 0.25rem 0.5rem;
-            border: 1px solid transparent;
-            background: transparent;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        
-        .lang-btn:hover {
-            color: #C5A059;
-        }
-        
-        .lang-btn.active {
-            border-color: #C5A059;
-            color: #C5A059;
-            background: rgba(197, 160, 89, 0.1);
-        }
-        
-        .lang-divider {
-            width: 1px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Mobile Language Switcher */
-        .mobile-lang-switcher {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-        }
-    </style>
-<base target="_self">
-<base target="_blank">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sports | Montreal Hospitality</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png">
+  <script>
+    (function(){let done=false;function hide(){if(done)return;done=true;const l=document.getElementById('loader');if(!l)return;l.style.opacity='0';setTimeout(()=>l.style.display='none',750);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>setTimeout(hide,800));}else{setTimeout(hide,800);}setTimeout(hide,2800);})();
+    tailwind.config={theme:{extend:{colors:{'mh-navy':'#0B0F19','mh-gold':'#C5A059','mh-gold-light':'#D6B88A','mh-dark':'#05070A','mh-gray':'#1A1D24'},fontFamily:{serif:['"Cormorant Garamond"','serif'],sans:['"Montserrat"','sans-serif']}}}};
+    const translations={en:{page_title:"Sports | Montreal Hospitality",nav_home:"Home",nav_venues:"Venues",nav_packages:"Packages",nav_sports:"Sports",nav_services:"Services",nav_events:"Events",nav_careers:"Careers",mega_our_venues:"Our Venues",mega_view_all_venues:"View All Venues",mega_featured:"Featured",mega_now_open:"Now Open"},fr:{page_title:"Sports | Montreal Hospitality",nav_home:"Accueil",nav_venues:"Établissements",nav_packages:"Forfaits",nav_sports:"Sports",nav_services:"Services",nav_events:"Événements",nav_careers:"Carrières",mega_our_venues:"Nos Établissements",mega_view_all_venues:"Voir Tous Les Établissements",mega_featured:"En Vedette",mega_now_open:"Maintenant Ouvert"}};
+    window.translator={currentLang:'en',init(){const s=localStorage.getItem('preferred_language');const u=new URLSearchParams(window.location.search).get('lang');const b=(navigator.language||'en').split('-')[0];this.currentLang=[u,s,b,'en'].find(l=>translations[l])||'en';localStorage.setItem('preferred_language',this.currentLang);document.documentElement.lang=this.currentLang;this.updateUI();this.translatePage();this.translateLinks();this.bindLanguageButtons();},setLanguage(lang){if(!translations[lang])return;this.currentLang=lang;localStorage.setItem('preferred_language',lang);document.documentElement.lang=lang;this.updateUI();this.translatePage();this.translateLinks();const url=new URL(window.location.href);url.searchParams.set('lang',lang);window.history.replaceState({},'',`${url.pathname}${url.search}${url.hash}`);},updateUI(){document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===this.currentLang));},translatePage(){const t=translations[this.currentLang]||translations.en;document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t[el.dataset.i18n];if(!v)return;if(v.includes('<'))el.innerHTML=v;else el.textContent=v;});if(t.page_title)document.title=t.page_title;},translateLinks(){document.querySelectorAll('a[href]').forEach(link=>{const h=link.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('mailto:')||h.startsWith('tel:')||h.startsWith('http'))return;try{const url=new URL(h,window.location.href);if(url.origin!==window.location.origin)return;url.searchParams.set('lang',this.currentLang);link.setAttribute('href',`${url.pathname.split('/').pop()||'index.html'}${url.search}${url.hash}`);}catch(e){}});},bindLanguageButtons(){document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>this.setLanguage(b.dataset.lang)));}}; 
+    if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',()=>window.translator.init());}else{window.translator.init();}
+  </script>
+  <style>
+    body{background:#07070a;color:#fff;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+    #loader{position:fixed;inset:0;background:#07070a;z-index:9999;display:flex;justify-content:center;align-items:center;transition:opacity .7s ease;}
+    @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+    .nav-scrolled{background:rgba(7,7,10,0.96)!important;backdrop-filter:blur(12px);border-bottom:1px solid rgba(197,160,89,.1);}
+    .link-hover{position:relative;}.link-hover::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#C5A059;transition:width .35s ease;}.link-hover:hover::after{width:100%;}
+    .lang-btn{padding:.25rem .5rem;border:1px solid transparent;background:transparent;color:#fff;cursor:pointer;font-size:11px;letter-spacing:.15em;font-weight:500;text-transform:uppercase;transition:all .3s ease;}.lang-btn:hover{color:#C5A059;}.lang-btn.active{border-color:#C5A059;color:#C5A059;background:rgba(197,160,89,.1);}
+    .lang-divider{width:1px;height:12px;background:rgba(255,255,255,.3);}
+    .mobile-lang-switcher{display:flex;justify-content:center;gap:1rem;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(197,160,89,.2);}
+    @keyframes heroIn{from{opacity:0;transform:translateY(36px);filter:blur(10px);}to{opacity:1;transform:none;filter:none;}}
+    .h1{opacity:0;animation:heroIn 1.1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.3s;}
+    .h2{opacity:0;animation:heroIn 1.1s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.6s;}
+    .h3{opacity:0;animation:heroIn 1s ease forwards;animation-delay:.9s;}
+    .h4{opacity:0;animation:heroIn 1s ease forwards;animation-delay:1.2s;}
+    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease;}.fade-up.in{opacity:1;transform:none;}
+    @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .ticker-inner{display:flex;animation:ticker 30s linear infinite;white-space:nowrap;}.ticker-inner:hover{animation-play-state:paused;}
+    .sport-card{border:1px solid rgba(255,255,255,.07);transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s;}.sport-card:hover{transform:translateY(-7px);border-color:rgba(139,26,26,.55);}
+    .sport-card .ci img{transition:transform 1.1s ease;}.sport-card:hover .ci img{transform:scale(1.06);}
+    .rl{position:relative;}.rl::before{content:'';position:absolute;left:0;top:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,#c23b3b 30%,#c23b3b 70%,transparent);opacity:.7;}
+    .pkg-row{border-bottom:1px solid rgba(255,255,255,.06);transition:background .25s,padding-left .25s;cursor:pointer;}.pkg-row:hover{background:rgba(139,26,26,.1);padding-left:.75rem;}
+    #inquiry-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);z-index:9000;align-items:center;justify-content:center;padding:1rem;}
+    #inquiry-modal.open{display:flex;}
+    @media(prefers-reduced-motion:reduce){.h1,.h2,.h3,.h4,.fade-up{animation:none!important;opacity:1!important;transform:none!important;}}
+  </style>
 </head>
-<body class="antialiased selection:bg-mh-gold selection:text-mh-navy">
+<body class="antialiased">
 
-    <!-- Lightbox -->
-    <div id="lightbox" onclick="closeLightbox()">
-        <i id="lightbox-close" class="fa-solid fa-times"></i>
-        <img id="lightbox-img" src="" alt="Gallery Image">
+<!-- Loader -->
+<div id="loader"><div class="text-center"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="MH" class="h-20 mb-5 animate-pulse object-contain mx-auto"><div class="w-28 h-px bg-mh-gray mx-auto overflow-hidden"><div class="w-full h-full bg-mh-gold" style="animation:shimmer 1.5s infinite"></div></div></div></div>
+
+<!-- NAV -->
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
+  <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300"><i class="fa-solid fa-bars text-xl"></i></button>
+  <a href="index.html" class="absolute left-1/2 -translate-x-1/2 lg:static lg:transform-none z-50"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="Montreal Hospitality" class="h-12 object-contain"></a>
+  <div class="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+    <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
+    <!-- VENUES MEGA -->
+    <div class="relative" id="venues-menu-wrapper">
+      <a href="venues.html" id="venues-menu-btn" class="link-hover hover:text-mh-gold transition-colors flex items-center gap-1" aria-expanded="false">
+        <span data-i18n="nav_venues">Venues</span><i id="venues-chevron" class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300 ml-0.5"></i>
+      </a>
+      <div id="venues-mega" class="fixed left-0 bg-black border-t border-white/10 z-[200] opacity-0 pointer-events-none" style="top:72px;transform:translateY(-8px);transition:opacity .22s ease,transform .22s ease;width:fit-content;">
+        <div class="px-20 py-12 flex gap-0">
+          <div class="flex-1 border-r border-white/10 pr-12">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8" data-i18n="mega_our_venues">Our Venues</p>
+            <ul>
+              <li><a href="yoko luna.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" data-name="Yoko Luna"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Yoko Luna</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="hang bar.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769647795/HangBarNYE_k69lgr.jpg" data-name="Hang Bar"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Hang Bar</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="bordelle.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769637448/Corporate_rdyrdn.jpg" data-name="Bord'Elle"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Bord'Elle</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Port</span></a></li>
+              <li><a href="212.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770156124/IMG_1696_o0453l.jpg" data-name="212"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">212</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+            </ul>
+          </div>
+          <div class="flex-1 border-r border-white/10 px-12">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase mb-8 invisible">x</p>
+            <ul>
+              <li><a href="la voute.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187973/543047164_18342284866165925_1930298631210972570_n_v3kx5w.jpg" data-name="La Voute"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">La Voute</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Old Montreal</span></a></li>
+              <li><a href="soubois.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770678514/soubois-montreal_vkybjn.jpg" data-name="Soubois"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Soubois</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+              <li><a href="beach club.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184816/2022-06-28_hfian3.webp" data-name="Beach Club"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Beach Club</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Pointe-Calumet</span></a></li>
+              <li><a href="time groupe.html" class="venue-menu-link flex items-center justify-between py-4 border-b border-white/10 hover:border-white/25 group transition-colors" data-img="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771184897/633863735_1272702998248050_2610531299358818178_n_jd8w3h.jpg" data-name="Time Groupe"><span class="text-white font-bold text-sm tracking-widest uppercase group-hover:text-mh-gold transition-colors whitespace-nowrap">Time Groupe</span><span class="text-gray-600 text-[10px] tracking-widest uppercase whitespace-nowrap ml-8">Downtown</span></a></li>
+            </ul>
+            <a href="venues.html" class="mt-8 flex items-center justify-between border border-white/20 hover:border-white/60 px-6 py-4 text-white text-[10px] tracking-[0.25em] uppercase transition-all group"><span data-i18n="mega_view_all_venues">View All Venues</span><i class="fa-solid fa-arrow-right text-[9px] group-hover:translate-x-1 transition-transform"></i></a>
+          </div>
+          <div class="w-[280px] pl-12 flex flex-col gap-4">
+            <p class="text-gray-500 text-[9px] tracking-[0.35em] uppercase" data-i18n="mega_featured">Featured</p>
+            <div class="relative overflow-hidden aspect-[3/4] w-full">
+              <img id="venues-preview-img" src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769638377/473706203_18053071472498519_2657822319212069239_n_vf5i6r.jpg" alt="Venue preview" class="w-full h-full object-cover transition-opacity duration-200">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <p id="venues-preview-label" class="absolute bottom-4 left-4 text-white text-sm font-bold tracking-widest uppercase">Yoko Luna</p>
+            </div>
+            <span class="text-[9px] tracking-[0.28em] text-mh-gold uppercase" data-i18n="mega_now_open">Now Open</span>
+          </div>
+        </div>
+      </div>
     </div>
+    <a href="packages.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_packages">Packages</a>
+    <a href="sports.html" class="text-mh-gold link-hover" data-i18n="nav_sports">Sports</a>
+    <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
+    <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
+    <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
+  </div>
+  <div class="hidden lg:flex items-center gap-8">
+    <div class="flex items-center gap-2"><button class="lang-btn active" data-lang="en">EN</button><div class="lang-divider"></div><button class="lang-btn" data-lang="fr">FR</button></div>
+    <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+    <a href="contact.html" class="border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all">Contact</a>
+  </div>
+</nav>
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="text-center">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-24 mb-6 animate-pulse object-contain mx-auto">
-            <div class="w-32 h-[1px] bg-mh-gray mx-auto overflow-hidden">
-                <div class="w-full h-full bg-mh-gold" style="animation: shimmer 1.5s infinite;"></div>
-            </div>
-        </div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
+  <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_home">Home</a>
+  <a href="venues.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_venues">Venues</a>
+  <a href="packages.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_packages">Packages</a>
+  <a href="sports.html" class="text-2xl font-serif text-mh-gold mobile-link" data-i18n="nav_sports">Sports</a>
+  <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_services">Services</a>
+  <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_events">Events</a>
+  <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link" data-i18n="nav_careers">Careers</a>
+  <div class="mobile-lang-switcher"><button class="lang-btn active text-lg" data-lang="en">EN</button><div class="lang-divider h-6"></div><button class="lang-btn text-lg" data-lang="fr">FR</button></div>
+</div>
+
+<!-- HERO -->
+<header class="relative min-h-screen flex items-end overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771118357/saputo-stadium_ox8uzr.jpg" alt="Sports" class="w-full h-full object-cover opacity-40" style="object-position:center 30%">
+    <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(7,7,10,1) 0%,rgba(7,7,10,.55) 50%,rgba(7,7,10,.1) 100%)"></div>
+    <div class="absolute inset-0" style="background:radial-gradient(ellipse at 70% 90%,rgba(139,26,26,.3) 0%,transparent 60%)"></div>
+  </div>
+  <div class="relative z-10 w-full max-w-7xl mx-auto px-8 lg:px-16 pb-24 lg:pb-36">
+    <p class="h1 text-[10px] tracking-[0.5em] uppercase text-mh-gold mb-5">Montreal Hospitality · Premium Sports Access</p>
+    <h1 class="font-serif leading-[0.9] mb-8" style="font-size:clamp(3.8rem,9vw,8.5rem);font-weight:300;">
+      <span class="h2 block">The Best Seat</span>
+      <span class="h3 block italic text-white/80">In The City.</span>
+    </h1>
+    <p class="h4 text-white/45 font-light max-w-lg leading-relaxed mb-12 text-[15px]">Premium tickets, private transport, VIP hospitality, and post-game access to Montreal's finest venues — all handled for you.</p>
+    <div class="h4 flex flex-wrap gap-4">
+      <button onclick="document.getElementById('inquiry-modal').classList.add('open')" class="bg-white text-black px-10 py-4 text-[11px] tracking-[0.28em] uppercase font-medium hover:bg-mh-gold transition-colors duration-300">Book an Experience</button>
+      <a href="packages.html" class="border border-white/30 text-white px-10 py-4 text-[11px] tracking-[0.28em] uppercase hover:border-mh-gold hover:text-mh-gold transition-all">View Packages</a>
     </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 py-8 px-8 lg:px-16 flex justify-between items-center text-white uppercase text-[11px] tracking-[0.2em] font-medium">
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden text-mh-gold z-50 hover:rotate-90 transition-transform duration-300">
-            <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-
-        <!-- Logo -->
-        <a href="index.html" class="absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none z-50 group">
-            <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                 alt="Montreal Hospitality" 
-                 class="h-12 object-contain">
-        </a>
-
-        <!-- Desktop Links -->
-        <div class="hidden lg:flex items-center gap-12">
-            <a href="index.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_home">Home</a>
-            <a href="venues.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_venues">Venues</a>
-            <a href="sports.html" class="link-hover text-mh-gold transition-colors" data-i18n="nav_sports">Sports</a>
-            <a href="service.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_services">Services</a>
-            <a href="event.html" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_events">Events</a>
-            <a href="index.html#careers" class="link-hover hover:text-mh-gold transition-colors" data-i18n="nav_careers">Careers</a>
-        </div>
-
-        <!-- Right Actions -->
-        <div class="hidden lg:flex items-center gap-8">
-            <!-- Language Switcher -->
-            <div class="lang-switcher">
-                <button class="lang-btn active" data-lang="en" onclick="translator.setLanguage('en')">EN</button>
-                <div class="lang-divider"></div>
-                <button class="lang-btn" data-lang="fr" onclick="translator.setLanguage('fr')">FR</button>
-            </div>
-            
-            <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="hover:text-mh-gold transition-colors hover:scale-110 transform duration-300"><i class="fa-brands fa-instagram text-lg"></i></a>
-            <a href="contact.html" class="btn-hover border border-white/30 px-6 py-2 hover:border-mh-gold hover:text-mh-gold transition-all" data-i18n="nav_contact">Contact</a>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed inset-0 bg-mh-navy z-40 transform -translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8 lg:hidden">
-        <a href="index.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_home">Home</a>
-        <a href="venues.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_venues">Venues</a>
-        <a href="sports.html" class="text-2xl font-serif text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_sports">Sports</a>
-        <a href="service.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_services">Services</a>
-        <a href="event.html" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_events">Events</a>
-        <a href="index.html#careers" class="text-2xl font-serif text-white hover:text-mh-gold mobile-link transform hover:translate-x-2 transition-transform" data-i18n="nav_careers">Careers</a>
-        
-        <!-- Mobile Language Switcher -->
-        <div class="mobile-lang-switcher">
-            <button class="lang-btn active text-lg" data-lang="en" onclick="translator.setLanguage('en')">EN</button>
-            <div class="lang-divider h-6"></div>
-            <button class="lang-btn text-lg" data-lang="fr" onclick="translator.setLanguage('fr')">FR</button>
-        </div>
+  </div>
+  <!-- Ticker -->
+  <div class="absolute bottom-0 left-0 right-0 z-10 border-t border-white/5 bg-black/50 backdrop-blur-sm py-3 overflow-hidden">
+    <div class="ticker-inner text-[10px] tracking-[0.22em] uppercase text-white/25 gap-0">
+      <span class="px-10">CF Montréal · Premium Seating</span><span class="text-mh-gold px-4">·</span><span class="px-10">Formula 1 Grand Prix</span><span class="text-mh-gold px-4">·</span><span class="px-10">Montreal Canadiens</span><span class="text-mh-gold px-4">·</span><span class="px-10">Alouettes de Montréal</span><span class="text-mh-gold px-4">·</span><span class="px-10">VIP Hospitality</span><span class="text-mh-gold px-4">·</span><span class="px-10">Post-Game Nightlife</span><span class="text-mh-gold px-4">·</span>
+      <span class="px-10">CF Montréal · Premium Seating</span><span class="text-mh-gold px-4">·</span><span class="px-10">Formula 1 Grand Prix</span><span class="text-mh-gold px-4">·</span><span class="px-10">Montreal Canadiens</span><span class="text-mh-gold px-4">·</span><span class="px-10">Alouettes de Montréal</span><span class="text-mh-gold px-4">·</span><span class="px-10">VIP Hospitality</span><span class="text-mh-gold px-4">·</span><span class="px-10">Post-Game Nightlife</span><span class="text-mh-gold px-4">·</span>
     </div>
+  </div>
+</header>
 
-    <!-- Hero Section -->
-    <header class="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <div class="absolute inset-0 z-0">
-            <video autoplay muted loop playsinline 
-                   class="w-full h-full object-cover opacity-40 scale-105"
-                   poster="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771371375/SaputoStadium-BW-1024x683_uqgcw0.jpg">
-                <source src="https://res.cloudinary.com/dg79ri9bl/video/upload/v1771701744/202602211409_3_aqplkl.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-mh-navy/60 via-mh-navy/40 to-mh-navy"></div>
+<!-- INTRO STRIP -->
+<section class="bg-black border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-8 lg:px-16 py-20 grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/8">
+    <div class="py-10 md:py-0 md:pr-16 fade-up"><p class="text-[10px] tracking-[0.4em] uppercase text-white/25 mb-3">What We Do</p><p class="font-serif text-2xl text-white/85 leading-snug">Full-service sports hospitality — from first whistle to last call.</p></div>
+    <div class="py-10 md:py-0 md:px-16 fade-up"><p class="text-[10px] tracking-[0.4em] uppercase text-white/25 mb-3">Coverage</p><p class="font-serif text-2xl text-white/85 leading-snug">CF Montréal, Formula 1, Canadiens, Alouettes &amp; more.</p></div>
+    <div class="py-10 md:py-0 md:pl-16 fade-up"><p class="text-[10px] tracking-[0.4em] uppercase text-white/25 mb-3">Experience</p><p class="font-serif text-2xl text-white/85 leading-snug">Premium seats, private chauffeurs, VIP nightlife access — all in one.</p></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="py-28 px-8 lg:px-16" style="background:#07070a">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 fade-up">
+      <p class="text-[10px] tracking-[0.45em] uppercase text-mh-gold mb-4">Signature Experiences</p>
+      <h2 class="font-serif text-5xl md:text-7xl text-white font-light leading-[0.92]">Sport<br><em>Match Days</em></h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- CF Montreal -->
+      <div class="sport-card fade-up group">
+        <div class="ci overflow-hidden h-60"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771118357/saputo-stadium_ox8uzr.jpg" alt="CF Montréal" class="w-full h-full object-cover"></div>
+        <div class="p-8 rl">
+          <p class="text-[9px] tracking-[0.4em] uppercase text-white/25 mb-2">MLS · Saputo Stadium</p>
+          <h3 class="font-serif text-3xl text-white mb-4">CF Montréal</h3>
+          <p class="text-white/45 text-sm font-light leading-relaxed mb-6">Premium match seats, pre-game dining, private transport, and post-match VIP access to our partner venues.</p>
+          <ul class="space-y-2 mb-8 text-[11px] text-white/35 tracking-wide">
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-futbol w-4" style="color:#c23b3b"></i>Premium seating guaranteed</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-car w-4" style="color:#c23b3b"></i>Private transport included</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-utensils w-4" style="color:#c23b3b"></i>Pre-match dinner reservation</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-champagne-glasses w-4" style="color:#c23b3b"></i>Post-match nightlife access</li>
+          </ul>
+          <button onclick="document.getElementById('inquiry-modal').classList.add('open')" class="w-full border border-white/15 hover:border-mh-gold hover:text-mh-gold text-white/70 py-3 text-[10px] tracking-[0.25em] uppercase transition-all">Inquire</button>
         </div>
-
-        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto mt-20">
-            <div class="line-reveal hero-animate delay-1 mb-8"></div>
-
-            <p class="tao-subheading text-mh-gold mb-8 hero-animate delay-2 tracking-[0.3em] text-xs md:text-sm" data-i18n="hero_subtitle">
-                Premium Sports Hospitality
-            </p>
-
-            <!-- CF Montreal Logo -->
-            <div class="mb-8 hero-animate delay-3 flex justify-center">
-                <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1770157437/Logo_of_CF_Montreal_2023.svg_sctrjp.png" 
-                     alt="CF Montréal" 
-                     class="h-32 md:h-48 object-contain logo-glow drop-shadow-2xl">
-            </div>
-
-            <p class="text-xl md:text-2xl text-white/80 font-light italic hero-animate delay-4 mb-10" data-i18n="hero_tagline">
-                Experience MLS Soccer in Ultimate Luxury
-            </p>
-
-            <div class="hero-animate delay-4 mt-8">
-                <a href="#packages" class="btn-hover inline-block border border-mh-gold text-mh-gold px-10 py-4 text-xs tracking-[0.25em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all duration-300" data-i18n="hero_cta">
-                    View Packages
-                </a>
-            </div>
+      </div>
+      <!-- F1 -->
+      <div class="sport-card fade-up group" style="transition-delay:.1s">
+        <div class="ci overflow-hidden h-60"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771118518/grand-prix-du-canada-circuit-gilles-villeneuve-parc-jean-drapeau-montreal-1920x700_fgiayg.jpg" alt="F1" class="w-full h-full object-cover"></div>
+        <div class="p-8 rl">
+          <p class="text-[9px] tracking-[0.4em] uppercase text-white/25 mb-2">Formula 1 · Circuit Gilles Villeneuve</p>
+          <h3 class="font-serif text-3xl text-white mb-4">Grand Prix</h3>
+          <p class="text-white/45 text-sm font-light leading-relaxed mb-6">The Canadian Grand Prix is Montreal's biggest weekend. Passes, luxury cars, restaurants, and nightlife — handled.</p>
+          <ul class="space-y-2 mb-8 text-[11px] text-white/35 tracking-wide">
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-flag-checkered w-4" style="color:#c23b3b"></i>Race weekend access</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-car-side w-4" style="color:#c23b3b"></i>Luxury car rental</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-user-tie w-4" style="color:#c23b3b"></i>Private Escalade chauffeur</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-star w-4" style="color:#c23b3b"></i>VIP casino / nightclub</li>
+          </ul>
+          <button onclick="document.getElementById('inquiry-modal').classList.add('open')" class="w-full border border-white/15 hover:border-mh-gold hover:text-mh-gold text-white/70 py-3 text-[10px] tracking-[0.25em] uppercase transition-all">Inquire</button>
         </div>
-
-        <!-- Floating scroll indicator -->
-        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-mh-gold/50 opacity-0 scroll-indicator">
-            <i class="fa-solid fa-chevron-down text-sm"></i>
+      </div>
+      <!-- Custom -->
+      <div class="sport-card fade-up group" style="transition-delay:.2s">
+        <div class="ci overflow-hidden h-60 relative"><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771188264/474507951_2127674794358627_4623890825058928660_n_wfepom.jpg" alt="Custom" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div></div>
+        <div class="p-8 rl">
+          <p class="text-[9px] tracking-[0.4em] uppercase text-white/25 mb-2">Fully Bespoke</p>
+          <h3 class="font-serif text-3xl text-white mb-4">Custom Package</h3>
+          <p class="text-white/45 text-sm font-light leading-relaxed mb-6">Tell us your sport, your group, your vision. We build the full experience around you from scratch.</p>
+          <ul class="space-y-2 mb-8 text-[11px] text-white/35 tracking-wide">
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-headset w-4" style="color:#c23b3b"></i>Dedicated concierge</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-calendar w-4" style="color:#c23b3b"></i>Full itinerary planning</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-people-group w-4" style="color:#c23b3b"></i>Group coordination</li>
+            <li class="flex gap-3 items-center"><i class="fa-solid fa-arrows-spin w-4" style="color:#c23b3b"></i>Any sport, any scale</li>
+          </ul>
+          <button onclick="document.getElementById('inquiry-modal').classList.add('open')" class="w-full border border-white/15 hover:border-mh-gold hover:text-mh-gold text-white/70 py-3 text-[10px] tracking-[0.25em] uppercase transition-all">Inquire</button>
         </div>
-
-        <style>
-            .scroll-indicator {
-                animation: fadeIn 1s ease forwards, bounce 2s infinite;
-                animation-delay: 2.5s;
-            }
-            @keyframes fadeIn {
-                to { opacity: 1; }
-            }
-            @keyframes bounce {
-                0%, 100% { transform: translateX(-50%) translateY(0); }
-                50% { transform: translateX(-50%) translateY(-10px); }
-            }
-        </style>
-    </header>
-
-    <!-- Introduction with Stadium Image -->
-    <section class="py-24 bg-mh-navy text-center px-6 border-b border-white/5">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="reveal text-left">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-6 tracking-[0.3em]" data-i18n="intro_subtitle">SAPUTO STADIUM</span>
-                    <h2 class="text-4xl md:text-5xl tao-heading text-white mb-8 leading-tight">
-                        <span data-i18n="intro_title_1">The Beautiful Game, </span><br><span class="italic text-mh-gold" data-i18n="intro_title_2">Elevated</span>
-                    </h2>
-                    <p class="text-gray-400 font-light leading-relaxed text-lg mb-6" data-i18n="intro_desc_1">
-                        Experience CF Montréal matches from the best seats at Saputo Stadium. 
-                        Our premium hospitality packages combine exclusive seating with pre-match dining 
-                        at our partnered venues and post-game access to Montreal's hottest nightlife spots.
-                    </p>
-                    <p class="text-gray-400 font-light leading-relaxed" data-i18n="intro_desc_2">
-                        Whether you're entertaining clients, celebrating with friends, or treating your family to an unforgettable day, 
-                        our curated sports hospitality experiences deliver world-class service and the best views in the house.
-                    </p>
-                </div>
-                <div class="reveal img-zoom-container rounded-sm overflow-hidden">
-                    <img src="https://cf-images.us-east-1.prod.boltdns.net/v1/static/5534894111001/c1655d95-221b-419d-80bc-7ef72d346984/e51aa724-b3bd-4135-9b52-311847301cf0/1280x720/match/image.jpg" 
-                         alt="Saputo Stadium VIP Terrace View" 
-                         class="w-full h-[400px] object-cover img-zoom">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Gallery -->
-    <section class="py-24 bg-mh-dark border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="gallery_subtitle">THE EXPERIENCE</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-4" data-i18n="gallery_title">See What Awaits</h2>
-                <p class="text-gray-400 font-light max-w-2xl mx-auto" data-i18n="gallery_desc">
-                    From pitch-side views to luxury suite amenities, explore the premium hospitality experience at Saputo Stadium.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="gallery-item aspect-square reveal" onclick="openLightbox(this)">
-                    <img src="https://images.mlssoccer.com/image/private/t_keep-aspect-ratio-e-mobile/f_png/mls-mtl/s7ka5sxjajkceaybk5ux.png" 
-                         alt="CF Montreal VIP Experience" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_1">VIP Lounge Access</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 100ms;" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464128/kdm5ohsdaepfifnhncl2_fdlrxf.png" 
-                         alt="Luxury Suite Interior" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_2">Private Suite</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 200ms;" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464198/kyx5ujcxt4pnd5rlulqs_u8opfl.png" 
-                         alt="Premium Sideline Seating" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_3">Field Side Views</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 300ms;" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dxb0ptf6a/image/upload/c_fill%2Cdpr_auto%2Cg_auto%2Car_16:9%2Cw_738/q_60/f_auto/prod/assets/01_insights/2024/vip-hospitality-tickets/sportfive-insights-vip-hospitality-01.jpg" 
-                         alt="VIP Hospitality Dining" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_4">Premium Dining</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464281/f4ux8nazft1buyoccibl_lmwlgy.jpg" 
-                         alt="Stadium Club Seats" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_5">Club Level Seating</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 100ms;" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464345/p0md9j4ooswjoqiximxg_fneifi.jpg" 
-                         alt="Outdoor Hospitality Terrace" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_6">Terrace Access</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 200ms;" onclick="openLightbox(this)">
-                    <img src="https://images.mlssoccer.com/image/private/t_photogallery_3x/mls-mtl/kf1fnamdnsohezzkronb.jpg" 
-                         alt="Pavilion Tables at Saputo" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_7">Pavilion Tables</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item aspect-square reveal" style="transition-delay: 300ms;" onclick="openLightbox(this)">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464241/irweljqvs343lbg17ksk_otsxfy.jpg" 
-                         alt="Luxury Box Interior" 
-                         class="w-full h-full object-cover">
-                    <div class="gallery-overlay">
-                        <p class="text-white text-sm font-serif" data-i18n="gallery_8">Suite Amenities</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Packages with Images -->
-    <section id="packages" class="py-32 bg-mh-dark relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="packages_subtitle">Hospitality Packages</span>
-                <h2 class="text-5xl md:text-6xl tao-heading text-white" data-i18n="packages_title">Choose Your Experience</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Package 1: Premium Side -->
-                <div class="group bg-mh-navy border border-white/10 overflow-hidden hover:border-mh-gold/50 transition-all duration-500 card-lift reveal">
-                    <div class="img-zoom-container h-48 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464281/f4ux8nazft1buyoccibl_lmwlgy.jpg" 
-                             alt="Premium Side Seating" 
-                             class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="text-mh-gold text-xs tracking-[0.2em] uppercase" data-i18n="pkg_essential">Essential</span>
-                            <i class="fa-solid fa-futbol text-mh-gold text-2xl"></i>
-                        </div>
-                        <h3 class="text-3xl tao-heading text-white mb-4" data-i18n="pkg_premium_title">Premium Seats</h3>
-                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed" data-i18n="pkg_premium_desc">
-                            Premium midfield seating with exceptional views of the action. 
-                            Includes welcome drink and match day program.
-                        </p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300">
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_premium_feat_1">Category 1 Seats</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_premium_feat_2">Welcome Cocktail</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_premium_feat_3">Match Day Program</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="#contact" onclick="selectPackage('field')" class="btn-hover block w-full text-center border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all duration-300" data-i18n="btn_inquire">
-                            Inquire
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Package 2: VIP Lodge (Featured) -->
-                <div class="group bg-gradient-to-b from-mh-gold/20 to-mh-navy border border-mh-gold/50 overflow-hidden hover:border-mh-gold transition-all duration-500 card-lift reveal relative" style="transition-delay: 100ms;">
-                    <div class="absolute top-4 right-4 bg-mh-gold text-mh-navy text-[10px] font-bold uppercase tracking-widest px-3 py-1 z-10" data-i18n="most_popular">
-                        Most Popular
-                    </div>
-                    <div class="img-zoom-container h-48 overflow-hidden">
-                        <img src="https://images.mlssoccer.com/image/private/t_keep-aspect-ratio-e-mobile/f_png/mls-mtl/s7ka5sxjajkceaybk5ux.png" 
-                             alt="VIP Lodge Experience" 
-                             class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="text-mh-gold text-xs tracking-[0.2em] uppercase" data-i18n="pkg_premium_label">Premium</span>
-                            <i class="fa-solid fa-crown text-mh-gold text-2xl"></i>
-                        </div>
-                        <h3 class="text-3xl tao-heading text-white mb-4" data-i18n="pkg_vip_title">VIP Lodge</h3>
-                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed" data-i18n="pkg_vip_desc">
-                            Elevated experience with private lounge access, premium dining, 
-                            and exclusive in-stadium hospitality.
-                        </p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300">
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_vip_feat_1">VIP Lodge Seating</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_vip_feat_2">Pre-Match 3-Course Dining</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_vip_feat_3">Premium Open Bar</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_vip_feat_4">Valet Parking</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="#contact" onclick="selectPackage('vip')" class="btn-hover block w-full text-center border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all duration-300" data-i18n="btn_inquire">
-                            Inquire
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Package 3: Private Suite -->
-                <div class="group bg-mh-navy border border-white/10 overflow-hidden hover:border-mh-gold/50 transition-all duration-500 card-lift reveal" style="transition-delay: 200ms;">
-                    <div class="img-zoom-container h-48 overflow-hidden">
-                        <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464241/irweljqvs343lbg17ksk_otsxfy.jpg" 
-                             alt="Private Luxury Suite" 
-                             class="w-full h-full object-cover img-zoom">
-                    </div>
-                    <div class="p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <span class="text-mh-gold text-xs tracking-[0.2em] uppercase" data-i18n="pkg_ultimate_label">Ultimate</span>
-                            <i class="fa-solid fa-gem text-mh-gold text-2xl"></i>
-                        </div>
-                        <h3 class="text-3xl tao-heading text-white mb-4" data-i18n="pkg_suite_title">Private Suite</h3>
-                        <p class="text-gray-400 font-light mb-6 text-sm leading-relaxed" data-i18n="pkg_suite_desc">
-                            The ultimate luxury experience. Private suite for 12-20 guests 
-                            with dedicated service and chef-curated menu.
-                        </p>
-                        <ul class="space-y-3 mb-8 text-sm text-gray-300">
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_suite_feat_1">Private Suite (12-20 guests)</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_suite_feat_2">Chef-Curated Menu</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_suite_feat_3">Dedicated Service</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <i class="fa-solid fa-check text-mh-gold text-xs"></i>
-                                <span data-i18n="pkg_suite_feat_4">Post-Game Venue Access</span>
-                            </li>
-                        </ul>
-                        
-                        <a href="#contact" onclick="selectPackage('suite')" class="btn-hover block w-full text-center border border-mh-gold text-mh-gold px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-mh-gold hover:text-mh-navy transition-all duration-300" data-i18n="btn_inquire">
-                            Inquire
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience Details with Images -->
-    <section class="py-32 bg-mh-navy relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
-                <div class="reveal order-2 lg:order-1 img-zoom-container rounded-sm overflow-hidden">
-                    <img src="https://res.cloudinary.com/dxb0ptf6a/image/upload/c_fill%2Cdpr_auto%2Cg_auto%2Car_16:9%2Cw_738/q_60/f_auto/prod/assets/01_insights/2024/vip-hospitality-tickets/sportfive-insights-vip-hospitality-01.jpg" 
-                         alt="Premium Hospitality Dining" 
-                         class="w-full h-[500px] object-cover img-zoom">
-                </div>
-
-                <div class="order-1 lg:order-2 reveal">
-                    <span class="tao-subheading text-mh-gold text-[11px] block mb-4 tracking-[0.3em]" data-i18n="experience_subtitle">THE EXPERIENCE</span>
-                    <h2 class="text-4xl md:text-5xl tao-heading text-white mb-8" data-i18n="experience_title">More Than a Match</h2>
-
-                    <div class="space-y-8">
-                        <div class="flex gap-6 group">
-                            <div class="w-12 h-12 rounded-full bg-mh-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-mh-gold/20 transition-colors">
-                                <i class="fa-solid fa-utensils text-mh-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-serif text-xl mb-2" data-i18n="exp_dining_title">Pre-Match Dining</h4>
-                                <p class="text-gray-400 font-light text-sm leading-relaxed" data-i18n="exp_dining_desc">
-                                    Begin your evening at one of our exclusive partnered venues. 
-                                    Enjoy a curated menu and craft cocktails before heading to the stadium.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="w-12 h-12 rounded-full bg-mh-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-mh-gold/20 transition-colors">
-                                <i class="fa-solid fa-car text-mh-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-serif text-xl mb-2" data-i18n="exp_transport_title">Luxury Transport</h4>
-                                <p class="text-gray-400 font-light text-sm leading-relaxed" data-i18n="exp_transport_desc">
-                                    Complimentary chauffeured transportation from your residence 
-                                    or hotel directly to Saputo Stadium's VIP entrance.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="w-12 h-12 rounded-full bg-mh-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-mh-gold/20 transition-colors">
-                                <i class="fa-solid fa-door-open text-mh-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-serif text-xl mb-2" data-i18n="exp_postgame_title">Post-Game Access</h4>
-                                <p class="text-gray-400 font-light text-sm leading-relaxed" data-i18n="exp_postgame_desc">
-                                    Continue the celebration with skip-the-line access to 
-                                    Yoko Luna, Hang Bar, or Bord'Elle after the final whistle.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="w-12 h-12 rounded-full bg-mh-gold/10 flex items-center justify-center flex-shrink-0 group-hover:bg-mh-gold/20 transition-colors">
-                                <i class="fa-solid fa-star text-mh-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-serif text-xl mb-2" data-i18n="exp_meet_title">Player Meet & Greets</h4>
-                                <p class="text-gray-400 font-light text-sm leading-relaxed" data-i18n="exp_meet_desc">
-                                    Select packages include exclusive opportunities to meet 
-                                    CF Montréal players and coaching staff.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Additional Images Row -->
-            <div class="grid md:grid-cols-3 gap-6 reveal">
-                <div class="img-zoom-container rounded-sm overflow-hidden h-64">
-                    <img src="https://images.mlssoccer.com/image/private/t_photogallery_3x/mls-mtl/kf1fnamdnsohezzkronb.jpg" 
-                         alt="Pavilion Dining Experience" 
-                         class="w-full h-full object-cover img-zoom">
-                </div>
-                <div class="img-zoom-container rounded-sm overflow-hidden h-64">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464241/irweljqvs343lbg17ksk_otsxfy.jpg" 
-                         alt="Terrace Hospitality" 
-                         class="w-full h-full object-cover img-zoom">
-                </div>
-                <div class="img-zoom-container rounded-sm overflow-hidden h-64">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771464281/f4ux8nazft1buyoccibl_lmwlgy.jpg" 
-                         alt="Suite Interior" 
-                         class="w-full h-full object-cover img-zoom">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2025 Season Schedule Teaser -->
-    <section class="py-24 bg-mh-dark border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="season_subtitle">2025 SEASON</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white" data-i18n="season_title">Key Matches</h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-mh-navy border border-white/10 p-6 text-center hover:border-mh-gold/50 transition-all group reveal">
-                    <p class="text-mh-gold text-xs tracking-widest uppercase mb-2" data-i18n="match_1_date">March 2025</p>
-                    <h4 class="text-white font-serif text-lg mb-2" data-i18n="match_1_title">Home Opener</h4>
-                    <p class="text-gray-500 text-xs" data-i18n="match_1_opponent">vs Toronto FC</p>
-                </div>
-
-                <div class="bg-mh-navy border border-white/10 p-6 text-center hover:border-mh-gold/50 transition-all group reveal" style="transition-delay: 100ms;">
-                    <p class="text-mh-gold text-xs tracking-widest uppercase mb-2" data-i18n="match_2_date">May 2025</p>
-                    <h4 class="text-white font-serif text-lg mb-2" data-i18n="match_2_title">Canadian Derby</h4>
-                    <p class="text-gray-500 text-xs" data-i18n="match_2_opponent">vs Vancouver</p>
-                </div>
-
-                <div class="bg-mh-navy border border-white/10 p-6 text-center hover:border-mh-gold/50 transition-all group reveal" style="transition-delay: 200ms;">
-                    <p class="text-mh-gold text-xs tracking-widest uppercase mb-2" data-i18n="match_3_date">July 2025</p>
-                    <h4 class="text-white font-serif text-lg mb-2" data-i18n="match_3_title">MLS Showcase</h4>
-                    <p class="text-gray-500 text-xs" data-i18n="match_3_opponent">vs LA Galaxy</p>
-                </div>
-
-                <div class="bg-mh-navy border border-white/10 p-6 text-center hover:border-mh-gold/50 transition-all group reveal" style="transition-delay: 300ms;">
-                    <p class="text-mh-gold text-xs tracking-widest uppercase mb-2" data-i18n="match_4_date">September 2025</p>
-                    <h4 class="text-white font-serif text-lg mb-2" data-i18n="match_4_title">Playoff Push</h4>
-                    <p class="text-gray-500 text-xs" data-i18n="match_4_opponent">vs Inter Miami</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Inquiry Form -->
-    <section id="contact" class="py-32 bg-mh-navy relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, #C5A059 1px, transparent 0); background-size: 40px 40px;"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16 reveal">
-                <span class="tao-subheading text-mh-gold text-[11px] block mb-4" data-i18n="form_subtitle">RESERVATIONS</span>
-                <h2 class="text-4xl md:text-5xl tao-heading text-white mb-4" data-i18n="form_title">Secure Your Seats</h2>
-                <p class="text-gray-400 font-light" data-i18n="form_desc">
-                    Complete the form below and our hospitality team will contact you within 24 hours.
-                </p>
-            </div>
-
-            <form id="guestListForm" action="https://formspree.io/f/mykdvnra" method="POST" novalidate class="space-y-8 reveal">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_firstname">First Name</label>
-                        <input type="text" name="firstName" class="form-input" placeholder="John" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_lastname">Last Name</label>
-                        <input type="text" name="lastName" class="form-input" placeholder="Doe" data-required="true">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_email">Email</label>
-                        <input type="email" name="email" class="form-input" placeholder="info@montrealhospitality.com" data-required="true">
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_phone">Phone</label>
-                        <input type="tel" name="phone" class="form-input" placeholder="514-378-0154">
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_package">Preferred Package</label>
-                        <select id="package-select" name="package" class="form-input bg-mh-navy" data-required="true">
-                            <option value="" data-i18n="select_package">Select Package</option>
-                            <option value="field" data-i18n="opt_premium_seats">Premium Seats</option>
-                            <option value="vip" data-i18n="opt_vip_lodge">VIP Lodge</option>
-                            <option value="suite" data-i18n="opt_private_suite">Private Suite</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_guests">Number of Guests</label>
-                        <input type="number" name="guests" class="form-input" placeholder="2" min="1">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2" data-i18n="label_requests">Special Requests</label>
-                    <textarea name="specialRequests" class="form-input h-32 resize-none" placeholder="Tell us about any special occasions or requirements..." data-i18n-placeholder="placeholder_requests"></textarea>
-                </div>
-
-                <!-- Honeypot field to prevent spam -->
-                <input type="text" name="_gotcha" style="display:none">
-
-                <div class="text-center pt-4">
-                    <button type="button" onclick="submitForm()" id="submitBtn" class="btn-hover bg-mh-gold text-mh-navy px-12 py-4 uppercase tracking-[0.25em] text-xs font-bold hover:bg-white transition-all duration-300" data-i18n="btn_submit">
-                        Submit Inquiry
-                    </button>
-                </div>
-            </form>
-
-            <!-- Success Message -->
-            <div id="successMessage" class="success-message">
-                <i class="fa-solid fa-check-circle text-mh-gold text-4xl mb-4"></i>
-                <h3 class="text-white font-serif text-2xl mb-2" data-i18n="success_title">Request Received!</h3>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="success_desc">We've received your inquiry and will contact you within 24 hours to confirm your sports hospitality experience.</p>
-                <div class="bg-mh-navy/50 p-4 inline-block mb-4">
-                    <p class="text-mh-gold text-xs uppercase tracking-wider mb-1" data-i18n="ref_label">Your Reference Number</p>
-                    <p class="text-white text-xl font-serif" id="inquiryReferenceId">MH-CTC-2025-XX123XX123X1</p>
-                </div>
-                <div class="space-y-1 text-gray-400 text-xs">
-                    <p><i class="fa-solid fa-envelope text-mh-gold mr-2"></i> <span data-i18n="confirmation_sent">Confirmation sent to</span> <span id="confirmEmail"></span></p>
-                </div>
-            </div>
-
-            <!-- Error Message -->
-            <div id="errorMessage" class="error-message">
-                <i class="fa-solid fa-exclamation-circle text-2xl mb-2"></i>
-                <p class="font-light text-sm" data-i18n="error_msg">Something went wrong. Please try again or contact us directly at 514-378-0154.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black text-white pt-24 pb-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-20">
-                <div class="col-span-1 md:col-span-1">
-                    <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" 
-                         alt="Montreal Hospitality" 
-                         class="h-16 mb-8 object-contain">
-                    <p class="text-gray-500 text-sm leading-relaxed font-light" data-i18n="footer_tagline">
-                        Redefining the art of the night in Montreal.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_explore">Explore</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="venues.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform" data-i18n="nav_venues">Venues</a></li>
-                        <li><a href="sports.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform" data-i18n="nav_sports">Sports</a></li>
-                        <li><a href="service.html" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform" data-i18n="nav_services">Services</a></li>
-                        <li><a href="index.html#careers" class="hover:text-mh-gold transition-colors hover:translate-x-1 inline-block transform" data-i18n="nav_careers">Careers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_contact">Contact</h4>
-                    <ul class="space-y-4 text-sm text-gray-500 font-light">
-                        <li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li>
-                        <li>514-378-0154</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="tao-subheading text-white text-[11px] mb-8 tracking-[0.2em]" data-i18n="footer_follow">Follow</h4>
-                    <div class="flex gap-6">
-                        <a href="https://www.instagram.com/montrealhospitality/?hl=en" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-mh-gold transition-colors hover:scale-110 transform"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 uppercase tracking-widest">
-                <p>&copy; 2024 Montreal Hospitality Group</p>
-                <div class="flex gap-8 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition-colors" data-i18n="footer_privacy">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors" data-i18n="footer_terms">Terms</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Translation System
-        const translations = {
-            en: {
-                // Navigation
-                nav_home: "Home",
-                nav_venues: "Venues",
-                nav_sports: "Sports",
-                nav_services: "Services",
-                nav_events: "Events",
-                nav_careers: "Careers",
-                nav_contact: "Contact",
-                
-                // Hero
-                hero_subtitle: "Premium Sports Hospitality",
-                hero_tagline: "Experience MLS Soccer in Ultimate Luxury",
-                hero_cta: "View Packages",
-                
-                // Intro
-                intro_subtitle: "SAPUTO STADIUM",
-                intro_title_1: "The Beautiful Game,",
-                intro_title_2: "Elevated",
-                intro_desc_1: "Experience CF Montréal matches from the best seats at Saputo Stadium. Our premium hospitality packages combine exclusive seating with pre-match dining at our partnered venues and post-game access to Montreal's hottest nightlife spots.",
-                intro_desc_2: "Whether you're entertaining clients, celebrating with friends, or treating your family to an unforgettable day, our curated sports hospitality experiences deliver world-class service and the best views in the house.",
-                
-                // Gallery
-                gallery_subtitle: "THE EXPERIENCE",
-                gallery_title: "See What Awaits",
-                gallery_desc: "From pitch-side views to luxury suite amenities, explore the premium hospitality experience at Saputo Stadium.",
-                gallery_1: "VIP Lounge Access",
-                gallery_2: "Private Suite",
-                gallery_3: "Field Side Views",
-                gallery_4: "Premium Dining",
-                gallery_5: "Club Level Seating",
-                gallery_6: "Terrace Access",
-                gallery_7: "Pavilion Tables",
-                gallery_8: "Suite Amenities",
-                
-                // Packages
-                packages_subtitle: "Hospitality Packages",
-                packages_title: "Choose Your Experience",
-                pkg_essential: "Essential",
-                pkg_premium_title: "Premium Seats",
-                pkg_premium_desc: "Premium midfield seating with exceptional views of the action. Includes welcome drink and match day program.",
-                pkg_premium_feat_1: "Category 1 Seats",
-                pkg_premium_feat_2: "Welcome Cocktail",
-                pkg_premium_feat_3: "Match Day Program",
-                pkg_premium_label: "Premium",
-                most_popular: "Most Popular",
-                pkg_vip_title: "VIP Lodge",
-                pkg_vip_desc: "Elevated experience with private lounge access, premium dining, and exclusive in-stadium hospitality.",
-                pkg_vip_feat_1: "VIP Lodge Seating",
-                pkg_vip_feat_2: "Pre-Match 3-Course Dining",
-                pkg_vip_feat_3: "Premium Open Bar",
-                pkg_vip_feat_4: "Valet Parking",
-                pkg_ultimate_label: "Ultimate",
-                pkg_suite_title: "Private Suite",
-                pkg_suite_desc: "The ultimate luxury experience. Private suite for 12-20 guests with dedicated service and chef-curated menu.",
-                pkg_suite_feat_1: "Private Suite (12-20 guests)",
-                pkg_suite_feat_2: "Chef-Curated Menu",
-                pkg_suite_feat_3: "Dedicated Service",
-                pkg_suite_feat_4: "Post-Game Venue Access",
-                btn_inquire: "Inquire",
-                
-                // Experience
-                experience_subtitle: "THE EXPERIENCE",
-                experience_title: "More Than a Match",
-                exp_dining_title: "Pre-Match Dining",
-                exp_dining_desc: "Begin your evening at one of our exclusive partnered venues. Enjoy a curated menu and craft cocktails before heading to the stadium.",
-                exp_transport_title: "Luxury Transport",
-                exp_transport_desc: "Complimentary chauffeured transportation from your residence or hotel directly to Saputo Stadium's VIP entrance.",
-                exp_postgame_title: "Post-Game Access",
-                exp_postgame_desc: "Continue the celebration with skip-the-line access to Yoko Luna, Hang Bar, or Bord'Elle after the final whistle.",
-                exp_meet_title: "Player Meet & Greets",
-                exp_meet_desc: "Select packages include exclusive opportunities to meet CF Montréal players and coaching staff.",
-                
-                // Season
-                season_subtitle: "2025 SEASON",
-                season_title: "Key Matches",
-                match_1_date: "March 2025",
-                match_1_title: "Home Opener",
-                match_1_opponent: "vs Toronto FC",
-                match_2_date: "May 2025",
-                match_2_title: "Canadian Derby",
-                match_2_opponent: "vs Vancouver",
-                match_3_date: "July 2025",
-                match_3_title: "MLS Showcase",
-                match_3_opponent: "vs LA Galaxy",
-                match_4_date: "September 2025",
-                match_4_title: "Playoff Push",
-                match_4_opponent: "vs Inter Miami",
-                
-                // Form
-                form_subtitle: "RESERVATIONS",
-                form_title: "Secure Your Seats",
-                form_desc: "Complete the form below and our hospitality team will contact you within 24 hours.",
-                label_firstname: "First Name",
-                label_lastname: "Last Name",
-                label_email: "Email",
-                label_phone: "Phone",
-                label_package: "Preferred Package",
-                label_guests: "Number of Guests",
-                label_requests: "Special Requests",
-                select_package: "Select Package",
-                opt_premium_seats: "Premium Seats",
-                opt_vip_lodge: "VIP Lodge",
-                opt_private_suite: "Private Suite",
-                placeholder_requests: "Tell us about any special occasions or requirements...",
-                btn_submit: "Submit Inquiry",
-                
-                // Success/Error
-                success_title: "Request Received!",
-                success_desc: "We've received your inquiry and will contact you within 24 hours to confirm your sports hospitality experience.",
-                ref_label: "Your Reference Number",
-                confirmation_sent: "Confirmation sent to",
-                error_msg: "Something went wrong. Please try again or contact us directly at 514-378-0154.",
-                
-                // Footer
-                footer_tagline: "Redefining the art of the night in Montreal.",
-                footer_explore: "Explore",
-                footer_contact: "Contact",
-                footer_follow: "Follow",
-                footer_privacy: "Privacy",
-                footer_terms: "Terms"
-            },
-            fr: {
-                // Navigation
-                nav_home: "Accueil",
-                nav_venues: "Lieux",
-                nav_sports: "Sports",
-                nav_services: "Services",
-                nav_events: "Événements",
-                nav_careers: "Carrières",
-                nav_contact: "Contact",
-                
-                // Hero
-                hero_subtitle: "Hospitalité Sportive Premium",
-                hero_tagline: "Vivez le Soccer MLS dans le Luxe Ultime",
-                hero_cta: "Voir les Forfaits",
-                
-                // Intro
-                intro_subtitle: "STADE SAPUTO",
-                intro_title_1: "Le Beau Jeu,",
-                intro_title_2: "Élevé",
-                intro_desc_1: "Vivez les matchs du CF Montréal depuis les meilleures places au Stade Saputo. Nos forfaits d'hospitalité premium combinent des places exclusives avec un dîner avant-match dans nos établissements partenaires et un accès après-match aux meilleurs spots nocturnes de Montréal.",
-                intro_desc_2: "Que vous receviez des clients, célébriez avec des amis ou gâtiez votre famille pour une journée inoubliable, nos expériences d'hospitalité sportive offrent un service de classe mondiale et les meilleures vues de la maison.",
-                
-                // Gallery
-                gallery_subtitle: "L'EXPÉRIENCE",
-                gallery_title: "Découvrez Ce Qui Vous Attend",
-                gallery_desc: "Des vues en bordure du terrain aux commodités des suites de luxe, explorez l'expérience d'hospitalité premium au Stade Saputo.",
-                gallery_1: "Accès au Salon VIP",
-                gallery_2: "Suite Privée",
-                gallery_3: "Vues en Bordure du Terrain",
-                gallery_4: "Dîner Premium",
-                gallery_5: "Places Club Level",
-                gallery_6: "Accès à la Terrasse",
-                gallery_7: "Tables Pavillon",
-                gallery_8: "Commodités de la Suite",
-                
-                // Packages
-                packages_subtitle: "Forfaits d'Hospitalité",
-                packages_title: "Choisissez Votre Expérience",
-                pkg_essential: "Essentiel",
-                pkg_premium_title: "Places Premium",
-                pkg_premium_desc: "Places milieu de terrain premium avec des vues exceptionnelles de l'action. Inclut un cocktail de bienvenue et un programme de match.",
-                pkg_premium_feat_1: "Places Catégorie 1",
-                pkg_premium_feat_2: "Cocktail de Bienvenue",
-                pkg_premium_feat_3: "Programme du Match",
-                pkg_premium_label: "Premium",
-                most_popular: "Plus Populaire",
-                pkg_vip_title: "Lodge VIP",
-                pkg_vip_desc: "Expérience élevée avec accès au salon privé, dîner premium et hospitalité exclusive dans le stade.",
-                pkg_vip_feat_1: "Places Lodge VIP",
-                pkg_vip_feat_2: "Dîner 3 Services Avant-Match",
-                pkg_vip_feat_3: "Bar Ouvert Premium",
-                pkg_vip_feat_4: "Service de Voiturier",
-                pkg_ultimate_label: "Ultime",
-                pkg_suite_title: "Suite Privée",
-                pkg_suite_desc: "L'expérience de luxe ultime. Suite privée pour 12-20 invités avec service dédié et menu créé par le chef.",
-                pkg_suite_feat_1: "Suite Privée (12-20 invités)",
-                pkg_suite_feat_2: "Menu Créé par le Chef",
-                pkg_suite_feat_3: "Service Dédié",
-                pkg_suite_feat_4: "Accès aux Établissements Après-Match",
-                btn_inquire: "Renseignez-vous",
-                
-                // Experience
-                experience_subtitle: "L'EXPÉRIENCE",
-                experience_title: "Plus Qu'un Match",
-                exp_dining_title: "Dîner Avant-Match",
-                exp_dining_desc: "Commencez votre soirée dans l'un de nos établissements partenaires exclusifs. Profitez d'un menu sélectionné et de cocktails artisanaux avant de vous rendre au stade.",
-                exp_transport_title: "Transport de Luxe",
-                exp_transport_desc: "Transport avec chauffeur gratuit depuis votre résidence ou hôtel directement à l'entrée VIP du Stade Saputo.",
-                exp_postgame_title: "Accès Après-Match",
-                exp_postgame_desc: "Continuez la célébration avec un accès sans file d'attente à Yoko Luna, Hang Bar ou Bord'Elle après le coup de sifflet final.",
-                exp_meet_title: "Rencontres avec les Joueurs",
-                exp_meet_desc: "Certains forfaits incluent des opportunités exclusives de rencontrer les joueurs et le personnel d'entraîneurs du CF Montréal.",
-                
-                // Season
-                season_subtitle: "SAISON 2025",
-                season_title: "Matchs Clés",
-                match_1_date: "Mars 2025",
-                match_1_title: "Match d'Ouverture",
-                match_1_opponent: "vs Toronto FC",
-                match_2_date: "Mai 2025",
-                match_2_title: "Derby Canadien",
-                match_2_opponent: "vs Vancouver",
-                match_3_date: "Juillet 2025",
-                match_3_title: "Vitrine MLS",
-                match_3_opponent: "vs LA Galaxy",
-                match_4_date: "Septembre 2025",
-                match_4_title: "Push pour les Séries",
-                match_4_opponent: "vs Inter Miami",
-                
-                // Form
-                form_subtitle: "RÉSERVATIONS",
-                form_title: "Sécurisez Vos Places",
-                form_desc: "Remplissez le formulaire ci-dessous et notre équipe d'hospitalité vous contactera dans les 24 heures.",
-                label_firstname: "Prénom",
-                label_lastname: "Nom",
-                label_email: "Email",
-                label_phone: "Téléphone",
-                label_package: "Forfait Préféré",
-                label_guests: "Nombre d'Invités",
-                label_requests: "Demandes Spéciales",
-                select_package: "Sélectionnez un Forfait",
-                opt_premium_seats: "Places Premium",
-                opt_vip_lodge: "Lodge VIP",
-                opt_private_suite: "Suite Privée",
-                placeholder_requests: "Parlez-nous de toute occasion spéciale ou besoin particulier...",
-                btn_submit: "Soumettre la Demande",
-                
-                // Success/Error
-                success_title: "Demande Reçue!",
-                success_desc: "Nous avons reçu votre demande et vous contacterons dans les 24 heures pour confirmer votre expérience d'hospitalité sportive.",
-                ref_label: "Votre Numéro de Référence",
-                confirmation_sent: "Confirmation envoyée à",
-                error_msg: "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement au 514-378-0154.",
-                
-                // Footer
-                footer_tagline: "Redéfinir l'art de la nuit à Montréal.",
-                footer_explore: "Explorer",
-                footer_contact: "Contact",
-                footer_follow: "Suivre",
-                footer_privacy: "Confidentialité",
-                footer_terms: "Conditions"
-            }
-        };
-
-        // Translator Object
-        const translator = {
-            currentLang: 'en',
-            
-            init() {
-                // Check for saved language preference or browser language
-                const savedLang = localStorage.getItem('preferred_language');
-                const browserLang = navigator.language.split('-')[0];
-                
-                if (savedLang && translations[savedLang]) {
-                    this.currentLang = savedLang;
-                } else if (translations[browserLang]) {
-                    this.currentLang = browserLang;
-                }
-                
-                this.updateUI();
-                this.translatePage();
-            },
-            
-            setLanguage(lang) {
-                if (translations[lang]) {
-                    this.currentLang = lang;
-                    localStorage.setItem('preferred_language', lang);
-                    this.updateUI();
-                    this.translatePage();
-                    
-                    // Update html lang attribute
-                    document.documentElement.lang = lang;
-                }
-            },
-            
-            updateUI() {
-                // Update language buttons
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    if (btn.dataset.lang === this.currentLang) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            },
-            
-            translatePage() {
-                const texts = translations[this.currentLang];
-                
-                // Translate elements with data-i18n attribute
-                document.querySelectorAll('[data-i18n]').forEach(element => {
-                    const key = element.dataset.i18n;
-                    if (texts[key]) {
-                        element.textContent = texts[key];
-                    }
-                });
-                
-                // Translate placeholders
-                document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-                    const key = element.dataset.i18nPlaceholder;
-                    if (texts[key]) {
-                        element.placeholder = texts[key];
-                    }
-                });
-            }
-        };
-
-        // Initialize translator when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => translator.init());
-        } else {
-            translator.init();
-        }
-
-        // Generate reference number in format MH-CTC-2025-XX123XX123X1
-        function generateReferenceNumber() {
-            const prefix = 'MH-CTC-2025-';
-            
-            // Generate random alphanumeric string: XX123XX123X1
-            let randomPart = '';
-            
-            // Pattern: XX123XX123X1 (2 letters, 3 numbers, 2 letters, 3 numbers, 1 letter, 1 number)
-            const pattern = [
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 2 },
-                { type: 'number', count: 3 },
-                { type: 'letter', count: 1 },
-                { type: 'number', count: 1 }
-            ];
-            
-            pattern.forEach(segment => {
-                for (let i = 0; i < segment.count; i++) {
-                    if (segment.type === 'letter') {
-                        // Random letter A-Z
-                        randomPart += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    } else {
-                        // Random number 0-9
-                        randomPart += Math.floor(Math.random() * 10).toString();
-                    }
-                }
-            });
-            
-            return prefix + randomPart;
-        }
-
-        // Validate form fields
-        function validateForm() {
-            const form = document.getElementById('guestListForm');
-            const requiredFields = form.querySelectorAll('[data-required="true"]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    field.style.borderColor = 'rgba(255,255,255,0.2)';
-                }
-            });
-
-            return isValid;
-        }
-
-        // Submit form function
-        async function submitForm() {
-            const form = document.getElementById('guestListForm');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Validate form first
-            if (!validateForm()) {
-                // Shake animation for visual feedback
-                form.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    form.style.animation = '';
-                }, 500);
-                return;
-            }
-            
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Sending...';
-            submitBtn.classList.add('submitting');
-            
-            try {
-                // Generate reference number first
-                const refNumber = generateReferenceNumber();
-                
-                // Collect all form data
-                const formData = new FormData(form);
-                
-                // Add reference number to form data
-                formData.append('inquiryReference', refNumber);
-                formData.append('ticketNumber', refNumber);
-                formData.append('referenceId', refNumber);
-                formData.append('venue', 'Sports Hospitality');
-                
-                // Submit to Formspree
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // Success - show success message
-                    document.getElementById('inquiryReferenceId').textContent = refNumber;
-                    document.getElementById('confirmEmail').textContent = formData.get('email');
-                    
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                document.getElementById('errorMessage').classList.add('active');
-                submitBtn.innerHTML = 'Submit Inquiry';
-                submitBtn.classList.remove('submitting');
-            }
-        }
-
-        // Prevent browser from restoring scroll position on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        // Scroll to top immediately on load
-        window.scrollTo(0, 0);
-
-        // Lightbox functions
-        function openLightbox(element) {
-            const img = element.querySelector('img');
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = img.src;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Close lightbox on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
-        });
-
-        // Package selection function
-        function selectPackage(packageValue) {
-            const select = document.getElementById('package-select');
-            if (select) {
-                select.value = packageValue;
-            }
-        }
-
-        // Loader and Hero Animation Trigger
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-
-                    // Trigger hero animations
-                    const heroElements = document.querySelectorAll('.hero-animate');
-                    heroElements.forEach(el => {
-                        el.classList.add('visible');
-                    });
-
-                    const line = document.querySelector('.line-reveal');
-                    if (line) line.classList.add('visible');
-
-                }, 800);
-            }, 1200);
-        });
-
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-scrolled');
-            } else {
-                navbar.classList.remove('nav-scrolled');
-            }
-        });
-
-        // Scroll Reveal Animation
-        const revealElements = document.querySelectorAll('.reveal');
-
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 100;
-
-            revealElements.forEach((reveal) => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveal.classList.add('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
-
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-times text-xl"></i>';
-            } else {
-                mobileMenu.classList.add('-translate-x-full');
-                mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
-            }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEYOND THE GAME -->
+<section class="py-28 bg-black px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+    <div class="fade-up">
+      <p class="text-[10px] tracking-[0.45em] uppercase text-mh-gold mb-6">Beyond the Game</p>
+      <h2 class="font-serif text-5xl md:text-6xl text-white font-light leading-[0.92] mb-8">Sport is just<br><em>where it starts.</em></h2>
+      <p class="text-white/45 font-light leading-relaxed mb-10 max-w-lg text-[15px]">Every sports package includes seamless post-game access to our partner venues. The final whistle is just the intermission.</p>
+      <div class="space-y-0">
+        <div class="pkg-row py-5"><p class="text-white text-sm font-medium tracking-wider uppercase">Pre-Game Dining</p><p class="text-white/30 text-[11px] mt-1 tracking-wide">Curated reservations at partner restaurants</p></div>
+        <div class="pkg-row py-5"><p class="text-white text-sm font-medium tracking-wider uppercase">Private Transport</p><p class="text-white/30 text-[11px] mt-1 tracking-wide">Luxury vehicles or Escalade chauffeur</p></div>
+        <div class="pkg-row py-5"><p class="text-white text-sm font-medium tracking-wider uppercase">VIP Nightlife Access</p><p class="text-white/30 text-[11px] mt-1 tracking-wide">Guest list & bottle service at our venues</p></div>
+        <div class="pkg-row py-5"><p class="text-white text-sm font-medium tracking-wider uppercase">Casino Experiences</p><p class="text-white/30 text-[11px] mt-1 tracking-wide">Casino nights at La Voute with full concierge</p></div>
+      </div>
+    </div>
+    <div class="relative fade-up">
+      <img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1771187923/581378186_18352183330165925_6749200706165649439_n_ql6jre.jpg" alt="VIP" class="w-full object-cover" style="height:560px;object-fit:cover;">
+      <div class="absolute -bottom-5 -left-5 bg-black border border-white/10 p-6 hidden lg:block">
+        <p class="text-[9px] tracking-[0.4em] uppercase text-white/25 mb-1">Concierge</p>
+        <p class="font-serif text-2xl text-white">24 / 7</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="relative py-32 overflow-hidden px-8 lg:px-16" style="background:linear-gradient(135deg,#0c0004 0%,#180808 50%,#07070a 100%)">
+  <div class="absolute inset-0 opacity-8" style="background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(139,26,26,.2) 40px,rgba(139,26,26,.2) 41px)"></div>
+  <div class="relative z-10 max-w-4xl mx-auto text-center fade-up">
+    <p class="text-[10px] tracking-[0.5em] uppercase text-mh-gold mb-6">Ready to Play</p>
+    <h2 class="font-serif text-5xl md:text-7xl text-white font-light leading-[0.92] mb-8">Your seat is waiting.</h2>
+    <p class="text-white/35 font-light max-w-xl mx-auto mb-12 leading-relaxed">Whether it's a single match or a full Grand Prix weekend, we handle every detail from first ticket to last drink.</p>
+    <button onclick="document.getElementById('inquiry-modal').classList.add('open')" class="bg-white text-black px-14 py-5 text-[11px] tracking-[0.28em] uppercase font-medium hover:bg-mh-gold transition-colors duration-300">Start Planning</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black border-t border-white/5 pt-20 pb-10 px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16 pb-16 border-b border-white/5">
+    <div><img src="https://res.cloudinary.com/dg79ri9bl/image/upload/v1769636896/montrealhospitality_qrg2bg.png" alt="MH" class="h-14 mb-6 object-contain"><p class="text-white/30 text-sm font-light leading-relaxed">Luxury concierge, sports hospitality, and curated experiences in Montreal.</p></div>
+    <div><p class="text-[10px] tracking-[0.4em] uppercase text-white/20 mb-6">Explore</p><ul class="space-y-3 text-sm text-white/45 font-light"><li><a href="venues.html" class="hover:text-mh-gold transition-colors">Venues</a></li><li><a href="packages.html" class="hover:text-mh-gold transition-colors">Packages</a></li><li><a href="sports.html" class="hover:text-mh-gold transition-colors">Sports</a></li><li><a href="service.html" class="hover:text-mh-gold transition-colors">Services</a></li></ul></div>
+    <div><p class="text-[10px] tracking-[0.4em] uppercase text-white/20 mb-6">Contact</p><ul class="space-y-3 text-sm text-white/45 font-light"><li>514-378-0154</li><li><a href="mailto:info@montrealhospitality.com" class="hover:text-mh-gold transition-colors">info@montrealhospitality.com</a></li></ul></div>
+    <div><p class="text-[10px] tracking-[0.4em] uppercase text-white/20 mb-6">Sports</p><ul class="space-y-3 text-sm text-white/45 font-light"><li>CF Montréal</li><li>Formula 1 Grand Prix</li><li>Montreal Canadiens</li><li>Alouettes de Montréal</li></ul></div>
+  </div>
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-[10px] text-white/18 uppercase tracking-widest">
+    <p>© 2026 Montreal Hospitality Group</p>
+    <div class="flex gap-6 mt-4 md:mt-0"><a href="#" class="hover:text-white/45 transition-colors">Privacy</a><a href="#" class="hover:text-white/45 transition-colors">Terms</a></div>
+  </div>
+</footer>
+
+<!-- INQUIRY MODAL -->
+<div id="inquiry-modal" class="fixed inset-0 bg-black/88 backdrop-blur-sm z-[9000] hidden items-center justify-content:center p-4" style="align-items:center;justify-content:center;">
+  <div style="background:#090909;border:1px solid rgba(139,26,26,.3);max-width:520px;width:100%;padding:2.5rem;max-height:90vh;overflow-y:auto;position:relative;">
+    <button onclick="document.getElementById('inquiry-modal').classList.remove('open')" style="position:absolute;top:1.25rem;right:1.25rem;" class="text-white/35 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-lg"></i></button>
+    <p class="text-[10px] tracking-[0.4em] uppercase text-mh-gold mb-2">Montreal Hospitality</p>
+    <h3 class="font-serif text-3xl text-white mb-6">Sports Inquiry</h3>
+    <form id="sports-form" action="https://formspree.io/f/mykdvnra" method="POST" class="space-y-4">
+      <input type="hidden" name="page" value="Sports">
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">First Name *</label><input type="text" name="first_name" required class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors" placeholder="Jane" style="placeholder-color:rgba(255,255,255,.2)"></div>
+        <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Last Name *</label><input type="text" name="last_name" required class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors" placeholder="Doe"></div>
+      </div>
+      <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Email *</label><input type="email" name="email" required class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors" placeholder="jane@example.com"></div>
+      <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Phone</label><input type="tel" name="phone" class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors" placeholder="+1 514 000 0000"></div>
+      <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Sport / Event</label><select name="sport" class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors"><option>CF Montréal</option><option>Formula 1 Grand Prix</option><option>Montreal Canadiens</option><option>Alouettes</option><option>Custom / Other</option></select></div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Group Size</label><input type="number" name="group_size" min="1" class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors" placeholder="e.g. 4"></div>
+        <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Preferred Date</label><input type="date" name="event_date" class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors"></div>
+      </div>
+      <div><label class="text-[10px] tracking-widest uppercase text-white/25 block mb-2">Message</label><textarea name="message" rows="3" class="w-full bg-black border border-white/10 text-white px-4 py-3 text-sm focus:outline-none focus:border-mh-gold transition-colors resize-none" placeholder="Tell us about your ideal experience..."></textarea></div>
+      <p id="sports-msg" class="text-sm hidden"></p>
+      <button type="submit" id="sports-submit" class="w-full bg-mh-gold text-black py-4 text-[11px] tracking-[0.25em] uppercase font-bold hover:bg-mh-gold-light transition-colors">Send Inquiry</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  (function(){const n=document.getElementById('navbar');let t=false;window.addEventListener('scroll',()=>{if(t)return;t=true;requestAnimationFrame(()=>{n.classList.toggle('nav-scrolled',window.scrollY>50);t=false;});},{passive:true});})();
+  (function(){const btn=document.getElementById('mobile-menu-btn');const menu=document.getElementById('mobile-menu');if(!btn||!menu)return;let open=false;function toggle(){open=!open;menu.classList.toggle('-translate-x-full',!open);btn.innerHTML=open?'<i class="fa-solid fa-times text-xl"></i>':'<i class="fa-solid fa-bars text-xl"></i>';}btn.addEventListener('click',toggle);menu.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click',()=>{if(open)toggle();}));})();
+  (function(){const wrapper=document.getElementById('venues-menu-wrapper');const btn=document.getElementById('venues-menu-btn');const mega=document.getElementById('venues-mega');const chevron=document.getElementById('venues-chevron');const previewImg=document.getElementById('venues-preview-img');const previewLabel=document.getElementById('venues-preview-label');if(!wrapper||!btn||!mega||!chevron||!previewImg||!previewLabel)return;let closeTimer=null;function openMenu(){clearTimeout(closeTimer);mega.style.opacity='1';mega.style.transform='translateY(0)';mega.style.pointerEvents='all';chevron.style.transform='rotate(180deg)';btn.setAttribute('aria-expanded','true');}function closeMenu(){mega.style.opacity='0';mega.style.transform='translateY(-8px)';mega.style.pointerEvents='none';chevron.style.transform='';btn.setAttribute('aria-expanded','false');}function scheduleClose(){closeTimer=setTimeout(closeMenu,150);}wrapper.addEventListener('mouseenter',openMenu);wrapper.addEventListener('mouseleave',scheduleClose);btn.addEventListener('focus',openMenu);mega.addEventListener('mouseenter',()=>clearTimeout(closeTimer));mega.addEventListener('mouseleave',scheduleClose);document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});document.querySelectorAll('.venue-menu-link').forEach(link=>{const update=()=>{const ni=link.dataset.img;const nn=link.dataset.name;if(ni){previewImg.style.opacity='0';setTimeout(()=>{previewImg.src=ni;previewImg.style.opacity='1';},150);}if(nn)previewLabel.textContent=nn;};link.addEventListener('mouseenter',update);link.addEventListener('focus',update);});})();
+  (function(){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));})();
+  const modal=document.getElementById('inquiry-modal');
+  modal.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open');});
+  (function(){const form=document.getElementById('sports-form');const msg=document.getElementById('sports-msg');const btn=document.getElementById('sports-submit');if(!form)return;form.addEventListener('submit',async e=>{e.preventDefault();btn.textContent='Sending…';btn.disabled=true;try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});msg.textContent=r.ok?'✓ Request received — your concierge will be in touch within 24 hours.':'Something went wrong. Please try again.';msg.className='text-sm mt-1 '+(r.ok?'text-green-400':'text-red-400');msg.classList.remove('hidden');if(r.ok){form.reset();setTimeout(()=>modal.classList.remove('open'),3000);}}catch(err){msg.textContent='Something went wrong.';msg.className='text-sm mt-1 text-red-400';msg.classList.remove('hidden');}btn.textContent='Send Inquiry';btn.disabled=false;});})();
+</script>
 </body>
 </html>
